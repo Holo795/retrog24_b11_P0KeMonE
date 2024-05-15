@@ -1,4 +1,4 @@
-# RetroG24_B1_Pokemon
+# RetroG24_B11_Pokemon
 
 
 
@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://forge.iut-larochelle.fr/lgarci01/retrog24_b1_pokemon.git
+git remote add origin https://forge.iut-larochelle.fr/lgarci01/retrog24_b11_pokemon.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://forge.iut-larochelle.fr/lgarci01/retrog24_b1_pokemon/-/settings/integrations)
+- [ ] [Set up project integrations](https://forge.iut-larochelle.fr/lgarci01/retrog24_b11_pokemon/-/settings/integrations)
 
 ## Collaborate with your team
 

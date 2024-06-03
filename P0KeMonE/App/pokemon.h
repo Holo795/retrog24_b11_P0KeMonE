@@ -6,23 +6,13 @@
 #ifndef POKEMON_H
 #define POKEMON_H
 
-#include "move.h"
 #include <QList>
 #include <iostream>
+#include "move.h"
+#include "typeDef.h"
 using namespace std;
 
-/**
- * @enum PKTYPE
- * @brief Enumération des types de Pokémon.
- */
-enum PKTYPE {
-    Plante,      /**< Type Plante */
-    Feu,         /**< Type Feu */
-    Eau,         /**< Type Eau */
-    Electrique,  /**< Type Electrique */
-    Glace,       /**< Type Glace */
-    Vol          /**< Type Vol */
-};
+
 
 /**
  * @class Pokemon

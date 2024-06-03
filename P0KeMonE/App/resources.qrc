@@ -5,5 +5,17 @@
     <qresource prefix="/maps/assets">
         <file>tree.png</file>
         <file>grass.png</file>
+        <file>flower.png</file>
+        <file>fence_horizontal.png</file>
+        <file>tallgrass_bottom.png</file>
+        <file>tallgrass_bottom_left.png</file>
+        <file>tallgrass_bottom_right.png</file>
+        <file>tallgrass_left.png</file>
+        <file>tallgrass_mid.png</file>
+        <file>tallgrass_right.png</file>
+        <file>tallgrass_top.png</file>
+        <file>tallgrass_top_left.png</file>
+        <file>tallgrass_top_right.png</file>
+        <file>fence_vertical.png</file>
     </qresource>
 </RCC>

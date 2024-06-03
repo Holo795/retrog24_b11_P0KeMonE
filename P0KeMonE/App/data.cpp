@@ -53,6 +53,8 @@ Pokemon Data::randompokemon()
         qDebug() << "Error: query failed";
     }
 
+    return *pokemon;
+
 
 }
 

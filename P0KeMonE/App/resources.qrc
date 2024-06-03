@@ -4,5 +4,8 @@
     </qresource>
     <qresource prefix="/database">
         <file>pokemon.sqlite</file>
+    <qresource prefix="/maps/assets">
+        <file>tree.png</file>
+        <file>grass.png</file>
     </qresource>
 </RCC>

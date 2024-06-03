@@ -5,6 +5,7 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QKeyEvent>
+#include <QGraphicsPixmapItem>
 
 #include "model.h"
 #include "player.h"

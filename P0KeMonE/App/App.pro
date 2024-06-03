@@ -1,4 +1,5 @@
 QT       += core gui
+QT       += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,7 +18,6 @@ SOURCES += \
     gui.cpp \
     model.cpp \
     move.cpp \
-    pktype.cpp \
     player.cpp \
     pokemon.cpp \
     screen.cpp
@@ -30,10 +30,10 @@ HEADERS += \
     gui.h \
     model.h \
     move.h \
-    pktype.h \
     player.h \
     pokemon.h \
-    screen.h
+    screen.h \
+    typeDef.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

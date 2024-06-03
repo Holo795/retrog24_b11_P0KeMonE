@@ -6,4 +6,8 @@
         <file>player_menu.png</file>
         <file>logo_menu.png</file>
     </qresource>
+    <qresource prefix="/maps/assets">
+        <file>tree.png</file>
+        <file>grass.png</file>
+    </qresource>
 </RCC>

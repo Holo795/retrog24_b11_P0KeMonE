@@ -5,7 +5,6 @@
 #include "model.h"
 #include "game.h"
 #include "gui.h"
-#include "data.h"
 
 int main(int argc, char *argv[])
 {
@@ -14,11 +13,6 @@ int main(int argc, char *argv[])
     Model model;
     GUI gui(&model);
     Game game(&model, &gui);
-
-    Data data;
-
-
-
 
     gui.show();
     return app.exec();

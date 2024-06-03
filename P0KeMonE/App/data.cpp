@@ -6,7 +6,7 @@ Data::Data()
 {
     // connection to the database
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("pokemon.sqlite");
+    db.setDatabaseName("/Users/liliangarcia/Documents/2023-2024/S2/1256/retrog24_b11_P0KeMonE/P0KeMonE/App/pokemon.sqlite");
     // if the database is not open, we open it
     if (!db.open())
     {
@@ -24,6 +24,8 @@ Data::~Data()
     db.close(); // database closed
 
 }
+
+
 
 Pokemon Data::randompokemon()
 {
@@ -51,6 +53,8 @@ Pokemon Data::randompokemon()
         //cretation of the pokemon object
         pokemon = new Pokemon(name, type, hp, speed, attack, special_attack, defense, special_defense, 1);
 
+        qDebug() << "Pokemon: " << name.c_str() << " Type: " << type << " HP: " << hp << " Speed: " << speed << " Attack: " << attack << " Special Attack: " << special_attack << " Defense: " << defense << " Special Defense: " << special_defense;
+
         // return the pokemon object
         return *pokemon;
     }
@@ -65,5 +69,9 @@ Pokemon Data::randompokemon()
 
 
 }
+
+
+
+
 
 

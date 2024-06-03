@@ -11,6 +11,7 @@
 #include <QtSql/QSql>
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlRecord>
+#include <QSqlError>
 
 /**
  * @class Data

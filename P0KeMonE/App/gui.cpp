@@ -1,4 +1,5 @@
 #include "gui.h"
+#include "player.h"
 
 GUI::GUI(Model *model, QWidget *parent)
     : QGraphicsView(parent), model(model), scene(new QGraphicsScene(this)) {
@@ -18,10 +19,12 @@ void GUI::drawMap() {
     for (int y = 0; y < map.size(); ++y) {
         for (int x = 0; x < map[y].size(); ++x) {
             if (map[y][x] == 'X') {
-                scene->addRect(x * 20, y * 20, 20, 20, QPen(), QBrush(Qt::black));
+                scene->addRect(x * 20, y * 20, 20, 20, QPen(), QBrush(Qt::white));
             } else if (map[y][x] == '#') {
                 scene->addRect(x * 20, y * 20, 20, 20, QPen(), QBrush(Qt::gray));
             }
         }
     }
+    scene->addRect(player->rect());
 }
+

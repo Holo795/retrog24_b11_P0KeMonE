@@ -56,7 +56,3 @@ Pokemon Data::randompokemon()
 
 }
 
-void Data::saveGame()
-{
-
-}

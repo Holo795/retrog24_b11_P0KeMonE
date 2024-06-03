@@ -16,9 +16,7 @@ class Player : public QGraphicsRectItem
 private:
     float itsLevel;  ///< The current level of the player.
     int itsDx;       ///< The direction of the player's movement along the x-axis.
-    int itsDy;       ///< The direction of the player's movement along the y-axis.
-    int itsX;        ///< The current x position of the player.
-    int itsY;        ///< The current y position of the player.
+    int itsDy;       ///< The direction of the player's movement along the y-axis.        ///< The current y position of the player.
 
 public:
     /**
@@ -47,6 +45,11 @@ public:
      * @param dY The direction of the player's movement along the y-axis.
      */
     void updateSprite(int dX, int dY);
+
+    // Getters for private members
+    float getLevel() const;
+    int getDirectionX() const;
+    int getDirectionY() const;
 };
 
 #endif // PLAYER_H

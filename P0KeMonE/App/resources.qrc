@@ -2,4 +2,8 @@
     <qresource prefix="/maps">
         <file>map.txt</file>
     </qresource>
+    <qresource prefix="/menu/main_menu">
+        <file>player_menu.png</file>
+        <file>logo_menu.png</file>
+    </qresource>
 </RCC>

@@ -2,4 +2,8 @@
     <qresource prefix="/maps">
         <file>map.txt</file>
     </qresource>
+    <qresource prefix="/maps/assets">
+        <file>tree.png</file>
+        <file>grass.png</file>
+    </qresource>
 </RCC>

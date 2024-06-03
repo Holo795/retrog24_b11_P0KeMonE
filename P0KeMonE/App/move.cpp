@@ -8,4 +8,9 @@ Move::Move(string itsName, int itsPower, int itsAccuracy, PKTYPE itsType)
     this->itsType = itsType;
 }
 
+Move::~Move()
+{
+
+}
+
 

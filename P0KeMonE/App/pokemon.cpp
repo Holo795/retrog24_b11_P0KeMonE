@@ -27,7 +27,7 @@ bool Pokemon::isDead(Pokemon &target)
 void Pokemon::takeDamage(int damage)
 {
 
-    itsHealth = itsHealth - damage;
+    itsHealth -= damage;
 }
 
 void Pokemon::attack(Pokemon &target, Move move)

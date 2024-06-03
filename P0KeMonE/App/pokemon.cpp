@@ -1,6 +1,6 @@
 #include "pokemon.h"
 
-Pokemon::Pokemon(string itsName, PKTYPE itsType, int itsHealth, int itsSpeed, int itsAtk, int itsSpAtk, int itsDef, int itsSpDef, int itsLevel)
+Pokemon::Pokemon(QString itsName, PKTYPE itsType, int itsHealth, int itsSpeed, int itsAtk, int itsSpAtk, int itsDef, int itsSpDef, int itsLevel)
 {
     this->itsName = itsName;
     this->itsType = itsType;

@@ -6,12 +6,32 @@
 #include <QGraphicsScene>
 #include <QKeyEvent>
 
-class GUI : public QWidget
+#include "model.h"
+
+/**
+ * @brief The GUI class
+ * This class is responsible for the graphical user interface of the game.
+ */
+class GUI : public QGraphicsView
 {
     Q_OBJECT
 
 public:
-    GUI(QWidget *parent = nullptr);
-    ~GUI();
+    /**
+     * @brief GUI Constructor
+     * @param model Pointer to the model
+     * @param parent Pointer to the parent widget
+     */
+    GUI(Model *model, QWidget *parent = nullptr);
+    ~GUI(); ///< Destructor
+    /**
+     * @brief drawMap method to draw the map on the scene
+     */
+    void drawMap();
+
+private:
+    Model *model; ///< Pointer to the model
+    QGraphicsScene *scene; ///< Pointer to the scene
+
 };
 #endif // GUI_H

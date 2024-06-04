@@ -40,7 +40,11 @@ void GUI::drawMap() {
         {'D', ":/maps/assets/tallgrass_right.png"},
         {'Z', ":/maps/assets/tallgrass_bottom_left.png"},
         {'B', ":/maps/assets/tallgrass_bottom.png"},
-        {'W', ":/maps/assets/tallgrass_bottom_right.png"}
+        {'W', ":/maps/assets/tallgrass_bottom_right.png"},
+        {'T', ":/maps/assets/path_top.png"},
+        {'P', ":/maps/assets/path_bottom.png"},
+        {'N', ":/maps/assets/big_tree.png"}
+
     };
 
     for (int i = 0; i < map.size(); ++i) {

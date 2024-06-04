@@ -55,9 +55,9 @@ public:
     void drawMap();
 
 private:
-    Model *model; ///< Pointer to the model
-    QGraphicsScene *scene; ///< Pointer to the scene
-    Player *player; ///< Pointer to the player
+    Model *model; ///< Pointer to the model.
+    QGraphicsScene *scene; ///< Pointer to the scene.
+    Player *player; ///< Pointer to the player.
 
 protected:
     /**
@@ -73,7 +73,7 @@ protected:
     /**
      * @brief Handles mouse press events.
      *
-     * empty to remove the unfocus on mouse press.
+     * Prevents loss of focus on mouse press.
      *
      * @param event The mouse event.
      */
@@ -82,7 +82,7 @@ protected:
     /**
      * @brief Handles mouse double-click events.
      *
-     * empty to remove the unfocus on double-click.
+     * Prevents loss of focus on mouse double-click.
      *
      * @param event The mouse event.
      */
@@ -96,6 +96,14 @@ protected:
      * @param event The show event.
      */
     void showEvent(QShowEvent *event) override;
+
+public slots:
+    /**
+     * @brief Updates the view to center on the player.
+     *
+     * Called periodically to refresh the scene and ensure the player remains centered in the view.
+     */
+    void updateView();
 };
 
 #endif // GUI_H

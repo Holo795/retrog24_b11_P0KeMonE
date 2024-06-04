@@ -10,6 +10,7 @@
 #include <QGraphicsScene>
 #include <QObject>
 #include <QKeyEvent>
+#include <QTimer>
 
 /**
  * @class Player
@@ -28,6 +29,12 @@ public:
      */
     Player(QGraphicsItem *parent = nullptr);
 
+    /**
+     * @brief Handles key press events for player movement.
+     * @param event The key event.
+     */
+    void keyPressEvent(QKeyEvent *event);
+
 private:
     float scale = 1.8; ///< The scale factor for the player.
 
@@ -38,12 +45,40 @@ private:
      */
     bool checkCollision(QPointF newPos);
 
+    QTimer *movementTimer; ///< Timer for handling continuous movement.
+    int currentKey; ///< The currently pressed key.
+
 protected:
     /**
-     * @brief Handles key press events for player movement.
+     * @brief Handles key release events for player movement.
      * @param event The key event.
      */
-    void keyPressEvent(QKeyEvent *event) override;
+    void keyReleaseEvent(QKeyEvent *event) override;
+
+public slots:
+    /**
+     * @brief Moves the player based on the currently pressed key.
+     */
+    void move();
+
+    /**
+     * @brief Starts moving the player in the direction of the specified key.
+     * @param key The key representing the direction.
+     */
+    void startMoving(int key);
+
+    /**
+     * @brief Stops moving the player.
+     */
+    void stopMoving();
+
+
+signals:
+    /**
+     * @brief Signal emitted when the player enter in grass to start pokemon combat.
+     */
+    void startEncounterCombat();
+
 };
 
 #endif // PLAYER_H

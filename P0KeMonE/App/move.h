@@ -11,12 +11,15 @@ private:
     string itsName;
     int itsPower;
     int itsAccuracy;
-    PKTYPE itsType;
+    MOVENATURE itsType;
 
 public:
-    Move(string itsName, int itsPower, int itsAccuracy, PKTYPE itsType);
+    Move(string itsName, int itsPower, int itsAccuracy, MOVENATURE itsType);
     ~Move();
-
+    string getItsName() const;
+    int getItsPower() const;
+    int getItsAccuracy() const;
+    MOVENATURE getItsType() const;
 };
 
 #endif // MOVE_H

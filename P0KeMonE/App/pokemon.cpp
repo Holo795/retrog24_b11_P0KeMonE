@@ -1,7 +1,8 @@
 #include "pokemon.h"
 
-Pokemon::Pokemon(string itsName, PKTYPE itsType, int itsHealth, int itsSpeed, int itsAtk, int itsSpAtk, int itsDef, int itsSpDef, int itsLevel)
+Pokemon::Pokemon(int id_pk, string itsName, PKTYPE itsType, int itsHealth, int itsSpeed, int itsAtk, int itsSpAtk, int itsDef, int itsSpDef, int itsLevel)
 {
+    this->id_pk = id_pk;
     this->itsName = itsName;
     this->itsType = itsType;
     this->itsHealth = itsHealth;
@@ -20,8 +21,7 @@ Pokemon::~Pokemon()
 
 bool Pokemon::isDead(Pokemon &target)
 {
-    return false;
-    
+    return target.itsHealth <= 0;
 }
 
 void Pokemon::takeDamage(int damage)

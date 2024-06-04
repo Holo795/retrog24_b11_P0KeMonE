@@ -31,6 +31,7 @@ private:
     int itsSpDef;             /**< Défense spéciale du Pokémon */
     int itsLevel;             /**< Niveau du Pokémon */
     QList<Move> itsMoves;     /**< Liste des capacités (moves) du Pokémon */
+    int id_pk;                /**< Identifiant du Pokémon */
 
 public:
     /**
@@ -44,8 +45,9 @@ public:
      * @param itsDef Défense initiale du Pokémon.
      * @param itsSpDef Défense spéciale initiale du Pokémon.
      * @param itsLevel Niveau initial du Pokémon.
+     * @param id_pk Identifiant du Pokémon.
      */
-    Pokemon(string itsName, PKTYPE itsType, int itsHealth, int itsSpeed, int itsAtk, int itsSpAtk, int itsDef, int itsSpDef, int itsLevel);
+    Pokemon(int id_pk, string itsName, PKTYPE itsType, int itsHealth, int itsSpeed, int itsAtk, int itsSpAtk, int itsDef, int itsSpDef, int itsLevel);
 
     /**
      * @brief Destructeur de la classe Pokemon.

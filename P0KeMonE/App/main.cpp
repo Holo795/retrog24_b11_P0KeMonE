@@ -1,3 +1,4 @@
+#include "data.h"
 #include "gui.h"
 
 #include <QApplication>

@@ -77,6 +77,36 @@ Pokemon Data::randompokemon()
 
 }
 
+QList<Move> Data::getMoves(int id)
+{
+    // query to get moves of a pokemon
+    QSqlQuery query;
+    query.prepare("SELECT id, name, power, accuracy, id_type FROM move WHERE id_pk = :id");
+    query.bindValue(":id", id);
+    query.exec();
+
+    QList<Move> moves; // list of moves
+
+    while (query.next())
+    {
+        // get move data from query
+        int id = query.value("id").toInt();
+        string name = query.value("name").toString().toStdString();
+        int power = query.value("power").toInt();
+        int accuracy = query.value("accuracy").toInt();
+        MOVENATURE nature = query.value("spephy") == "special" ? MOVENATURE::Spéciale : MOVENATURE::Physique;
+
+        // creation of the move object
+        Move move(name, power, accuracy, nature);
+
+        // add move to the list
+        moves.append(move);
+    }
+
+    // return the list of moves
+    return moves;
+}
+
 
 
 

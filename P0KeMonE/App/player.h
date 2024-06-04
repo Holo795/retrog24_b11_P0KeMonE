@@ -12,6 +12,10 @@ class Player : public QObject, public QGraphicsPixmapItem {
 public:
     Player(QGraphicsItem *parent = nullptr);
 
+private:
+    float scale = 1.8;
+    bool checkCollision(QPointF newPos);
+
 protected:
     void keyPressEvent(QKeyEvent *event) override;
 };

@@ -13,6 +13,8 @@
 #include <QPushButton>
 #include <QObject>
 
+
+
 /**
  * @class BattleHUD
  * @brief The BattleHUD class manages the display of battle options and actions in the game.
@@ -44,6 +46,11 @@ private:
     QGraphicsTextItem* move;          ///< Text item to display the current move.
     QPushButton* attackButton;        ///< Button to initiate an attack.
     QGraphicsPixmapItem *background;  ///< Background image for the battle HUD.
+    QGraphicsPixmapItem *pokemon1Item;
+    QGraphicsPixmapItem *pokemon2Item;
+    QGraphicsTextItem* health1;
+    QGraphicsTextItem* health2;
+
 
 public slots:
     /**

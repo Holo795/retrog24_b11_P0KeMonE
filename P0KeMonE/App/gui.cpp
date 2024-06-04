@@ -5,14 +5,13 @@
 GUI::GUI(Model *model, QWidget *parent)
     : QGraphicsView(parent), model(model), scene(new QGraphicsScene(this)) {
 
-
+    setScene(scene);
     BattleHUD battlehud(scene);
     battlehud.displayOptions();
-    setScene(scene);
 
+
+    //scale(1.5, 1.5);
     //drawMap();
-    scale(1.5, 1.5);
-    drawMap();
     setFixedSize(480, 320);
 
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -26,8 +25,8 @@ GUI::~GUI() {}
 
 void GUI::keyPressEvent(QKeyEvent *event) {
     if (scene->focusItem() != nullptr) {
-        centerOn(player);
-        update();
+        //centerOn(player);
+        //update();
         QGraphicsView::keyPressEvent(event);
     }
 }
@@ -37,8 +36,8 @@ void GUI::mouseDoubleClickEvent(QMouseEvent *event){}
 
 void GUI::showEvent(QShowEvent *event) {
     QGraphicsView::showEvent(event);
-    centerOn(player);
-    player->setFocus();
+    //centerOn(player);
+    //player->setFocus();
 }
 
 void GUI::drawMap() {

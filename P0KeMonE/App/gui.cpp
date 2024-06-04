@@ -24,6 +24,15 @@ GUI::~GUI() {}
 void GUI::keyPressEvent(QKeyEvent *event) {
     if (scene->focusItem() != nullptr) {
         player->keyPressEvent(event);
+
+        QVector<char> tallgrass = {'Y', 'H', 'L', 'G', 'M', 'D', 'Z', 'B', 'W'};
+
+        if (tallgrass.contains(model->getMap()[player->y() / 32][player->x() / 32])) {
+            if (rand() % 100 < 15) {
+                emit player->startEncounterCombat();
+            }
+        }
+
         QGraphicsView::keyPressEvent(event);
     }
 }

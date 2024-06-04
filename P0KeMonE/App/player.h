@@ -71,6 +71,14 @@ public slots:
      * @brief Stops moving the player.
      */
     void stopMoving();
+
+
+signals:
+    /**
+     * @brief Signal emitted when the player enter in grass to start pokemon combat.
+     */
+    void startEncounterCombat();
+
 };
 
 #endif // PLAYER_H

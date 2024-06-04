@@ -21,19 +21,9 @@ GUI::~GUI() {}
 void GUI::keyPressEvent(QKeyEvent *event) {
     if (scene->focusItem() != nullptr) {
         centerOn(player);
-        if(!playerIsColliding())
-            QGraphicsView::keyPressEvent(event);
+        update();
+        QGraphicsView::keyPressEvent(event);
     }
-}
-
-bool GUI::playerIsColliding() {
-    QList<QGraphicsItem *> collidingItems = player->collidingItems();
-    for (QGraphicsItem *item : collidingItems) {
-        if (item->zValue() > 0) {
-            return true;
-        }
-    }
-    return false;
 }
 
 void GUI::drawMap() {
@@ -79,9 +69,9 @@ void GUI::drawMap() {
     }
 
     player = new Player();
+    scene->addItem(player);
     player->setPos(200, 200);
     centerOn(player);
-    scene->addItem(player);
 
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();

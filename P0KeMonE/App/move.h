@@ -19,6 +19,7 @@ public:
     string getItsName() const;
     int getItsPower() const;
     int getItsAccuracy() const;
+    int calculateDamage(int lvl, int atk, int def, bool crit) const;
     MOVENATURE getItsType() const;
 };
 

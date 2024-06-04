@@ -9,7 +9,6 @@ void Model::loadMap(const QString& filename) {
         int rows = in.readLine().toInt();
         int cols = in.readLine().toInt();
         map.resize(rows, std::vector<char>(cols));
-
         for (int i = 0; i < rows; ++i) {
             QString line = in.readLine();
             for (int j = 0; j < cols; ++j) {

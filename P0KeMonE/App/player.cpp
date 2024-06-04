@@ -60,7 +60,3 @@ void Player::keyPressEvent(QKeyEvent *event) {
         break;
     }
 }
-
-void Player::keyReleaseEvent(QKeyEvent *event) {
-
-}

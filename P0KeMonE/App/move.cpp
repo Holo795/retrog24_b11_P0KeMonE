@@ -21,6 +21,7 @@ PKTYPE Move::getItsType() const
 }
 
 Move::Move(string itsName, int itsPower, int itsAccuracy, MOVENATURE itsType)
+    Move::Move(string itsName, int itsPower, int itsAccuracy, PKTYPE itsType)
 {
     this->itsName = itsName;
     this->itsPower = itsPower;
@@ -32,5 +33,3 @@ Move::~Move()
 {
 
 }
-
-

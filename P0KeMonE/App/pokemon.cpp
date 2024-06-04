@@ -33,4 +33,5 @@ void Pokemon::takeDamage(int damage)
 void Pokemon::attack(Pokemon &target, Move move)
 {
 
+
 }

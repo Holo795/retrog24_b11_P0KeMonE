@@ -3,26 +3,40 @@
 Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
     setZValue(2);
     setPixmap(QPixmap(":/player/frontStandPlayer.png").scaled(QSize(11, 16) * scale));  // Assurez-vous de mettre le bon chemin vers l'image du joueur
+
+    // Initialisez le QTimer
+    movementTimer = new QTimer(this);
+    connect(movementTimer, &QTimer::timeout, this, &Player::move);
 }
 
 bool Player::checkCollision(QPointF newPos) {
     QList<QGraphicsItem*> items = scene()->items(QRectF(newPos, QSizeF(pixmap().width(), pixmap().height())));
     for (QGraphicsItem* item : items) {
         if (item != this && item->zValue() + 1 == zValue()) {
-
             QGraphicsRectItem footPlayer(QRectF(newPos.x() + 2, newPos.y() + pixmap().height(), pixmap().width() - 4, 2));
             if (footPlayer.collidesWithItem(item)) {
                 return true;
             }
-
         }
     }
     return false;
 }
 
-void Player::keyPressEvent(QKeyEvent *event) {
+void Player::startMoving(int key) {
+    currentKey = key;
+    movementTimer->start(30);
+}
+
+void Player::stopMoving() {
+    movementTimer->stop();
+    currentKey = 0;
+}
+
+void Player::move() {
+    if (!currentKey) return;
+
     QPointF newPos;
-    switch (event->key()) {
+    switch (currentKey) {
     case Qt::Key_Left:
         newPos = pos() + QPointF(-4, 0);
         if (x() > 0 && !checkCollision(newPos)) {
@@ -76,4 +90,14 @@ void Player::keyPressEvent(QKeyEvent *event) {
         }
         break;
     }
+}
+
+void Player::keyPressEvent(QKeyEvent *event) {
+    if (!movementTimer->isActive()) {
+        startMoving(event->key());
+    }
+}
+
+void Player::keyReleaseEvent(QKeyEvent *event) {
+    stopMoving();
 }

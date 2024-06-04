@@ -14,14 +14,16 @@ GUI::GUI(Model *model, QWidget *parent)
 
     setRenderHint(QPainter::Antialiasing);
 
+    QTimer *updateTimer = new QTimer(this);
+    connect(updateTimer, &QTimer::timeout, this, &GUI::updateView);
+    updateTimer->start(1);
 }
 
 GUI::~GUI() {}
 
 void GUI::keyPressEvent(QKeyEvent *event) {
     if (scene->focusItem() != nullptr) {
-        centerOn(player);
-        update();
+        player->keyPressEvent(event);
         QGraphicsView::keyPressEvent(event);
     }
 }
@@ -31,7 +33,6 @@ void GUI::mouseDoubleClickEvent(QMouseEvent *event){}
 
 void GUI::showEvent(QShowEvent *event) {
     QGraphicsView::showEvent(event);
-    centerOn(player);
     player->setFocus();
 }
 
@@ -80,8 +81,12 @@ void GUI::drawMap() {
     player = new Player();
     scene->addItem(player);
     player->setPos(200, 200);
-    centerOn(player);
 
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();
+}
+
+void GUI::updateView() {
+    centerOn(player);
+    scene->update();
 }

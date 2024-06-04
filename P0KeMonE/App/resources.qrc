@@ -17,5 +17,8 @@
         <file>tallgrass_top_left.png</file>
         <file>tallgrass_top_right.png</file>
         <file>fence_vertical.png</file>
+        <file>path_bottom.png</file>
+        <file>path_top.png</file>
+        <file>big_tree.png</file>
     </qresource>
 </RCC>

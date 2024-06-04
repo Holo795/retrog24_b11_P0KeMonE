@@ -26,6 +26,15 @@ void GUI::keyPressEvent(QKeyEvent *event) {
     }
 }
 
+void GUI::mousePressEvent(QMouseEvent *event){}
+void GUI::mouseDoubleClickEvent(QMouseEvent *event){}
+
+void GUI::showEvent(QShowEvent *event) {
+    QGraphicsView::showEvent(event);
+    centerOn(player);
+    player->setFocus();
+}
+
 void GUI::drawMap() {
     scene->clear();
     const auto &map = model->getMap();
@@ -39,9 +48,9 @@ void GUI::drawMap() {
     }
 
     const QMap<char, QPair<QString, int>> pixmapMap = {
-        {'A', qMakePair(QString(":/maps/assets/tree.png"), 2)},
-        {'F', qMakePair(QString(":/maps/assets/flower.png"), 1)},
-        {'V', qMakePair(QString(":/maps/assets/fence_vertical.png"), 3)},
+        {'A', qMakePair(QString(":/maps/assets/tree.png"), 1)},
+        {'F', qMakePair(QString(":/maps/assets/flower.png"), 0)},
+        {'V', qMakePair(QString(":/maps/assets/fence_vertical.png"), 1)},
         {'Y', qMakePair(QString(":/maps/assets/tallgrass_top_left.png"), 0)},
         {'H', qMakePair(QString(":/maps/assets/tallgrass_top.png"), 0)},
         {'L', qMakePair(QString(":/maps/assets/tallgrass_top_right.png"), 0)},
@@ -53,7 +62,7 @@ void GUI::drawMap() {
         {'W', qMakePair(QString(":/maps/assets/tallgrass_bottom_right.png"), 0)},
         {'T', qMakePair(QString(":/maps/assets/path_top.png"), 0)},
         {'P', qMakePair(QString(":/maps/assets/path_bottom.png"), 0)},
-        {'N', qMakePair(QString(":/maps/assets/big_tree.png"), 4)}
+        {'N', qMakePair(QString(":/maps/assets/big_tree.png"), 1)}
     };
 
     for (int i = 0; i < map.size(); ++i) {

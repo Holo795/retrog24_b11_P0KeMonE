@@ -1,14 +1,20 @@
 #include "player.h"
 
 Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
+    setZValue(2);
     setPixmap(QPixmap(":/player/frontStandPlayer.png").scaled(QSize(11, 16) * scale));  // Assurez-vous de mettre le bon chemin vers l'image du joueur
 }
 
 bool Player::checkCollision(QPointF newPos) {
     QList<QGraphicsItem*> items = scene()->items(QRectF(newPos, QSizeF(pixmap().width(), pixmap().height())));
     for (QGraphicsItem* item : items) {
-        if (item != this && item->zValue() > zValue()) {
-            return true;
+        if (item != this && item->zValue() + 1 == zValue()) {
+
+            QGraphicsRectItem footPlayer(QRectF(newPos.x() + 2, newPos.y() + pixmap().height(), pixmap().width() - 4, 2));
+            if (footPlayer.collidesWithItem(item)) {
+                return true;
+            }
+
         }
     }
     return false;

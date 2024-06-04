@@ -22,5 +22,6 @@
         <file>rightStandPlayer.png</file>
         <file>rightWalkPlayer1.png</file>
         <file>rightWalkPlayer2.png</file>
+        <file>backStandPlayer.png</file>
     </qresource>
 </RCC>

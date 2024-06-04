@@ -8,6 +8,8 @@
 #include <QGraphicsPixmapItem>
 
 #include "model.h"
+#include "player.h"
+
 
 /**
  * @brief The GUI class
@@ -33,6 +35,11 @@ public:
 private:
     Model *model; ///< Pointer to the model
     QGraphicsScene *scene; ///< Pointer to the scene
+    Player *player;
+
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
 
 };
-#endif // GUI_H
+
+#endif

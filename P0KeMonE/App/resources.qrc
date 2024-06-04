@@ -2,6 +2,10 @@
     <qresource prefix="/maps">
         <file>map.txt</file>
     </qresource>
+    <qresource prefix="/menu/main_menu">
+        <file>player_menu.png</file>
+        <file>logo_menu.png</file>
+    </qresource>
     <qresource prefix="/maps/assets">
         <file>tree.png</file>
         <file>grass.png</file>
@@ -20,5 +24,19 @@
         <file>path_bottom.png</file>
         <file>path_top.png</file>
         <file>big_tree.png</file>
+    </qresource>
+    <qresource prefix="/player">
+        <file>backWalkPlayer1.png</file>
+        <file>backWalkPlayer2.png</file>
+        <file>frontStandPlayer.png</file>
+        <file>frontWalkPlayer1.png</file>
+        <file>frontWalkPlayer2.png</file>
+        <file>leftStandPlayer.png</file>
+        <file>leftWalkPlayer1.png</file>
+        <file>leftWalkPlayer2.png</file>
+        <file>rightStandPlayer.png</file>
+        <file>rightWalkPlayer1.png</file>
+        <file>rightWalkPlayer2.png</file>
+        <file>backStandPlayer.png</file>
     </qresource>
 </RCC>

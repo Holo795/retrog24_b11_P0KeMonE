@@ -1,5 +1,6 @@
 #include "gui.h"
 #include <QMap>
+#include "player.h"
 
 GUI::GUI(Model *model, QWidget *parent)
     : QGraphicsView(parent), model(model), scene(new QGraphicsScene(this)) {
@@ -16,15 +17,22 @@ GUI::GUI(Model *model, QWidget *parent)
 
 GUI::~GUI() {}
 
+void GUI::keyPressEvent(QKeyEvent *event) {
+    if (scene->focusItem() != nullptr) {
+        centerOn(player);
+        QGraphicsView::keyPressEvent(event);
+    }
+}
+
 void GUI::drawMap() {
     scene->clear();
     const auto &map = model->getMap();
 
     for (int y = 0; y < map.size(); ++y) {
         for (int x = 0; x < map[y].size(); ++x) {
-                QGraphicsPixmapItem *grass = new QGraphicsPixmapItem(QPixmap(":/maps/assets/grass.png"));
-                grass->setPos(x * 32, y * 32);
-                scene->addItem(grass);
+            QGraphicsPixmapItem *grass = new QGraphicsPixmapItem(QPixmap(":/maps/assets/grass.png"));
+            grass->setPos(x * 32, y * 32);
+            scene->addItem(grass);
         }
     }
 
@@ -58,6 +66,10 @@ void GUI::drawMap() {
         }
     }
 
+    player = new Player();
+
+    scene->addItem(player);
+
+    player->setFlag(QGraphicsItem::ItemIsFocusable);
+    player->setFocus();
 }
-
-

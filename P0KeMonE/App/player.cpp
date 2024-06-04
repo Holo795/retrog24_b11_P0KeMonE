@@ -77,3 +77,8 @@ void Player::keyPressEvent(QKeyEvent *event) {
         break;
     }
 }
+
+std::vector<Pokemon*> Player::getTeam() const
+{
+    return itsTeam;
+}

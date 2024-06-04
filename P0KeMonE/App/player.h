@@ -10,6 +10,8 @@
 #include <QGraphicsScene>
 #include <QObject>
 #include <QKeyEvent>
+#include <vector>
+#include "pokemon.h"
 
 /**
  * @class Player
@@ -28,8 +30,12 @@ public:
      */
     Player(QGraphicsItem *parent = nullptr);
 
+    std::vector<Pokemon*> getTeam() const;
+
 private:
     float scale = 1.8; ///< The scale factor for the player.
+
+    std::vector<Pokemon*> itsTeam;
 
     /**
      * @brief Checks for collisions at the new position.

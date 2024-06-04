@@ -1,16 +1,23 @@
 #include "Player.h"
+#include <QTimer>
 
 Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
-    setPixmap(QPixmap(":/player/frontStandPlayer.png").scaled(QSize(11, 16)));  // Assurez-vous de mettre le bon chemin vers l'image du joueur
+    setPixmap(QPixmap(":/player/frontStandPlayer.png").scaled(QSize(11, 16)));
+    
 }
 
+
+
 void Player::keyPressEvent(QKeyEvent *event) {
+    QTimer *timer = new QTimer(this);
+    connect()
+    
     switch (event->key()) {
     case Qt::Key_Left:
         if (x() > 0) // Bordure gauche
         {
-            setPos(x() - 1, y());
-            if(qRound(x())%2 == 0) {
+            setPos(x() - 10, y());
+            if(qRound(x())%20 == 0) {
                 setPixmap(QPixmap(":/player/leftWalkPlayer1.png").scaled(QSize(10, 16)));
             } else
             {
@@ -21,8 +28,8 @@ void Player::keyPressEvent(QKeyEvent *event) {
     case Qt::Key_Right:
         if (x() + pixmap().width() < scene()->width()) // Bordure droite
         {
-            setPos(x() + 1, y());
-            if(qRound(x())%2 == 0) {
+            setPos(x() + 10, y());
+            if(qRound(x())%20 == 0) {
                 setPixmap(QPixmap(":/player/rightWalkPlayer1.png").scaled(QSize(11, 16)));
             } else
             {
@@ -33,8 +40,8 @@ void Player::keyPressEvent(QKeyEvent *event) {
     case Qt::Key_Up:
         if (y() > 0)  // Bordure supérieure
         {
-            setPos(x(), y() - 1);
-            if(qRound(y())%2 == 0) {
+            setPos(x(), y() - 10);
+            if(qRound(y())%20 == 0) {
                 setPixmap(QPixmap(":/player/backWalkPlayer1.png").scaled(QSize(11, 16)));
             } else
             {
@@ -45,8 +52,8 @@ void Player::keyPressEvent(QKeyEvent *event) {
     case Qt::Key_Down:
         if (y() + pixmap().height() < scene()->height())  // Bordure inférieure
         {
-            setPos(x(), y() + 1);
-            if(qRound(y())%2 == 0) {
+            setPos(x(), y() + 10);
+            if(qRound(y())%20 == 0) {
                 setPixmap(QPixmap(":/player/frontWalkPlayer1.png").scaled(QSize(11, 16)));
             } else {
                 setPixmap(QPixmap(":/player/frontWalkPlayer2.png").scaled(QSize(11, 16)));
@@ -54,4 +61,9 @@ void Player::keyPressEvent(QKeyEvent *event) {
         }
         break;
     }
+}
+
+void Player::updateTimer()
+{
+    
 }

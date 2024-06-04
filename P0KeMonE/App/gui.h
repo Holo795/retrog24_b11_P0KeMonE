@@ -35,7 +35,11 @@ public:
 private:
     Model *model; ///< Pointer to the model
     QGraphicsScene *scene; ///< Pointer to the scene
-    QGraphicsRectItem * player = new Player(0, 0);
+    Player *player;
+
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
 
 };
-#endif // GUI_H
+
+#endif

@@ -15,13 +15,12 @@ int Move::getItsAccuracy() const
     return itsAccuracy;
 }
 
-PKTYPE Move::getItsType() const
+MOVENATURE Move::getItsType() const
 {
     return itsType;
 }
 
 Move::Move(string itsName, int itsPower, int itsAccuracy, MOVENATURE itsType)
-    Move::Move(string itsName, int itsPower, int itsAccuracy, PKTYPE itsType)
 {
     this->itsName = itsName;
     this->itsPower = itsPower;

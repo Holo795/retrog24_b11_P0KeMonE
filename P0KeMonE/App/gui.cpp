@@ -1,11 +1,16 @@
 #include "gui.h"
+#include "battlehud.h"
 
 GUI::GUI(Model *model, QWidget *parent)
     : QGraphicsView(parent), model(model), scene(new QGraphicsScene(this)) {
 
+
+    BattleHUD battlehud(scene);
+    battlehud.displayOptions();
     setScene(scene);
-    drawMap();
-    setFixedSize(300, 200);
+
+    //drawMap();
+    setFixedSize(480, 320);
 
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

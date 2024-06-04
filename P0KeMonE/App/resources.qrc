@@ -263,4 +263,8 @@
         <file>pk_sprite/250_front.png</file>
         <file>pk_sprite/251_front.png</file>
     </qresource>
+    <qresource prefix="/battleHUD">
+        <file>battleHUD-background.png</file>
+        <file>fight_button.png.opdownload</file>
+    </qresource>
 </RCC>

@@ -4,6 +4,7 @@
  */
 
 #include "screen.h"
+#include "battlehud.h"
 #include <QFont>
 #include <QImage>
 #include <QPixmap>
@@ -60,6 +61,8 @@ void Screen::displayMainMenu() {
  */
 void Screen::displayBattleScreen() {
     scene->clear();
+
+
     // Ajouter les éléments de l'écran de bataille à la scène
 }
 

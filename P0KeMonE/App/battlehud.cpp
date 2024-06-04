@@ -4,11 +4,8 @@
 #include <QFont>
 #include <QImage>
 #include <QPixmap>
-
-#include <iostream>
 #include "battle.h"
 #include "pokemon.h"
-#include "data.h"
 
 BattleHUD::BattleHUD(QGraphicsScene *scene) {
 
@@ -52,6 +49,7 @@ BattleHUD::BattleHUD(QGraphicsScene *scene) {
     health2 = new QGraphicsTextItem(healthText2);
     health2->setFont(promptFont);
     health2->setPos(330, 105);
+
 }
 
 
@@ -69,7 +67,7 @@ void BattleHUD::displayOptions()
     scene->update();
 }
 
-void BattleHUD::chooseOption(Move option)
+void BattleHUD::attackButtonClicked()
 {
 
 }

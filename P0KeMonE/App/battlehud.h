@@ -59,13 +59,6 @@ public slots:
      * This function is triggered when the attack button is clicked and handles the attack action.
      */
     void attackButtonClicked();
-
-    /**
-     * @brief Slot function to handle option selection.
-     *
-     * @param option The move option selected by the player.
-     */
-    void chooseOption(Move option);
 };
 
 #endif // BATTLEHUD_H

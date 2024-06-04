@@ -1,5 +1,4 @@
 #include "gui.h"
-#include <QMap>
 #include "player.h"
 
 GUI::GUI(Model *model, QWidget *parent)
@@ -13,6 +12,8 @@ GUI::GUI(Model *model, QWidget *parent)
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
+    setRenderHint(QPainter::Antialiasing);
+
 }
 
 GUI::~GUI() {}
@@ -20,8 +21,19 @@ GUI::~GUI() {}
 void GUI::keyPressEvent(QKeyEvent *event) {
     if (scene->focusItem() != nullptr) {
         centerOn(player);
-        QGraphicsView::keyPressEvent(event);
+        if(!playerIsColliding())
+            QGraphicsView::keyPressEvent(event);
     }
+}
+
+bool GUI::playerIsColliding() {
+    QList<QGraphicsItem *> collidingItems = player->collidingItems();
+    for (QGraphicsItem *item : collidingItems) {
+        if (item->zValue() > 0) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void GUI::drawMap() {
@@ -36,38 +48,39 @@ void GUI::drawMap() {
         }
     }
 
-    const QMap<char, QString> pixmapMap = {
-        {'A', ":/maps/assets/tree.png"},
-        {'F', ":/maps/assets/flower.png"},
-        {'V', ":/maps/assets/fence_vertical.png"},
-        {'Y', ":/maps/assets/tallgrass_top_left.png"},
-        {'H', ":/maps/assets/tallgrass_top.png"},
-        {'L', ":/maps/assets/tallgrass_top_right.png"},
-        {'G', ":/maps/assets/tallgrass_left.png"},
-        {'M', ":/maps/assets/tallgrass_mid.png"},
-        {'D', ":/maps/assets/tallgrass_right.png"},
-        {'Z', ":/maps/assets/tallgrass_bottom_left.png"},
-        {'B', ":/maps/assets/tallgrass_bottom.png"},
-        {'W', ":/maps/assets/tallgrass_bottom_right.png"},
-        {'T', ":/maps/assets/path_top.png"},
-        {'P', ":/maps/assets/path_bottom.png"},
-        {'N', ":/maps/assets/big_tree.png"}
-
+    const QMap<char, QPair<QString, int>> pixmapMap = {
+        {'A', qMakePair(QString(":/maps/assets/tree.png"), 2)},
+        {'F', qMakePair(QString(":/maps/assets/flower.png"), 1)},
+        {'V', qMakePair(QString(":/maps/assets/fence_vertical.png"), 3)},
+        {'Y', qMakePair(QString(":/maps/assets/tallgrass_top_left.png"), 0)},
+        {'H', qMakePair(QString(":/maps/assets/tallgrass_top.png"), 0)},
+        {'L', qMakePair(QString(":/maps/assets/tallgrass_top_right.png"), 0)},
+        {'G', qMakePair(QString(":/maps/assets/tallgrass_left.png"), 0)},
+        {'M', qMakePair(QString(":/maps/assets/tallgrass_mid.png"), 0)},
+        {'D', qMakePair(QString(":/maps/assets/tallgrass_right.png"), 0)},
+        {'Z', qMakePair(QString(":/maps/assets/tallgrass_bottom_left.png"), 0)},
+        {'B', qMakePair(QString(":/maps/assets/tallgrass_bottom.png"), 0)},
+        {'W', qMakePair(QString(":/maps/assets/tallgrass_bottom_right.png"), 0)},
+        {'T', qMakePair(QString(":/maps/assets/path_top.png"), 0)},
+        {'P', qMakePair(QString(":/maps/assets/path_bottom.png"), 0)},
+        {'N', qMakePair(QString(":/maps/assets/big_tree.png"), 4)}
     };
 
     for (int i = 0; i < map.size(); ++i) {
         for (int j = 0; j < map[i].size(); ++j) {
             if (pixmapMap.contains(map[i][j])) {
-                QGraphicsPixmapItem *item = new QGraphicsPixmapItem(QPixmap(pixmapMap[map[i][j]]));
+                const QPair<QString, int>& pixmapData = pixmapMap[map[i][j]];
+                QGraphicsPixmapItem *item = new QGraphicsPixmapItem(QPixmap(pixmapData.first));
                 item->setPos(j * 32, i * 32);
-                item->setZValue(1);
+                item->setZValue(pixmapData.second);
                 scene->addItem(item);
             }
         }
     }
 
     player = new Player();
-
+    player->setPos(200, 200);
+    centerOn(player);
     scene->addItem(player);
 
     player->setFlag(QGraphicsItem::ItemIsFocusable);

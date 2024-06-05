@@ -73,6 +73,15 @@ public:
      * @param move Capacité utilisée pour l'attaque.
      */
     void attack(Pokemon &target, Move move);
+
+    int getLvl() const;
+    int getHealth() const;
+    int getSpeed() const;
+    int getAtk() const;
+    int getSpAtk() const;
+    int getDef() const;
+    int getSpDef() const;
+    int getId() const;
 };
 
 #endif // POKEMON_H

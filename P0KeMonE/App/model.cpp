@@ -1,6 +1,8 @@
 #include "model.h"
 
-Model::Model() {}
+Model::Model() {
+    data = new Data();
+}
 
 void Model::loadMap(const QString& filename) {
     QFile file(filename);
@@ -20,4 +22,8 @@ void Model::loadMap(const QString& filename) {
 
 const std::vector<std::vector<char>>& Model::getMap() const {
     return map;
+}
+
+Data * Model::getData() {
+    return data;
 }

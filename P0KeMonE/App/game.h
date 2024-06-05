@@ -82,6 +82,9 @@ public slots:
      * Called periodically to refresh the scene and ensure the player remains centered in the view.
      */
     void updateView();
+
+    void showFight();
+    void fight();
 };
 
 #endif // GAME_H

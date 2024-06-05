@@ -61,7 +61,7 @@ void Player::move() {
     switch (currentKey) {
     case Qt::Key_Left:
         newPos = pos() + QPointF(-4, 0);
-        if (x() > 0 && !checkCollision(newPos)) {
+        if (newPos.x() > 0 && !checkCollision(newPos)) {
             setPos(newPos);
             if (qRound(x()) % 48 >= 16 && qRound(x()) % 48 < 32) {
                 setPixmap(QPixmap(":/player/leftWalkPlayer1.png").scaled(QSize(10, 16) * scale));
@@ -74,7 +74,7 @@ void Player::move() {
         break;
     case Qt::Key_Right:
         newPos = pos() + QPointF(4, 0);
-        if (x() + pixmap().width() < scene()->width() && !checkCollision(newPos)) {
+        if (newPos.x() + pixmap().width() < scene()->width() && !checkCollision(newPos)) {
             setPos(newPos);
             if (qRound(x()) % 48 >= 16 && qRound(x()) % 48 < 32) {
                 setPixmap(QPixmap(":/player/rightWalkPlayer1.png").scaled(QSize(11, 16) * scale));
@@ -87,7 +87,7 @@ void Player::move() {
         break;
     case Qt::Key_Up:
         newPos = pos() + QPointF(0, -4);
-        if (y() > 0 && !checkCollision(newPos)) {
+        if (newPos.y() > 0 && !checkCollision(newPos)) {
             setPos(newPos);
             if (qRound(y()) % 48 >= 16 && qRound(y()) % 48 < 32) {
                 setPixmap(QPixmap(":/player/backWalkPlayer1.png").scaled(QSize(11, 16) * scale));
@@ -100,7 +100,7 @@ void Player::move() {
         break;
     case Qt::Key_Down:
         newPos = pos() + QPointF(0, 4);
-        if (y() + pixmap().height() < scene()->height() && !checkCollision(newPos)) {
+        if (newPos.y() + pixmap().height() < scene()->height() && !checkCollision(newPos)) {
             setPos(newPos);
             if (qRound(y()) % 48 >= 16 && qRound(y()) % 48 < 32) {
                 setPixmap(QPixmap(":/player/frontWalkPlayer1.png").scaled(QSize(11, 16) * scale));

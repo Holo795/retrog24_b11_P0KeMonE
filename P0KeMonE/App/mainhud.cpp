@@ -4,42 +4,42 @@
 #include <QPixmap>
 #include <QGraphicsPixmapItem>
 
-
+/**
+ * Constructor for the MainHUD class.
+ * Initializes the main menu scene with graphical elements.
+ */
 MainHUD::MainHUD(QObject *parent) : QGraphicsScene(parent)
 {
-    setObjectName("mainMenu");
+    setObjectName("mainMenu"); // Set a name for the scene for easy reference
 
-    // Charger et positionner l'image du titre
+    // Load and position the title image
     QGraphicsPixmapItem* titleImage = new QGraphicsPixmapItem(QPixmap(":/menu/main_menu/logo_menu.png"));
-    titleImage->setPos(150, 0);
+    titleImage->setPos(150, 0); // Set position of the title
     titleImage->setFlag(QGraphicsItem::ItemIsFocusable);
-    titleImage->setFocus();
+    titleImage->setFocus(); // Set focus to make it interactable if needed
 
-    // Charger et positionner l'image du personnage
+    // Load and position the character image
     QGraphicsPixmapItem* characterImage = new QGraphicsPixmapItem(QPixmap(":/menu/main_menu/player_menu.png"));
-    characterImage->setPos(220, 100);
+    characterImage->setPos(220, 100); // Position the character image
 
-    // Créer et positionner le texte d'invite
+    // Create and position the prompt text
     QGraphicsTextItem* promptText = new QGraphicsTextItem("Press space to play");
     QFont promptFont("Arial", 24);
-    promptFont.setUnderline(true);
+    promptFont.setUnderline(true); // Underline the font for emphasis
     promptText->setFont(promptFont);
     promptText->setDefaultTextColor(Qt::black);
-    promptText->setPos(250, 150);
+    promptText->setPos(250, 150); // Position the text
 
-    // Créer et positionner l'étiquette de production
+    // Create and position the production tag
     QGraphicsTextItem* tag = new QGraphicsTextItem("@ QTeam Production 2024");
     QFont tagFont("Arial", 16);
     tag->setFont(tagFont);
     tag->setDefaultTextColor(Qt::black);
-    tag->setPos(260, 500);
+    tag->setPos(260, 500); // Position the production label at the bottom
 
+    // Add all elements to the scene
     addItem(titleImage);
     addItem(promptText);
     addItem(characterImage);
     addItem(tag);
 }
-
-
-
-

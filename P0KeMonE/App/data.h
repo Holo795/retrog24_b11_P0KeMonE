@@ -1,53 +1,56 @@
 /**
- * @file data.h
- * @brief Définition de la classe Data pour la gestion des opérations de base de données liées aux Pokémon.
+ * @file Data.h
+ * @brief Definition of the Data class for managing database operations related to Pokémon.
  */
 
 #ifndef DATA_H
 #define DATA_H
 
-#include "pokemon.h"
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSql>
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlRecord>
 #include <QSqlError>
 
+#include "pokemon.h"
+
 /**
  * @class Data
- * @brief La classe Data gère les opérations de base de données pour les Pokémon.
+ * @brief Manages database operations for Pokémon.
+ *
+ * This class encapsulates all database interactions in a Pokémon game, including retrieving and
+ * storing Pokémon and their moves.
  */
 class Data
 {
 private:
-    QSqlDatabase db; /**< Instance de la base de données SQLite */
+    QSqlDatabase db; /**< Instance of the SQLite database */
 
 public:
     /**
-     * @brief Constructeur de la classe Data.
-     * Initialise et ouvre la connexion à la base de données.
+     * @brief Constructor for Data class.
+     * Initializes and opens the database connection.
      */
     Data();
 
     /**
-     * @brief Destructeur de la classe Data.
-     * Ferme la connexion à la base de données.
+     * @brief Destructor for Data class.
+     * Closes the database connection.
      */
     ~Data();
 
     /**
-     * @brief Récupère un Pokémon aléatoire depuis la base de données.
-     * @return Un objet Pokémon initialisé avec les données récupérées.
+     * @brief Retrieves a random Pokémon from the database.
+     * @return A new Pokémon object initialized with the fetched data.
      */
     Pokemon * randompokemon();
 
-
     /**
-     * @brief getMoves
-     * @param id
-     * @return Une QList de capacités (moves) associées à un Pokémon.
+     * @brief Fetches moves associated with a Pokémon by ID.
+     * @param pokemon_id The ID of the Pokémon to fetch moves for.
+     * @return A QList of Move objects associated with the Pokémon.
      */
-    QList<Move> getMoves(int id);
+    QList<Move> getMoves(int pokemon_id);
 };
 
 #endif // DATA_H

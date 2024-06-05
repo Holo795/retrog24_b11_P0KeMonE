@@ -12,6 +12,7 @@
 #include <QKeyEvent>
 #include <vector>
 #include "pokemon.h"
+#include <QTimer>
 
 /**
  * @class Player
@@ -31,6 +32,11 @@ public:
     Player(QGraphicsItem *parent = nullptr);
 
     std::vector<Pokemon*> getTeam() const;
+    /**
+     * @brief Handles key press events for player movement.
+     * @param event The key event.
+     */
+    void keyPressEvent(QKeyEvent *event);
 
 private:
     float scale = 1.8; ///< The scale factor for the player.
@@ -44,12 +50,34 @@ private:
      */
     bool checkCollision(QPointF newPos);
 
-protected:
+    QTimer *movementTimer; ///< Timer for handling continuous movement.
+    int currentKey; ///< The currently pressed key.
+
+
+public slots:
     /**
-     * @brief Handles key press events for player movement.
-     * @param event The key event.
+     * @brief Moves the player based on the currently pressed key.
      */
-    void keyPressEvent(QKeyEvent *event) override;
+    void move();
+
+    /**
+     * @brief Starts moving the player in the direction of the specified key.
+     * @param key The key representing the direction.
+     */
+    void startMoving(int key);
+
+    /**
+     * @brief Stops moving the player.
+     */
+    void stopMoving();
+
+
+signals:
+    /**
+     * @brief Signal emitted when the player enter in grass to start pokemon combat.
+     */
+    void startEncounterCombat();
+
 };
 
 #endif // PLAYER_H

@@ -23,6 +23,7 @@ public:
     GameOverHUD * gameOver();
     MapHUD * map();
     BattleHUD *battle(Pokemon *pk1, Pokemon *pk2);
+    BattleHUD *battle();
 
 private:
     Model *model;

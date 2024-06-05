@@ -115,9 +115,14 @@ void BattleHUD::shakePokemon(Pokemon *pk) {
     }
     animation->setPosAt(1.0, pokemonItem->pos());  // Return to original position
 
-    // Clean up resources when the animation finishes
-    connect(timeLine, &QTimeLine::finished, timeLine, &QTimeLine::deleteLater);
-    connect(timeLine, &QTimeLine::finished, animation, &QGraphicsItemAnimation::deleteLater);
+    // Connect the shake animation to the timeline and re-enable the attack button when done
+    connect(timeLine, &QTimeLine::finished, this, [this, timeLine, animation](){
+        timeLine->deleteLater();
+        animation->deleteLater();
+        attackButton->setEnabled(true);
+    });
+
+    // Signal the shake is done
     timeLine->start();  // Start the timeline to begin the animation
 }
 

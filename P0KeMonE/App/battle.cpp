@@ -29,8 +29,8 @@ void Battle::attack(Move *move, Pokemon *target) {
     int successRate = move->getItsAccuracy();
     bool crit = random > 94; // 6% chance of critical hit
 
-    Pokemon* attacker = itsPlayer1->getTeam().front();
-    Pokemon* defender = target == itsOpponent1 ? itsOpponent1 : attacker;
+    Pokemon* attacker = target == itsOpponent1 ? itsPlayer1->getTeam().front() : itsOpponent1;
+    Pokemon* defender = target == itsOpponent1 ? itsOpponent1 : itsPlayer1->getTeam().front();
 
     int lvl = attacker->getLvl();
     int atk = (move->getItsType() == 0) ? attacker->getAtk() : attacker->getSpAtk();

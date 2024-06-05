@@ -68,7 +68,7 @@ void MapHUD::keyPressEvent(QKeyEvent *event) {
 
     int x_foot = player->x() + 2;
     int y_foot = player->y() + player->pixmap().height();
-    if (tallgrass.contains(model->getMap()[x_foot / 32][y_foot / 32])) {
+    if (tallgrass.contains(model->getMap()[y_foot / 32][x_foot / 32])) {
         if (rand() % 100 < 15) {
             emit player->startEncounterCombat();
         }

@@ -17,8 +17,6 @@ public:
 
     GUI(Model *model);
 
-    void keyPressEvent(QKeyEvent *event);
-
     MainHUD * mainMenu();
     GameOverHUD * gameOver();
     MapHUD * map();

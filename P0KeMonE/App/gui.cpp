@@ -36,8 +36,3 @@ BattleHUD *GUI::battle()
     return battleHUD;
 }
 
-
-void GUI::keyPressEvent(QKeyEvent *event) {
-    mapHUD->keyPressEvent(event);
-}
-

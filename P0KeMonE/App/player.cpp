@@ -2,7 +2,7 @@
 
 Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
     setZValue(2);
-    setPixmap(QPixmap(":/player/leftStandPlayer.png").scaled(QSize(11, 16) * scale));  // Assurez-vous de mettre le bon chemin vers l'image du joueur
+    setPixmap(QPixmap(":/player/leftStandPlayer.png").scaled(QSize(11, 16) * scale));
 
     movementTimer = new QTimer(this);
     connect(movementTimer, &QTimer::timeout, this, &Player::move);
@@ -21,87 +21,88 @@ bool Player::checkCollision(QPointF newPos) {
     return false;
 }
 
-void Player::startMoving(int key) {
-    currentKey = key;
+void Player::startMoving() {
     movementTimer->start(30);
 }
 
 void Player::stopMoving() {
     movementTimer->stop();
-    currentKey = 0;
+    activeKeys.clear();
 }
 
 void Player::move() {
-    if (!currentKey) return;
+    if (activeKeys.isEmpty() || activeKeys.size() > 1) return;
 
-    QPointF newPos;
-    switch (currentKey) {
-    case Qt::Key_Left:
-        newPos = pos() + QPointF(-4, 0);
+    QPointF newPos = pos();
+
+    if (activeKeys.contains(Qt::Key_Left) || activeKeys.contains(Qt::Key_Q)) {
+        newPos.setX(newPos.x() - 4);
         if (x() > 0 && !checkCollision(newPos)) {
             setPos(newPos);
-            if (qRound(x()) % 48 >= 16 && qRound(x()) % 48 < 32) {
-                setPixmap(QPixmap(":/player/leftWalkPlayer1.png").scaled(QSize(10, 16) * scale));
-            } else if (qRound(x()) % 48 >= 32) {
-                setPixmap(QPixmap(":/player/leftWalkPlayer2.png").scaled(QSize(11, 16) * scale));
-            } else {
-                setPixmap(QPixmap(":/player/leftStandPlayer.png").scaled(QSize(11, 16 )* scale));
-            }
+            updateDirection("left");
         }
-        break;
-    case Qt::Key_Right:
-        newPos = pos() + QPointF(4, 0);
+    }
+
+    newPos = pos();
+
+    if (activeKeys.contains(Qt::Key_Right) || activeKeys.contains(Qt::Key_D)) {
+        newPos.setX(newPos.x() + 4);
         if (x() + pixmap().width() < scene()->width() && !checkCollision(newPos)) {
             setPos(newPos);
-            if (qRound(x()) % 48 >= 16 && qRound(x()) % 48 < 32) {
-                setPixmap(QPixmap(":/player/rightWalkPlayer1.png").scaled(QSize(11, 16) * scale));
-            } else if (qRound(x()) % 48 >= 32) {
-                setPixmap(QPixmap(":/player/rightWalkPlayer2.png").scaled(QSize(11, 16) * scale));
-            } else {
-                setPixmap(QPixmap(":/player/rightStandPlayer.png").scaled(QSize(11, 16) * scale));
-            }
+            updateDirection("right");
         }
-        break;
-    case Qt::Key_Up:
-        newPos = pos() + QPointF(0, -4);
+    }
+
+    newPos = pos();
+
+    if (activeKeys.contains(Qt::Key_Up) || activeKeys.contains(Qt::Key_Z)) {
+        newPos.setY(newPos.y() - 4);
         if (y() > 0 && !checkCollision(newPos)) {
             setPos(newPos);
-            if (qRound(y()) % 48 >= 16 && qRound(y()) % 48 < 32) {
-                setPixmap(QPixmap(":/player/backWalkPlayer1.png").scaled(QSize(11, 16) * scale));
-            } else if (qRound(y()) % 48 >= 32) {
-                setPixmap(QPixmap(":/player/backWalkPlayer2.png").scaled(QSize(11, 16) * scale));
-            } else {
-                setPixmap(QPixmap(":/player/backStandPlayer.png").scaled(QSize(11, 16) * scale));
-            }
+            updateDirection("back");
         }
-        break;
-    case Qt::Key_Down:
-        newPos = pos() + QPointF(0, 4);
+    }
+
+    newPos = pos();
+
+    if (activeKeys.contains(Qt::Key_Down) || activeKeys.contains(Qt::Key_S)) {
+        newPos.setY(newPos.y() + 4);
         if (y() + pixmap().height() < scene()->height() && !checkCollision(newPos)) {
             setPos(newPos);
-            if (qRound(y()) % 48 >= 16 && qRound(y()) % 48 < 32) {
-                setPixmap(QPixmap(":/player/frontWalkPlayer1.png").scaled(QSize(11, 16) * scale));
-            } else if (qRound(y()) % 48 >= 32) {
-                setPixmap(QPixmap(":/player/frontWalkPlayer2.png").scaled(QSize(11, 16) * scale));
-            } else {
-                setPixmap(QPixmap(":/player/frontStandPlayer.png").scaled(QSize(11, 16) * scale));
-            }
+            updateDirection("front");
         }
-        break;
     }
 }
 
-std::vector<Pokemon*> Player::getTeam() const
-{
+void Player::updateDirection(const QString &direction) {
+    static const QMap<QString, QStringList> pixmapPaths {
+        {"left", {":/player/leftStandPlayer.png", ":/player/leftWalkPlayer1.png", ":/player/leftWalkPlayer2.png"}},
+        {"right", {":/player/rightStandPlayer.png", ":/player/rightWalkPlayer1.png", ":/player/rightWalkPlayer2.png"}},
+        {"back", {":/player/backStandPlayer.png", ":/player/backWalkPlayer1.png", ":/player/backWalkPlayer2.png"}},
+        {"front", {":/player/frontStandPlayer.png", ":/player/frontWalkPlayer1.png", ":/player/frontWalkPlayer2.png"}}
+    };
+
+    const QStringList &pixmaps = pixmapPaths[direction];
+    int step = qRound(direction == "left" || direction == "right" ? x() : y()) % 48;
+    int index = step < 16 ? 0 : step < 32 ? 1 : 2;
+
+    setPixmap(QPixmap(pixmaps[index]).scaled(QSize(11, 16) * scale));
+}
+
+std::vector<Pokemon*> Player::getTeam() const {
     return itsTeam;
 }
 
 void Player::keyPressEvent(QKeyEvent *event) {
+    activeKeys.insert(event->key());
     if (!movementTimer->isActive()) {
-        startMoving(event->key());
+        startMoving();
     }
 }
 
 void Player::keyReleaseEvent(QKeyEvent *event) {
-    stopMoving();
+    activeKeys.remove(event->key());
+    if (activeKeys.isEmpty()) {
+        stopMoving();
+    }
 }

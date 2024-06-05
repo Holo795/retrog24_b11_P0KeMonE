@@ -53,7 +53,7 @@ private:
     bool checkCollision(QPointF newPos);
 
     QTimer *movementTimer; ///< Timer for handling continuous movement.
-    int currentKey; ///< The currently pressed key.
+    QSet<int> activeKeys; // Set to keep track of active keys
 
 
 public slots:
@@ -66,12 +66,14 @@ public slots:
      * @brief Starts moving the player in the direction of the specified key.
      * @param key The key representing the direction.
      */
-    void startMoving(int key);
+    void startMoving();
 
     /**
      * @brief Stops moving the player.
      */
     void stopMoving();
+
+    void updateDirection(const QString &direction);
 
 
 signals:

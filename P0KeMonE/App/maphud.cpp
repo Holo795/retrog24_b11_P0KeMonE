@@ -54,7 +54,7 @@ void MapHUD::drawMap()
 
     player = new Player();
     addItem(player);
-    player->setPos(200, 200);
+    player->setPos(290, 220);
 
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();

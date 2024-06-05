@@ -4,8 +4,8 @@
 Game::Game(Model *model, GUI *gui, QWidget *parent)
     : QGraphicsView(parent), model(model), gui(gui) {
 
-    setScene(gui->map());
-    scale(1.5, 1.5);
+    setScene(gui->mainMenu());
+    scale(0.55, 0.55);
     setFixedSize(480, 320);
 
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -22,7 +22,13 @@ Game::~Game() {}
 
 void Game::keyPressEvent(QKeyEvent *event) {
     if (scene()->focusItem() != nullptr) {
-        gui->keyPressEvent(event);
+
+        if (scene()->objectName() == gui->mainMenu()->objectName() && event->key() == Qt::Key_Space)
+        {
+            resetTransform();
+            setScene(gui->map());
+            scale(1.5, 1.5);
+        }
 
         QGraphicsView::keyPressEvent(event);
     }

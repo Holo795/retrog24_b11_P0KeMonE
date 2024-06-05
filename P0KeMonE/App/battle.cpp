@@ -32,4 +32,6 @@ void Battle::attack(Move *move, Pokemon *target)
             target->takeDamage(move->getItsPower());
         }
     }
+
+
 }

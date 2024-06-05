@@ -45,6 +45,11 @@ public:
     void keyPressEvent(QKeyEvent *event);
 
     /**
+     * @brief Stops the player's movement.
+     */
+    void stopMoving();
+
+    /**
      * @brief Adds a Pokémon to the player's team.
      * @param pokemon Pointer to the Pokémon to add.
      */
@@ -68,11 +73,6 @@ private:
      * @param key The key code representing the direction to move.
      */
     void startMoving(int key);
-
-    /**
-     * @brief Stops the player's movement.
-     */
-    void stopMoving();
 
 protected:
     /**

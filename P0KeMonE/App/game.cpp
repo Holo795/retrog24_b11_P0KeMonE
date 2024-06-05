@@ -88,6 +88,8 @@ void Game::showFight() {
 void Game::fight() {
     // Manage initiating and processing a battle round
 
+    gui->battle()->getAttackButton()->setEnabled(false); // Disable the attack button to prevent multiple clicks
+
     battle = new Battle(player, gui->battle()->getPokemon2(), gui->battle());
     battle->attack(&player->getTeam().front()->getItsMoves()[0], gui->battle()->getPokemon2());
 
@@ -112,6 +114,8 @@ void Game::continuefight()
         scale(1.5, 1.5);
         return;
     }
+
+    gui->battle()->getAttackButton()->setEnabled(true); // Re-enable the attack button
 
 }
 

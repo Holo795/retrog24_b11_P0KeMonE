@@ -94,6 +94,8 @@ void Player::move() {
 std::vector<Pokemon*> Player::getTeam() const
 {
     return itsTeam;
+}
+
 void Player::keyPressEvent(QKeyEvent *event) {
     if (!movementTimer->isActive()) {
         startMoving(event->key());
@@ -101,5 +103,6 @@ void Player::keyPressEvent(QKeyEvent *event) {
 }
 
 void Player::keyReleaseEvent(QKeyEvent *event) {
+    qDebug() << "dfg";
     stopMoving();
 }

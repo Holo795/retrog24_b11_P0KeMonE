@@ -38,6 +38,8 @@ public:
      */
     void keyPressEvent(QKeyEvent *event);
 
+    void keyReleaseEvent(QKeyEvent *event);
+
 private:
     float scale = 1.8; ///< The scale factor for the player.
 

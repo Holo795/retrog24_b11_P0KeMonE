@@ -81,6 +81,7 @@ public:
     int getSpAtk() const;
     int getDef() const;
     int getSpDef() const;
+    int getId() const;
 };
 
 #endif // POKEMON_H

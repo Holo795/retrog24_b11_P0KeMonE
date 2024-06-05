@@ -24,7 +24,14 @@ MapHUD * GUI::map() {
     return mapHUD;
 }
 
+BattleHUD *GUI::battle(Pokemon * pk1, Pokemon * pk2)
+{
+    this->battleHUD = new BattleHUD(pk1, pk2);
+    return this->battleHUD;
+}
+
 
 void GUI::keyPressEvent(QKeyEvent *event) {
     mapHUD->keyPressEvent(event);
 }
+

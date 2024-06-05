@@ -2,7 +2,6 @@
 #define TYPEDEF_H
 
 
-
 /**
  * @enum PKTYPE
  * @brief Enumération des types de Pokémon.

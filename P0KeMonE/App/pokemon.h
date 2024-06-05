@@ -1,74 +1,47 @@
 /**
- * @file pokemon.h
- * @brief Déclaration de la classe Pokemon.
+ * @file Pokemon.h
+ * @brief Declaration of the Pokemon class, which encapsulates properties and behaviors of a Pokémon in the game.
  */
 
 #ifndef POKEMON_H
 #define POKEMON_H
 
 #include <QList>
-#include <iostream>
+
 #include "move.h"
 #include "typeDef.h"
+
 using namespace std;
-
-
 
 /**
  * @class Pokemon
- * @brief Représente un Pokémon avec ses caractéristiques et ses capacités.
+ * @brief Represents a Pokémon with its characteristics and abilities.
+ *
+ * This class manages all aspects related to a Pokémon's state, including health, attacks, and other stats.
  */
 class Pokemon
 {
 private:
-    string itsName;           /**< Nom du Pokémon */
-    PKTYPE itsType;           /**< Type du Pokémon */
-    int itsHealth;            /**< Points de vie du Pokémon */
-    int itsMaxHealth;         /**< Points de vie max du Pokémon */
-    int itsSpeed;             /**< Vitesse du Pokémon */
-    int itsAtk;               /**< Attaque du Pokémon */
-    int itsSpAtk;             /**< Attaque spéciale du Pokémon */
-    int itsDef;               /**< Défense du Pokémon */
-    int itsSpDef;             /**< Défense spéciale du Pokémon */
-    int itsLevel;             /**< Niveau du Pokémon */
-    QList<Move> itsMoves;     /**< Liste des capacités (moves) du Pokémon */
-    int id_pk;                /**< Identifiant du Pokémon */
+    int id_pk;                /**< Identifier of the Pokémon */
+    string itsName;           /**< Name of the Pokémon */
+    PKTYPE itsType;           /**< Type of the Pokémon */
+    int itsHealth;            /**< Current health points of the Pokémon */
+    int itsMaxHealth;         /**< Maximum health points of the Pokémon */
+    int itsSpeed;             /**< Speed stat of the Pokémon */
+    int itsAtk;               /**< Attack stat of the Pokémon */
+    int itsSpAtk;             /**< Special attack stat of the Pokémon */
+    int itsDef;               /**< Defense stat of the Pokémon */
+    int itsSpDef;             /**< Special defense stat of the Pokémon */
+    int itsLevel;             /**< Level of the Pokémon */
+    QList<Move> itsMoves;     /**< List of moves or abilities the Pokémon can perform */
 
 public:
-    /**
-     * @brief Constructeur de la classe Pokemon.
-     * @param itsName Nom du Pokémon.
-     * @param itsType Type du Pokémon.
-     * @param itsHealth Points de vie initiaux du Pokémon.
-     * @param itsSpeed Vitesse initiale du Pokémon.
-     * @param itsAtk Attaque initiale du Pokémon.
-     * @param itsSpAtk Attaque spéciale initiale du Pokémon.
-     * @param itsDef Défense initiale du Pokémon.
-     * @param itsSpDef Défense spéciale initiale du Pokémon.
-     * @param itsLevel Niveau initial du Pokémon.
-     * @param id_pk Identifiant du Pokémon.
-     */
     Pokemon(int id_pk, string itsName, PKTYPE itsType, int itsHealth, int itsSpeed, int itsAtk, int itsSpAtk, int itsDef, int itsSpDef, int itsLevel);
-
-    /**
-     * @brief Destructeur de la classe Pokemon.
-     */
     ~Pokemon();
 
-    /**
-     * @brief Vérifie si le Pokémon cible est KO (mort).
-     * @param target Référence vers le Pokémon cible.
-     * @return true si le Pokémon cible est KO, false sinon.
-     */
     bool isDead(Pokemon &target);
-
-    /**
-     * @brief Applique des dégâts au Pokémon.
-     * @param damage Quantité de dégâts à appliquer.
-     */
     void takeDamage(int damage);
-
-
+    int getId() const;
     int getLvl() const;
     int getHealth() const;
     int getSpeed() const;
@@ -76,12 +49,10 @@ public:
     int getSpAtk() const;
     int getDef() const;
     int getSpDef() const;
-    int getId() const;
-
-    QList<Move> getItsMoves() const;
-    void setItsMoves(const QList<Move> &newItsMoves);
     string getItsName() const;
     int getItsMaxHealth() const;
+    QList<Move> getItsMoves() const;
+    void setItsMoves(const QList<Move> &newItsMoves);
 };
 
 #endif // POKEMON_H

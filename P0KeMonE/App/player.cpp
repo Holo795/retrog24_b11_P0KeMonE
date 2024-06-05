@@ -1,5 +1,8 @@
 #include "player.h"
 
+/**
+ * Initializes the Player object, sets up its graphical representation and movement mechanics.
+ */
 Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
     setZValue(2);
     setPixmap(QPixmap(":/player/leftStandPlayer.png").scaled(QSize(11, 16) * scale));  // Assurez-vous de mettre le bon chemin vers l'image du joueur
@@ -8,6 +11,9 @@ Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
     connect(movementTimer, &QTimer::timeout, this, &Player::move);
 }
 
+/**
+ * Checks for potential collisions at a new position.
+ */
 bool Player::checkCollision(QPointF newPos) {
     QList<QGraphicsItem*> items = scene()->items(QRectF(newPos, QSizeF(pixmap().width(), pixmap().height())));
     for (QGraphicsItem* item : items) {
@@ -21,19 +27,29 @@ bool Player::checkCollision(QPointF newPos) {
     return false;
 }
 
+/**
+ * Initiates movement based on a key press.
+ */
 void Player::startMoving(int key) {
     currentKey = key;
     movementTimer->start(30);
 }
 
+/**
+ * Stops movement when a key is released.
+ */
 void Player::stopMoving() {
     movementTimer->stop();
-    currentKey = 0;
+    currentKey = 0; // Reset the current key
 }
 
+/**
+ * Moves the player based on the current key press.
+ */
 void Player::move() {
-    if (!currentKey) return;
+    if (!currentKey) return; // Do nothing if no key is pressed
 
+    // Handle movement and animation logic
     QPointF newPos;
     switch (currentKey) {
     case Qt::Key_Left:
@@ -91,25 +107,36 @@ void Player::move() {
     }
 }
 
+/**
+ * Returns the team of Pokémon.
+ */
 std::vector<Pokemon*> Player::getTeam() const
 {
     return itsTeam;
 }
 
+/**
+ * Handles key press events to initiate movement.
+ */
 void Player::keyPressEvent(QKeyEvent *event) {
     if (!movementTimer->isActive()) {
-        startMoving(event->key());
+        startMoving(event->key()); // Start moving in the direction of the key press
     }
 }
 
+/**
+ * Handles key release events to stop movement.
+ */
 void Player::keyReleaseEvent(QKeyEvent *event) {
     stopMoving();
 }
 
+/**
+ * Adds a Pokémon to the player's team.
+ */
 void Player::addPokemon(Pokemon *pokemon)
 {
-
-    itsTeam.push_back(pokemon);
+    itsTeam.push_back(pokemon); // Add the new Pokémon to the team
 }
 
 

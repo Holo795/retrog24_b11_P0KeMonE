@@ -1,25 +1,8 @@
 #include "move.h"
 
-string Move::getItsName() const
-{
-    return itsName;
-}
-
-int Move::getItsPower() const
-{
-    return itsPower;
-}
-
-int Move::getItsAccuracy() const
-{
-    return itsAccuracy;
-}
-
-MOVENATURE Move::getItsType() const
-{
-    return itsType;
-}
-
+/**
+ * Constructor that initializes a Move object with specified attributes.
+ */
 Move::Move(string itsName, int itsPower, int itsAccuracy, MOVENATURE itsType)
 {
     this->itsName = itsName;
@@ -28,23 +11,62 @@ Move::Move(string itsName, int itsPower, int itsAccuracy, MOVENATURE itsType)
     this->itsType = itsType;
 }
 
+/**
+ * Destructor for the Move class.
+ */
+Move::~Move()
+{
+    // Clean-up if necessary (not required in this simple class)
+}
+
+/**
+ * Returns the name of the move.
+ */
+string Move::getItsName() const
+{
+    return itsName;
+}
+
+/**
+ * Returns the power of the move.
+ */
+int Move::getItsPower() const
+{
+    return itsPower;
+}
+
+/**
+ * Returns the accuracy of the move.
+ */
+int Move::getItsAccuracy() const
+{
+    return itsAccuracy;
+}
+
+/**
+ * Returns the type of the move (e.g., physical or special).
+ */
+MOVENATURE Move::getItsType() const
+{
+    return itsType;
+}
+
+/**
+ * Calculates the damage this move will do when used.
+ * Implements the standard damage formula from games like Pokémon.
+ */
 int Move::calculateDamage(int lvl, int atk, int def, bool crit) const
 {
     int level = lvl;
-    int attackStat = atk;  // Ou getSpAtk() si c'est une attaque spéciale
-    int defenseStat = def; // Ou getSpDef() si c'est une attaque spéciale
+    int attackStat = atk;
+    int defenseStat = def;
     int power = itsPower;
 
-    double critical = crit ? 2.0 : 1.0;
+    double critical = crit ? 2.0 : 1.0; // Critical hit doubles the damage
 
+    // Calculate the base damage using a modified version of the Pokémon damage formula
     double baseDamage = (((((level * 0.4 + 2) * attackStat * power) / (defenseStat * 50)) + 2) * critical);
 
+    // Ensure damage is at least 1
     return std::max(1, static_cast<int>(baseDamage));
 }
-
-
-Move::~Move()
-{
-
-}
-

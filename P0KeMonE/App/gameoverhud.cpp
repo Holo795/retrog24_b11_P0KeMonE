@@ -1,17 +1,22 @@
 #include "gameoverhud.h"
 #include "QtWidgets/qgraphicsitem.h"
 
+/**
+ * Constructor for the GameOverHUD class.
+ * Initializes the game over screen with a background image.
+ */
 GameOverHUD::GameOverHUD(QObject *parent) : QGraphicsScene(parent)
 {
+    // Load a background image for the game over screen
     QImage backgroundImage(":/battleHUD/naafvpduf2861.png");
 
-    // Redimensionner l'image
+    // Resize the image to fit the desired dimensions while maintaining aspect ratio
     QImage scaledImage = backgroundImage.scaled(480, 320, Qt::KeepAspectRatio);
 
+    // Create a pixmap item from the scaled image
     QGraphicsPixmapItem* backgroundItem = new QGraphicsPixmapItem(QPixmap::fromImage(scaledImage));
-    backgroundItem->setPos(0, 0);
+    backgroundItem->setPos(0, 0); // Position the image at the origin of the scene
 
-    // Ajouter l'élément redimensionné à la scène
+    // Add the scaled and positioned item to the scene
     addItem(backgroundItem);
 }
-

@@ -8,7 +8,7 @@ Data::Data()
     db = QSqlDatabase::addDatabase("QSQLITE");
 
 #if defined _WIN32
-    db.setDatabaseName("../App/pokemon.sqlite");
+    db.setDatabaseName("../../../../P0KeMonE/App/pokemon.sqlite");
 #elif defined(__LINUX__) || defined(__gnu_linux__) || defined(__linux__) || defined (__APPLE__)
     db.setDatabaseName("../../../../../P0KeMonE/App/pokemon.sqlite");
 #endif
@@ -35,7 +35,7 @@ Data::~Data()
 
 
 
-Pokemon Data::randompokemon()
+Pokemon * Data::randompokemon()
 {
 
     // query to get random pokemon
@@ -63,7 +63,7 @@ Pokemon Data::randompokemon()
         pokemon = new Pokemon(id, name, type, hp, speed, attack, special_attack, defense, special_defense, 1);
 
         // return the pokemon object
-        return *pokemon;
+        return pokemon;
     }
     else
     {
@@ -72,7 +72,7 @@ Pokemon Data::randompokemon()
     }
 
     // return the pokemon object
-    return *pokemon;
+    return pokemon;
 
 
 }

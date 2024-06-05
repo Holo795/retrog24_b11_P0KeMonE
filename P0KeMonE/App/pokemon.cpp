@@ -62,3 +62,8 @@ int Pokemon::getDef() const {
 int Pokemon::getSpDef() const {
     return itsSpDef;
 }
+
+int Pokemon::getId() const
+{
+    return id_pk;
+}

@@ -103,5 +103,6 @@ void Player::keyPressEvent(QKeyEvent *event) {
 }
 
 void Player::keyReleaseEvent(QKeyEvent *event) {
+    qDebug() << "dfg";
     stopMoving();
 }

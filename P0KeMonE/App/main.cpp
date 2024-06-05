@@ -1,6 +1,3 @@
-#include "data.h"
-#include "gui.h"
-
 #include <QApplication>
 
 #include "model.h"
@@ -15,6 +12,6 @@ int main(int argc, char *argv[])
     GUI gui(&model);
     Game game(&model, &gui);
 
-    gui.show();
+    game.show();
     return app.exec();
 }

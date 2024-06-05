@@ -37,7 +37,7 @@ BattleHUD::BattleHUD(QGraphicsScene *scene) {
     pokemon1Item = new QGraphicsPixmapItem(QPixmap(":/pokemons/pk_sprite/1_front.png").scaled(200, 200));
     pokemon1Item->setPos(20, 70);
 
-    pokemon2Item = new QGraphicsPixmapItem(QPixmap(":/pokemons/pk_sprite/2_front.png"));
+    pokemon2Item = new QGraphicsPixmapItem(QPixmap(":/pokemons/pk_sprite/6_front.png"));
     pokemon2Item->setPos(300, 30);
 
     QString healthText1 = QString::number(pokemon1->getHealth()) + "/" + fulllifePK1;
@@ -45,13 +45,13 @@ BattleHUD::BattleHUD(QGraphicsScene *scene) {
     health1 = new QGraphicsTextItem(healthText1);
     QFont promptFont("Arial", 15);
     health1->setFont(promptFont);
-    health1->setPos(100, 200);
+    health1->setPos(80, 100);
 
     QString healthText2 = QString::number(pokemon2->getHealth()) + "/" + fulllifePK2;
 
     health2 = new QGraphicsTextItem(healthText2);
     health2->setFont(promptFont);
-    health2->setPos(330, 105);
+    health2->setPos(320, 30);
 }
 
 

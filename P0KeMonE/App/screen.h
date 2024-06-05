@@ -38,6 +38,7 @@ public:
      */
     void updateScreen();
 
+
 protected:
     /**
      * @brief Gère les événements de pression de touche.

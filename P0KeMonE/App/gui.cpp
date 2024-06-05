@@ -18,7 +18,6 @@ GUI::GUI(Model *model, QWidget *parent)
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     setRenderHint(QPainter::Antialiasing);
-
 }
 
 GUI::~GUI() {}

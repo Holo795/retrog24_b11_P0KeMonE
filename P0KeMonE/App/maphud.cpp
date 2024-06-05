@@ -66,7 +66,9 @@ void MapHUD::keyPressEvent(QKeyEvent *event) {
 
     QVector<char> tallgrass = {'Y', 'H', 'L', 'G', 'M', 'D', 'Z', 'B', 'W'};
 
-    if (tallgrass.contains(model->getMap()[player->y() / 32][player->x() / 32])) {
+    int x_foot = player->x() + 2;
+    int y_foot = player->y() + player->pixmap().height();
+    if (tallgrass.contains(model->getMap()[x_foot / 32][y_foot / 32])) {
         if (rand() % 100 < 15) {
             emit player->startEncounterCombat();
         }

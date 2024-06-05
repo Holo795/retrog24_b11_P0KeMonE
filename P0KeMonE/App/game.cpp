@@ -15,10 +15,8 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
 
     connect(gui->map()->getPlayer(), &Player::startEncounterCombat, [this, model, gui](){
         resetTransform();
-
         setScene(gui->battle(model->getData()->randompokemon(), model->getData()->randompokemon()));
     });
-
 
     QTimer *updateTimer = new QTimer(this);
     connect(updateTimer, &QTimer::timeout, this, &Game::updateView);

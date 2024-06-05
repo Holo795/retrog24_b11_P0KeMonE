@@ -1,3 +1,3 @@
 #include "battlehud.h"
 
-BattleHUD::BattleHUD() {}
+BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {}

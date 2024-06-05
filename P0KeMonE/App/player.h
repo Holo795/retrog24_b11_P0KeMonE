@@ -10,6 +10,8 @@
 #include <QGraphicsScene>
 #include <QObject>
 #include <QKeyEvent>
+#include <vector>
+#include "pokemon.h"
 #include <QTimer>
 
 /**
@@ -29,14 +31,19 @@ public:
      */
     Player(QGraphicsItem *parent = nullptr);
 
+    std::vector<Pokemon*> getTeam() const;
     /**
      * @brief Handles key press events for player movement.
      * @param event The key event.
      */
     void keyPressEvent(QKeyEvent *event);
 
+    void keyReleaseEvent(QKeyEvent *event);
+
 private:
     float scale = 1.8; ///< The scale factor for the player.
+
+    std::vector<Pokemon*> itsTeam;
 
     /**
      * @brief Checks for collisions at the new position.
@@ -48,12 +55,6 @@ private:
     QTimer *movementTimer; ///< Timer for handling continuous movement.
     int currentKey; ///< The currently pressed key.
 
-protected:
-    /**
-     * @brief Handles key release events for player movement.
-     * @param event The key event.
-     */
-    void keyReleaseEvent(QKeyEvent *event) override;
 
 public slots:
     /**

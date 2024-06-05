@@ -4,6 +4,8 @@
 #include <QTextStream>
 #include <QFile>
 
+#include "data.h"
+
 class Model
 {
 public:
@@ -23,8 +25,11 @@ public:
      */
     const std::vector<std::vector<char>>& getMap() const;
 
+    Data * getData();
+
 private:
     std::vector<std::vector<char>> map; ///< The map of the game
+    Data *data;
 
 };
 

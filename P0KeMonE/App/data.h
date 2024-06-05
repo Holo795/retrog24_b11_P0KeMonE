@@ -39,7 +39,7 @@ public:
      * @brief Récupère un Pokémon aléatoire depuis la base de données.
      * @return Un objet Pokémon initialisé avec les données récupérées.
      */
-    Pokemon randompokemon();
+    Pokemon * randompokemon();
 
 
     /**

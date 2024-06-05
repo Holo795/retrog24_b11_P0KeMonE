@@ -32,6 +32,38 @@ void Pokemon::takeDamage(int damage)
 
 void Pokemon::attack(Pokemon &target, Move move)
 {
+    
+}
 
+int Pokemon::getLvl() const
+{
+    return itsLevel;
+}
+int Pokemon::getHealth() const {
+    return itsHealth;
+}
 
+int Pokemon::getSpeed() const {
+    return itsSpeed;
+}
+
+int Pokemon::getAtk() const {
+    return itsAtk;
+}
+
+int Pokemon::getSpAtk() const {
+    return itsSpAtk;
+}
+
+int Pokemon::getDef() const {
+    return itsDef;
+}
+
+int Pokemon::getSpDef() const {
+    return itsSpDef;
+}
+
+int Pokemon::getId() const
+{
+    return id_pk;
 }

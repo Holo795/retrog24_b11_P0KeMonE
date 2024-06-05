@@ -5,6 +5,7 @@ GUI::GUI(Model *model) {
     this->gameOverHUD = new GameOverHUD();
     this->mapHUD = new MapHUD(model);
     this->mainHUD = new MainHUD();
+    this->battleHUD = new BattleHUD();
 }
 
 MainHUD * GUI::mainMenu() {
@@ -24,7 +25,19 @@ MapHUD * GUI::map() {
     return mapHUD;
 }
 
+BattleHUD *GUI::battle(Pokemon * pk1, Pokemon * pk2)
+{
+    battleHUD->setPokemon(pk1, pk2);
+    return battleHUD;
+}
+
+BattleHUD *GUI::battle()
+{
+    return battleHUD;
+}
+
 
 void GUI::keyPressEvent(QKeyEvent *event) {
     mapHUD->keyPressEvent(event);
 }
+

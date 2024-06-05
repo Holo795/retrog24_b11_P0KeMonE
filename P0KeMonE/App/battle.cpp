@@ -72,6 +72,8 @@ void Battle::attack(Move *move, Pokemon *target)
     }
     if (random <= successRate) // Apply damage if attack is successful
     {
+        itsBattleHUD1->frontDashPokemon(target == itsOpponent1 ? pokemon1 : itsOpponent1);
+        itsBattleHUD1->shakePokemon(target);
         target->takeDamage(damage);
     }
 

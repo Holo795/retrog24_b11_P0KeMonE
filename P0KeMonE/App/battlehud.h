@@ -47,6 +47,19 @@ public:
     void setPokemon(Pokemon *pk1, Pokemon *pk2);
 
     /**
+     * @brief Shakes the Pokémon's image on the HUD.
+     * @param pk Pointer to the Pokémon to shake.
+     */
+    void shakePokemon(Pokemon *pk);
+
+
+    /**
+     * @brief Dashes the Pokémon's image on the HUD.
+     * @param pk Pointer to the Pokémon to dash.
+     */
+    void frontDashPokemon(Pokemon *pk);
+
+    /**
      * @brief Gets the first Pokémon shown in the HUD.
      * @return A constant pointer to the first Pokémon.
      */

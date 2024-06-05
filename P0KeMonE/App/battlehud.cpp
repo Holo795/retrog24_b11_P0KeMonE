@@ -1,6 +1,8 @@
 #include "battlehud.h"
 #include <QGraphicsPixmapItem>
 #include <QGraphicsTextItem>
+#include <QGraphicsItemAnimation>
+#include <QTimeLine>
 
 #include "pokemon.h"
 
@@ -53,11 +55,15 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
 }
 
 /**
- * Returns the QPushButton used for initiating attacks.
+ * Destructor for the BattleHUD.
  */
-QPushButton *BattleHUD::getAttackButton()
+BattleHUD::~BattleHUD()
 {
-    return attackButton;
+    delete attackButton;
+    delete pokemon1Item;
+    delete pokemon2Item;
+    delete health1;
+    delete health2;
 }
 
 /**
@@ -82,15 +88,77 @@ void BattleHUD::setPokemon(Pokemon *pk1, Pokemon *pk2) {
 }
 
 /**
- * Destructor for the BattleHUD.
+ * Shakes the Pokémon's image on the HUD.
  */
-BattleHUD::~BattleHUD()
+void BattleHUD::shakePokemon(Pokemon *pk) {
+    // Get the associated QGraphicsPixmapItem based on which Pokemon is passed
+    QGraphicsPixmapItem *pokemonItem = (pk == pokemon1) ? pokemon1Item : pokemon2Item;
+
+    // Configure the timeline for the shake effect
+    int totalDuration = 700;  // Including delay and shake duration
+    QTimeLine* timeLine = new QTimeLine(totalDuration, this);
+    timeLine->setLoopCount(1);  // Play the shake animation once
+
+    // Set up the item animation
+    QGraphicsItemAnimation* animation = new QGraphicsItemAnimation;
+    animation->setItem(pokemonItem);
+    animation->setTimeLine(timeLine);
+
+    // Define the start time for the shake and interval between position changes
+    double startTime = 500.0 / totalDuration;
+    double interval = 50.0 / totalDuration;
+
+    // Set key frames for shaking the Pokemon item
+    for (double t = startTime; t <= 1.0; t += interval) {
+        QPointF direction = (t == startTime) ? QPointF(10, 0) : pokemonItem->pos() - animation->posAt(t - interval);
+        animation->setPosAt(t, pokemonItem->pos() + direction);
+    }
+    animation->setPosAt(1.0, pokemonItem->pos());  // Return to original position
+
+    // Clean up resources when the animation finishes
+    connect(timeLine, &QTimeLine::finished, timeLine, &QTimeLine::deleteLater);
+    connect(timeLine, &QTimeLine::finished, animation, &QGraphicsItemAnimation::deleteLater);
+    timeLine->start();  // Start the timeline to begin the animation
+}
+
+/**
+ * Animates the front Pokemon to dash forward and then return to its original position.
+ */
+void BattleHUD::frontDashPokemon(Pokemon *pk) {
+    // Retrieve the associated QGraphicsPixmapItem for the Pokemon
+    QGraphicsPixmapItem *pokemonItem = (pk == pokemon1) ? pokemon1Item : pokemon2Item;
+    if (!pokemonItem) return;  // Exit if no item found
+
+    // Setup the timeline for the dash effect
+    QTimeLine* timeLine = new QTimeLine(500, this);  // Dash duration
+    timeLine->setLoopCount(1);  // Play the dash animation once
+
+    // Initialize the animation and link to the timeline
+    QGraphicsItemAnimation* animation = new QGraphicsItemAnimation;
+    animation->setItem(pokemonItem);
+    animation->setTimeLine(timeLine);
+
+    // Calculate the movement increment based on the Pokemon
+    QPointF increment = (pk == pokemon1) ? QPointF(10, -10) : QPointF(-10, 10);
+
+    // Create key frames for the dash effect
+    for (double t = 0.0; t <= 0.6; t += 0.1) {
+        animation->setPosAt(t, pokemonItem->pos() + increment * (t * 10));
+    }
+    animation->setPosAt(1.0, pokemonItem->pos());  // End at the original position
+
+    // Ensure clean up after the animation completes
+    connect(timeLine, &QTimeLine::finished, timeLine, &QTimeLine::deleteLater);
+    connect(timeLine, &QTimeLine::finished, animation, &QGraphicsItemAnimation::deleteLater);
+    timeLine->start();  // Begin the animation
+}
+
+/**
+ * Returns the QPushButton used for initiating attacks.
+ */
+QPushButton *BattleHUD::getAttackButton()
 {
-    delete attackButton;
-    delete pokemon1Item;
-    delete pokemon2Item;
-    delete health1;
-    delete health2;
+    return attackButton;
 }
 
 /**

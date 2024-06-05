@@ -11,6 +11,7 @@
 #include <QtSql/QSql>
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlRecord>
+#include <QSqlError>
 
 /**
  * @class Data
@@ -39,6 +40,14 @@ public:
      * @return Un objet Pokémon initialisé avec les données récupérées.
      */
     Pokemon randompokemon();
+
+
+    /**
+     * @brief getMoves
+     * @param id
+     * @return Une QList de capacités (moves) associées à un Pokémon.
+     */
+    QList<Move> getMoves(int id);
 };
 
 #endif // DATA_H

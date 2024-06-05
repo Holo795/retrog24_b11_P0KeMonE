@@ -14,25 +14,29 @@ SOURCES += \
     battlehud.cpp \
     data.cpp \
     game.cpp \
-    main.cpp \
+    gameoverhud.cpp \
     gui.cpp \
+    main.cpp \
+    mainhud.cpp \
+    maphud.cpp \
     model.cpp \
     move.cpp \
     player.cpp \
-    pokemon.cpp \
-    screen.cpp
+    pokemon.cpp
 
 HEADERS += \
     battle.h \
     battlehud.h \
     data.h \
     game.h \
+    gameoverhud.h \
     gui.h \
+    mainhud.h \
+    maphud.h \
     model.h \
     move.h \
     player.h \
     pokemon.h \
-    screen.h \
     typeDef.h
 
 # Default rules for deployment.

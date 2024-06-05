@@ -1,6 +1,26 @@
 #include "move.h"
 
-    Move::Move(string itsName, int itsPower, int itsAccuracy, PKTYPE itsType)
+string Move::getItsName() const
+{
+    return itsName;
+}
+
+int Move::getItsPower() const
+{
+    return itsPower;
+}
+
+int Move::getItsAccuracy() const
+{
+    return itsAccuracy;
+}
+
+MOVENATURE Move::getItsType() const
+{
+    return itsType;
+}
+
+Move::Move(string itsName, int itsPower, int itsAccuracy, MOVENATURE itsType)
 {
     this->itsName = itsName;
     this->itsPower = itsPower;

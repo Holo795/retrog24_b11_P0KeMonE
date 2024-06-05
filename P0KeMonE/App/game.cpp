@@ -1,6 +1,7 @@
 #include "game.h"
 #include "player.h"
 
+#include <QPushButton>
 Game::Game(Model *model, GUI *gui, QWidget *parent)
     : QGraphicsView(parent), model(model), gui(gui) {
 
@@ -15,12 +16,11 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
 
     setRenderHint(QPainter::Antialiasing);
 
-    connect(gui->map()->getPlayer(), &Player::startEncounterCombat, [this, model, gui](){
-        resetTransform();
 
-        setScene(gui->battle(model->getData()->randompokemon(), model->getData()->randompokemon()));
-    });
 
+    connect(gui->map()->getPlayer(), &Player::startEncounterCombat, this, &Game::showFight);
+
+    connect(gui->battle()->getAttackButton(), &QPushButton::clicked, this, &Game::fight);
 
     QTimer *updateTimer = new QTimer(this);
     connect(updateTimer, &QTimer::timeout, this, &Game::updateView);
@@ -37,7 +37,13 @@ void Game::keyPressEvent(QKeyEvent *event) {
     }
 }
 
-void Game::mousePressEvent(QMouseEvent *event){}
+void Game::mousePressEvent(QMouseEvent *event){
+    if(scene()->objectName() != gui->battle()->objectName()) return;
+
+    QGraphicsView::mousePressEvent(event);
+
+}
+
 void Game::mouseDoubleClickEvent(QMouseEvent *event){}
 
 void Game::updateView() {
@@ -45,4 +51,13 @@ void Game::updateView() {
     if(scene()->objectName() == gui->map()->objectName()) {
         centerOn(gui->map()->getPlayer());
     }
+}
+
+void Game::showFight() {
+    resetTransform();
+    setScene(gui->battle(model->getData()->randompokemon(), model->getData()->randompokemon()));
+}
+
+void Game::fight() {
+    qDebug() << "azdfgn,";
 }

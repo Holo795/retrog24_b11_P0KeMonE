@@ -44,7 +44,6 @@ private:
     GUI *gui; ///< Pointer to the graphical user interface.
     Player *player; ///< Pointer to the player object.
     Battle *battle; ///< Pointer to the current battle context.
-    QTimer *waitFight; ///< Timer to manage delays between fight rounds.
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;

@@ -8,6 +8,13 @@ Model::Model() {
 }
 
 /**
+ * Destructor for the Model object.
+ */
+Model::~Model() {
+    delete data; // Delete the data handler
+}
+
+/**
  * Loads the game map from a file and stores it in a 2D character vector.
  */
 void Model::loadMap(const QString& filename) {

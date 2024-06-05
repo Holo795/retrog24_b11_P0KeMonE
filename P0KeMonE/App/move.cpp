@@ -12,14 +12,6 @@ Move::Move(string itsName, int itsPower, int itsAccuracy, MOVENATURE itsType)
 }
 
 /**
- * Destructor for the Move class.
- */
-Move::~Move()
-{
-    // Clean-up if necessary (not required in this simple class)
-}
-
-/**
  * Returns the name of the move.
  */
 string Move::getItsName() const

@@ -31,7 +31,18 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
 }
 
 Game::~Game() {
-    // Clean up resources, timers, and connections
+    // Deallocate memory for the game model and GUI
+    delete model;
+    delete gui;
+
+    // Deallocate memory for the player object
+    delete player;
+
+    // Deallocate memory for the battle object
+    delete battle;
+
+    // Deallocate memory for the waitFight timer
+    delete waitFight;
 }
 
 void Game::keyPressEvent(QKeyEvent *event) {

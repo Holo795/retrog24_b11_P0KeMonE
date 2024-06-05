@@ -12,6 +12,13 @@ Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
 }
 
 /**
+ * Destructor for the Player class.
+ */
+Player::~Player() {
+    delete movementTimer;
+}
+
+/**
  * Checks for potential collisions at a new position.
  */
 bool Player::checkCollision(QPointF newPos) {

@@ -37,11 +37,6 @@ public:
     Move(string itsName, int itsPower, int itsAccuracy, MOVENATURE itsType);
 
     /**
-     * @brief Destructor for a Move object.
-     */
-    ~Move();
-
-    /**
      * @brief Retrieves the name of the move.
      * @return Name of the move.
      */

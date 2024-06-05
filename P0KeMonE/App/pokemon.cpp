@@ -10,13 +10,6 @@ Pokemon::Pokemon(int id_pk, string itsName, PKTYPE itsType, int itsHealth, int i
 }
 
 /**
- * Destructor for Pokemon, potentially useful for managing resources if Pokemon instances manage dynamic resources.
- */
-Pokemon::~Pokemon()
-{
-}
-
-/**
  * Determines if the target Pokemon is "dead" or has no health left.
  */
 bool Pokemon::isDead(Pokemon &target)

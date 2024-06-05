@@ -14,6 +14,16 @@ Battle::Battle(Player *player1, Pokemon *opponent1, BattleHUD *battleHUD1)
 }
 
 /**
+ * Destructor for the Battle class.
+ */
+Battle::~Battle()
+{
+    delete itsPlayer1;
+    delete itsOpponent1;
+    delete itsBattleHUD1;
+}
+
+/**
  * Conducts an attack in a battle scenario using a specified move against a target Pokémon.
  * The function determines the damage based on move type and calculates whether the attack hits based on move accuracy.
  */

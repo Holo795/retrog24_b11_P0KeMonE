@@ -29,6 +29,11 @@ public:
     BattleHUD(QObject *parent = nullptr);
 
     /**
+     * @brief Destructor for the BattleHUD.
+     */
+    ~BattleHUD();
+
+    /**
      * @brief Retrieves the attack button.
      * @return A pointer to the QPushButton used for attacks.
      */

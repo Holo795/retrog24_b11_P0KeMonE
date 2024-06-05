@@ -33,6 +33,11 @@ public:
     Player(QGraphicsItem *parent = nullptr);
 
     /**
+     * @brief Destructor for the Player class.
+     */
+    ~Player();
+
+    /**
      * @brief Retrieves the player's team of Pokémon.
      * @return A constant reference to a vector of pointers to Pokémon.
      */

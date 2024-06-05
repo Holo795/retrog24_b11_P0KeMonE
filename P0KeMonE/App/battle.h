@@ -34,6 +34,11 @@ public:
     Battle(Player *itsPlayer1, Pokemon *opponent1, BattleHUD *battleHUD1);
 
     /**
+     * @brief Destructor for the Battle class.
+     */
+    ~Battle();
+
+    /**
      * @brief Executes an attack during a battle.
      * @param move Pointer to the move being used in the attack.
      * @param target Pointer to the Pokémon being targeted.

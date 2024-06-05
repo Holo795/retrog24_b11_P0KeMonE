@@ -12,6 +12,18 @@ GUI::GUI(Model *model) : model(model) {
 }
 
 /**
+ * Destructor for the GUI class.
+ */
+GUI::~GUI() {
+    // Delete all HUDs
+    delete gameOverHUD;
+    delete mapHUD;
+    delete mainHUD;
+    delete battleHUD;
+
+}
+
+/**
  * Returns the main menu HUD.
  */
 MainHUD * GUI::mainMenu() {

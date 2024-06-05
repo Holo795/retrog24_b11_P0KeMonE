@@ -82,6 +82,18 @@ void BattleHUD::setPokemon(Pokemon *pk1, Pokemon *pk2) {
 }
 
 /**
+ * Destructor for the BattleHUD.
+ */
+BattleHUD::~BattleHUD()
+{
+    delete attackButton;
+    delete pokemon1Item;
+    delete pokemon2Item;
+    delete health1;
+    delete health2;
+}
+
+/**
  * Retrieves the first Pokémon currently displayed on the HUD.
  */
 Pokemon *BattleHUD::getPokemon1() const

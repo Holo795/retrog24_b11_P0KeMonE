@@ -27,6 +27,11 @@ public:
     Model();
 
     /**
+     * @brief Destructor for the Model class.
+     */
+    ~Model();
+
+    /**
      * @brief Loads the game map from a specified file.
      * @param filename Path to the file containing the map data.
      */

@@ -31,6 +31,11 @@ public:
     GUI(Model *model);
 
     /**
+     * @brief Destructor for the GUI class.
+     */
+    ~GUI();
+
+    /**
      * @brief Accessor for the main menu HUD.
      * @return Pointer to the MainHUD object.
      */

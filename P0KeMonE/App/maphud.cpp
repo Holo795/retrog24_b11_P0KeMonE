@@ -11,6 +11,13 @@ MapHUD::MapHUD(Model *model, QObject *parent) : QGraphicsScene(parent), model(mo
 }
 
 /**
+ * Destructor for the MapHUD class.
+ */
+MapHUD::~MapHUD() {
+    delete player; // Delete the player object
+}
+
+/**
  * Draws the map based on the layout provided by the model. It populates the scene
  * with various graphical items such as grass, trees, and other objects.
  */

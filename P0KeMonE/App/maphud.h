@@ -31,6 +31,11 @@ public:
     MapHUD(Model *model, QObject *parent = nullptr);
 
     /**
+     * @brief Destructor for the MapHUD.
+     */
+    ~MapHUD();
+
+    /**
      * @brief Draws the game map based on the data from the model.
      */
     void drawMap();

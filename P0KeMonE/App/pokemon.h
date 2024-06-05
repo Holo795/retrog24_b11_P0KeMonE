@@ -37,7 +37,6 @@ private:
 
 public:
     Pokemon(int id_pk, string itsName, PKTYPE itsType, int itsHealth, int itsSpeed, int itsAtk, int itsSpAtk, int itsDef, int itsSpDef, int itsLevel);
-    ~Pokemon();
 
     bool isDead(Pokemon &target);
     void takeDamage(int damage);

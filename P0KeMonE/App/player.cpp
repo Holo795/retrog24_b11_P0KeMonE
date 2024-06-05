@@ -2,7 +2,7 @@
 
 Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
     setZValue(2);
-    setPixmap(QPixmap(":/player/frontStandPlayer.png").scaled(QSize(11, 16) * scale));  // Assurez-vous de mettre le bon chemin vers l'image du joueur
+    setPixmap(QPixmap(":/player/leftStandPlayer.png").scaled(QSize(11, 16) * scale));  // Assurez-vous de mettre le bon chemin vers l'image du joueur
 
     movementTimer = new QTimer(this);
     connect(movementTimer, &QTimer::timeout, this, &Player::move);
@@ -94,6 +94,8 @@ void Player::move() {
 std::vector<Pokemon*> Player::getTeam() const
 {
     return itsTeam;
+}
+
 void Player::keyPressEvent(QKeyEvent *event) {
     if (!movementTimer->isActive()) {
         startMoving(event->key());

@@ -7,6 +7,8 @@ class MainHUD : public QGraphicsScene
 {
 public:
     MainHUD(QObject *parent = nullptr);
+
+    void displayMainMenu();
 };
 
 #endif // MAINHUD_H

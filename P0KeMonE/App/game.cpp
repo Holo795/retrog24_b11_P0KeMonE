@@ -102,6 +102,8 @@ void Game::continuefight()
 
     battle->attack(&gui->battle()->getPokemon2()->getItsMoves()[0], player->getTeam().front());
 
+    gui->battle()->getAttackButton()->setEnabled(true); // Re-enable the attack button
+
     if(gui->battle()->getPokemon1()->getHealth() <= 0)
     {
         resetTransform();
@@ -114,8 +116,6 @@ void Game::continuefight()
         scale(1.5, 1.5);
         return;
     }
-
-    gui->battle()->getAttackButton()->setEnabled(true); // Re-enable the attack button
 
 }
 

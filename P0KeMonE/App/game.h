@@ -5,6 +5,7 @@
 #include <QGraphicsView>
 #include <QKeyEvent>
 
+#include "battle.h"
 #include "model.h"
 #include "gui.h"
 
@@ -45,6 +46,9 @@ public:
 private:
     Model *model; ///< Pointer to the model.
     GUI *gui; ///< Pointer to the GUI.
+    Player *player; ///< Pointer to the player.
+    Battle *battle; ///< Pointer to the battle.
+    QTimer *waitFight; ///< Timer for updating the view.
 
 protected:
     /**
@@ -85,6 +89,7 @@ public slots:
 
     void showFight();
     void fight();
+    void continuefight();
 };
 
 #endif // GAME_H

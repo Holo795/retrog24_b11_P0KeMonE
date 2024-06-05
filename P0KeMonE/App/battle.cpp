@@ -15,7 +15,7 @@ void Battle::attack(Move *move, Pokemon *target)
     // Initialiser le générateur de nombres aléatoires
     srand(time(0));
     int max = 100;
-    int random = (rand() % max) + 1;
+    int random = rand() % max + 1;
     int successRate = move->getItsAccuracy();
     int atk, def, lvl, damage;
     bool crit = random>6;
@@ -58,4 +58,10 @@ void Battle::attack(Move *move, Pokemon *target)
     {
         target->takeDamage(damage);
     }
+
+    itsBattleHUD1->setPokemon(itsPlayer1->getTeam().front(), itsOpponent1);
+
+
+
+
 }

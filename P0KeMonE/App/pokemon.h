@@ -24,6 +24,7 @@ private:
     string itsName;           /**< Nom du Pokémon */
     PKTYPE itsType;           /**< Type du Pokémon */
     int itsHealth;            /**< Points de vie du Pokémon */
+    int itsMaxHealth;         /**< Points de vie max du Pokémon */
     int itsSpeed;             /**< Vitesse du Pokémon */
     int itsAtk;               /**< Attaque du Pokémon */
     int itsSpAtk;             /**< Attaque spéciale du Pokémon */
@@ -67,12 +68,6 @@ public:
      */
     void takeDamage(int damage);
 
-    /**
-     * @brief Attaque un Pokémon cible avec une capacité spécifique.
-     * @param target Référence vers le Pokémon cible.
-     * @param move Capacité utilisée pour l'attaque.
-     */
-    void attack(Pokemon &target, Move move);
 
     int getLvl() const;
     int getHealth() const;
@@ -82,6 +77,11 @@ public:
     int getDef() const;
     int getSpDef() const;
     int getId() const;
+
+    QList<Move> getItsMoves() const;
+    void setItsMoves(const QList<Move> &newItsMoves);
+    string getItsName() const;
+    int getItsMaxHealth() const;
 };
 
 #endif // POKEMON_H

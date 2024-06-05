@@ -25,6 +25,27 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
 
     addItem(background);
     addWidget(attackButton);
+    pokemon1Item = new QGraphicsPixmapItem();
+    pokemon1Item->setPos(20, 70);
+
+    pokemon2Item = new QGraphicsPixmapItem();
+    pokemon2Item->setPos(300, 30);
+
+    health1 = new QGraphicsTextItem();
+    QFont promptFont("Arial", 15);
+    health1->setDefaultTextColor(Qt::white);
+    health1->setFont(promptFont);
+    health1->setPos(80, 100);
+
+    health2 = new QGraphicsTextItem();
+    health2->setDefaultTextColor(Qt::white);
+    health2->setFont(promptFont);
+    health2->setPos(320, 30);
+
+    addItem(pokemon1Item);
+    addItem(pokemon2Item);
+    addItem(health1);
+    addItem(health2);
 
 }
 
@@ -34,32 +55,33 @@ QPushButton *BattleHUD::getAttackButton()
 }
 
 void BattleHUD::setPokemon(Pokemon *pk1, Pokemon *pk2) {
-    QGraphicsPixmapItem *pokemon1Item = new QGraphicsPixmapItem(QPixmap(":/pokemons/pk_sprite/" + QString::number(pk1->getId()) + "_front.png").scaled(200, 200));
-    pokemon1Item->setPos(20, 70);
+    pokemon1 = pk1;
+    pokemon2 = pk2;
+    pokemon1Item->setPixmap(QPixmap(":/pokemons/pk_sprite/" + QString::number(pk1->getId()) + "_front.png").scaled(200, 200));
+    pokemon2Item->setPixmap(QPixmap(":/pokemons/pk_sprite/" + QString::number(pk2->getId()) + "_front.png"));
 
-    QGraphicsPixmapItem *pokemon2Item = new QGraphicsPixmapItem(QPixmap(":/pokemons/pk_sprite/" + QString::number(pk2->getId()) + "_front.png"));
-    pokemon2Item->setPos(300, 30);
-
-    QString fulllifePK1 = QString::number(pk1->getHealth());
-    QString fulllifePK2 = QString::number(pk2->getHealth());
+    QString fulllifePK1 = QString::number(pk1->getItsMaxHealth());
+    QString fulllifePK2 = QString::number(pk2->getItsMaxHealth());
 
     QString healthText1 = QString::number(pk1->getHealth()) + "/" + fulllifePK1;
 
-    QGraphicsTextItem *health1 = new QGraphicsTextItem(healthText1);
-    QFont promptFont("Arial", 15);
-    health1->setDefaultTextColor(Qt::white);
-    health1->setFont(promptFont);
-    health1->setPos(80, 100);
+    health1->setPlainText(healthText1);
 
     QString healthText2 = QString::number(pk2->getHealth()) + "/" + fulllifePK2;
 
-    QGraphicsTextItem *health2 = new QGraphicsTextItem(healthText2);
-    health2->setDefaultTextColor(Qt::white);
-    health2->setFont(promptFont);
-    health2->setPos(320, 30);
+    health2->setPlainText(healthText2);
 
-    addItem(pokemon1Item);
-    addItem(pokemon2Item);
-    addItem(health1);
-    addItem(health2);
+
+    update();
+    qDebug() << healthText2;
+}
+
+Pokemon *BattleHUD::getPokemon1() const
+{
+    return pokemon1;
+}
+
+Pokemon *BattleHUD::getPokemon2() const
+{
+    return pokemon2;
 }

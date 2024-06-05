@@ -40,6 +40,8 @@ public:
 
     void keyReleaseEvent(QKeyEvent *event);
 
+    void addPokemon(Pokemon *pokemon);
+
 private:
     float scale = 1.8; ///< The scale factor for the player.
 

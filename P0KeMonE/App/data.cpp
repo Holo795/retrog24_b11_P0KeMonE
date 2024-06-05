@@ -35,22 +35,25 @@ Data::~Data()
 
 
 
-Pokemon * Data::randompokemon()
+Pokemon* Data::randompokemon()
 {
+    qDebug() << "Entering randompokemon()";
 
     // query to get random pokemon
     QSqlQuery query;
-    query.exec("SELECT P.id, P.name, P.base_experience, P.height, P.weight, P.hp, P.attack, P.defense, P.special_attack, P.special_defense, P.speed, T.id_type FROM pokemon P JOIN type_pk T ON P.id = T.id_pk WHERE T.id_type < 6 ORDER BY RANDOM() LIMIT 1");
+    if (!query.exec("SELECT P.id, P.name, P.base_experience, P.height, P.weight, P.hp, P.attack, P.defense, P.special_attack, P.special_defense, P.speed, T.id_type FROM pokemon P JOIN type_pk T ON P.id = T.id_pk WHERE T.id_type < 6 ORDER BY RANDOM() LIMIT 1"))
+    {
+        qDebug() << "Error: query execution failed" << query.lastError();
+        return nullptr;
+    }
 
-    Pokemon *pokemon = nullptr; // init pokemon pointer null
-
-
+    Pokemon* pokemon = nullptr; // init pokemon pointer null
 
     if (query.next())
     {
         // get pokemon data from query
         int id = query.value("id").toInt();
-        string name = query.value("name").toString().toStdString();
+        QString name = query.value("name").toString();
         int hp = query.value("hp").toInt();
         int attack = query.value("attack").toInt();
         int defense = query.value("defense").toInt();
@@ -60,7 +63,18 @@ Pokemon * Data::randompokemon()
         PKTYPE type = static_cast<PKTYPE>(query.value("id_type").toInt());
 
         //cretation of the pokemon object
-        pokemon = new Pokemon(id, name, type, hp, speed, attack, special_attack, defense, special_defense, 1);
+        pokemon = new Pokemon(id, name.toStdString(), type, hp, speed, attack, special_attack, defense, special_defense, 1);
+
+        qDebug() << "Pokemon created: " << name;
+
+
+        // Call to getMoves
+        QList<Move> moves = getMoves(id);
+        if (moves.size() == 0) {
+            return randompokemon();
+
+        }
+        pokemon->setItsMoves(moves);
 
         // return the pokemon object
         return pokemon;
@@ -68,47 +82,54 @@ Pokemon * Data::randompokemon()
     else
     {
         // message if query failed
-        qDebug() << "Error: query failed";
+        qDebug() << "Error: no results returned from query";
     }
 
     // return the pokemon object
     return pokemon;
-
-
 }
 
-QList<Move> Data::getMoves(int id)
+
+QList<Move> Data::getMoves(int pokemon_id)
 {
-    // query to get moves of a pokemon
+    qDebug() << "Entering getMoves() with pokemon_id:" << pokemon_id;
+
+    // Préparation de la requête SQL pour obtenir les mouvements d'un Pokémon
     QSqlQuery query;
-    query.prepare("SELECT id, name, power, accuracy, id_type FROM move WHERE id_pk = :id");
-    query.bindValue(":id", id);
-    query.exec();
+    QString queryString = "SELECT move.name, move.power, move.accuracy, move.spephy "
+                          "FROM pokemon "
+                          "JOIN move_pk ON pokemon.id = move_pk.id_pk "
+                          "JOIN move ON move_pk.id_move = move.id "
+                          "WHERE pokemon.id = " + QString::number(pokemon_id);
 
-    QList<Move> moves; // list of moves
+    // Exécution de la requête SQL
+    if (!query.exec(queryString))
+    {
+        // Si la requête échoue, affichez l'erreur
+        qDebug() << "Error: query execution failed" << query.lastError();
+        return QList<Move>();
+    }
 
+    QList<Move> moves; // Liste des mouvements
+
+    // Parcours des résultats de la requête
     while (query.next())
     {
-        // get move data from query
-        int id = query.value("id").toInt();
-        string name = query.value("name").toString().toStdString();
+        // Récupération des données du mouvement depuis la requête
+        QString name = query.value("name").toString();
         int power = query.value("power").toInt();
         int accuracy = query.value("accuracy").toInt();
-        MOVENATURE nature = query.value("spephy") == "special" ? MOVENATURE::Spéciale : MOVENATURE::Physique;
+        MOVENATURE nature = query.value("spephy").toString() == "special" ? MOVENATURE::Spéciale : MOVENATURE::Physique;
 
-        // creation of the move object
-        Move move(name, power, accuracy, nature);
+        qDebug() << "Move: " << name; // Affichage du nom du mouvement
 
-        // add move to the list
+        // Création de l'objet Move
+        Move move(name.toStdString(), power, accuracy, nature);
+
+        // Ajout du mouvement à la liste
         moves.append(move);
     }
 
-    // return the list of moves
+    // Retourne la liste des mouvements
     return moves;
 }
-
-
-
-
-
-

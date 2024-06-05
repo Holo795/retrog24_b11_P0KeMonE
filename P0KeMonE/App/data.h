@@ -44,10 +44,10 @@ public:
 
     /**
      * @brief getMoves
-     * @param id
+     * @param pokemon_id
      * @return Une QList de capacités (moves) associées à un Pokémon.
      */
-    QList<Move> getMoves(int id);
+    QList<Move> getMoves(int pokemon_id);
 };
 
 #endif // DATA_H

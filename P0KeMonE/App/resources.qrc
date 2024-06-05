@@ -295,5 +295,6 @@
     <qresource prefix="/battleHUD">
         <file>battleHUD-background.png</file>
         <file>fight_button.png.opdownload</file>
+        <file>naafvpduf2861.png</file>
     </qresource>
 </RCC>

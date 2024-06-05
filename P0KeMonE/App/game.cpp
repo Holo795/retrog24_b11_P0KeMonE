@@ -1,5 +1,6 @@
 #include "game.h"
 #include "player.h"
+#include "battle.h"
 
 #include <QPushButton>
 Game::Game(Model *model, GUI *gui, QWidget *parent)
@@ -15,10 +16,12 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     setRenderHint(QPainter::Antialiasing);
 
 
-
     connect(gui->map()->getPlayer(), &Player::startEncounterCombat, this, &Game::showFight);
 
     connect(gui->battle()->getAttackButton(), &QPushButton::clicked, this, &Game::fight);
+
+    waitFight = new QTimer(this);
+    connect(waitFight, &QTimer::timeout, this, &Game::continuefight);
 
     QTimer *updateTimer = new QTimer(this);
     connect(updateTimer, &QTimer::timeout, this, &Game::updateView);
@@ -26,6 +29,11 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
 }
 
 Game::~Game() {}
+
+void Game::drawMap()
+{
+
+}
 
 void Game::keyPressEvent(QKeyEvent *event) {
     if (scene()->focusItem() != nullptr) {
@@ -35,6 +43,12 @@ void Game::keyPressEvent(QKeyEvent *event) {
             resetTransform();
             setScene(gui->map());
             scale(1.5, 1.5);
+            player = gui->map()->getPlayer();
+            if(player->getTeam().empty())
+            {
+                player->addPokemon(model->getData()->randompokemon());
+                qDebug() << player->getTeam().front()->getItsMoves().size();
+            }
         }
 
         QGraphicsView::keyPressEvent(event);
@@ -59,10 +73,37 @@ void Game::updateView() {
 
 void Game::showFight() {
     resetTransform();
-    setScene(gui->battle(model->getData()->randompokemon(), model->getData()->randompokemon()));
+    setScene(gui->battle(player->getTeam().front(), model->getData()->randompokemon()));
 }
 
 void Game::fight() {
-    qDebug() << "azdfgn,";
+    if(waitFight->isActive()) return;
+
+    battle = new Battle(player, gui->battle()->getPokemon2(), gui->battle());
+    battle->attack(&player->getTeam().front()->getItsMoves()[0], gui->battle()->getPokemon2());
+
+
+    waitFight->start(1000);
+}
+
+void Game::continuefight()
+{
+    waitFight->stop();
+
+    if(gui->battle()->getPokemon1()->getHealth() <= 0)
+    {
+        resetTransform();
+        setScene(gui->gameOver());
+
+    }
+
+    if(gui->battle()->getPokemon2()->getHealth() <= 0)
+    {
+        scale(1.5, 1.5);
+        setScene(gui->map());
+
+    }
+    battle->attack(&gui->battle()->getPokemon2()->getItsMoves()[0], player->getTeam().front());
+
 }
 

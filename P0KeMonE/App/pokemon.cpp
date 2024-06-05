@@ -1,11 +1,13 @@
 #include "pokemon.h"
 
+
 Pokemon::Pokemon(int id_pk, string itsName, PKTYPE itsType, int itsHealth, int itsSpeed, int itsAtk, int itsSpAtk, int itsDef, int itsSpDef, int itsLevel)
 {
     this->id_pk = id_pk;
     this->itsName = itsName;
     this->itsType = itsType;
     this->itsHealth = itsHealth;
+    this->itsMaxHealth = itsHealth;
     this->itsSpeed = itsSpeed;
     this->itsAtk = itsAtk;
     this->itsSpAtk = itsSpAtk;
@@ -28,11 +30,10 @@ void Pokemon::takeDamage(int damage)
 {
 
     itsHealth -= damage;
-}
-
-void Pokemon::attack(Pokemon &target, Move move)
-{
-    
+    if (itsHealth < 0)
+    {
+        itsHealth = 0;
+    }
 }
 
 int Pokemon::getLvl() const
@@ -66,4 +67,25 @@ int Pokemon::getSpDef() const {
 int Pokemon::getId() const
 {
     return id_pk;
+}
+
+string Pokemon::getItsName() const
+{
+    return itsName;
+}
+
+int Pokemon::getItsMaxHealth() const
+{
+    return itsMaxHealth;
+}
+
+QList<Move> Pokemon::getItsMoves() const
+{
+    return itsMoves;
+}
+
+
+void Pokemon::setItsMoves(const QList<Move> &newItsMoves)
+{
+    itsMoves = newItsMoves;
 }

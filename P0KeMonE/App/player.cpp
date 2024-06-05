@@ -105,3 +105,11 @@ void Player::keyPressEvent(QKeyEvent *event) {
 void Player::keyReleaseEvent(QKeyEvent *event) {
     stopMoving();
 }
+
+void Player::addPokemon(Pokemon *pokemon)
+{
+
+    itsTeam.push_back(pokemon);
+}
+
+

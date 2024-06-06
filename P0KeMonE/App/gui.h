@@ -72,7 +72,7 @@ public:
      * @brief Accessor for the player HUD.
      * @return Pointer to the PlayerHUD object.
      */
-    PlayerHUD * playerTeam(vector<Pokemon *> pokemons);
+    PlayerHUD * playerTeam(vector<Pokemon *> pokemons, int itsLevel);
 
     /**
      * @brief Accessor for the player HUD.

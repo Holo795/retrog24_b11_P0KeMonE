@@ -16,7 +16,7 @@ class PlayerHUD : public QGraphicsScene
     Q_OBJECT
 public:
     PlayerHUD(QObject *parent = nullptr);
-    void setPokemons(const std::vector<Pokemon*>& pokemons);
+    void setPokemons(const std::vector<Pokemon*>& pokemons, int itsLevelPlayer);
     void setSelectionMode(bool selectionMode);
     void updateHUD();
 
@@ -34,6 +34,7 @@ private:
     QGraphicsPixmapItem *selectionArrow;
     bool selectionMode;
     int selectedIndex;
+    int itsLevelPlayer;
 
 signals:
     void pokemonSelected(Pokemon *pokemon);

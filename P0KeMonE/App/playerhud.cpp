@@ -7,9 +7,11 @@ PlayerHUD::PlayerHUD(QObject *parent)
     setSceneRect(0, 0, 478, 320);
  }
 
-void PlayerHUD::setPokemons(const std::vector<Pokemon*>& pokemons)
+void PlayerHUD::setPokemons(const std::vector<Pokemon*>& pokemons, int itsLevelPlayer)
 {
     this->pokemons = pokemons;
+    this->itsLevelPlayer = itsLevelPlayer;
+
     updateHUD();
 }
 
@@ -60,7 +62,15 @@ void PlayerHUD::updateHUD()
         removeItem(selectionArrow);
         delete selectionArrow;
         selectionArrow = nullptr;
+    } else {
+
+        QGraphicsTextItem *levelText = new QGraphicsTextItem(QString("Level %1").arg(itsLevelPlayer));
+        levelText->setDefaultTextColor(Qt::black);
+        levelText->setFont(QFont("Arial", 12, QFont::Bold));
+        addItem(levelText);
+        levelText->setPos(10, 10);
     }
+
 }
 
 void PlayerHUD::addCharacter(const QPixmap &characterImage, int currentHealth, int maxHealth, int xPos, int yPos)

@@ -42,20 +42,35 @@ Game::~Game() {
 
 void Game::keyPressEvent(QKeyEvent *event) {
     // Handle key presses for game interactions
-        if (event->key() == Qt::Key_Space)
+    if (event->key() == Qt::Key_Space && scene()->objectName() == gui->mainMenu()->objectName())
         {
             resetTransform();
             setScene(gui->map());
             scale(1.5, 1.5);
             player = gui->map()->getPlayer();
+            player->setFocus();
             if(player->getTeam().empty())
             {
                 player->addPokemon(model->getData()->randompokemon());
                 qDebug() << player->getTeam().front()->getItsMoves().size();
             }
+
+        }
+
+    if (event->key() == Qt::Key_I && scene()->objectName() == gui->map()->objectName())
+        {
+            resetTransform();
+            setScene(gui->playerTeam(player->getTeam(), player->getItsLevel()));
+            QTimer::singleShot(2000, this, [&](){
+                setScene(gui->map());
+                player->setFocus();
+                scale(1.5, 1.5);
+            });
+
         }
 
         QGraphicsView::keyPressEvent(event);
+
 }
 
 void Game::mousePressEvent(QMouseEvent *event){
@@ -134,6 +149,7 @@ void Game::endFight(bool playerWon)
         setScene(gui->map());
         scale(1.5, 1.5);
         player->incrementWinCount();
+        player->setFocus();
         int winsRequired = (player->getItsLevel() == 1.0) ? 1 : (player->getItsLevel() == 2.0) ? 2 : 5;
 
         if (player->getWinCount() >= winsRequired)

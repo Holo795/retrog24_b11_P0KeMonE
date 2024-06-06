@@ -3,6 +3,7 @@
 #include <QGraphicsTextItem>
 #include <QGraphicsItemAnimation>
 #include <QTimeLine>
+#include <QButtonGroup>
 
 #include "pokemon.h"
 
@@ -34,17 +35,24 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
 
     attackButton->setIconSize(QSize(buttonWidth, buttonHeight));
     attackButton->setFixedSize(buttonWidth, buttonHeight);
-    attackButton->setGeometry(40, 250, buttonWidth, buttonHeight);
+    attackButton->setGeometry(270, 240, buttonWidth, buttonHeight);
 
     pokemonButton->setIconSize(QSize(buttonWidth, buttonHeight));
     pokemonButton->setFixedSize(buttonWidth, buttonHeight);
-    pokemonButton->setGeometry(190, 250, buttonWidth, buttonHeight);
+    pokemonButton->setGeometry(375, 240, buttonWidth, buttonHeight);
 
     runButton->setIconSize(QSize(buttonWidth, buttonHeight));
     runButton->setFixedSize(buttonWidth, buttonHeight);
-    runButton->setGeometry(340, 250, buttonWidth, buttonHeight);
+    runButton->setGeometry(322, 280, buttonWidth, buttonHeight);
+
+
+    // Initailize the moves buttons and texte dialogue box
+    dialogueBox = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/dialogue_box.png").scaled(270, 80));
+    dialogueBox->setPos(0, 240);
+
 
     // Add elements to the scene
+    addItem(dialogueBox);
     addItem(background);
     addWidget(attackButton);
     addWidget(pokemonButton);
@@ -212,4 +220,49 @@ Pokemon *BattleHUD::getPokemon1() const
 Pokemon *BattleHUD::getPokemon2() const
 {
     return pokemon2;
+}
+
+void BattleHUD::displayMoves(QList<Move> moves)
+{
+
+    attackButton->close();
+    delete pokemonButton;
+    delete runButton;
+    delete dialogueBox;
+
+    // Create and add new move buttons
+    int buttonWidth = 105;
+    int buttonHeight = 40;
+
+    moveButtonsGroup = new QButtonGroup(this);
+
+    QPoint positions[] = { QPoint(0, 240), QPoint(105, 240), QPoint(0, 280), QPoint(105, 280) };
+
+    for(int i = 0; i < pokemon1->getItsMoves().size(); ++i) {
+        if(i > 3) {
+            break;
+        }
+
+        std::string moveName = pokemon1->getItsMoves()[i].getItsName();
+        QString qMoveName = QString::fromStdString(moveName);
+        QPushButton *moveButton = new QPushButton(qMoveName);
+
+        moveButton->setGeometry(positions[i].x(), positions[i].y(), buttonWidth, buttonHeight);
+
+        addWidget(moveButton);
+        moveButtonsGroup->addButton(moveButton, i);
+
+        qDebug() << pokemon1->getItsMoves()[i].getItsName();
+    }
+
+    QPushButton *backButton = new QPushButton("BACK");
+    backButton->setGeometry(210, 240, buttonWidth, buttonHeight);
+    addWidget(backButton);
+
+
+}
+
+QButtonGroup *BattleHUD::getMoveGroup()
+{
+    return moveButtonsGroup;
 }

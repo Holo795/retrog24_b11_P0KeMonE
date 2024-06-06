@@ -47,6 +47,8 @@ public:
      * @param target Pointer to the Pokémon being targeted.
      */
     void attack(Move *move, Pokemon *target);
+
+    BattleHUD *getBattleHUD();
 };
 
 #endif // BATTLE_H

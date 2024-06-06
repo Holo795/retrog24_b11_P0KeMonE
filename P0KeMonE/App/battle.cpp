@@ -46,3 +46,8 @@ void Battle::attack(Move *move, Pokemon *target) {
 
     itsBattleHUD1->setPokemon(itsPlayer1->getTeam().front(), itsOpponent1);
 }
+
+BattleHUD *Battle::getBattleHUD()
+{
+    return itsBattleHUD1;
+}

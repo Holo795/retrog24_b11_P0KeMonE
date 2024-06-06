@@ -58,6 +58,8 @@ public slots:
     void endFight(bool playerWon); ///< End the ongoing fight.
     void run(); ///< When the run button is clicked
     void generateNewOpponent(); ///< To prepare the next fight
+    void showMoves();
+    void handleAttackButtonClicked(QAbstractButton *button);
 };
 
 #endif // GAME_H

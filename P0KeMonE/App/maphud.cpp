@@ -3,11 +3,14 @@
 /**
  * Initializes the MapHUD scene, sets up the map layout based on the model's map data.
  */
-MapHUD::MapHUD(Model *model, QObject *parent) : QGraphicsScene(parent), model(model) {
-    setObjectName("map"); // Name the scene for reference
-
-    model->loadMap(":/map/map.txt"); // Load map data from a file
-    drawMap(); // Draw the initial map layout
+MapHUD::MapHUD(Model *model, QObject *parent)
+    : QGraphicsScene(parent), model(model),
+    gen(std::random_device{}()), // Seed the generator with random_device
+    encounterDist(1, 100) // Set the range for encounter checks
+{
+    setObjectName("map");
+    model->loadMap(":/maps/map.txt");
+    drawMap();
 }
 
 /**
@@ -79,16 +82,15 @@ void MapHUD::drawMap() {
  * Also handles random encounters in tall grass.
  */
 void MapHUD::keyPressEvent(QKeyEvent *event) {
-    player->keyPressEvent(event); // Delegate key press to player
+    player->keyPressEvent(event);
 
-    // Random encounter logic in tall grass
     QVector<char> tallgrass = {'Y', 'H', 'L', 'G', 'M', 'D', 'Z', 'B', 'W'};
     int x_foot = player->x() + 2;
     int y_foot = player->y() + player->pixmap().height();
     if (tallgrass.contains(model->getMap()[y_foot / 32][x_foot / 32])) {
-        if (rand() % 100 < 15) {
-            player->stopMoving(); // Stop player movement
-            emit player->startEncounterCombat(); // Signal an encounter
+        if (encounterDist(gen) < 15) { // Use the distribution and generator
+            player->stopMoving();
+            emit player->startEncounterCombat();
         }
     }
 }

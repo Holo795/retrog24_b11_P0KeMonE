@@ -8,6 +8,7 @@
 
 #include <QGraphicsScene>
 #include <QKeyEvent>
+#include <random>
 
 #include "player.h"
 #include "model.h"
@@ -49,6 +50,8 @@ public:
 private:
     Model *model; ///< Pointer to the model.
     Player *player; ///< Pointer to the player.
+    std::mt19937 gen; ///< Mersenne Twister random number generator.
+    std::uniform_int_distribution<> encounterDist; ///< Distribution for random encounters.
 
 protected:
     /**

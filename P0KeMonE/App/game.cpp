@@ -22,10 +22,6 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     //connect(gui->battle()->getPokemonButton(), &QPushButton::clicked, this, &Game::switchPokemon);
     connect(gui->battle()->getRunButton(), &QPushButton::clicked, this, &Game::run);
 
-    // Initialize timer for fight sequences
-    waitFight = new QTimer(this);
-    connect(waitFight, &QTimer::timeout, this, &Game::continuefight);
-
     // Timer for updating the view regularly
     QTimer *updateTimer = new QTimer(this);
     connect(updateTimer, &QTimer::timeout, this, &Game::updateView);
@@ -42,9 +38,6 @@ Game::~Game() {
 
     // Deallocate memory for the battle object
     delete battle;
-
-    // Deallocate memory for the waitFight timer
-    delete waitFight;
 }
 
 void Game::keyPressEvent(QKeyEvent *event) {
@@ -97,22 +90,23 @@ void Game::showFight() {
 void Game::fight() {
     // Manage initiating and processing a battle round
 
-    if(waitFight->isActive()) return;
+    gui->battle()->getAttackButton()->setEnabled(false); // Disable the attack button to prevent multiple clicks
 
     battle = new Battle(player, gui->battle()->getPokemon2(), gui->battle());
     battle->attack(&player->getTeam().front()->getItsMoves()[0], gui->battle()->getPokemon2());
 
-
-    waitFight->start(1000);
+    QTimer::singleShot(2000, this, &Game::continuefight);
 }
 
 void Game::continuefight()
 {
     // Continue the fight based on battle outcome or player actions
 
-    waitFight->stop();
-
     battle->attack(&gui->battle()->getPokemon2()->getItsMoves()[0], player->getTeam().front());
+
+    QTimer::singleShot(1000, this, [&](){
+        gui->battle()->getAttackButton()->setEnabled(true);
+    });
 
     if(gui->battle()->getPokemon1()->getHealth() <= 0)
     {

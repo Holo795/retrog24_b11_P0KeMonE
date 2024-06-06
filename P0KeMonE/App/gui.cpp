@@ -83,7 +83,7 @@ PlayerHUD *GUI::TeamHUD() {
  */
 PlayerHUD *GUI::selectPokemon(vector<Pokemon *> pokemons) {
     // Set the player in the player HUD before returning it
-    playerHUD->setPokemons(pokemons,0);
     playerHUD->setSelectionMode(true);
+    playerHUD->setPokemons(pokemons,0);
     return playerHUD;
 }

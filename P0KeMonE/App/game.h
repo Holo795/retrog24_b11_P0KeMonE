@@ -40,13 +40,14 @@ public:
     ~Game();
 
 private:
-    Model *model; ///< Pointer to the game model.
-    GUI *gui; ///< Pointer to the graphical user interface.
-    Player *player; ///< Pointer to the player object.
-    Battle *battle; ///< Pointer to the current battle context.
+    Model *model = nullptr; ///< Pointer to the game model.
+    GUI *gui = nullptr; ///< Pointer to the graphical user interface.
+    Player *player = nullptr; ///< Pointer to the player object.
+    Battle *battle = nullptr; ///< Pointer to the current battle context.
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
+    void keyReleaseEvent(QKeyEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseDoubleClickEvent(QMouseEvent *event) override;
 

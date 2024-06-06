@@ -43,6 +43,9 @@ void Game::setScene(QGraphicsScene *scene) {
     // Set the current scene for the game view
     resetTransform();
 
+    if(player != nullptr)
+        player->stopMoving();
+
     if(gui->mainMenu()->objectName() == scene->objectName()) {
             scale(0.55, 0.55); // Scale down for the initial menu view
     } else if (gui->map()->objectName() == scene->objectName()) {
@@ -68,16 +71,18 @@ void Game::keyPressEvent(QKeyEvent *event) {
     }
 
     if (event->key() == Qt::Key_I && scene()->objectName() == gui->map()->objectName())
-    {
         setScene(gui->playerTeam(player->getTeam(), player->getItsLevel()));
-        QTimer::singleShot(2000, this, [&](){
-            setScene(gui->map());
-        });
-
-    }
 
     QGraphicsView::keyPressEvent(event);
 
+}
+
+void Game::keyReleaseEvent(QKeyEvent *event) {
+    // Handle key releases for game interactions
+    if (event->key() == Qt::Key_I && scene()->objectName() == gui->TeamHUD()->objectName())
+        setScene(gui->map());
+
+    QGraphicsView::keyReleaseEvent(event);
 }
 
 void Game::mousePressEvent(QMouseEvent *event){

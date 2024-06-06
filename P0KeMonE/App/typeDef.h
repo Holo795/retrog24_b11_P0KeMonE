@@ -11,7 +11,7 @@ enum PKTYPE {
     Feu,         /**< Type Feu */
     Eau,         /**< Type Eau */
     Electrique,  /**< Type Electrique */
-    Glace,       /**< Type Glace */
+    Sol,       /**< Type Sol */
     Vol          /**< Type Vol */
 };
 

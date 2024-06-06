@@ -8,7 +8,7 @@
 GameOverHUD::GameOverHUD(QObject *parent) : QGraphicsScene(parent)
 {
     // Load a background image for the game over screen
-    QImage backgroundImage(":/battleHUD/naafvpduf2861.png");
+    QImage backgroundImage(":/hud/battlehud_assets/game_over_bg.png");
 
     // Resize the image to fit the desired dimensions while maintaining aspect ratio
     QImage scaledImage = backgroundImage.scaled(480, 320, Qt::KeepAspectRatio);

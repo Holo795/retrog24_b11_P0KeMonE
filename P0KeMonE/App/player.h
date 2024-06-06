@@ -60,11 +60,15 @@ public:
      */
     void addPokemon(Pokemon *pokemon);
 
+    float getItsLevel() const;
+    void setItsLevel(float newItsLevel);
+
 private:
     float scale = 1.8; ///< Scale factor for the player's graphical representation.
     std::vector<Pokemon*> itsTeam; ///< The player's team of Pokémon.
     QTimer *movementTimer; ///< Timer for handling continuous movement.
     QSet<int> activeKeys; ///< Set of currently pressed keys.
+    float itsLevel = 0.0; ///< The player's movement speed.
 
     /**
      * @brief Checks for collisions at the new position.

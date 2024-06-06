@@ -31,6 +31,7 @@ HEADERS += \
     game.h \
     gameoverhud.h \
     gui.h \
+    include/json.hpp \
     mainhud.h \
     maphud.h \
     model.h \

@@ -107,7 +107,7 @@ QPushButton *BattleHUD::getRunButton()
 void BattleHUD::setPokemon(Pokemon *pk1, Pokemon *pk2) {
     pokemon1 = pk1;
     pokemon2 = pk2;
-    pokemon1Item->setPixmap(QPixmap(":/sprites/pk_sprites/" + QString::number(pk1->getId()) + "_front.png").scaled(200, 200));
+    pokemon1Item->setPixmap(QPixmap(":/sprites/pk_sprites/" + QString::number(pk1->getId()) + "_back.png").scaled(200, 200));
     pokemon2Item->setPixmap(QPixmap(":/sprites/pk_sprites/" + QString::number(pk2->getId()) + "_front.png"));
 
     QString fulllifePK1 = QString::number(pk1->getItsMaxHealth());

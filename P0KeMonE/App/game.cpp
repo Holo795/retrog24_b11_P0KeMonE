@@ -6,7 +6,6 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     : QGraphicsView(parent), model(model), gui(gui) {
     // Configure the initial scene and scaling
     setScene(gui->mainMenu());
-    scale(0.55, 0.55); // Scale down for the initial menu view
     setFixedSize(480, 320); // Set fixed size to maintain consistent UI
 
     // Disable scrollbars for a cleaner look
@@ -40,12 +39,18 @@ Game::~Game() {
     delete battle;
 }
 
-void Game::showMap() {
-    // Display the game map scene
+void Game::setScene(QGraphicsScene *scene) {
+    // Set the current scene for the game view
     resetTransform();
-    setScene(gui->map());
-    scale(1.5, 1.5); // Scale up for the game map view
-    player->setFocus();
+
+    if(gui->mainMenu()->objectName() == scene->objectName()) {
+            scale(0.55, 0.55); // Scale down for the initial menu view
+    } else if (gui->map()->objectName() == scene->objectName()) {
+            scale(1.5, 1.5); // Scale up for the battle view
+            player->setFocus(); // Set focus on the player object
+    }
+
+    QGraphicsView::setScene(scene);
 }
 
 void Game::keyPressEvent(QKeyEvent *event) {
@@ -53,7 +58,7 @@ void Game::keyPressEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_Space && scene()->objectName() == gui->mainMenu()->objectName())
     {
         player = gui->map()->getPlayer();
-        showMap();
+        setScene(gui->map());
         if(player->getTeam().empty())
         {
             player->addPokemon(model->getData()->randompokemon());
@@ -64,10 +69,9 @@ void Game::keyPressEvent(QKeyEvent *event) {
 
     if (event->key() == Qt::Key_I && scene()->objectName() == gui->map()->objectName())
     {
-        resetTransform();
         setScene(gui->playerTeam(player->getTeam(), player->getItsLevel()));
         QTimer::singleShot(2000, this, [&](){
-            showMap();
+            setScene(gui->map());
         });
 
     }
@@ -99,7 +103,6 @@ void Game::updateView() {
 
 void Game::showFight() {
     // Switch the scene to the battle interface
-    resetTransform();
     setScene(gui->battle(player->getTeam().front(), model->getData()->randompokemon()));
 }
 

@@ -45,15 +45,15 @@ private:
     Player *player; ///< Pointer to the player object.
     Battle *battle; ///< Pointer to the current battle context.
 
-    void showMap(); ///< Displays the game map.
-
 protected:
     void keyPressEvent(QKeyEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseDoubleClickEvent(QMouseEvent *event) override;
 
-
 public slots:
+
+    void setScene(QGraphicsScene *scene); ///< Sets the current scene for the game view.
+
     void updateView(); ///< Updates the view to ensure the player remains centered.
     void showFight(); ///< Transitions the game to the battle scene.
     void fight(); ///< Initiates a fight round.

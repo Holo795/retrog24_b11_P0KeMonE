@@ -40,6 +40,18 @@ public:
     QPushButton *getAttackButton();
 
     /**
+     * @brief Retrieves the pokemon button.
+     * @return A pointer to the QPushButton used for changing pokemon.
+     */
+    QPushButton *getPokemonButton();
+
+    /**
+     * @brief Retrieves the run button.
+     * @return A pointer to the QPushButton used for leaving the battle.
+     */
+    QPushButton *getRunButton();
+
+    /**
      * @brief Updates the displayed Pokémon and their health on the HUD.
      * @param pk1 Pointer to the first Pokémon.
      * @param pk2 Pointer to the second Pokémon.
@@ -60,6 +72,8 @@ public:
 
 private:
     QPushButton *attackButton;           /**< Button used for initiating attacks. */
+    QPushButton *pokemonButton;           /**< Button used for switching pokemons. */
+    QPushButton *runButton;           /**< Button used for leaving the fight. */
     Pokemon *pokemon1;                   /**< First Pokémon displayed on the HUD. */
     Pokemon *pokemon2;                   /**< Second Pokémon displayed on the HUD. */
     QGraphicsPixmapItem *pokemon1Item;   /**< Graphics item for the first Pokémon's image. */

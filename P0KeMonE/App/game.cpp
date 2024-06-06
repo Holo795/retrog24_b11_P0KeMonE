@@ -6,7 +6,6 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     : QGraphicsView(parent), model(model), gui(gui) {
     // Configure the initial scene and scaling
     setScene(gui->mainMenu());
-    scale(0.55, 0.55); // Scale down for the initial menu view
     setFixedSize(480, 320); // Set fixed size to maintain consistent UI
 
     // Disable scrollbars for a cleaner look
@@ -40,25 +39,50 @@ Game::~Game() {
     delete battle;
 }
 
+void Game::setScene(QGraphicsScene *scene) {
+    // Set the current scene for the game view
+    resetTransform();
+
+    if(player != nullptr)
+        player->stopMoving();
+
+    if(gui->mainMenu()->objectName() == scene->objectName()) {
+            scale(0.55, 0.55); // Scale down for the initial menu view
+    } else if (gui->map()->objectName() == scene->objectName()) {
+            scale(1.5, 1.5); // Scale up for the battle view
+            player->setFocus(); // Set focus on the player object
+    }
+
+    QGraphicsView::setScene(scene);
+}
+
 void Game::keyPressEvent(QKeyEvent *event) {
     // Handle key presses for game interactions
-    if (scene()->focusItem() != nullptr) {
-
-        if (event->key() == Qt::Key_Space)
+    if (event->key() == Qt::Key_Space && scene()->objectName() == gui->mainMenu()->objectName())
+    {
+        player = gui->map()->getPlayer();
+        setScene(gui->map());
+        if(player->getTeam().empty())
         {
-            resetTransform();
-            setScene(gui->map());
-            scale(1.5, 1.5);
-            player = gui->map()->getPlayer();
-            if(player->getTeam().empty())
-            {
-                player->addPokemon(model->getData()->randompokemon());
-                qDebug() << player->getTeam().front()->getItsMoves().size();
-            }
+            player->addPokemon(model->getData()->randompokemon());
+            qDebug() << player->getTeam().front()->getItsMoves().size();
         }
 
-        QGraphicsView::keyPressEvent(event);
     }
+
+    if (event->key() == Qt::Key_I && scene()->objectName() == gui->map()->objectName())
+        setScene(gui->playerTeam(player->getTeam(), player->getItsLevel()));
+
+    QGraphicsView::keyPressEvent(event);
+
+}
+
+void Game::keyReleaseEvent(QKeyEvent *event) {
+    // Handle key releases for game interactions
+    if (event->key() == Qt::Key_I && scene()->objectName() == gui->TeamHUD()->objectName())
+        setScene(gui->map());
+
+    QGraphicsView::keyReleaseEvent(event);
 }
 
 void Game::mousePressEvent(QMouseEvent *event){
@@ -73,6 +97,7 @@ void Game::mouseDoubleClickEvent(QMouseEvent *event){
     // Prevent loss of focus when clicking within the game view
 }
 
+
 void Game::updateView() {
     // Periodically refresh the game scene and re-center if necessary
     scene()->update();
@@ -83,7 +108,6 @@ void Game::updateView() {
 
 void Game::showFight() {
     // Switch the scene to the battle interface
-    resetTransform();
     setScene(gui->battle(player->getTeam().front(), model->getData()->randompokemon()));
 }
 
@@ -134,14 +158,31 @@ void Game::endFight(bool playerWon)
     {
         generateNewOpponent();
         setScene(gui->map());
-        scale(1.5, 1.5);
+        player->incrementWinCount();
+        double playerLevel = player->getItsLevel();
+        int winsRequired = 0;
+
+        if (playerLevel == 1.0) {
+            winsRequired = 1;
+        } else if (playerLevel == 2.0) {
+            winsRequired = 2;
+        } else if (playerLevel >= 3.0) {
+            winsRequired = 5;
+        }
+
+        if (player->getWinCount() >= winsRequired) {
+            player->setItsLevel(playerLevel + (playerLevel >= 3.0 ? 1.0 : 0.5));
+            player->setWinCount(0); // Réinitialise le compteur de victoires après avoir passé le niveau
+        }
+
+
+        qDebug() << "Level player: " << player->getItsLevel();
+        qDebug() << "Wins player: " << player->getWinCount();
     }
     else
     {
-        resetTransform();
         setScene(gui->gameOver());
     }
-
 }
 
 void Game::generateNewOpponent()

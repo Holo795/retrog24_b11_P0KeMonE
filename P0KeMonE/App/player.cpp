@@ -77,6 +77,7 @@ void Player::addPokemon(Pokemon *pokemon) {
     itsTeam.push_back(pokemon);
 }
 
+
 /**
  * @brief Checks for collisions at the new position.
  * @param newPos The new position to check for collisions.
@@ -160,3 +161,46 @@ void Player::updateSprite(const QString &direction) {
 
     setPixmap(QPixmap(sprites[index]).scaled(QSize(11, 16) * scale));
 }
+
+
+void Player::incrementWinCount()
+{
+    winCount++;
+}
+
+
+/**
+ * @brief Returns the current level of this Player.
+ */
+float Player::getItsLevel() const
+{
+    return itsLevel;
+}
+
+/**
+ * @brief Sets the current level of this Player.
+ * @param newItsLevel The new level to set.
+ */
+void Player::setItsLevel(float newItsLevel)
+{
+    itsLevel = newItsLevel;
+}
+
+
+/**
+ * @brief Returns the number of battles won by the player.
+ */
+int Player::getWinCount() const
+{
+    return winCount;
+}
+
+/**
+ * @brief Sets the number of battles won by the player.
+ * @param newWinCount The new number of battles won.
+ */
+void Player::setWinCount(int newWinCount)
+{
+    winCount = newWinCount;
+}
+

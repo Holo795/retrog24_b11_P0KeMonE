@@ -60,11 +60,25 @@ public:
      */
     void addPokemon(Pokemon *pokemon);
 
+    /**
+     * @brief Retrieves the player's scale factor.
+     * @return The scale factor for the player's graphical representation.
+     */
+    void incrementWinCount();
+
+    float getItsLevel() const;
+    void setItsLevel(float newItsLevel);
+
+    int getWinCount() const;
+    void setWinCount(int newWinCount);
+
 private:
     float scale = 1.8; ///< Scale factor for the player's graphical representation.
     std::vector<Pokemon*> itsTeam; ///< The player's team of Pokémon.
     QTimer *movementTimer; ///< Timer for handling continuous movement.
     QSet<int> activeKeys; ///< Set of currently pressed keys.
+    float itsLevel = 1.0; ///< The player's movement speed.
+    int winCount = 0; ///< The number of battles won by the player.
 
     /**
      * @brief Checks for collisions at the new position.

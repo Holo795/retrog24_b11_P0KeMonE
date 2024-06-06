@@ -19,6 +19,8 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     // Setup connections for player encounters and button clicks
     connect(gui->map()->getPlayer(), &Player::startEncounterCombat, this, &Game::showFight);
     connect(gui->battle()->getAttackButton(), &QPushButton::clicked, this, &Game::fight);
+    //connect(gui->battle()->getPokemonButton(), &QPushButton::clicked, this, &Game::switchPokemon);
+    connect(gui->battle()->getRunButton(), &QPushButton::clicked, this, &Game::run);
 
     // Initialize timer for fight sequences
     waitFight = new QTimer(this);
@@ -114,16 +116,40 @@ void Game::continuefight()
 
     if(gui->battle()->getPokemon1()->getHealth() <= 0)
     {
-        resetTransform();
-        setScene(gui->gameOver());
+        endFight(false);
         return;
     }
     else if(gui->battle()->getPokemon2()->getHealth() <= 0)
     {
-        setScene(gui->map());
-        scale(1.5, 1.5);
+        endFight(true);
         return;
     }
 
 }
 
+void Game::run()
+{
+    endFight(true);
+}
+
+void Game::endFight(bool playerWon)
+{
+    if (playerWon)
+    {
+        generateNewOpponent();
+        setScene(gui->map());
+        scale(1.5, 1.5);
+    }
+    else
+    {
+        resetTransform();
+        setScene(gui->gameOver());
+    }
+
+}
+
+void Game::generateNewOpponent()
+{
+    Pokemon* newOpponent = model->getData()->randompokemon();
+    gui->battle()->setPokemon(player->getTeam().front(), newOpponent);
+}

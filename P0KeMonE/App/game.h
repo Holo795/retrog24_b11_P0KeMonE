@@ -56,6 +56,9 @@ public slots:
     void showFight(); ///< Transitions the game to the battle scene.
     void fight(); ///< Initiates a fight round.
     void continuefight(); ///< Continues the ongoing fight.
+    void endFight(bool playerWon); ///< End the ongoing fight.
+    void run(); ///< When the run button is clicked
+    void generateNewOpponent(); ///< To prepare the next fight
 };
 
 #endif // GAME_H

@@ -1,0 +1,132 @@
+#include "playerhud.h"
+
+PlayerHUD::PlayerHUD(QObject *parent)
+    : QGraphicsScene(parent), selectionArrow(nullptr), selectionMode(false), selectedIndex(0)
+{
+    setObjectName("PlayerHUD");
+    setSceneRect(0, 0, 478, 320);
+ }
+
+void PlayerHUD::setPokemons(const std::vector<Pokemon*>& pokemons)
+{
+    this->pokemons = pokemons;
+    updateHUD();
+}
+
+void PlayerHUD::setSelectionMode(bool selectionMode)
+{
+    this->selectionMode = selectionMode;
+    updateHUD();
+}
+
+void PlayerHUD::updateHUD()
+{
+    // Clear previous items
+    for (auto item : characterItems) {
+        removeItem(item);
+        delete item;
+    }
+    characterItems.clear();
+
+    for (auto item : healthTextItems) {
+        removeItem(item);
+        delete item;
+    }
+    healthTextItems.clear();
+
+    for (auto widget : healthBars) {
+        removeItem(widget);
+        delete widget;
+    }
+    healthBars.clear();
+
+    if (pokemons.empty()) {
+        return;
+    }
+
+    int xOffset = 24; // Start x position
+    int yOffset = 50; // Start y position
+    int spacing = 150; // Space between characters
+
+    for (size_t i = 0; i < pokemons.size(); i++) {
+        Pokemon *pokemon = pokemons[i];
+        QPixmap characterImage = QPixmap(":/sprites/pk_sprites/" + QString::number(pokemon->getId()) + "_front.png").scaled(150, 150);
+        addCharacter(characterImage, pokemon->getHealth(), pokemon->getItsMaxHealth(), xOffset + i * spacing, yOffset);
+    }
+
+    if (selectionMode) {
+        updateSelectionArrow();
+    } else if (selectionArrow) {
+        removeItem(selectionArrow);
+        delete selectionArrow;
+        selectionArrow = nullptr;
+    }
+}
+
+void PlayerHUD::addCharacter(const QPixmap &characterImage, int currentHealth, int maxHealth, int xPos, int yPos)
+{
+    QGraphicsPixmapItem *characterItem = new QGraphicsPixmapItem(characterImage);
+    characterItems.append(characterItem);
+
+    if (!selectionMode) {
+        QGraphicsTextItem *healthTextItem = new QGraphicsTextItem(QString("%1/%2").arg(currentHealth).arg(maxHealth));
+        addItem(healthTextItem);
+        healthTextItems.append(healthTextItem);
+
+        QProgressBar *healthBar = new QProgressBar();
+        healthBar->setRange(0, maxHealth);
+        healthBar->setValue(currentHealth);
+        healthBar->setTextVisible(false);
+        healthBar->setStyleSheet("QProgressBar::chunk { "
+                                 "background-color: green; "
+                                 "border-radius: 4px; "
+                                 "}"
+                                 "QProgressBar {"
+                                 "border: 1px solid darkgreen;"
+                                 "border-radius: 4px;"
+                                 "}");
+        healthBar->setFixedSize(120, 10);
+
+        QGraphicsProxyWidget *proxyWidget = addWidget(healthBar);
+        healthBars.append(proxyWidget);
+
+        // Positioning
+        healthTextItem->setPos(xPos + 10, yPos + characterItem->pixmap().height());
+        proxyWidget->setPos(xPos + 5, yPos + characterItem->pixmap().height() + 20);
+        characterItem->setPos(xPos, yPos);
+    } else {
+        characterItem->setPos(xPos, yPos + 50);
+    }
+
+    addItem(characterItem);
+}
+
+void PlayerHUD::updateSelectionArrow()
+{
+    if (!selectionArrow) {
+        selectionArrow = new QGraphicsPixmapItem(QPixmap(":/hud/playerhud_assets/arrow.png").scaled(50, 50));
+        addItem(selectionArrow);
+    }
+    int xPos = 25 + selectedIndex * 150; // Calculate x position based on selectedIndex
+    selectionArrow->setPos(xPos + 50, 10); // Adjust the position of the arrow
+}
+
+void PlayerHUD::keyPressEvent(QKeyEvent *event)
+{
+    qDebug() << "Key pressed: " << event->key();
+
+    if (selectionMode) {
+        if (event->key() == Qt::Key_Left && selectedIndex > 0) {
+            selectedIndex--;
+            updateSelectionArrow();
+        } else if (event->key() == Qt::Key_Right && selectedIndex < pokemons.size() - 1) {
+            selectedIndex++;
+            updateSelectionArrow();
+        } else if (event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) {
+            // Handle the selection confirmation
+            // Emit a signal or call a method to process the selected Pokémon
+            emit pokemonSelected(pokemons[selectedIndex]);
+        }
+    }
+    QGraphicsScene::keyPressEvent(event);
+}

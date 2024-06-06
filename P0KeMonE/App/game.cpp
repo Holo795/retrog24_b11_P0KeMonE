@@ -102,6 +102,10 @@ void Game::continuefight()
 
     battle->attack(&gui->battle()->getPokemon2()->getItsMoves()[0], player->getTeam().front());
 
+    QTimer::singleShot(1000, this, [&](){
+        gui->battle()->getAttackButton()->setEnabled(true);
+    });
+
     if(gui->battle()->getPokemon1()->getHealth() <= 0)
     {
         resetTransform();

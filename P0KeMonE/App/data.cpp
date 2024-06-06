@@ -68,7 +68,7 @@ Pokemon* Data::randompokemon()
 
         // Fetch and set the moves for the Pokémon
         QList<Move> moves = getMoves(id);
-        if (moves.isEmpty())
+        if (moves.isEmpty() || moves.at(0).getItsPower() == 0)
         {
             return randompokemon(); // If no moves, fetch another Pokémon
         }

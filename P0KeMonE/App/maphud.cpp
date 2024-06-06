@@ -9,7 +9,7 @@ MapHUD::MapHUD(Model *model, QObject *parent)
     encounterDist(1, 100) // Set the range for encounter checks
 {
     setObjectName("map");
-    model->loadMap(":/maps/map.txt");
+    model->loadMap(":/map/map.txt");
     drawMap();
 }
 

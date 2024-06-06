@@ -40,36 +40,39 @@ Game::~Game() {
     delete battle;
 }
 
+void Game::showMap() {
+    // Display the game map scene
+    resetTransform();
+    setScene(gui->map());
+    scale(1.5, 1.5); // Scale up for the game map view
+    player->setFocus();
+}
+
 void Game::keyPressEvent(QKeyEvent *event) {
     // Handle key presses for game interactions
     if (event->key() == Qt::Key_Space && scene()->objectName() == gui->mainMenu()->objectName())
+    {
+        player = gui->map()->getPlayer();
+        showMap();
+        if(player->getTeam().empty())
         {
-            resetTransform();
-            setScene(gui->map());
-            scale(1.5, 1.5);
-            player = gui->map()->getPlayer();
-            player->setFocus();
-            if(player->getTeam().empty())
-            {
-                player->addPokemon(model->getData()->randompokemon());
-                qDebug() << player->getTeam().front()->getItsMoves().size();
-            }
-
+            player->addPokemon(model->getData()->randompokemon());
+            qDebug() << player->getTeam().front()->getItsMoves().size();
         }
+
+    }
 
     if (event->key() == Qt::Key_I && scene()->objectName() == gui->map()->objectName())
-        {
-            resetTransform();
-            setScene(gui->playerTeam(player->getTeam(), player->getItsLevel()));
-            QTimer::singleShot(2000, this, [&](){
-                setScene(gui->map());
-                player->setFocus();
-                scale(1.5, 1.5);
-            });
+    {
+        resetTransform();
+        setScene(gui->playerTeam(player->getTeam(), player->getItsLevel()));
+        QTimer::singleShot(2000, this, [&](){
+            showMap();
+        });
 
-        }
+    }
 
-        QGraphicsView::keyPressEvent(event);
+    QGraphicsView::keyPressEvent(event);
 
 }
 

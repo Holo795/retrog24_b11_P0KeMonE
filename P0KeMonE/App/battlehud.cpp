@@ -231,32 +231,87 @@ void BattleHUD::displayMoves(QList<Move> moves)
     delete dialogueBox;
 
     // Create and add new move buttons
-    int buttonWidth = 105;
+    int buttonWidth = 160;
     int buttonHeight = 40;
 
     moveButtonsGroup = new QButtonGroup(this);
 
-    QPoint positions[] = { QPoint(0, 240), QPoint(105, 240), QPoint(0, 280), QPoint(105, 280) };
+    QPoint positions[] = { QPoint(0, 240), QPoint(160, 240), QPoint(0, 280), QPoint(160, 280) };
 
     for(int i = 0; i < pokemon1->getItsMoves().size(); ++i) {
         if(i > 3) {
             break;
         }
+        std::string typeName;
+        switch(pokemon1->getItsType()) {
+        case 0 :
+            typeName = "grass";
+            qDebug() << typeName;
+            break;
+        case 1 :
+            typeName = "fire";
+            qDebug() << typeName;
+            break;
+        case 2 :
+            typeName = "water";
+            qDebug() << typeName;
+            break;
+        case 3 :
+            typeName = "electrik";
+            qDebug() << typeName;
 
-        std::string moveName = pokemon1->getItsMoves()[i].getItsName();
-        QString qMoveName = QString::fromStdString(moveName);
-        QPushButton *moveButton = new QPushButton(qMoveName);
+            break;
+        case 4 :
+            typeName = "ground";
+            qDebug() << typeName;
+            break;
+        case 5 :
+            typeName = "flying";
+            qDebug() << typeName;
+            break;
+        }
 
+
+
+
+
+        // Create and configure the move button
+        QString qType = QString::fromStdString(typeName);
+        QPushButton *moveButton = new QPushButton();
+        moveButton->setIcon(QPixmap(":/hud/battlehud_assets/" + qType + "Button.png").scaled(buttonWidth, buttonHeight));
         moveButton->setGeometry(positions[i].x(), positions[i].y(), buttonWidth, buttonHeight);
+        moveButton->setIconSize(QSize(buttonWidth, buttonHeight));
+        moveButton->setFixedSize(buttonWidth, buttonHeight);
+
+        // Set the text of the move button to the move name
+        moveButton->setText(QString::fromStdString(pokemon1->getItsMoves()[0].getItsName())); // Assuming `Move` has a `getName()` method
+
+        // Style the button to overlay text on the image
+        moveButton->setStyleSheet(
+            "QPushButton {"
+            "    border: none;"
+            "    color: white;"
+            "    font: bold 12px;"
+            "    text-align: center;"
+            "    padding: 10px 0;"
+            "}"
+            "QPushButton::icon {"
+            "    position: absolute;"
+            "    top: 0px;"
+            "    left: 0px;"
+            "}"
+            );
 
         addWidget(moveButton);
         moveButtonsGroup->addButton(moveButton, i);
-
-        qDebug() << pokemon1->getItsMoves()[i].getItsName();
     }
 
-    QPushButton *backButton = new QPushButton("BACK");
-    backButton->setGeometry(210, 240, buttonWidth, buttonHeight);
+
+    QPushButton *backButton = new QPushButton();
+    backButton->setIcon(QPixmap(":/hud/battlehud_assets/back_button.png").scaled(buttonWidth, buttonHeight));
+    backButton->setIconSize(QSize(buttonWidth, buttonHeight));
+    backButton->setFixedSize(buttonWidth, buttonHeight);
+    backButton->setGeometry(320 , 240, buttonWidth, buttonHeight);
     addWidget(backButton);
 
 

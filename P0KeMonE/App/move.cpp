@@ -1,8 +1,6 @@
 #include "move.h"
 
-/**
- * Constructor that initializes a Move object with specified attributes.
- */
+
 Move::Move(string itsName, int itsPower, int itsAccuracy, MOVENATURE itsType)
 {
     this->itsName = itsName;
@@ -42,6 +40,7 @@ MOVENATURE Move::getItsType() const
 {
     return itsType;
 }
+
 
 /**
  * Calculates the damage this move will do when used.

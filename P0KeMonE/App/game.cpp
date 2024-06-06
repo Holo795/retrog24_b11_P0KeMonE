@@ -27,7 +27,7 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
 
 
     connect(gui->battle()->getMoveGroup(), &QButtonGroup::buttonClicked,
-            this, &Game::fight);
+            this, &Game::handleAttackButtonClicked);
 
     // Timer for updating the view regularly
     QTimer *updateTimer = new QTimer(this);

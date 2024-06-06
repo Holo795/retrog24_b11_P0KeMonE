@@ -25,7 +25,6 @@ private:
     int itsPower;         ///< Power value of the move, determines damage output.
     int itsAccuracy;      ///< Accuracy percentage of the move.
     MOVENATURE itsType;   ///< Type of the move (e.g., physical, special).
-
 public:
     /**
      * @brief Constructor for a Move object.
@@ -59,6 +58,7 @@ public:
      * @return Type of the move.
      */
     MOVENATURE getItsType() const;
+
 
     /**
      * @brief Calculates the damage inflicted by the move.

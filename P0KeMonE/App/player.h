@@ -64,7 +64,7 @@ private:
     float scale = 1.8; ///< Scale factor for the player's graphical representation.
     std::vector<Pokemon*> itsTeam; ///< The player's team of Pokémon.
     QTimer *movementTimer; ///< Timer for handling continuous movement.
-    int currentKey; ///< The currently pressed key, used for movement.
+    QSet<int> activeKeys; ///< Set of currently pressed keys.
 
     /**
      * @brief Checks for collisions at the new position.
@@ -75,9 +75,14 @@ private:
 
     /**
      * @brief Initiates movement in a specific direction.
-     * @param key The key code representing the direction to move.
      */
-    void startMoving(int key);
+    void startMoving();
+
+    /**
+     * @brief Updates the player's sprite based on the direction.
+     * @param direction The direction in which the player is moving.
+     */
+    void updateSprite(const QString &direction);
 
 protected:
     /**

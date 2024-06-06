@@ -153,7 +153,6 @@ void Game::endFight(bool playerWon)
     {
         generateNewOpponent();
         setScene(gui->map());
-        scale(1.5, 1.5);
         player->incrementWinCount();
         double playerLevel = player->getItsLevel();
         int winsRequired = 0;
@@ -177,7 +176,6 @@ void Game::endFight(bool playerWon)
     }
     else
     {
-        resetTransform();
         setScene(gui->gameOver());
     }
 }

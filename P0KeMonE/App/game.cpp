@@ -91,6 +91,7 @@ void Game::fight() {
     // Manage initiating and processing a battle round
 
     gui->battle()->getAttackButton()->setEnabled(false); // Disable the attack button to prevent multiple clicks
+    gui->battle()->getRunButton()->setEnabled(false); // Disable the run button to prevent running during a fight
 
     battle = new Battle(player, gui->battle()->getPokemon2(), gui->battle());
     battle->attack(&player->getTeam().front()->getItsMoves()[0], gui->battle()->getPokemon2());
@@ -106,6 +107,7 @@ void Game::continuefight()
 
     QTimer::singleShot(1000, this, [&](){
         gui->battle()->getAttackButton()->setEnabled(true);
+        gui->battle()->getRunButton()->setEnabled(true);
     });
 
     if(gui->battle()->getPokemon1()->getHealth() <= 0)

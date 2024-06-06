@@ -1,0 +1,42 @@
+\doxysection{battlehud.\+h}
+\hypertarget{battlehud_8h_source}{}\label{battlehud_8h_source}\index{/Users/liliangarcia/Documents/2023-\/2024/S2/1256/retrog24\_b11\_P0KeMonE/P0KeMonE/App/battlehud.h@{/Users/liliangarcia/Documents/2023-\/2024/S2/1256/retrog24\_b11\_P0KeMonE/P0KeMonE/App/battlehud.h}}
+\mbox{\hyperlink{battlehud_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ BATTLEHUD\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ BATTLEHUD\_H}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <QGraphicsScene>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{pokemon_8h}{pokemon.h}}"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_battle_h_u_d}{BattleHUD}}\ :\ \textcolor{keyword}{public}\ QGraphicsScene\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{class_battle_h_u_d}{BattleHUD}}(QObject\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{class_battle_h_u_d_a10724f645605792412dca55236c8e1bc}{\string~BattleHUD}}();}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00040\ \ \ \ \ QPushButton\ *\mbox{\hyperlink{class_battle_h_u_d_a28aeff6d61e38d500c16073b313ca057}{getAttackButton}}();}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_battle_h_u_d_a4d890b305b810b083c6f21437ffe0dff}{setPokemon}}(\mbox{\hyperlink{class_pokemon}{Pokemon}}\ *pk1,\ \mbox{\hyperlink{class_pokemon}{Pokemon}}\ *pk2);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{class_pokemon}{Pokemon}}\ *\mbox{\hyperlink{class_battle_h_u_d_a77aa18f3cf739f01754e4941268fff21}{getPokemon1}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{class_pokemon}{Pokemon}}\ *\mbox{\hyperlink{class_battle_h_u_d_ac192736f28c88c5e6e605c7a5bb9ea8b}{getPokemon2}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00062\ \ \ \ \ QPushButton\ *attackButton;\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{class_pokemon}{Pokemon}}\ *pokemon1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{class_pokemon}{Pokemon}}\ *pokemon2;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ QGraphicsPixmapItem\ *pokemon1Item;\ \ \ }
+\DoxyCodeLine{00066\ \ \ \ \ QGraphicsPixmapItem\ *pokemon2Item;\ \ \ }
+\DoxyCodeLine{00067\ \ \ \ \ QGraphicsTextItem\ *health1;\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00068\ \ \ \ \ QGraphicsTextItem\ *health2;\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00069\ \};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ BATTLEHUD\_H}}
+
+\end{DoxyCode}

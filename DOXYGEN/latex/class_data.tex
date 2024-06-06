@@ -1,0 +1,90 @@
+\doxysection{Data Class Reference}
+\hypertarget{class_data}{}\label{class_data}\index{Data@{Data}}
+
+
+Manages database operations for Pokémon.  
+
+
+
+
+{\ttfamily \#include $<$data.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_data_af11f741cb7f587e2e495452a8905a22a}{Data}} ()
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_data}{Data} class. Initializes and opens the database connection. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_data_aab31956423290f0d62dcca47ab4d16dd}{\texorpdfstring{$\sim$}{\string~}\+Data}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for \doxylink{class_data}{Data} class. Closes the database connection. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_data_a4f4cf1f78861a1f47260b4bfb02805eb}{randompokemon}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves a random Pokémon from the database. \end{DoxyCompactList}\item 
+QList$<$ \mbox{\hyperlink{class_move}{Move}} $>$ \mbox{\hyperlink{class_data_a070b1a42360030bce8991d41553e9ec3}{get\+Moves}} (int pokemon\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Fetches moves associated with a Pokémon by ID. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages database operations for Pokémon. 
+
+This class encapsulates all database interactions in a Pokémon game, including retrieving and storing Pokémon and their moves. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_data_af11f741cb7f587e2e495452a8905a22a}\label{class_data_af11f741cb7f587e2e495452a8905a22a} 
+\index{Data@{Data}!Data@{Data}}
+\index{Data@{Data}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{Data()}{Data()}}
+{\footnotesize\ttfamily Data\+::\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Constructor for \doxylink{class_data}{Data} class. Initializes and opens the database connection. 
+
+Initializes the \doxylink{class_data}{Data} object by setting up and opening a database connection. \Hypertarget{class_data_aab31956423290f0d62dcca47ab4d16dd}\label{class_data_aab31956423290f0d62dcca47ab4d16dd} 
+\index{Data@{Data}!````~Data@{\texorpdfstring{$\sim$}{\string~}Data}}
+\index{````~Data@{\texorpdfstring{$\sim$}{\string~}Data}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Data()}{\string~Data()}}
+{\footnotesize\ttfamily Data\+::\texorpdfstring{$\sim$}{\string~}\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor for \doxylink{class_data}{Data} class. Closes the database connection. 
+
+Closes the database connection when the \doxylink{class_data}{Data} object is destroyed. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_data_a070b1a42360030bce8991d41553e9ec3}\label{class_data_a070b1a42360030bce8991d41553e9ec3} 
+\index{Data@{Data}!getMoves@{getMoves}}
+\index{getMoves@{getMoves}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{getMoves()}{getMoves()}}
+{\footnotesize\ttfamily QList$<$ \mbox{\hyperlink{class_move}{Move}} $>$ Data\+::get\+Moves (\begin{DoxyParamCaption}\item[{int}]{pokemon\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Fetches moves associated with a Pokémon by ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pokemon\+\_\+id} & The ID of the Pokémon to fetch moves for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A QList of \doxylink{class_move}{Move} objects associated with the Pokémon.
+\end{DoxyReturn}
+Fetches and returns a list of moves associated with a given Pokémon ID. \Hypertarget{class_data_a4f4cf1f78861a1f47260b4bfb02805eb}\label{class_data_a4f4cf1f78861a1f47260b4bfb02805eb} 
+\index{Data@{Data}!randompokemon@{randompokemon}}
+\index{randompokemon@{randompokemon}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{randompokemon()}{randompokemon()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} Data\+::randompokemon (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retrieves a random Pokémon from the database. 
+
+\begin{DoxyReturn}{Returns}
+A new Pokémon object initialized with the fetched data.
+\end{DoxyReturn}
+Fetches a random Pokémon from the database and returns a pointer to a newly created Pokémon object. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/liliangarcia/\+Documents/2023-\/2024/\+S2/1256/retrog24\+\_\+b11\+\_\+\+P0\+Ke\+Mon\+E/\+P0\+Ke\+Mon\+E/\+App/\mbox{\hyperlink{data_8h}{data.\+h}}\item 
+/\+Users/liliangarcia/\+Documents/2023-\/2024/\+S2/1256/retrog24\+\_\+b11\+\_\+\+P0\+Ke\+Mon\+E/\+P0\+Ke\+Mon\+E/\+App/data.\+cpp\end{DoxyCompactItemize}

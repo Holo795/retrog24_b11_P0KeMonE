@@ -1,0 +1,37 @@
+\doxysection{maphud.\+h}
+\hypertarget{maphud_8h_source}{}\label{maphud_8h_source}\index{/Users/liliangarcia/Documents/2023-\/2024/S2/1256/retrog24\_b11\_P0KeMonE/P0KeMonE/App/maphud.h@{/Users/liliangarcia/Documents/2023-\/2024/S2/1256/retrog24\_b11\_P0KeMonE/P0KeMonE/App/maphud.h}}
+\mbox{\hyperlink{maphud_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ MAPHUD\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ MAPHUD\_H}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <QGraphicsScene>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <QKeyEvent>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{player_8h}{player.h}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{model_8h}{model.h}}"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_map_h_u_d}{MapHUD}}\ :\ \textcolor{keyword}{public}\ QGraphicsScene}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{class_map_h_u_d}{MapHUD}}(\mbox{\hyperlink{class_model}{Model}}\ *model,\ QObject\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_map_h_u_d_a2d3f0aad22bacc874638e511d353f815}{\string~MapHUD}}();}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_map_h_u_d_ac7dad7de2da3f4cd0d7af74611ba6fc6}{drawMap}}();}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{class_player}{Player}}\ *\mbox{\hyperlink{class_map_h_u_d_aa513cab443ea8a2985ff938cea22ac91}{getPlayer}}();}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{class_model}{Model}}\ *model;\ }
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{class_player}{Player}}\ *player;\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_map_h_u_d_a793ad1c51e4c8b9f1e4148e5e211af91}{keyPressEvent}}(QKeyEvent\ *event);}
+\DoxyCodeLine{00059\ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ MAPHUD\_H}}
+
+\end{DoxyCode}

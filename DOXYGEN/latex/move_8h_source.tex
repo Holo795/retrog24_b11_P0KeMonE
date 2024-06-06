@@ -1,0 +1,38 @@
+\doxysection{move.\+h}
+\hypertarget{move_8h_source}{}\label{move_8h_source}\index{/Users/liliangarcia/Documents/2023-\/2024/S2/1256/retrog24\_b11\_P0KeMonE/P0KeMonE/App/move.h@{/Users/liliangarcia/Documents/2023-\/2024/S2/1256/retrog24\_b11\_P0KeMonE/P0KeMonE/App/move.h}}
+\mbox{\hyperlink{move_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ MOVE\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ MOVE\_H}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}typeDef.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_move}{Move}}}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{string}\ itsName;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{int}\ itsPower;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{int}\ itsAccuracy;\ \ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ MOVENATURE\ itsType;\ \ \ }
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_move}{Move}}(\textcolor{keywordtype}{string}\ itsName,\ \textcolor{keywordtype}{int}\ itsPower,\ \textcolor{keywordtype}{int}\ itsAccuracy,\ MOVENATURE\ itsType);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{class_move_aaa4fbeefe3ba401d081d6de48db9ade2}{getItsName}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_move_aa4b778b76309234c4f636ef20b2cbbfe}{getItsPower}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_move_a85e94b0f4579cee7165fa94086f946a0}{getItsAccuracy}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00061\ \ \ \ \ MOVENATURE\ \mbox{\hyperlink{class_move_a071f3bea221165684916f741ba87c2d1}{getItsType}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_move_a62a7335b11c4f1a80b9f6d7d8f382dcb}{calculateDamage}}(\textcolor{keywordtype}{int}\ lvl,\ \textcolor{keywordtype}{int}\ atk,\ \textcolor{keywordtype}{int}\ def,\ \textcolor{keywordtype}{bool}\ crit)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00072\ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ MOVE\_H}}
+
+\end{DoxyCode}

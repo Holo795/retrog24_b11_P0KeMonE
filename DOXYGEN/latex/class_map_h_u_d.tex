@@ -1,0 +1,115 @@
+\doxysection{Map\+HUD Class Reference}
+\hypertarget{class_map_h_u_d}{}\label{class_map_h_u_d}\index{MapHUD@{MapHUD}}
+
+
+A graphical scene representing the game map.  
+
+
+
+
+{\ttfamily \#include $<$maphud.\+h$>$}
+
+Inheritance diagram for Map\+HUD\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_map_h_u_d}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_map_h_u_d_ae7dce2b0d69a872eba9173d81b0dd8a3}{Map\+HUD}} (\mbox{\hyperlink{class_model}{Model}} \texorpdfstring{$\ast$}{*}model, QObject \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_map_h_u_d}{Map\+HUD} object with a reference to the game model. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_map_h_u_d_a2d3f0aad22bacc874638e511d353f815}{\texorpdfstring{$\sim$}{\string~}\+Map\+HUD}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{class_map_h_u_d}{Map\+HUD}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_map_h_u_d_ac7dad7de2da3f4cd0d7af74611ba6fc6}{draw\+Map}} ()
+\begin{DoxyCompactList}\small\item\em Draws the game map based on the data from the model. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_map_h_u_d_aa513cab443ea8a2985ff938cea22ac91}{get\+Player}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves a pointer to the player object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_map_h_u_d_a793ad1c51e4c8b9f1e4148e5e211af91}{key\+Press\+Event}} (QKey\+Event \texorpdfstring{$\ast$}{*}event)
+\begin{DoxyCompactList}\small\item\em Handles key press events for player movement and interactions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A graphical scene representing the game map. 
+
+This class is responsible for displaying the map elements and managing interactions, such as player movement and interactions with the environment. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_map_h_u_d_ae7dce2b0d69a872eba9173d81b0dd8a3}\label{class_map_h_u_d_ae7dce2b0d69a872eba9173d81b0dd8a3} 
+\index{MapHUD@{MapHUD}!MapHUD@{MapHUD}}
+\index{MapHUD@{MapHUD}!MapHUD@{MapHUD}}
+\doxysubsubsection{\texorpdfstring{MapHUD()}{MapHUD()}}
+{\footnotesize\ttfamily Map\+HUD\+::\+Map\+HUD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_model}{Model}} \texorpdfstring{$\ast$}{*}}]{model,  }\item[{QObject \texorpdfstring{$\ast$}{*}}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_map_h_u_d}{Map\+HUD} object with a reference to the game model. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & Pointer to the game model used for obtaining map data. \\
+\hline
+{\em parent} & Optional parent QObject, default is nullptr.\\
+\hline
+\end{DoxyParams}
+Initializes the \doxylink{class_map_h_u_d}{Map\+HUD} scene, sets up the map layout based on the model\textquotesingle{}s map data. \Hypertarget{class_map_h_u_d_a2d3f0aad22bacc874638e511d353f815}\label{class_map_h_u_d_a2d3f0aad22bacc874638e511d353f815} 
+\index{MapHUD@{MapHUD}!````~MapHUD@{\texorpdfstring{$\sim$}{\string~}MapHUD}}
+\index{````~MapHUD@{\texorpdfstring{$\sim$}{\string~}MapHUD}!MapHUD@{MapHUD}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}MapHUD()}{\string~MapHUD()}}
+{\footnotesize\ttfamily Map\+HUD\+::\texorpdfstring{$\sim$}{\string~}\+Map\+HUD (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor for the \doxylink{class_map_h_u_d}{Map\+HUD}. 
+
+Destructor for the \doxylink{class_map_h_u_d}{Map\+HUD} class. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_map_h_u_d_ac7dad7de2da3f4cd0d7af74611ba6fc6}\label{class_map_h_u_d_ac7dad7de2da3f4cd0d7af74611ba6fc6} 
+\index{MapHUD@{MapHUD}!drawMap@{drawMap}}
+\index{drawMap@{drawMap}!MapHUD@{MapHUD}}
+\doxysubsubsection{\texorpdfstring{drawMap()}{drawMap()}}
+{\footnotesize\ttfamily void Map\+HUD\+::draw\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Draws the game map based on the data from the model. 
+
+Draws the map based on the layout provided by the model. It populates the scene with various graphical items such as grass, trees, and other objects. \Hypertarget{class_map_h_u_d_aa513cab443ea8a2985ff938cea22ac91}\label{class_map_h_u_d_aa513cab443ea8a2985ff938cea22ac91} 
+\index{MapHUD@{MapHUD}!getPlayer@{getPlayer}}
+\index{getPlayer@{getPlayer}!MapHUD@{MapHUD}}
+\doxysubsubsection{\texorpdfstring{getPlayer()}{getPlayer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*} Map\+HUD\+::get\+Player (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retrieves a pointer to the player object. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the player.
+\end{DoxyReturn}
+Retrieves the player object for interaction from other parts of the program. \Hypertarget{class_map_h_u_d_a793ad1c51e4c8b9f1e4148e5e211af91}\label{class_map_h_u_d_a793ad1c51e4c8b9f1e4148e5e211af91} 
+\index{MapHUD@{MapHUD}!keyPressEvent@{keyPressEvent}}
+\index{keyPressEvent@{keyPressEvent}!MapHUD@{MapHUD}}
+\doxysubsubsection{\texorpdfstring{keyPressEvent()}{keyPressEvent()}}
+{\footnotesize\ttfamily void Map\+HUD\+::key\+Press\+Event (\begin{DoxyParamCaption}\item[{QKey\+Event \texorpdfstring{$\ast$}{*}}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Handles key press events for player movement and interactions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The key event.\\
+\hline
+\end{DoxyParams}
+Handles key press events to control player movement and interactions. Also handles random encounters in tall grass. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/liliangarcia/\+Documents/2023-\/2024/\+S2/1256/retrog24\+\_\+b11\+\_\+\+P0\+Ke\+Mon\+E/\+P0\+Ke\+Mon\+E/\+App/\mbox{\hyperlink{maphud_8h}{maphud.\+h}}\item 
+/\+Users/liliangarcia/\+Documents/2023-\/2024/\+S2/1256/retrog24\+\_\+b11\+\_\+\+P0\+Ke\+Mon\+E/\+P0\+Ke\+Mon\+E/\+App/maphud.\+cpp\end{DoxyCompactItemize}

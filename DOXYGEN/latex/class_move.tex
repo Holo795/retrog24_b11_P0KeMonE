@@ -1,0 +1,140 @@
+\doxysection{Move Class Reference}
+\hypertarget{class_move}{}\label{class_move}\index{Move@{Move}}
+
+
+Represents a single move or attack in the game.  
+
+
+
+
+{\ttfamily \#include $<$move.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_move_a3a00c8e9b4696672fa6ff11e15dacc89}{Move}} (string its\+Name, int its\+Power, int its\+Accuracy, MOVENATURE its\+Type)
+\begin{DoxyCompactList}\small\item\em Constructor for a \doxylink{class_move}{Move} object. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_move_aaa4fbeefe3ba401d081d6de48db9ade2}{get\+Its\+Name}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the name of the move. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_move_aa4b778b76309234c4f636ef20b2cbbfe}{get\+Its\+Power}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the power of the move. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_move_a85e94b0f4579cee7165fa94086f946a0}{get\+Its\+Accuracy}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the accuracy of the move. \end{DoxyCompactList}\item 
+MOVENATURE \mbox{\hyperlink{class_move_a071f3bea221165684916f741ba87c2d1}{get\+Its\+Type}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the type of the move. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_move_a62a7335b11c4f1a80b9f6d7d8f382dcb}{calculate\+Damage}} (int lvl, int atk, int def, bool crit) const
+\begin{DoxyCompactList}\small\item\em Calculates the damage inflicted by the move. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a single move or attack in the game. 
+
+This class stores details about a move including its name, power, accuracy, and type, and provides methods to retrieve these properties and calculate damage. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_move_a3a00c8e9b4696672fa6ff11e15dacc89}\label{class_move_a3a00c8e9b4696672fa6ff11e15dacc89} 
+\index{Move@{Move}!Move@{Move}}
+\index{Move@{Move}!Move@{Move}}
+\doxysubsubsection{\texorpdfstring{Move()}{Move()}}
+{\footnotesize\ttfamily Move\+::\+Move (\begin{DoxyParamCaption}\item[{string}]{its\+Name,  }\item[{int}]{its\+Power,  }\item[{int}]{its\+Accuracy,  }\item[{MOVENATURE}]{its\+Type }\end{DoxyParamCaption})}
+
+
+
+Constructor for a \doxylink{class_move}{Move} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em its\+Name} & Name of the move. \\
+\hline
+{\em its\+Power} & Power of the move. \\
+\hline
+{\em its\+Accuracy} & Accuracy of the move. \\
+\hline
+{\em its\+Type} & Type of the move (physical or special).\\
+\hline
+\end{DoxyParams}
+Constructor that initializes a \doxylink{class_move}{Move} object with specified attributes. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_move_a62a7335b11c4f1a80b9f6d7d8f382dcb}\label{class_move_a62a7335b11c4f1a80b9f6d7d8f382dcb} 
+\index{Move@{Move}!calculateDamage@{calculateDamage}}
+\index{calculateDamage@{calculateDamage}!Move@{Move}}
+\doxysubsubsection{\texorpdfstring{calculateDamage()}{calculateDamage()}}
+{\footnotesize\ttfamily int Move\+::calculate\+Damage (\begin{DoxyParamCaption}\item[{int}]{lvl,  }\item[{int}]{atk,  }\item[{int}]{def,  }\item[{bool}]{crit }\end{DoxyParamCaption}) const}
+
+
+
+Calculates the damage inflicted by the move. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lvl} & Level of the attacking entity. \\
+\hline
+{\em atk} & Attack stat of the attacking entity. \\
+\hline
+{\em def} & Defense stat of the defending entity. \\
+\hline
+{\em crit} & Whether the attack is a critical hit. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Calculated damage.
+\end{DoxyReturn}
+Calculates the damage this move will do when used. Implements the standard damage formula from games like Pokémon. \Hypertarget{class_move_a85e94b0f4579cee7165fa94086f946a0}\label{class_move_a85e94b0f4579cee7165fa94086f946a0} 
+\index{Move@{Move}!getItsAccuracy@{getItsAccuracy}}
+\index{getItsAccuracy@{getItsAccuracy}!Move@{Move}}
+\doxysubsubsection{\texorpdfstring{getItsAccuracy()}{getItsAccuracy()}}
+{\footnotesize\ttfamily int Move\+::get\+Its\+Accuracy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Retrieves the accuracy of the move. 
+
+\begin{DoxyReturn}{Returns}
+Accuracy of the move.
+\end{DoxyReturn}
+Returns the accuracy of the move. \Hypertarget{class_move_aaa4fbeefe3ba401d081d6de48db9ade2}\label{class_move_aaa4fbeefe3ba401d081d6de48db9ade2} 
+\index{Move@{Move}!getItsName@{getItsName}}
+\index{getItsName@{getItsName}!Move@{Move}}
+\doxysubsubsection{\texorpdfstring{getItsName()}{getItsName()}}
+{\footnotesize\ttfamily string Move\+::get\+Its\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Retrieves the name of the move. 
+
+\begin{DoxyReturn}{Returns}
+Name of the move.
+\end{DoxyReturn}
+Returns the name of the move. \Hypertarget{class_move_aa4b778b76309234c4f636ef20b2cbbfe}\label{class_move_aa4b778b76309234c4f636ef20b2cbbfe} 
+\index{Move@{Move}!getItsPower@{getItsPower}}
+\index{getItsPower@{getItsPower}!Move@{Move}}
+\doxysubsubsection{\texorpdfstring{getItsPower()}{getItsPower()}}
+{\footnotesize\ttfamily int Move\+::get\+Its\+Power (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Retrieves the power of the move. 
+
+\begin{DoxyReturn}{Returns}
+Power of the move.
+\end{DoxyReturn}
+Returns the power of the move. \Hypertarget{class_move_a071f3bea221165684916f741ba87c2d1}\label{class_move_a071f3bea221165684916f741ba87c2d1} 
+\index{Move@{Move}!getItsType@{getItsType}}
+\index{getItsType@{getItsType}!Move@{Move}}
+\doxysubsubsection{\texorpdfstring{getItsType()}{getItsType()}}
+{\footnotesize\ttfamily MOVENATURE Move\+::get\+Its\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Retrieves the type of the move. 
+
+\begin{DoxyReturn}{Returns}
+Type of the move.
+\end{DoxyReturn}
+Returns the type of the move (e.\+g., physical or special). 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/liliangarcia/\+Documents/2023-\/2024/\+S2/1256/retrog24\+\_\+b11\+\_\+\+P0\+Ke\+Mon\+E/\+P0\+Ke\+Mon\+E/\+App/\mbox{\hyperlink{move_8h}{move.\+h}}\item 
+/\+Users/liliangarcia/\+Documents/2023-\/2024/\+S2/1256/retrog24\+\_\+b11\+\_\+\+P0\+Ke\+Mon\+E/\+P0\+Ke\+Mon\+E/\+App/move.\+cpp\end{DoxyCompactItemize}

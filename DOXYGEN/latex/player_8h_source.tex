@@ -1,0 +1,56 @@
+\doxysection{player.\+h}
+\hypertarget{player_8h_source}{}\label{player_8h_source}\index{/Users/liliangarcia/Documents/2023-\/2024/S2/1256/retrog24\_b11\_P0KeMonE/P0KeMonE/App/player.h@{/Users/liliangarcia/Documents/2023-\/2024/S2/1256/retrog24\_b11\_P0KeMonE/P0KeMonE/App/player.h}}
+\mbox{\hyperlink{player_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ PLAYER\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ PLAYER\_H}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <QGraphicsPixmapItem>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <QGraphicsScene>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <QObject>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <QKeyEvent>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <QTimer>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{pokemon_8h}{pokemon.h}}"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_player}{Player}}\ :\ \textcolor{keyword}{public}\ QObject,\ \textcolor{keyword}{public}\ QGraphicsPixmapItem\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{class_player}{Player}}(QGraphicsItem\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_player_a749d2c00e1fe0f5c2746f7505a58c062}{\string~Player}}();}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00044\ \ \ \ \ std::vector<Pokemon*>\ \mbox{\hyperlink{class_player_a62294b1aab2679ef68734a4e2d0c6e85}{getTeam}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_a4d269c4118c29b0ee85c1e0f674260ee}{keyPressEvent}}(QKeyEvent\ *event);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_a478572d23809f9163fb6c9a3520f3dee}{stopMoving}}();}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_ac642eec0c4f2ac2049cd0b8ef63ea338}{addPokemon}}(\mbox{\hyperlink{class_pokemon}{Pokemon}}\ *pokemon);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{float}\ scale\ =\ 1.8;\ }
+\DoxyCodeLine{00065\ \ \ \ \ std::vector<Pokemon*>\ itsTeam;\ }
+\DoxyCodeLine{00066\ \ \ \ \ QTimer\ *movementTimer;\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{int}\ currentKey;\ }
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{bool}\ checkCollision(QPointF\ newPos);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{void}\ startMoving(\textcolor{keywordtype}{int}\ key);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_a09f3d5dea93b5699138eba6f4f420b27}{keyReleaseEvent}}(QKeyEvent\ *event);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_ae02ee46d8c20dd0697b975f935b09839}{move}}();}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ signals:}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_a5a20e6232fed30c28453b8bcf4e7ad0d}{startEncounterCombat}}();}
+\DoxyCodeLine{00100\ \};}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ PLAYER\_H}}
+
+\end{DoxyCode}

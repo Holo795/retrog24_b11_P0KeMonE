@@ -1,0 +1,85 @@
+\doxysection{Game Class Reference}
+\hypertarget{class_game}{}\label{class_game}\index{Game@{Game}}
+
+
+Manages the main game interactions and UI updates.  
+
+
+
+
+{\ttfamily \#include $<$game.\+h$>$}
+
+Inheritance diagram for Game\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_game}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_game_a04265f5fd0f03a727bfdcefbac4089db}\label{class_game_a04265f5fd0f03a727bfdcefbac4089db} 
+void {\bfseries update\+View} ()
+\begin{DoxyCompactList}\small\item\em Updates the view to ensure the player remains centered. \end{DoxyCompactList}\item 
+\Hypertarget{class_game_a900314f250eb5468b15cc4a11e20a703}\label{class_game_a900314f250eb5468b15cc4a11e20a703} 
+void {\bfseries show\+Fight} ()
+\begin{DoxyCompactList}\small\item\em Transitions the game to the battle scene. \end{DoxyCompactList}\item 
+\Hypertarget{class_game_a51bf65de74a12ead797641ff4b6653c1}\label{class_game_a51bf65de74a12ead797641ff4b6653c1} 
+void {\bfseries fight} ()
+\begin{DoxyCompactList}\small\item\em Initiates a fight round. \end{DoxyCompactList}\item 
+\Hypertarget{class_game_a03dcb02f900f2d906057956850a95312}\label{class_game_a03dcb02f900f2d906057956850a95312} 
+void {\bfseries continuefight} ()
+\begin{DoxyCompactList}\small\item\em Continues the ongoing fight. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_game_acc7fa373ecabba84792f1be2bb975112}{Game}} (\mbox{\hyperlink{class_model}{Model}} \texorpdfstring{$\ast$}{*}model, \mbox{\hyperlink{class_g_u_i}{GUI}} \texorpdfstring{$\ast$}{*}gui, QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_game}{Game} object with model and \doxylink{class_g_u_i}{GUI} dependencies. \end{DoxyCompactList}\item 
+\Hypertarget{class_game_ae3d112ca6e0e55150d2fdbc704474530}\label{class_game_ae3d112ca6e0e55150d2fdbc704474530} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Game} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{class_game}{Game} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_game_a11472607ec18247e34b70de047ca5e4a}\label{class_game_a11472607ec18247e34b70de047ca5e4a} 
+void {\bfseries key\+Press\+Event} (QKey\+Event \texorpdfstring{$\ast$}{*}event) override
+\item 
+\Hypertarget{class_game_a9f6de718ac1bf593bbb45bf9d313323c}\label{class_game_a9f6de718ac1bf593bbb45bf9d313323c} 
+void {\bfseries mouse\+Press\+Event} (QMouse\+Event \texorpdfstring{$\ast$}{*}event) override
+\item 
+\Hypertarget{class_game_a7daa2f0834ac27880ef738ce1d14f819}\label{class_game_a7daa2f0834ac27880ef738ce1d14f819} 
+void {\bfseries mouse\+Double\+Click\+Event} (QMouse\+Event \texorpdfstring{$\ast$}{*}event) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages the main game interactions and UI updates. 
+
+This class is a custom QGraphics\+View that handles all user interactions and display updates for the game, including moving between different screens such as the main menu, game map, and battle scenes. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_game_acc7fa373ecabba84792f1be2bb975112}\label{class_game_acc7fa373ecabba84792f1be2bb975112} 
+\index{Game@{Game}!Game@{Game}}
+\index{Game@{Game}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{Game()}{Game()}}
+{\footnotesize\ttfamily Game\+::\+Game (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_model}{Model}} \texorpdfstring{$\ast$}{*}}]{model,  }\item[{\mbox{\hyperlink{class_g_u_i}{GUI}} \texorpdfstring{$\ast$}{*}}]{gui,  }\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_game}{Game} object with model and \doxylink{class_g_u_i}{GUI} dependencies. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & Pointer to the model, which handles the game logic. \\
+\hline
+{\em gui} & Pointer to the \doxylink{class_g_u_i}{GUI}, which manages all graphical components. \\
+\hline
+{\em parent} & Pointer to the parent widget, default is nullptr. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/liliangarcia/\+Documents/2023-\/2024/\+S2/1256/retrog24\+\_\+b11\+\_\+\+P0\+Ke\+Mon\+E/\+P0\+Ke\+Mon\+E/\+App/\mbox{\hyperlink{game_8h}{game.\+h}}\item 
+/\+Users/liliangarcia/\+Documents/2023-\/2024/\+S2/1256/retrog24\+\_\+b11\+\_\+\+P0\+Ke\+Mon\+E/\+P0\+Ke\+Mon\+E/\+App/game.\+cpp\end{DoxyCompactItemize}

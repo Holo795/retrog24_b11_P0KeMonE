@@ -1,0 +1,52 @@
+\doxysection{pokemon.\+h}
+\hypertarget{pokemon_8h_source}{}\label{pokemon_8h_source}\index{/Users/liliangarcia/Documents/2023-\/2024/S2/1256/retrog24\_b11\_P0KeMonE/P0KeMonE/App/pokemon.h@{/Users/liliangarcia/Documents/2023-\/2024/S2/1256/retrog24\_b11\_P0KeMonE/P0KeMonE/App/pokemon.h}}
+\mbox{\hyperlink{pokemon_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ POKEMON\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ POKEMON\_H}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <QList>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{move_8h}{move.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}typeDef.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_pokemon}{Pokemon}}}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{int}\ id\_pk;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{string}\ itsName;\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{class_p_k_t_y_p_e}{PKTYPE}}\ itsType;\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{int}\ itsHealth;\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{int}\ itsMaxHealth;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{int}\ itsSpeed;\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{int}\ itsAtk;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{int}\ itsSpAtk;\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{int}\ itsDef;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{int}\ itsSpDef;\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{int}\ itsLevel;\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ QList<Move>\ itsMoves;\ \ \ \ \ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{class_pokemon}{Pokemon}}(\textcolor{keywordtype}{int}\ id\_pk,\ \textcolor{keywordtype}{string}\ itsName,\ \mbox{\hyperlink{class_p_k_t_y_p_e}{PKTYPE}}\ itsType,\ \textcolor{keywordtype}{int}\ itsHealth,\ \textcolor{keywordtype}{int}\ itsSpeed,\ \textcolor{keywordtype}{int}\ itsAtk,\ \textcolor{keywordtype}{int}\ itsSpAtk,\ \textcolor{keywordtype}{int}\ itsDef,\ \textcolor{keywordtype}{int}\ itsSpDef,\ \textcolor{keywordtype}{int}\ itsLevel);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_pokemon_a1975bc05e8c43a84f0c0b30dd36c2189}{isDead}}(\mbox{\hyperlink{class_pokemon}{Pokemon}}\ \&target);}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_pokemon_ae961d25b095079e4acc587732838a676}{takeDamage}}(\textcolor{keywordtype}{int}\ damage);}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_pokemon_ac527b6504b5ab19a70fb28e63e67c038}{getId}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_pokemon_a0b118426f03dd5f8efe0c8190fa159c2}{getLvl}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_pokemon_acb3be43f1a67cfbb116e2c4b9039ca27}{getHealth}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_pokemon_ad1503929cac79029ceb916a7f2e819f5}{getSpeed}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_pokemon_a59a542bedc39ea60f95093111f4adacc}{getAtk}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_pokemon_a24b9fe9394a2f270cb2b04b891ecdc8b}{getSpAtk}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_pokemon_afe2b91b53bb7ae0a2b49650843f99fbf}{getDef}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_pokemon_a7c36fdfa14f99cbd8d71c78f75533a2a}{getSpDef}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{class_pokemon_a34bca3eac98df589fa6e5d6356fad347}{getItsName}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_pokemon_aaa6883b6ba57ed0ddaaa41006f37c6f9}{getItsMaxHealth}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00053\ \ \ \ \ QList<Move>\ \mbox{\hyperlink{class_pokemon_a12f23e995e1ddbc580f07970bf3c6823}{getItsMoves}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_pokemon_a77a704e36c63696af863b8724be74a59}{setItsMoves}}(\textcolor{keyword}{const}\ QList<Move>\ \&newItsMoves);}
+\DoxyCodeLine{00055\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ POKEMON\_H}}
+
+\end{DoxyCode}

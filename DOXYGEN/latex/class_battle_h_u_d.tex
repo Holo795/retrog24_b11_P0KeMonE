@@ -1,0 +1,130 @@
+\doxysection{Battle\+HUD Class Reference}
+\hypertarget{class_battle_h_u_d}{}\label{class_battle_h_u_d}\index{BattleHUD@{BattleHUD}}
+
+
+Represents the battle heads-\/up display (HUD) using Qt\textquotesingle{}s QGraphics\+Scene.  
+
+
+
+
+{\ttfamily \#include $<$battlehud.\+h$>$}
+
+Inheritance diagram for Battle\+HUD\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_battle_h_u_d}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_battle_h_u_d_adfdaff2a1aaa86bd1e61f4702610b9c2}{Battle\+HUD}} (QObject \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_battle_h_u_d}{Battle\+HUD} scene with an optional parent. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_battle_h_u_d_a10724f645605792412dca55236c8e1bc}{\texorpdfstring{$\sim$}{\string~}\+Battle\+HUD}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{class_battle_h_u_d}{Battle\+HUD}. \end{DoxyCompactList}\item 
+QPush\+Button \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_battle_h_u_d_a28aeff6d61e38d500c16073b313ca057}{get\+Attack\+Button}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves the attack button. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_h_u_d_a4d890b305b810b083c6f21437ffe0dff}{set\+Pokemon}} (\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}pk1, \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}pk2)
+\begin{DoxyCompactList}\small\item\em Updates the displayed Pokémon and their health on the HUD. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_battle_h_u_d_a77aa18f3cf739f01754e4941268fff21}{get\+Pokemon1}} () const
+\begin{DoxyCompactList}\small\item\em Gets the first Pokémon shown in the HUD. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_battle_h_u_d_ac192736f28c88c5e6e605c7a5bb9ea8b}{get\+Pokemon2}} () const
+\begin{DoxyCompactList}\small\item\em Gets the second Pokémon shown in the HUD. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents the battle heads-\/up display (HUD) using Qt\textquotesingle{}s QGraphics\+Scene. 
+
+This class is responsible for displaying the battle interface, including Pokémon and their health, and managing interactions through buttons. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_battle_h_u_d_adfdaff2a1aaa86bd1e61f4702610b9c2}\label{class_battle_h_u_d_adfdaff2a1aaa86bd1e61f4702610b9c2} 
+\index{BattleHUD@{BattleHUD}!BattleHUD@{BattleHUD}}
+\index{BattleHUD@{BattleHUD}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{BattleHUD()}{BattleHUD()}}
+{\footnotesize\ttfamily Battle\+HUD\+::\+Battle\+HUD (\begin{DoxyParamCaption}\item[{QObject \texorpdfstring{$\ast$}{*}}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_battle_h_u_d}{Battle\+HUD} scene with an optional parent. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & The parent QObject, default is nullptr.\\
+\hline
+\end{DoxyParams}
+Constructor for the \doxylink{class_battle_h_u_d}{Battle\+HUD} class. Initializes the HUD with a background, Pokémon images, health displays, and an attack button. \Hypertarget{class_battle_h_u_d_a10724f645605792412dca55236c8e1bc}\label{class_battle_h_u_d_a10724f645605792412dca55236c8e1bc} 
+\index{BattleHUD@{BattleHUD}!````~BattleHUD@{\texorpdfstring{$\sim$}{\string~}BattleHUD}}
+\index{````~BattleHUD@{\texorpdfstring{$\sim$}{\string~}BattleHUD}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}BattleHUD()}{\string~BattleHUD()}}
+{\footnotesize\ttfamily Battle\+HUD\+::\texorpdfstring{$\sim$}{\string~}\+Battle\+HUD (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor for the \doxylink{class_battle_h_u_d}{Battle\+HUD}. 
+
+Destructor for the \doxylink{class_battle_h_u_d}{Battle\+HUD}. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_battle_h_u_d_a28aeff6d61e38d500c16073b313ca057}\label{class_battle_h_u_d_a28aeff6d61e38d500c16073b313ca057} 
+\index{BattleHUD@{BattleHUD}!getAttackButton@{getAttackButton}}
+\index{getAttackButton@{getAttackButton}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{getAttackButton()}{getAttackButton()}}
+{\footnotesize\ttfamily QPush\+Button \texorpdfstring{$\ast$}{*} Battle\+HUD\+::get\+Attack\+Button (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retrieves the attack button. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the QPush\+Button used for attacks.
+\end{DoxyReturn}
+Returns the QPush\+Button used for initiating attacks. \Hypertarget{class_battle_h_u_d_a77aa18f3cf739f01754e4941268fff21}\label{class_battle_h_u_d_a77aa18f3cf739f01754e4941268fff21} 
+\index{BattleHUD@{BattleHUD}!getPokemon1@{getPokemon1}}
+\index{getPokemon1@{getPokemon1}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{getPokemon1()}{getPokemon1()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} Battle\+HUD\+::get\+Pokemon1 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the first Pokémon shown in the HUD. 
+
+\begin{DoxyReturn}{Returns}
+A constant pointer to the first Pokémon.
+\end{DoxyReturn}
+Retrieves the first Pokémon currently displayed on the HUD. \Hypertarget{class_battle_h_u_d_ac192736f28c88c5e6e605c7a5bb9ea8b}\label{class_battle_h_u_d_ac192736f28c88c5e6e605c7a5bb9ea8b} 
+\index{BattleHUD@{BattleHUD}!getPokemon2@{getPokemon2}}
+\index{getPokemon2@{getPokemon2}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{getPokemon2()}{getPokemon2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} Battle\+HUD\+::get\+Pokemon2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the second Pokémon shown in the HUD. 
+
+\begin{DoxyReturn}{Returns}
+A constant pointer to the second Pokémon.
+\end{DoxyReturn}
+Retrieves the second Pokémon currently displayed on the HUD. \Hypertarget{class_battle_h_u_d_a4d890b305b810b083c6f21437ffe0dff}\label{class_battle_h_u_d_a4d890b305b810b083c6f21437ffe0dff} 
+\index{BattleHUD@{BattleHUD}!setPokemon@{setPokemon}}
+\index{setPokemon@{setPokemon}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{setPokemon()}{setPokemon()}}
+{\footnotesize\ttfamily void Battle\+HUD\+::set\+Pokemon (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}}]{pk1,  }\item[{\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}}]{pk2 }\end{DoxyParamCaption})}
+
+
+
+Updates the displayed Pokémon and their health on the HUD. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pk1} & Pointer to the first Pokémon. \\
+\hline
+{\em pk2} & Pointer to the second Pokémon.\\
+\hline
+\end{DoxyParams}
+Updates the displayed Pokémon images and their health statistics on the HUD. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/liliangarcia/\+Documents/2023-\/2024/\+S2/1256/retrog24\+\_\+b11\+\_\+\+P0\+Ke\+Mon\+E/\+P0\+Ke\+Mon\+E/\+App/\mbox{\hyperlink{battlehud_8h}{battlehud.\+h}}\item 
+/\+Users/liliangarcia/\+Documents/2023-\/2024/\+S2/1256/retrog24\+\_\+b11\+\_\+\+P0\+Ke\+Mon\+E/\+P0\+Ke\+Mon\+E/\+App/battlehud.\+cpp\end{DoxyCompactItemize}

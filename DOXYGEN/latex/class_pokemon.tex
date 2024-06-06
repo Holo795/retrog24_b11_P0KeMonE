@@ -1,0 +1,151 @@
+\doxysection{Pokemon Class Reference}
+\hypertarget{class_pokemon}{}\label{class_pokemon}\index{Pokemon@{Pokemon}}
+
+
+Represents a Pokémon with its characteristics and abilities.  
+
+
+
+
+{\ttfamily \#include $<$pokemon.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_pokemon_a4a2654488b4fb3f8b53981801e5a0b34}{Pokemon}} (int id\+\_\+pk, string its\+Name, \mbox{\hyperlink{class_p_k_t_y_p_e}{PKTYPE}} its\+Type, int its\+Health, int its\+Speed, int its\+Atk, int its\+Sp\+Atk, int its\+Def, int its\+Sp\+Def, int its\+Level)
+\item 
+bool \mbox{\hyperlink{class_pokemon_a1975bc05e8c43a84f0c0b30dd36c2189}{is\+Dead}} (\mbox{\hyperlink{class_pokemon}{Pokemon}} \&target)
+\item 
+void \mbox{\hyperlink{class_pokemon_ae961d25b095079e4acc587732838a676}{take\+Damage}} (int damage)
+\item 
+int \mbox{\hyperlink{class_pokemon_ac527b6504b5ab19a70fb28e63e67c038}{get\+Id}} () const
+\item 
+int \mbox{\hyperlink{class_pokemon_a0b118426f03dd5f8efe0c8190fa159c2}{get\+Lvl}} () const
+\item 
+int \mbox{\hyperlink{class_pokemon_acb3be43f1a67cfbb116e2c4b9039ca27}{get\+Health}} () const
+\item 
+int \mbox{\hyperlink{class_pokemon_ad1503929cac79029ceb916a7f2e819f5}{get\+Speed}} () const
+\item 
+int \mbox{\hyperlink{class_pokemon_a59a542bedc39ea60f95093111f4adacc}{get\+Atk}} () const
+\item 
+int \mbox{\hyperlink{class_pokemon_a24b9fe9394a2f270cb2b04b891ecdc8b}{get\+Sp\+Atk}} () const
+\item 
+int \mbox{\hyperlink{class_pokemon_afe2b91b53bb7ae0a2b49650843f99fbf}{get\+Def}} () const
+\item 
+int \mbox{\hyperlink{class_pokemon_a7c36fdfa14f99cbd8d71c78f75533a2a}{get\+Sp\+Def}} () const
+\item 
+string \mbox{\hyperlink{class_pokemon_a34bca3eac98df589fa6e5d6356fad347}{get\+Its\+Name}} () const
+\item 
+int \mbox{\hyperlink{class_pokemon_aaa6883b6ba57ed0ddaaa41006f37c6f9}{get\+Its\+Max\+Health}} () const
+\item 
+QList$<$ \mbox{\hyperlink{class_move}{Move}} $>$ \mbox{\hyperlink{class_pokemon_a12f23e995e1ddbc580f07970bf3c6823}{get\+Its\+Moves}} () const
+\item 
+void \mbox{\hyperlink{class_pokemon_a77a704e36c63696af863b8724be74a59}{set\+Its\+Moves}} (const QList$<$ \mbox{\hyperlink{class_move}{Move}} $>$ \&new\+Its\+Moves)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a Pokémon with its characteristics and abilities. 
+
+This class manages all aspects related to a Pokémon\textquotesingle{}s state, including health, attacks, and other stats. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_pokemon_a4a2654488b4fb3f8b53981801e5a0b34}\label{class_pokemon_a4a2654488b4fb3f8b53981801e5a0b34} 
+\index{Pokemon@{Pokemon}!Pokemon@{Pokemon}}
+\index{Pokemon@{Pokemon}!Pokemon@{Pokemon}}
+\doxysubsubsection{\texorpdfstring{Pokemon()}{Pokemon()}}
+{\footnotesize\ttfamily Pokemon\+::\+Pokemon (\begin{DoxyParamCaption}\item[{int}]{id\+\_\+pk,  }\item[{string}]{its\+Name,  }\item[{\mbox{\hyperlink{class_p_k_t_y_p_e}{PKTYPE}}}]{its\+Type,  }\item[{int}]{its\+Health,  }\item[{int}]{its\+Speed,  }\item[{int}]{its\+Atk,  }\item[{int}]{its\+Sp\+Atk,  }\item[{int}]{its\+Def,  }\item[{int}]{its\+Sp\+Def,  }\item[{int}]{its\+Level }\end{DoxyParamCaption})}
+
+Constructs a \doxylink{class_pokemon}{Pokemon} with specified attributes. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_pokemon_a59a542bedc39ea60f95093111f4adacc}\label{class_pokemon_a59a542bedc39ea60f95093111f4adacc} 
+\index{Pokemon@{Pokemon}!getAtk@{getAtk}}
+\index{getAtk@{getAtk}!Pokemon@{Pokemon}}
+\doxysubsubsection{\texorpdfstring{getAtk()}{getAtk()}}
+{\footnotesize\ttfamily int Pokemon\+::get\+Atk (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the attack statistic of this \doxylink{class_pokemon}{Pokemon}. \Hypertarget{class_pokemon_afe2b91b53bb7ae0a2b49650843f99fbf}\label{class_pokemon_afe2b91b53bb7ae0a2b49650843f99fbf} 
+\index{Pokemon@{Pokemon}!getDef@{getDef}}
+\index{getDef@{getDef}!Pokemon@{Pokemon}}
+\doxysubsubsection{\texorpdfstring{getDef()}{getDef()}}
+{\footnotesize\ttfamily int Pokemon\+::get\+Def (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the defense statistic of this \doxylink{class_pokemon}{Pokemon}. \Hypertarget{class_pokemon_acb3be43f1a67cfbb116e2c4b9039ca27}\label{class_pokemon_acb3be43f1a67cfbb116e2c4b9039ca27} 
+\index{Pokemon@{Pokemon}!getHealth@{getHealth}}
+\index{getHealth@{getHealth}!Pokemon@{Pokemon}}
+\doxysubsubsection{\texorpdfstring{getHealth()}{getHealth()}}
+{\footnotesize\ttfamily int Pokemon\+::get\+Health (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the current health of this \doxylink{class_pokemon}{Pokemon}. \Hypertarget{class_pokemon_ac527b6504b5ab19a70fb28e63e67c038}\label{class_pokemon_ac527b6504b5ab19a70fb28e63e67c038} 
+\index{Pokemon@{Pokemon}!getId@{getId}}
+\index{getId@{getId}!Pokemon@{Pokemon}}
+\doxysubsubsection{\texorpdfstring{getId()}{getId()}}
+{\footnotesize\ttfamily int Pokemon\+::get\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the identifier of this \doxylink{class_pokemon}{Pokemon}. \Hypertarget{class_pokemon_aaa6883b6ba57ed0ddaaa41006f37c6f9}\label{class_pokemon_aaa6883b6ba57ed0ddaaa41006f37c6f9} 
+\index{Pokemon@{Pokemon}!getItsMaxHealth@{getItsMaxHealth}}
+\index{getItsMaxHealth@{getItsMaxHealth}!Pokemon@{Pokemon}}
+\doxysubsubsection{\texorpdfstring{getItsMaxHealth()}{getItsMaxHealth()}}
+{\footnotesize\ttfamily int Pokemon\+::get\+Its\+Max\+Health (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the maximum health of this \doxylink{class_pokemon}{Pokemon}. \Hypertarget{class_pokemon_a12f23e995e1ddbc580f07970bf3c6823}\label{class_pokemon_a12f23e995e1ddbc580f07970bf3c6823} 
+\index{Pokemon@{Pokemon}!getItsMoves@{getItsMoves}}
+\index{getItsMoves@{getItsMoves}!Pokemon@{Pokemon}}
+\doxysubsubsection{\texorpdfstring{getItsMoves()}{getItsMoves()}}
+{\footnotesize\ttfamily QList$<$ \mbox{\hyperlink{class_move}{Move}} $>$ Pokemon\+::get\+Its\+Moves (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the list of moves this \doxylink{class_pokemon}{Pokemon} can perform. \Hypertarget{class_pokemon_a34bca3eac98df589fa6e5d6356fad347}\label{class_pokemon_a34bca3eac98df589fa6e5d6356fad347} 
+\index{Pokemon@{Pokemon}!getItsName@{getItsName}}
+\index{getItsName@{getItsName}!Pokemon@{Pokemon}}
+\doxysubsubsection{\texorpdfstring{getItsName()}{getItsName()}}
+{\footnotesize\ttfamily string Pokemon\+::get\+Its\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the name of this \doxylink{class_pokemon}{Pokemon}. \Hypertarget{class_pokemon_a0b118426f03dd5f8efe0c8190fa159c2}\label{class_pokemon_a0b118426f03dd5f8efe0c8190fa159c2} 
+\index{Pokemon@{Pokemon}!getLvl@{getLvl}}
+\index{getLvl@{getLvl}!Pokemon@{Pokemon}}
+\doxysubsubsection{\texorpdfstring{getLvl()}{getLvl()}}
+{\footnotesize\ttfamily int Pokemon\+::get\+Lvl (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the current level of this \doxylink{class_pokemon}{Pokemon}. \Hypertarget{class_pokemon_a24b9fe9394a2f270cb2b04b891ecdc8b}\label{class_pokemon_a24b9fe9394a2f270cb2b04b891ecdc8b} 
+\index{Pokemon@{Pokemon}!getSpAtk@{getSpAtk}}
+\index{getSpAtk@{getSpAtk}!Pokemon@{Pokemon}}
+\doxysubsubsection{\texorpdfstring{getSpAtk()}{getSpAtk()}}
+{\footnotesize\ttfamily int Pokemon\+::get\+Sp\+Atk (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the special attack statistic of this \doxylink{class_pokemon}{Pokemon}. \Hypertarget{class_pokemon_a7c36fdfa14f99cbd8d71c78f75533a2a}\label{class_pokemon_a7c36fdfa14f99cbd8d71c78f75533a2a} 
+\index{Pokemon@{Pokemon}!getSpDef@{getSpDef}}
+\index{getSpDef@{getSpDef}!Pokemon@{Pokemon}}
+\doxysubsubsection{\texorpdfstring{getSpDef()}{getSpDef()}}
+{\footnotesize\ttfamily int Pokemon\+::get\+Sp\+Def (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the special defense statistic of this \doxylink{class_pokemon}{Pokemon}. \Hypertarget{class_pokemon_ad1503929cac79029ceb916a7f2e819f5}\label{class_pokemon_ad1503929cac79029ceb916a7f2e819f5} 
+\index{Pokemon@{Pokemon}!getSpeed@{getSpeed}}
+\index{getSpeed@{getSpeed}!Pokemon@{Pokemon}}
+\doxysubsubsection{\texorpdfstring{getSpeed()}{getSpeed()}}
+{\footnotesize\ttfamily int Pokemon\+::get\+Speed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the speed statistic of this \doxylink{class_pokemon}{Pokemon}. \Hypertarget{class_pokemon_a1975bc05e8c43a84f0c0b30dd36c2189}\label{class_pokemon_a1975bc05e8c43a84f0c0b30dd36c2189} 
+\index{Pokemon@{Pokemon}!isDead@{isDead}}
+\index{isDead@{isDead}!Pokemon@{Pokemon}}
+\doxysubsubsection{\texorpdfstring{isDead()}{isDead()}}
+{\footnotesize\ttfamily bool Pokemon\+::is\+Dead (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_pokemon}{Pokemon}} \&}]{target }\end{DoxyParamCaption})}
+
+Determines if the target \doxylink{class_pokemon}{Pokemon} is \"{}dead\"{} or has no health left. \Hypertarget{class_pokemon_a77a704e36c63696af863b8724be74a59}\label{class_pokemon_a77a704e36c63696af863b8724be74a59} 
+\index{Pokemon@{Pokemon}!setItsMoves@{setItsMoves}}
+\index{setItsMoves@{setItsMoves}!Pokemon@{Pokemon}}
+\doxysubsubsection{\texorpdfstring{setItsMoves()}{setItsMoves()}}
+{\footnotesize\ttfamily void Pokemon\+::set\+Its\+Moves (\begin{DoxyParamCaption}\item[{const QList$<$ \mbox{\hyperlink{class_move}{Move}} $>$ \&}]{new\+Its\+Moves }\end{DoxyParamCaption})}
+
+Sets the list of moves this \doxylink{class_pokemon}{Pokemon} can perform. \Hypertarget{class_pokemon_ae961d25b095079e4acc587732838a676}\label{class_pokemon_ae961d25b095079e4acc587732838a676} 
+\index{Pokemon@{Pokemon}!takeDamage@{takeDamage}}
+\index{takeDamage@{takeDamage}!Pokemon@{Pokemon}}
+\doxysubsubsection{\texorpdfstring{takeDamage()}{takeDamage()}}
+{\footnotesize\ttfamily void Pokemon\+::take\+Damage (\begin{DoxyParamCaption}\item[{int}]{damage }\end{DoxyParamCaption})}
+
+Applies damage to this \doxylink{class_pokemon}{Pokemon}, reducing its health. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/liliangarcia/\+Documents/2023-\/2024/\+S2/1256/retrog24\+\_\+b11\+\_\+\+P0\+Ke\+Mon\+E/\+P0\+Ke\+Mon\+E/\+App/\mbox{\hyperlink{pokemon_8h}{pokemon.\+h}}\item 
+/\+Users/liliangarcia/\+Documents/2023-\/2024/\+S2/1256/retrog24\+\_\+b11\+\_\+\+P0\+Ke\+Mon\+E/\+P0\+Ke\+Mon\+E/\+App/pokemon.\+cpp\end{DoxyCompactItemize}

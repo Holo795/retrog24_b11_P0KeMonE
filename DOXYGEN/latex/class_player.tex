@@ -1,0 +1,168 @@
+\doxysection{Player Class Reference}
+\hypertarget{class_player}{}\label{class_player}\index{Player@{Player}}
+
+
+The \doxylink{class_player}{Player} class represents the player character in the game.  
+
+
+
+
+{\ttfamily \#include $<$player.\+h$>$}
+
+Inheritance diagram for Player\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_player}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_player_ae02ee46d8c20dd0697b975f935b09839}{move}} ()
+\begin{DoxyCompactList}\small\item\em Moves the player based on the currently pressed key. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_player_a5a20e6232fed30c28453b8bcf4e7ad0d}\label{class_player_a5a20e6232fed30c28453b8bcf4e7ad0d} 
+void {\bfseries start\+Encounter\+Combat} ()
+\begin{DoxyCompactList}\small\item\em Signal emitted when the player encounters combat conditions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_player_a847cda8deb8dca3637bef1084643b46b}{Player}} (QGraphics\+Item \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_player}{Player} object with an optional parent item. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_player_a749d2c00e1fe0f5c2746f7505a58c062}{\texorpdfstring{$\sim$}{\string~}\+Player}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{class_player}{Player} class. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_player_a62294b1aab2679ef68734a4e2d0c6e85}{get\+Team}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the player\textquotesingle{}s team of Pokémon. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_a4d269c4118c29b0ee85c1e0f674260ee}{key\+Press\+Event}} (QKey\+Event \texorpdfstring{$\ast$}{*}event)
+\begin{DoxyCompactList}\small\item\em Handles key press events for player movement. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_a478572d23809f9163fb6c9a3520f3dee}{stop\+Moving}} ()
+\begin{DoxyCompactList}\small\item\em Stops the player\textquotesingle{}s movement. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_ac642eec0c4f2ac2049cd0b8ef63ea338}{add\+Pokemon}} (\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}pokemon)
+\begin{DoxyCompactList}\small\item\em Adds a Pokémon to the player\textquotesingle{}s team. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_player_a09f3d5dea93b5699138eba6f4f420b27}{key\+Release\+Event}} (QKey\+Event \texorpdfstring{$\ast$}{*}event)
+\begin{DoxyCompactList}\small\item\em Handles key release events to stop player movement. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \doxylink{class_player}{Player} class represents the player character in the game. 
+
+This class is responsible for managing player input, movement, and interactions within the game scene, including collision detection and response. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_player_a847cda8deb8dca3637bef1084643b46b}\label{class_player_a847cda8deb8dca3637bef1084643b46b} 
+\index{Player@{Player}!Player@{Player}}
+\index{Player@{Player}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{Player()}{Player()}}
+{\footnotesize\ttfamily Player\+::\+Player (\begin{DoxyParamCaption}\item[{QGraphics\+Item \texorpdfstring{$\ast$}{*}}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_player}{Player} object with an optional parent item. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & The parent QGraphics\+Item, default is nullptr.\\
+\hline
+\end{DoxyParams}
+Initializes the \doxylink{class_player}{Player} object, sets up its graphical representation and movement mechanics. \Hypertarget{class_player_a749d2c00e1fe0f5c2746f7505a58c062}\label{class_player_a749d2c00e1fe0f5c2746f7505a58c062} 
+\index{Player@{Player}!````~Player@{\texorpdfstring{$\sim$}{\string~}Player}}
+\index{````~Player@{\texorpdfstring{$\sim$}{\string~}Player}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Player()}{\string~Player()}}
+{\footnotesize\ttfamily Player\+::\texorpdfstring{$\sim$}{\string~}\+Player (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor for the \doxylink{class_player}{Player} class. 
+
+Destructor for the \doxylink{class_player}{Player} class. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_player_ac642eec0c4f2ac2049cd0b8ef63ea338}\label{class_player_ac642eec0c4f2ac2049cd0b8ef63ea338} 
+\index{Player@{Player}!addPokemon@{addPokemon}}
+\index{addPokemon@{addPokemon}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{addPokemon()}{addPokemon()}}
+{\footnotesize\ttfamily void Player\+::add\+Pokemon (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}}]{pokemon }\end{DoxyParamCaption})}
+
+
+
+Adds a Pokémon to the player\textquotesingle{}s team. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pokemon} & Pointer to the Pokémon to add.\\
+\hline
+\end{DoxyParams}
+Adds a Pokémon to the player\textquotesingle{}s team. \Hypertarget{class_player_a62294b1aab2679ef68734a4e2d0c6e85}\label{class_player_a62294b1aab2679ef68734a4e2d0c6e85} 
+\index{Player@{Player}!getTeam@{getTeam}}
+\index{getTeam@{getTeam}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{getTeam()}{getTeam()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} $>$ Player\+::get\+Team (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Retrieves the player\textquotesingle{}s team of Pokémon. 
+
+\begin{DoxyReturn}{Returns}
+A constant reference to a vector of pointers to Pokémon.
+\end{DoxyReturn}
+Returns the team of Pokémon. \Hypertarget{class_player_a4d269c4118c29b0ee85c1e0f674260ee}\label{class_player_a4d269c4118c29b0ee85c1e0f674260ee} 
+\index{Player@{Player}!keyPressEvent@{keyPressEvent}}
+\index{keyPressEvent@{keyPressEvent}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{keyPressEvent()}{keyPressEvent()}}
+{\footnotesize\ttfamily void Player\+::key\+Press\+Event (\begin{DoxyParamCaption}\item[{QKey\+Event \texorpdfstring{$\ast$}{*}}]{event }\end{DoxyParamCaption})}
+
+
+
+Handles key press events for player movement. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The key event.\\
+\hline
+\end{DoxyParams}
+Handles key press events to initiate movement. \Hypertarget{class_player_a09f3d5dea93b5699138eba6f4f420b27}\label{class_player_a09f3d5dea93b5699138eba6f4f420b27} 
+\index{Player@{Player}!keyReleaseEvent@{keyReleaseEvent}}
+\index{keyReleaseEvent@{keyReleaseEvent}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{keyReleaseEvent()}{keyReleaseEvent()}}
+{\footnotesize\ttfamily void Player\+::key\+Release\+Event (\begin{DoxyParamCaption}\item[{QKey\+Event \texorpdfstring{$\ast$}{*}}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Handles key release events to stop player movement. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The key event.\\
+\hline
+\end{DoxyParams}
+Handles key release events to stop movement. \Hypertarget{class_player_ae02ee46d8c20dd0697b975f935b09839}\label{class_player_ae02ee46d8c20dd0697b975f935b09839} 
+\index{Player@{Player}!move@{move}}
+\index{move@{move}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{move}{move}}
+{\footnotesize\ttfamily void Player\+::move (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Moves the player based on the currently pressed key. 
+
+Moves the player based on the current key press. \Hypertarget{class_player_a478572d23809f9163fb6c9a3520f3dee}\label{class_player_a478572d23809f9163fb6c9a3520f3dee} 
+\index{Player@{Player}!stopMoving@{stopMoving}}
+\index{stopMoving@{stopMoving}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{stopMoving()}{stopMoving()}}
+{\footnotesize\ttfamily void Player\+::stop\+Moving (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Stops the player\textquotesingle{}s movement. 
+
+Stops movement when a key is released. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/liliangarcia/\+Documents/2023-\/2024/\+S2/1256/retrog24\+\_\+b11\+\_\+\+P0\+Ke\+Mon\+E/\+P0\+Ke\+Mon\+E/\+App/\mbox{\hyperlink{player_8h}{player.\+h}}\item 
+/\+Users/liliangarcia/\+Documents/2023-\/2024/\+S2/1256/retrog24\+\_\+b11\+\_\+\+P0\+Ke\+Mon\+E/\+P0\+Ke\+Mon\+E/\+App/player.\+cpp\end{DoxyCompactItemize}

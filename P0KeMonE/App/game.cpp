@@ -152,14 +152,23 @@ void Game::endFight(bool playerWon)
         setScene(gui->map());
         scale(1.5, 1.5);
         player->incrementWinCount();
-        player->setFocus();
-        int winsRequired = (player->getItsLevel() == 1.0) ? 1 : (player->getItsLevel() == 2.0) ? 2 : 5;
+        double playerLevel = player->getItsLevel();
+        int winsRequired = 0;
 
-        if (player->getWinCount() >= winsRequired)
-        {
-            player->setItsLevel(player->getItsLevel() + ((player->getItsLevel() >= 3.0) ? 1.0 : 0.5));
-            player->setWinCount(0);
+        if (playerLevel == 1.0) {
+            winsRequired = 1;
+        } else if (playerLevel == 2.0) {
+            winsRequired = 2;
+        } else if (playerLevel >= 3.0) {
+            winsRequired = 5;
         }
+
+        if (player->getWinCount() >= winsRequired) {
+            player->setItsLevel(playerLevel + (playerLevel >= 3.0 ? 1.0 : 0.5));
+            player->setWinCount(0); // Réinitialise le compteur de victoires après avoir passé le niveau
+        }
+
+
         qDebug() << "Level player: " << player->getItsLevel();
         qDebug() << "Wins player: " << player->getWinCount();
     }

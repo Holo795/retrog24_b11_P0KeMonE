@@ -42,8 +42,6 @@ Game::~Game() {
 
 void Game::keyPressEvent(QKeyEvent *event) {
     // Handle key presses for game interactions
-    if (scene()->focusItem() != nullptr) {
-
         if (event->key() == Qt::Key_Space)
         {
             resetTransform();
@@ -58,7 +56,6 @@ void Game::keyPressEvent(QKeyEvent *event) {
         }
 
         QGraphicsView::keyPressEvent(event);
-    }
 }
 
 void Game::mousePressEvent(QMouseEvent *event){
@@ -72,6 +69,7 @@ void Game::mousePressEvent(QMouseEvent *event){
 void Game::mouseDoubleClickEvent(QMouseEvent *event){
     // Prevent loss of focus when clicking within the game view
 }
+
 
 void Game::updateView() {
     // Periodically refresh the game scene and re-center if necessary
@@ -135,13 +133,22 @@ void Game::endFight(bool playerWon)
         generateNewOpponent();
         setScene(gui->map());
         scale(1.5, 1.5);
+        player->incrementWinCount();
+        int winsRequired = (player->getItsLevel() == 1.0) ? 1 : (player->getItsLevel() == 2.0) ? 2 : 5;
+
+        if (player->getWinCount() >= winsRequired)
+        {
+            player->setItsLevel(player->getItsLevel() + ((player->getItsLevel() >= 3.0) ? 1.0 : 0.5));
+            player->setWinCount(0);
+        }
+        qDebug() << "Level player: " << player->getItsLevel();
+        qDebug() << "Wins player: " << player->getWinCount();
     }
     else
     {
         resetTransform();
         setScene(gui->gameOver());
     }
-
 }
 
 void Game::generateNewOpponent()

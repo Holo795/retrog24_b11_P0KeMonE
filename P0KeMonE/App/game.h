@@ -50,6 +50,7 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseDoubleClickEvent(QMouseEvent *event) override;
 
+
 public slots:
     void updateView(); ///< Updates the view to ensure the player remains centered.
     void showFight(); ///< Transitions the game to the battle scene.

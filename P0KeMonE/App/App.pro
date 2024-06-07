@@ -16,6 +16,7 @@ SOURCES += \
     game.cpp \
     gameoverhud.cpp \
     gui.cpp \
+    hoverbutton.cpp \
     main.cpp \
     mainhud.cpp \
     maphud.cpp \
@@ -32,6 +33,7 @@ HEADERS += \
     game.h \
     gameoverhud.h \
     gui.h \
+    hoverbutton.h \
     include/json.hpp \
     mainhud.h \
     maphud.h \

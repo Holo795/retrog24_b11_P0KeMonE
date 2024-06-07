@@ -318,9 +318,7 @@ void BattleHUD::menuFight()
     pokemonButton->setVisible(true);
     runButton->setVisible(true);
     dialogueBox->setVisible(true);
-
     backButton->setVisible(false);
-
 
     moveButton->setVisible(false);
 }

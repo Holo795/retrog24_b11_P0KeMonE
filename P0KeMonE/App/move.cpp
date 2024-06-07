@@ -1,11 +1,12 @@
 #include "move.h"
 
 
-Move::Move(string itsName, int itsPower, int itsAccuracy, MOVENATURE itsType)
+Move::Move(string itsName, int itsPower, int itsAccuracy, MOVENATURE itsNature, PKTYPE itsType)
 {
     this->itsName = itsName;
     this->itsPower = itsPower;
     this->itsAccuracy = itsAccuracy;
+    this->itsNature = itsNature;
     this->itsType = itsType;
 }
 

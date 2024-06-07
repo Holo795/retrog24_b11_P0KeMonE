@@ -33,8 +33,8 @@ void Battle::attack(Move *move, Pokemon *target) {
     Pokemon* defender = target == itsOpponent1 ? itsOpponent1 : itsPlayer1->getTeam().front();
 
     int lvl = attacker->getLvl();
-    int atk = (move->getItsType() == 0) ? attacker->getAtk() : attacker->getSpAtk();
-    int def = (move->getItsType() == 0) ? defender->getDef() : defender->getSpDef();
+    int atk = (move->getItsNature() == 0) ? attacker->getAtk() : attacker->getSpAtk();
+    int def = (move->getItsNature() == 0) ? defender->getDef() : defender->getSpDef();
 
     int damage = move->calculateDamage(lvl, atk, def, crit);
 
@@ -54,6 +54,7 @@ void Battle::attack(Move *move, Pokemon *target) {
  */
 std::vector<Pokemon*> Battle::getBossTeam() const {
     return itsBossTeam;
+}
 BattleHUD *Battle::getBattleHUD()
 {
     return itsBattleHUD1;

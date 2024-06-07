@@ -90,14 +90,18 @@ QList<Move> Data::getMoves(int pokemon_id)
 {
     qDebug() << "Entering getMoves() with pokemon_id:" << pokemon_id;
     QSqlQuery query;
-    QString queryString = "SELECT move.name, move.power, move.accuracy, move.spephy, move.type "
-                          "FROM pokemon "
-                          "JOIN type ON move.type = type.id"
-                          "JOIN move_pk ON pokemon.id = move_pk.id_pk "
-                          "JOIN move ON move_pk.id_move = move.id "
-                          "WHERE pokemon.id = " + QString::number(pokemon_id);
 
-    if (!query.exec(queryString))
+    QString queryString = R"(
+        SELECT move.name, move.power, move.accuracy, move.spephy, move.type
+        FROM move
+        JOIN move_pk ON move.id = move_pk.id_move
+        WHERE move_pk.id_pk = :pokemon_id
+    )";
+
+    query.prepare(queryString);
+    query.bindValue(":pokemon_id", pokemon_id);
+
+    if (!query.exec())
     {
         qDebug() << "Error: query execution failed" << query.lastError();
         return QList<Move>();
@@ -116,3 +120,4 @@ QList<Move> Data::getMoves(int pokemon_id)
     }
     return moves;
 }
+

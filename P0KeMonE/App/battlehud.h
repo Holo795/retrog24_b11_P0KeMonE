@@ -85,8 +85,14 @@ public:
 
     void displayMoves(QList<Move> moves);
 
-    QButtonGroup *getMoveGroup();
+    void menuFight();
 
+    QButtonGroup *getMoveGroup() const;
+
+
+
+
+    QPushButton *getBackButton() const;
 
 private:
     QPushButton *attackButton;           /**< Button used for initiating attacks. */
@@ -100,11 +106,12 @@ private:
     QGraphicsTextItem *health2;          /**< Text item for the second Pokémon's health. */
     QGraphicsPixmapItem *dialogueBox;    /**< Graphics item for battle dialogue.  */
     QButtonGroup *moveButtonsGroup;      /**< Button group for Moves  */
+    QPushButton *backButton;
+    QPushButton *moveButton;
 
 
 signals:
-    void moveSelected(Move move);
-
+    void moveButtonClicked(int moveIndex);
 };
 
 #endif // BATTLEHUD_H

@@ -5,6 +5,8 @@
 #include <QTimeLine>
 #include <QButtonGroup>
 
+#include <QLabel>
+
 #include "pokemon.h"
 
 /**
@@ -225,10 +227,11 @@ Pokemon *BattleHUD::getPokemon2() const
 void BattleHUD::displayMoves(QList<Move> moves)
 {
 
-    attackButton->close();
-    delete pokemonButton;
-    delete runButton;
-    delete dialogueBox;
+    attackButton->setVisible(0);
+    pokemonButton->setVisible(0);
+    runButton->setVisible(0);
+    dialogueBox->setVisible(0);
+
 
     // Create and add new move buttons
     int buttonWidth = 160;
@@ -273,41 +276,33 @@ void BattleHUD::displayMoves(QList<Move> moves)
 
 
 
-
-
         // Create and configure the move button
         QString qType = QString::fromStdString(typeName);
-        QPushButton *moveButton = new QPushButton();
+        moveButton = new QPushButton();
+
         moveButton->setIcon(QPixmap(":/hud/battlehud_assets/" + qType + "Button.png").scaled(buttonWidth, buttonHeight));
         moveButton->setGeometry(positions[i].x(), positions[i].y(), buttonWidth, buttonHeight);
         moveButton->setIconSize(QSize(buttonWidth, buttonHeight));
         moveButton->setFixedSize(buttonWidth, buttonHeight);
 
-        // Set the text of the move button to the move name
-        moveButton->setText(QString::fromStdString(pokemon1->getItsMoves()[0].getItsName())); // Assuming `Move` has a `getName()` method
+        // Create and configure a QLabel for the move name
+        QLabel *moveLabel = new QLabel(QString::fromStdString(moves[i].getItsName()), moveButton);
+        moveLabel->setGeometry(0, 0, buttonWidth, buttonHeight);
+        moveLabel->setAlignment(Qt::AlignCenter);
+        moveLabel->setStyleSheet("QLabel { color: white; font: bold 14px; }");
+        moveLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
 
-        // Style the button to overlay text on the image
-        moveButton->setStyleSheet(
-            "QPushButton {"
-            "    border: none;"
-            "    color: white;"
-            "    font: bold 12px;"
-            "    text-align: center;"
-            "    padding: 10px 0;"
-            "}"
-            "QPushButton::icon {"
-            "    position: absolute;"
-            "    top: 0px;"
-            "    left: 0px;"
-            "}"
-            );
+        connect(moveButton, &QPushButton::clicked, [this, i]() {
+            emit moveButtonClicked(i);
+        });
 
+        // Add the button to the scene and button group
         addWidget(moveButton);
         moveButtonsGroup->addButton(moveButton, i);
     }
 
 
-    QPushButton *backButton = new QPushButton();
+    backButton = new QPushButton();
     backButton->setIcon(QPixmap(":/hud/battlehud_assets/back_button.png").scaled(buttonWidth, buttonHeight));
     backButton->setIconSize(QSize(buttonWidth, buttonHeight));
     backButton->setFixedSize(buttonWidth, buttonHeight);
@@ -317,7 +312,25 @@ void BattleHUD::displayMoves(QList<Move> moves)
 
 }
 
-QButtonGroup *BattleHUD::getMoveGroup()
+void BattleHUD::menuFight()
+{
+    attackButton->setVisible(1);
+    pokemonButton->setVisible(1);
+    runButton->setVisible(1);
+    dialogueBox->setVisible(1);
+
+
+    moveButton->setVisible(0);
+}
+
+QButtonGroup *BattleHUD::getMoveGroup() const
 {
     return moveButtonsGroup;
 }
+
+QPushButton *BattleHUD::getBackButton() const
+{
+    return backButton;
+}
+
+

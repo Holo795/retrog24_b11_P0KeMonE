@@ -1,7 +1,6 @@
 #include "game.h"
 #include "player.h"
 #include "battle.h"
-#include "qbuttongroup.h"
 
 
 Game::Game(Model *model, GUI *gui, QWidget *parent)
@@ -22,11 +21,13 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     connect(gui->battle()->getAttackButton(), &QPushButton::clicked, this, &Game::showMoves);
 
     //connect(gui->battle()->getPokemonButton(), &QPushButton::clicked, this, &Game::switchPokemon);
-    connect(gui->battle()->getRunButton(), &QPushButton::clicked, this, &Game::run);
 
 
-    connect(gui->battle()->getMoveGroup(), &QButtonGroup::buttonClicked,
-            this, &Game::handleAttackButtonClicked);
+    //connect(gui->battle()->getMoveGroup(), &BattleHUD::moveButtonClicked, this, &Game::onMoveButtonClicked);
+    connect(gui->battle()->getBackButton(), &QPushButton::clicked, this, &Game::showFightMenu);
+    qDebug() << "connect";
+
+
 
     // Timer for updating the view regularly
     QTimer *updateTimer = new QTimer(this);
@@ -118,6 +119,11 @@ void Game::showFight() {
     setScene(gui->battle(player->getTeam().front(), model->getData()->randompokemon()));
 }
 
+void Game::showFightMenu() {
+    qDebug() << "showFightMenu";
+    gui->battle()->menuFight();
+}
+
 void Game::fight() {
     // Manage initiating and processing a battle round
     battle = new Battle(player, gui->battle()->getPokemon2(), gui->battle());
@@ -136,29 +142,8 @@ void Game::showMoves() {
     gui->battle()->displayMoves(movePk1);
 }
 
-void Game::handleAttackButtonClicked(QAbstractButton *button) {
-    // Réagir en fonction de l'indice du bouton cliqué
-    int buttonId = gui->battle()->getMoveGroup()->id(button);
-
-    switch (buttonId) {
-    case 0:
-        qDebug() << "1 bouton d'attaque cliqué";
-        break;
-    case 1:
-        qDebug() << "2 bouton d'attaque cliqué";
-        break;
-    case 2:
-        qDebug() << "3 bouton d'attaque cliqué";
-        break;
-    case 3:
-        qDebug() << "4 bouton d'attaque cliqué";
-        break;
-    case 4:
-        qDebug() << "5 bouton back";
-        break;
-    default:
-        qDebug() << "default";
-    }
+void Game::onMoveButtonClicked(int moveIndex) {
+    qDebug() << "Move button clicked with index:" << moveIndex;
 }
 
 void Game::continuefight()

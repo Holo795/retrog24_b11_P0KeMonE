@@ -63,7 +63,8 @@ public slots:
     void run(); ///< When the run button is clicked
     void generateNewOpponent(); ///< To prepare the next fight
     void showMoves();
-    void handleAttackButtonClicked(QAbstractButton *button);
+    void onMoveButtonClicked(int moveIndex);
+    void showFightMenu();
 };
 
 #endif // GAME_H

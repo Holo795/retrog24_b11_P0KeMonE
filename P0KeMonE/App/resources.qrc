@@ -605,5 +605,6 @@
         <file>battlehud_assets/normalButton2.png</file>
         <file>battlehud_assets/waterButton.png</file>
         <file>battlehud_assets/waterButton2.png</file>
+        <file>playerhud_assets/arrow.png</file>
     </qresource>
 </RCC>

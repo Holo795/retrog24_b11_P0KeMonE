@@ -135,7 +135,6 @@ void MapHUD::keyPressEvent(QKeyEvent *event) {
 
     if (model->getMap()[y_foot / 32][x_foot / 32] < 16 && model->getMap()[y_foot / 32][x_foot / 32] > 6) {
         if (encounterDist(gen) < 15) { // Use the distribution and generator
-            player->stopMoving();
             emit player->startEncounterCombat();
         }
     }

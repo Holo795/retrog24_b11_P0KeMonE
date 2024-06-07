@@ -7,6 +7,7 @@
  */
 GameOverHUD::GameOverHUD(QObject *parent) : QGraphicsScene(parent)
 {
+    setObjectName("GameOverHUD");
     // Load a background image for the game over screen
     QImage backgroundImage(":/hud/battlehud_assets/game_over_bg.png");
 

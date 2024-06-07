@@ -163,6 +163,12 @@ void Player::updateSprite(const QString &direction) {
 }
 
 
+void Player::incrementWinCount()
+{
+    winCount++;
+}
+
+
 /**
  * @brief Returns the current level of this Player.
  */
@@ -173,9 +179,28 @@ float Player::getItsLevel() const
 
 /**
  * @brief Sets the current level of this Player.
+ * @param newItsLevel The new level to set.
  */
 void Player::setItsLevel(float newItsLevel)
 {
     itsLevel = newItsLevel;
+}
+
+
+/**
+ * @brief Returns the number of battles won by the player.
+ */
+int Player::getWinCount() const
+{
+    return winCount;
+}
+
+/**
+ * @brief Sets the number of battles won by the player.
+ * @param newWinCount The new number of battles won.
+ */
+void Player::setWinCount(int newWinCount)
+{
+    winCount = newWinCount;
 }
 

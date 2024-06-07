@@ -40,10 +40,10 @@ public:
     ~Game();
 
 private:
-    Model *model = nullptr; ///< Pointer to the game model.
-    GUI *gui = nullptr; ///< Pointer to the graphical user interface.
+    Model *model; ///< Pointer to the game model.
+    GUI *gui; ///< Pointer to the graphical user interface.
     Player *player = nullptr; ///< Pointer to the player object.
-    Battle *battle = nullptr; ///< Pointer to the current battle context.
+    Battle *battle; ///< Pointer to the current battle context.
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
@@ -64,6 +64,9 @@ public slots:
     void endFight(bool playerWon); ///< End the ongoing fight.
     void run(); ///< When the run button is clicked
     void generateNewOpponent(); ///< To prepare the next fight
+    void showMoves();
+    void onMoveButtonClicked(int moveIndex);
+    void showFightMenu();
 };
 
 #endif // GAME_H

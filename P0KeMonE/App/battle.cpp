@@ -54,4 +54,7 @@ void Battle::attack(Move *move, Pokemon *target) {
  */
 std::vector<Pokemon*> Battle::getBossTeam() const {
     return itsBossTeam;
+BattleHUD *Battle::getBattleHUD()
+{
+    return itsBattleHUD1;
 }

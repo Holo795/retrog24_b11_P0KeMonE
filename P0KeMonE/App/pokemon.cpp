@@ -1,8 +1,6 @@
 #include "pokemon.h"
 
-/**
- * Constructs a Pokemon with specified attributes.
- */
+
 Pokemon::Pokemon(int id_pk, string itsName, PKTYPE itsType, int itsHealth, int itsSpeed, int itsAtk, int itsSpAtk, int itsDef, int itsSpDef, int itsLevel)
     : id_pk(id_pk), itsName(itsName), itsType(itsType), itsHealth(itsHealth), itsMaxHealth(itsHealth), itsSpeed(itsSpeed), itsAtk(itsAtk),
     itsSpAtk(itsSpAtk), itsDef(itsDef), itsSpDef(itsSpDef), itsLevel(itsLevel)
@@ -122,4 +120,13 @@ QList<Move> Pokemon::getItsMoves() const
 void Pokemon::setItsMoves(const QList<Move> &newItsMoves)
 {
     itsMoves = newItsMoves;
+}
+
+
+/**
+ * Constructs a Pokemon with specified attributes.
+ */
+PKTYPE Pokemon::getItsType() const
+{
+    return itsType;
 }

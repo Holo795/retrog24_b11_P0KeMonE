@@ -83,6 +83,17 @@ public:
      */
     Pokemon *getPokemon2() const;
 
+    void displayMoves(QList<Move> moves);
+
+    void menuFight();
+
+    QButtonGroup *getMoveGroup() const;
+
+
+
+
+    QPushButton *getBackButton() const;
+
 private:
     QPushButton *attackButton;           /**< Button used for initiating attacks. */
     QPushButton *pokemonButton;           /**< Button used for switching pokemons. */
@@ -94,6 +105,14 @@ private:
     QGraphicsPixmapItem *bossItem;   /**< Graphics item for the second Pokémon's image. */
     QGraphicsTextItem *health1;          /**< Text item for the first Pokémon's health. */
     QGraphicsTextItem *health2;          /**< Text item for the second Pokémon's health. */
+    QGraphicsPixmapItem *dialogueBox;    /**< Graphics item for battle dialogue.  */
+    QButtonGroup *moveButtonsGroup;      /**< Button group for Moves  */
+    QPushButton *backButton;
+    QPushButton *moveButton;
+
+
+signals:
+    void moveButtonClicked(int moveIndex);
 };
 
 #endif // BATTLEHUD_H

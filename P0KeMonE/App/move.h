@@ -68,6 +68,7 @@ public:
      */
     PKTYPE getItsType() const;
 
+
     /**
      * @brief Calculates the damage inflicted by the move.
      * @param lvl Level of the attacking entity.

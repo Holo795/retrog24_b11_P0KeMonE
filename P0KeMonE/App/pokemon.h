@@ -52,6 +52,7 @@ public:
     int getItsMaxHealth() const;
     QList<Move> getItsMoves() const;
     void setItsMoves(const QList<Move> &newItsMoves);
+    PKTYPE getItsType() const;
 };
 
 #endif // POKEMON_H

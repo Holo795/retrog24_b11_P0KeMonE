@@ -54,6 +54,7 @@ public:
      * @return A constant reference to a vector of pointers to Pokémon.
      */
     std::vector<Pokemon*> getBossTeam() const;
+    BattleHUD *getBattleHUD();
 };
 
 #endif // BATTLE_H

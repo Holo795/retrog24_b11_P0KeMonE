@@ -92,6 +92,17 @@ void Game::mouseDoubleClickEvent(QMouseEvent *event){
     // Prevent loss of focus when clicking within the game view
 }
 
+void Game::focusOutEvent(QFocusEvent *event){
+    // Prevent loss of focus when clicking within the game view
+}
+
+void Game::focusInEvent(QFocusEvent *event){
+    // Prevent loss of focus when clicking within the game view
+    if (scene()->objectName() == gui->map()->objectName()) {
+        player->setFocus();
+    }
+}
+
 
 void Game::updateView() {
     // Periodically refresh the game scene and re-center if necessary

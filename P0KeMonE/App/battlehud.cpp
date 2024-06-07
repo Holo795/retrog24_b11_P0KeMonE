@@ -17,9 +17,7 @@
 BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     setObjectName("BattleHUD");
 
-    backButton = new QPushButton();
     moveButtonsGroup = new QButtonGroup(this);
-
 
     // Load and position the background image
     QGraphicsPixmapItem* background = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/battleHUD-background.png").scaled(480, 240));
@@ -27,6 +25,7 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
 
     QGraphicsPixmapItem* bossItem = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/boss_image.png"));
     bossItem->setPos(200,5);
+    bossItem->setVisible(false);
 
     int buttonWidth = 105;
     int buttonHeight = 40;
@@ -56,6 +55,12 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     runButton->setFixedSize(buttonWidth, buttonHeight);
     runButton->setGeometry(322, 280, buttonWidth, buttonHeight);
 
+    backButton = new QPushButton();
+    QPixmap backButtonImage(":/hud/battlehud_assets/back_button.png");
+    backButton->setIcon(QIcon(backButtonImage));
+    backButton->setIconSize(QSize(buttonWidth, buttonHeight));
+    backButton->setGeometry(375, 240, buttonWidth, buttonHeight);
+    backButton->setVisible(false);
 
     // Initailize the moves buttons and texte dialogue box
     dialogueBox = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/dialogue_box.png").scaled(270, 80));
@@ -72,6 +77,7 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     addWidget(attackButton);
     addWidget(pokemonButton);
     addWidget(runButton);
+    addWidget(backButton);
     pokemon1Item = new QGraphicsPixmapItem();
     pokemon1Item->setPos(20, 70);
 
@@ -237,7 +243,7 @@ Pokemon *BattleHUD::getPokemon2() const
     return pokemon2;
 }
 
-void BattleHUD::displayMoves(QList<Move> moves)
+void BattleHUD::displayMoves(QList<Move*> moves)
 {
     attackButton->setVisible(false);
     pokemonButton->setVisible(false);
@@ -253,15 +259,15 @@ void BattleHUD::displayMoves(QList<Move> moves)
             break;
         }
 
-        QPixmap defaultPixmap(":/hud/battlehud_assets/" + QString::number(pokemon1->getItsMoves().at(i).getItsType()) + "Button.png");
-        QPixmap hoverPixmap(":/hud/battlehud_assets/" + QString::number(pokemon1->getItsMoves().at(i).getItsType()) + "Button_hover.png");
+        QPixmap defaultPixmap(":/hud/battlehud_assets/" + QString::number(pokemon1->getItsMoves().at(i)->getItsType()) + "Button.png");
+        QPixmap hoverPixmap(":/hud/battlehud_assets/" + QString::number(pokemon1->getItsMoves().at(i)->getItsType()) + "Button_hover.png");
 
         HoverButton *moveButton = new HoverButton(defaultPixmap, hoverPixmap);
         moveButton->setIcon(QIcon(defaultPixmap.scaled(buttonWidth, buttonHeight)));
         moveButton->setGeometry(positions[i].x(), positions[i].y(), buttonWidth, buttonHeight);
         moveButton->setIconSize(QSize(buttonWidth, buttonHeight));
 
-        QLabel *moveLabel = new QLabel(QString::fromStdString(moves[i].getItsName()), moveButton);
+        QLabel *moveLabel = new QLabel(QString::fromStdString(moves[i]->getItsName()), moveButton);
         moveLabel->setGeometry(0, 0, buttonWidth, buttonHeight);
         moveLabel->setAlignment(Qt::AlignCenter);
         moveLabel->setStyleSheet("QLabel { color: white; font: bold 14px; }");
@@ -278,11 +284,6 @@ void BattleHUD::displayMoves(QList<Move> moves)
     }
 
     backButton->setVisible(true);
-    QPixmap backButtonImage(":/hud/battlehud_assets/back_button.png");
-    backButton->setIcon(backButtonImage.scaled(buttonWidth, buttonHeight));
-    backButton->setIconSize(QSize(buttonWidth, buttonHeight));
-    backButton->setGeometry(320 , 240, buttonWidth, buttonHeight);
-    addWidget(backButton);
 
     qDebug() << "Number of buttons in moveButtonsGroup: " << moveButtonsGroup->buttons().size();
 }
@@ -291,6 +292,7 @@ void BattleHUD::menuFight() {
     attackButton->setVisible(true);
     pokemonButton->setVisible(true);
     runButton->setVisible(true);
+    backButton->setVisible(false);
     dialogueBox->setVisible(true);
 
 

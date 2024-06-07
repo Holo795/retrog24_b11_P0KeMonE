@@ -83,7 +83,7 @@ public:
      */
     Pokemon *getPokemon2() const;
 
-    void displayMoves(QList<Move> moves);
+    void displayMoves(QList<Move*> moves);
 
     void menuFight();
 

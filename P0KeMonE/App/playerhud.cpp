@@ -4,7 +4,7 @@ PlayerHUD::PlayerHUD(QObject *parent)
     : QGraphicsScene(parent), selectionArrow(nullptr), selectionMode(false), selectedIndex(0)
 {
     setObjectName("PlayerHUD");
-    setSceneRect(0, 0, 478, 320);
+    setSceneRect(0, 0, 478, 318);
  }
 
 void PlayerHUD::setPokemons(const std::vector<Pokemon*>& pokemons, int itsLevelPlayer)
@@ -114,11 +114,11 @@ void PlayerHUD::addCharacter(const QPixmap &characterImage, int currentHealth, i
 void PlayerHUD::updateSelectionArrow()
 {
     if (!selectionArrow) {
-        selectionArrow = new QGraphicsPixmapItem(QPixmap(":/hud/playerhud_assets/arrow.png").scaled(50, 50));
+        selectionArrow = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/arrow.png").scaled(50, 50));
         addItem(selectionArrow);
     }
     int xPos = 25 + selectedIndex * 150; // Calculate x position based on selectedIndex
-    selectionArrow->setPos(xPos + 50, 10); // Adjust the position of the arrow
+    selectionArrow->setPos(xPos + 50, 35); // Adjust the position of the arrow
 }
 
 void PlayerHUD::keyPressEvent(QKeyEvent *event)
@@ -126,16 +126,19 @@ void PlayerHUD::keyPressEvent(QKeyEvent *event)
     qDebug() << "Key pressed: " << event->key();
 
     if (selectionMode) {
-        if (event->key() == Qt::Key_Left && selectedIndex > 0) {
+        if ((event->key() == Qt::Key_Left || event->key() == Qt::Key_Q) && selectedIndex > 0) {
             selectedIndex--;
             updateSelectionArrow();
-        } else if (event->key() == Qt::Key_Right && selectedIndex < pokemons.size() - 1) {
+        } else
+        if ((event->key() == Qt::Key_Right || event->key() == Qt::Key_D) && selectedIndex < pokemons.size() - 1) {
             selectedIndex++;
             updateSelectionArrow();
-        } else if (event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) {
+        } else
+        if (event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) {
             // Handle the selection confirmation
             // Emit a signal or call a method to process the selected Pokémon
             emit pokemonSelected(pokemons[selectedIndex]);
+            selectedIndex=0;
         }
     }
     QGraphicsScene::keyPressEvent(event);

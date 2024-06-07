@@ -1,10 +1,26 @@
 #ifndef HOVERBUTTON_H
 #define HOVERBUTTON_H
 
-class HoverButton
+#include <QPushButton>
+#include <QEnterEvent>
+#include <QEvent>
+
+
+
+class HoverButton : public QPushButton
 {
+    Q_OBJECT
+
 public:
-    HoverButton();
+    HoverButton(const QString &normalIconPath, const QString &hoverIconPath, QWidget *parent = nullptr);
+
+protected:
+    void enterEvent(QEnterEvent *event) override;
+    void leaveEvent(QEvent *event) override;
+
+private:
+    QIcon normalIcon;
+    QIcon hoverIcon;
 };
 
 #endif // HOVERBUTTON_H

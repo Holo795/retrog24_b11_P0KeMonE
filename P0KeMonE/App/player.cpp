@@ -1,25 +1,87 @@
+/**
+ * @file Player.cpp
+ * @brief Implementation of the Player class, which handles player actions and interactions within the game.
+ */
+
 #include "player.h"
 
 /**
- * Initializes the Player object, sets up its graphical representation and movement mechanics.
+ * @brief Constructs a Player object with an optional parent item.
+ * @param parent The parent QGraphicsItem, default is nullptr.
  */
 Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
     setZValue(2);
-    setPixmap(QPixmap(":/player/leftStandPlayer.png").scaled(QSize(11, 16) * scale));  // Assurez-vous de mettre le bon chemin vers l'image du joueur
+    setPixmap(QPixmap(":/sprites/player_sprites/leftStandPlayer.png").scaled(QSize(11, 16) * scale));
 
     movementTimer = new QTimer(this);
     connect(movementTimer, &QTimer::timeout, this, &Player::move);
 }
 
 /**
- * Destructor for the Player class.
+ * @brief Destructor for the Player class.
  */
 Player::~Player() {
     delete movementTimer;
 }
 
 /**
- * Checks for potential collisions at a new position.
+ * @brief Retrieves the player's team of Pokémon.
+ * @return A constant reference to a vector of pointers to Pokémon.
+ */
+std::vector<Pokemon*> Player::getTeam() const {
+    return itsTeam;
+}
+
+/**
+ * @brief Handles key press events for player movement.
+ * @param event The key event.
+ */
+void Player::keyPressEvent(QKeyEvent *event) {
+    activeKeys.insert(event->key());
+    if (!movementTimer->isActive()) {
+        startMoving();
+    }
+}
+
+/**
+ * @brief Handles key release events to stop player movement.
+ * @param event The key event.
+ */
+void Player::keyReleaseEvent(QKeyEvent *event) {
+    activeKeys.remove(event->key());
+    if (activeKeys.isEmpty()) {
+        stopMoving();
+    }
+}
+
+/**
+ * @brief Initiates movement.
+ */
+void Player::startMoving() {
+    movementTimer->start(30);
+}
+
+/**
+ * @brief Stops the player's movement.
+ */
+void Player::stopMoving() {
+    movementTimer->stop();
+    activeKeys.clear();
+}
+
+/**
+ * @brief Adds a Pokémon to the player's team.
+ * @param pokemon Pointer to the Pokémon to add.
+ */
+void Player::addPokemon(Pokemon *pokemon) {
+    itsTeam.push_back(pokemon);
+}
+
+
+/**
+ * @brief Checks for collisions at the new position.
+ * @param newPos The new position to check for collisions.
+ * @return true if there is a collision, false otherwise.
  */
 bool Player::checkCollision(QPointF newPos) {
     QList<QGraphicsItem*> items = scene()->items(QRectF(newPos, QSizeF(pixmap().width(), pixmap().height())));
@@ -35,115 +97,110 @@ bool Player::checkCollision(QPointF newPos) {
 }
 
 /**
- * Initiates movement based on a key press.
- */
-void Player::startMoving(int key) {
-    currentKey = key;
-    movementTimer->start(30);
-}
-
-/**
- * Stops movement when a key is released.
- */
-void Player::stopMoving() {
-    movementTimer->stop();
-    currentKey = 0; // Reset the current key
-}
-
-/**
- * Moves the player based on the current key press.
+ * @brief Moves the player based on the currently pressed key.
  */
 void Player::move() {
-    if (!currentKey) return; // Do nothing if no key is pressed
+    if (activeKeys.isEmpty() || activeKeys.size() > 1) return;
 
-    // Handle movement and animation logic
-    QPointF newPos;
-    switch (currentKey) {
-    case Qt::Key_Left:
-        newPos = pos() + QPointF(-4, 0);
-        if (newPos.x() > 0 && !checkCollision(newPos)) {
+    QPointF newPos = pos();
+
+    if (activeKeys.contains(Qt::Key_Left) || activeKeys.contains(Qt::Key_Q)) {
+        newPos.setX(newPos.x() - 4);
+        if (x() > 0 && !checkCollision(newPos)) {
             setPos(newPos);
-            if (qRound(x()) % 48 >= 16 && qRound(x()) % 48 < 32) {
-                setPixmap(QPixmap(":/player/leftWalkPlayer1.png").scaled(QSize(10, 16) * scale));
-            } else if (qRound(x()) % 48 >= 32) {
-                setPixmap(QPixmap(":/player/leftWalkPlayer2.png").scaled(QSize(11, 16) * scale));
-            } else {
-                setPixmap(QPixmap(":/player/leftStandPlayer.png").scaled(QSize(11, 16 )* scale));
-            }
+            updateSprite("left");
         }
-        break;
-    case Qt::Key_Right:
-        newPos = pos() + QPointF(4, 0);
-        if (newPos.x() + pixmap().width() < scene()->width() && !checkCollision(newPos)) {
+    }
+
+    newPos = pos();
+
+    if (activeKeys.contains(Qt::Key_Right) || activeKeys.contains(Qt::Key_D)) {
+        newPos.setX(newPos.x() + 4);
+        if (x() + pixmap().width() < scene()->width() && !checkCollision(newPos)) {
             setPos(newPos);
-            if (qRound(x()) % 48 >= 16 && qRound(x()) % 48 < 32) {
-                setPixmap(QPixmap(":/player/rightWalkPlayer1.png").scaled(QSize(11, 16) * scale));
-            } else if (qRound(x()) % 48 >= 32) {
-                setPixmap(QPixmap(":/player/rightWalkPlayer2.png").scaled(QSize(11, 16) * scale));
-            } else {
-                setPixmap(QPixmap(":/player/rightStandPlayer.png").scaled(QSize(11, 16) * scale));
-            }
+            updateSprite("right");
         }
-        break;
-    case Qt::Key_Up:
-        newPos = pos() + QPointF(0, -4);
-        if (newPos.y() > 0 && !checkCollision(newPos)) {
+    }
+
+    newPos = pos();
+
+    if (activeKeys.contains(Qt::Key_Up) || activeKeys.contains(Qt::Key_Z)) {
+        newPos.setY(newPos.y() - 4);
+        if (y() > 0 && !checkCollision(newPos)) {
             setPos(newPos);
-            if (qRound(y()) % 48 >= 16 && qRound(y()) % 48 < 32) {
-                setPixmap(QPixmap(":/player/backWalkPlayer1.png").scaled(QSize(11, 16) * scale));
-            } else if (qRound(y()) % 48 >= 32) {
-                setPixmap(QPixmap(":/player/backWalkPlayer2.png").scaled(QSize(11, 16) * scale));
-            } else {
-                setPixmap(QPixmap(":/player/backStandPlayer.png").scaled(QSize(11, 16) * scale));
-            }
+            updateSprite("back");
         }
-        break;
-    case Qt::Key_Down:
-        newPos = pos() + QPointF(0, 4);
-        if (newPos.y() + pixmap().height() < scene()->height() && !checkCollision(newPos)) {
+    }
+
+    newPos = pos();
+
+    if (activeKeys.contains(Qt::Key_Down) || activeKeys.contains(Qt::Key_S)) {
+        newPos.setY(newPos.y() + 4);
+        if (y() + pixmap().height() < scene()->height() && !checkCollision(newPos)) {
             setPos(newPos);
-            if (qRound(y()) % 48 >= 16 && qRound(y()) % 48 < 32) {
-                setPixmap(QPixmap(":/player/frontWalkPlayer1.png").scaled(QSize(11, 16) * scale));
-            } else if (qRound(y()) % 48 >= 32) {
-                setPixmap(QPixmap(":/player/frontWalkPlayer2.png").scaled(QSize(11, 16) * scale));
-            } else {
-                setPixmap(QPixmap(":/player/frontStandPlayer.png").scaled(QSize(11, 16) * scale));
-            }
+            updateSprite("front");
         }
-        break;
     }
 }
 
 /**
- * Returns the team of Pokémon.
+ * @brief Updates the player's sprite based on the direction.
+ * @param direction The direction in which the player is moving.
  */
-std::vector<Pokemon*> Player::getTeam() const
+void Player::updateSprite(const QString &direction) {
+    static const QMap<QString, QStringList> spriteDirections {
+        {"left", {":/sprites/player_sprites/leftStandPlayer.png", ":/sprites/player_sprites/leftWalkPlayer1.png", ":/sprites/player_sprites/leftWalkPlayer2.png"}},
+        {"right", {":/sprites/player_sprites/rightStandPlayer.png", ":/sprites/player_sprites/rightWalkPlayer1.png", ":/sprites/player_sprites/rightWalkPlayer2.png"}},
+        {"back", {":/sprites/player_sprites/backStandPlayer.png", ":/sprites/player_sprites/backWalkPlayer1.png", ":/sprites/player_sprites/backWalkPlayer2.png"}},
+        {"front", {":/sprites/player_sprites/frontStandPlayer.png", ":/sprites/player_sprites/frontWalkPlayer1.png", ":/sprites/player_sprites/frontWalkPlayer2.png"}}
+    };
+
+    const QStringList &sprites = spriteDirections[direction];
+    int step = qRound(direction == "left" || direction == "right" ? x() : y()) % 48;
+    int index = step < 16 ? 0 : step < 32 ? 1 : 2;
+
+    setPixmap(QPixmap(sprites[index]).scaled(QSize(11, 16) * scale));
+}
+
+
+void Player::incrementWinCount()
 {
-    return itsTeam;
+    winCount++;
 }
 
-/**
- * Handles key press events to initiate movement.
- */
-void Player::keyPressEvent(QKeyEvent *event) {
-    if (!movementTimer->isActive()) {
-        startMoving(event->key()); // Start moving in the direction of the key press
-    }
-}
 
 /**
- * Handles key release events to stop movement.
+ * @brief Returns the current level of this Player.
  */
-void Player::keyReleaseEvent(QKeyEvent *event) {
-    stopMoving();
-}
-
-/**
- * Adds a Pokémon to the player's team.
- */
-void Player::addPokemon(Pokemon *pokemon)
+float Player::getItsLevel() const
 {
-    itsTeam.push_back(pokemon); // Add the new Pokémon to the team
+    return itsLevel;
 }
 
+/**
+ * @brief Sets the current level of this Player.
+ * @param newItsLevel The new level to set.
+ */
+void Player::setItsLevel(float newItsLevel)
+{
+    itsLevel = newItsLevel;
+}
+
+
+/**
+ * @brief Returns the number of battles won by the player.
+ */
+int Player::getWinCount() const
+{
+    return winCount;
+}
+
+/**
+ * @brief Sets the number of battles won by the player.
+ * @param newWinCount The new number of battles won.
+ */
+void Player::setWinCount(int newWinCount)
+{
+    winCount = newWinCount;
+}
 

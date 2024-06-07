@@ -3,11 +3,14 @@
 /**
  * Initializes the MapHUD scene, sets up the map layout based on the model's map data.
  */
-MapHUD::MapHUD(Model *model, QObject *parent) : QGraphicsScene(parent), model(model) {
-    setObjectName("map"); // Name the scene for reference
-
-    model->loadMap(":/maps/map.txt"); // Load map data from a file
-    drawMap(); // Draw the initial map layout
+MapHUD::MapHUD(Model *model, QObject *parent)
+    : QGraphicsScene(parent), model(model),
+    gen(std::random_device{}()), // Seed the generator with random_device
+    encounterDist(1, 100) // Set the range for encounter checks
+{
+    setObjectName("map");
+    model->loadMap(":/map/mapPoke2.json");
+    drawMap();
 }
 
 /**
@@ -28,36 +31,82 @@ void MapHUD::drawMap() {
     // Initial layer with grass tiles
     for (int y = 0; y < map.size(); ++y) {
         for (int x = 0; x < map[y].size(); ++x) {
-            QGraphicsPixmapItem *grass = new QGraphicsPixmapItem(QPixmap(":/maps/assets/grass.png"));
+            QGraphicsPixmapItem *grass = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/grass.png"));
             grass->setPos(x * 32, y * 32); // Position each grass tile
             addItem(grass);
         }
     }
 
     // Decorative and functional map elements
-    const QMap<char, QPair<QString, int>> pixmapMap = {
-        {'A', qMakePair(QString(":/maps/assets/tree.png"), 1)},
-        {'F', qMakePair(QString(":/maps/assets/flower.png"), 0)},
-        {'V', qMakePair(QString(":/maps/assets/fence_vertical.png"), 1)},
-        {'Y', qMakePair(QString(":/maps/assets/tallgrass_top_left.png"), 0)},
-        {'H', qMakePair(QString(":/maps/assets/tallgrass_top.png"), 0)},
-        {'L', qMakePair(QString(":/maps/assets/tallgrass_top_right.png"), 0)},
-        {'G', qMakePair(QString(":/maps/assets/tallgrass_left.png"), 0)},
-        {'M', qMakePair(QString(":/maps/assets/tallgrass_mid.png"), 0)},
-        {'D', qMakePair(QString(":/maps/assets/tallgrass_right.png"), 0)},
-        {'Z', qMakePair(QString(":/maps/assets/tallgrass_bottom_left.png"), 0)},
-        {'B', qMakePair(QString(":/maps/assets/tallgrass_bottom.png"), 0)},
-        {'W', qMakePair(QString(":/maps/assets/tallgrass_bottom_right.png"), 0)},
-        {'T', qMakePair(QString(":/maps/assets/path_top.png"), 0)},
-        {'P', qMakePair(QString(":/maps/assets/path_bottom.png"), 0)},
-        {'N', qMakePair(QString(":/maps/assets/big_tree.png"), 1)}
+    const QMap<int, QPair<QString, int>> pixmapMap = {
+        {1, qMakePair(QString(":/map/map_assets/big_tree.png"), 1)},
+        {2, qMakePair(QString(":/map/map_assets/tree.png"), 1)},
+        {3, qMakePair(QString(":/map/map_assets/rock.png"), 1)},
+        {4, qMakePair(QString(":/map/map_assets/little_tree.png"), 1)},
+        {5, qMakePair(QString(":/map/map_assets/bush.png"), 1)},
+        {7, qMakePair(QString(":/map/map_assets/tallgrass_bottom.png"), 0)},
+        {8, qMakePair(QString(":/map/map_assets/tallgrass_bottom_left.png"), 0)},
+        {9, qMakePair(QString(":/map/map_assets/tallgrass_bottom_right.png"), 0)},
+        {10, qMakePair(QString(":/map/map_assets/tallgrass_left.png"), 0)},
+        {11, qMakePair(QString(":/map/map_assets/tallgrass_mid.png"), 0)},
+        {12, qMakePair(QString(":/map/map_assets/tallgrass_right.png"), 0)},
+        {13, qMakePair(QString(":/map/map_assets/tallgrass_top.png"), 0)},
+        {14, qMakePair(QString(":/map/map_assets/tallgrass_top_left.png"), 0)},
+        {15, qMakePair(QString(":/map/map_assets/tallgrass_top_right.png"), 0)},
+        {17, qMakePair(QString(":/map/map_assets/flower1.png"), 0)},
+        {18, qMakePair(QString(":/map/map_assets/flower2.png"), 0)},
+        {19, qMakePair(QString(":/map/map_assets/path_bottom.png"), 0)},
+        {20, qMakePair(QString(":/map/map_assets/path_bottom_left.png"), 0)},
+        {21, qMakePair(QString(":/map/map_assets/path_bottom_left_in.png"), 0)},
+        {22, qMakePair(QString(":/map/map_assets/path_bottom_right.png"), 0)},
+        {23, qMakePair(QString(":/map/map_assets/path_bottom_right_in.png"), 0)},
+        {24, qMakePair(QString(":/map/map_assets/path_left.png"), 0)},
+        {25, qMakePair(QString(":/map/map_assets/path_mid.png"), 0)},
+        {26, qMakePair(QString(":/map/map_assets/path_right.png"), 0)},
+        {27, qMakePair(QString(":/map/map_assets/path_top.png"), 0)},
+        {28, qMakePair(QString(":/map/map_assets/path_top_left.png"), 0)},
+        {29, qMakePair(QString(":/map/map_assets/path_top_left_in.png"), 0)},
+        {30, qMakePair(QString(":/map/map_assets/path_top_right.png"), 0)},
+        {31, qMakePair(QString(":/map/map_assets/path_top_right_in.png"), 0)},
+        {32, qMakePair(QString(":/map/map_assets/sand.png"), 0)},
+        {33, qMakePair(QString(":/map/map_assets/sandcastle.png"), 1)},
+        {34, qMakePair(QString(":/map/map_assets/water_bottom.png"), 1)},
+        {35, qMakePair(QString(":/map/map_assets/water_bottom_left.png"), 1)},
+        {36, qMakePair(QString(":/map/map_assets/water_bottom_right.png"), 1)},
+        {37, qMakePair(QString(":/map/map_assets/water_left.png"), 1)},
+        {38, qMakePair(QString(":/map/map_assets/water_mid.png"), 1)},
+        {39, qMakePair(QString(":/map/map_assets/water_right.png"), 1)},
+        {40, qMakePair(QString(":/map/map_assets/water_top.png"), 1)},
+        {41, qMakePair(QString(":/map/map_assets/water_top_left.png"), 1)},
+        {42, qMakePair(QString(":/map/map_assets/water_top_right.png"), 1)},
+        {43, qMakePair(QString(":/map/map_assets/platform_bottom.png"), 0)},
+        {44, qMakePair(QString(":/map/map_assets/platform_top.png"), 0)},
+        {48, qMakePair(QString(":/map/map_assets/platform_top_left.png"), 1)},
+        {50, qMakePair(QString(":/map/map_assets/platform_bottom_left.png"), 1)},
+        {51, qMakePair(QString(":/map/map_assets/mountain.png"), 1)},
+        {53, qMakePair(QString(":/map/map_assets/fence_vertical.png"), 1)},
+        {55, qMakePair(QString(":/map/map_assets/fence_horizontal2.png"), 1)},
+        {56, qMakePair(QString(":/map/map_assets/fence_corner_left2.png"), 1)},
+        {57, qMakePair(QString(":/map/map_assets/fence_corner_right2.png"), 1)},
+        {62, qMakePair(QString(":/map/map_assets/little_fence_right.png"), 1)},
+        {63, qMakePair(QString(":/map/map_assets/little_fence_left.png"), 1)},
+        {64, qMakePair(QString(":/map/map_assets/street_light_left.png"), 1)},
+        {65, qMakePair(QString(":/map/map_assets/street_light_right.png"), 1)},
+        {66, qMakePair(QString(":/map/map_assets/sign.png"), 1)},
+        {67, qMakePair(QString(":/map/map_assets/stairs_left.png"), 0)},
+        {68, qMakePair(QString(":/map/map_assets/stairs_right.png"), 0)},
+        {69, qMakePair(QString(":/map/map_assets/boat_left.png"), 0)},
+        {70, qMakePair(QString(":/map/map_assets/boat_right.png"), 0)},
+        {71, qMakePair(QString(":/map/map_assets/ball_close.png"), 1)},
+        {72, qMakePair(QString(":/map/map_assets/ball_open.png"), 1)},
     };
 
     // Add decorative elements to the scene with appropriate z-values
     for (int i = 0; i < map.size(); ++i) {
         for (int j = 0; j < map[i].size(); ++j) {
-            if (pixmapMap.contains(map[i][j])) {
-                const QPair<QString, int>& pixmapData = pixmapMap[map[i][j]];
+            int tileId = map[i][j];
+            if (pixmapMap.contains(tileId)) {
+                const QPair<QString, int>& pixmapData = pixmapMap[tileId];
                 QGraphicsPixmapItem *item = new QGraphicsPixmapItem(QPixmap(pixmapData.first));
                 item->setPos(j * 32, i * 32);
                 item->setZValue(pixmapData.second); // Set the stacking order
@@ -79,16 +128,14 @@ void MapHUD::drawMap() {
  * Also handles random encounters in tall grass.
  */
 void MapHUD::keyPressEvent(QKeyEvent *event) {
-    player->keyPressEvent(event); // Delegate key press to player
+    player->keyPressEvent(event);
 
-    // Random encounter logic in tall grass
-    QVector<char> tallgrass = {'Y', 'H', 'L', 'G', 'M', 'D', 'Z', 'B', 'W'};
     int x_foot = player->x() + 2;
     int y_foot = player->y() + player->pixmap().height();
-    if (tallgrass.contains(model->getMap()[y_foot / 32][x_foot / 32])) {
-        if (rand() % 100 < 15) {
-            player->stopMoving(); // Stop player movement
-            emit player->startEncounterCombat(); // Signal an encounter
+
+    if (model->getMap()[y_foot / 32][x_foot / 32] < 16 && model->getMap()[y_foot / 32][x_foot / 32] > 6) {
+        if (encounterDist(gen) < 15) { // Use the distribution and generator
+            emit player->startEncounterCombat();
         }
     }
 }

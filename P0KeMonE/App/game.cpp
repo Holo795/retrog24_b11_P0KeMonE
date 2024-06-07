@@ -6,7 +6,6 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     : QGraphicsView(parent), model(model), gui(gui) {
     // Configure the initial scene and scaling
     setScene(gui->mainMenu());
-    scale(0.55, 0.55); // Scale down for the initial menu view
     setFixedSize(480, 320); // Set fixed size to maintain consistent UI
 
     // Disable scrollbars for a cleaner look
@@ -19,10 +18,8 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     // Setup connections for player encounters and button clicks
     connect(gui->map()->getPlayer(), &Player::startEncounterCombat, this, &Game::showFight);
     connect(gui->battle()->getAttackButton(), &QPushButton::clicked, this, &Game::fight);
-
-    // Initialize timer for fight sequences
-    waitFight = new QTimer(this);
-    connect(waitFight, &QTimer::timeout, this, &Game::continuefight);
+    //connect(gui->battle()->getPokemonButton(), &QPushButton::clicked, this, &Game::switchPokemon);
+    connect(gui->battle()->getRunButton(), &QPushButton::clicked, this, &Game::run);
 
     // Timer for updating the view regularly
     QTimer *updateTimer = new QTimer(this);
@@ -40,30 +37,47 @@ Game::~Game() {
 
     // Deallocate memory for the battle object
     delete battle;
+}
 
-    // Deallocate memory for the waitFight timer
-    delete waitFight;
+void Game::setScene(QGraphicsScene *scene) {
+    // Set the current scene for the game view
+    resetTransform();
+
+    if(player != nullptr)
+        player->stopMoving();
+
+    if(gui->mainMenu()->objectName() == scene->objectName()) {
+            scale(0.55, 0.55); // Scale down for the initial menu view
+    } else if (gui->map()->objectName() == scene->objectName()) {
+            scale(1.5, 1.5); // Scale up for the battle view
+            player->setFocus(); // Set focus on the player object
+    }
+
+    QGraphicsView::setScene(scene);
 }
 
 void Game::keyPressEvent(QKeyEvent *event) {
     // Handle key presses for game interactions
-    if (scene()->focusItem() != nullptr) {
-
-        if (event->key() == Qt::Key_Space)
+    if (event->key() == Qt::Key_Space && scene()->objectName() == gui->mainMenu()->objectName())
+    {
+        player = gui->map()->getPlayer();
+        setScene(gui->map());
+        if(player->getTeam().empty())
         {
-            resetTransform();
-            setScene(gui->map());
-            scale(1.5, 1.5);
-            player = gui->map()->getPlayer();
-            if(player->getTeam().empty())
-            {
-                player->addPokemon(model->getData()->randompokemon());
-                qDebug() << player->getTeam().front()->getItsMoves().size();
-            }
+            player->addPokemon(model->getData()->randompokemon());
+            qDebug() << player->getTeam().front()->getItsMoves().size();
         }
 
-        QGraphicsView::keyPressEvent(event);
     }
+
+    if (event->key() == Qt::Key_I && scene()->objectName() == gui->TeamHUD()->objectName()) {
+        setScene(gui->map());
+    } else
+    if (event->key() == Qt::Key_I && scene()->objectName() == gui->map()->objectName())
+        setScene(gui->playerTeam(player->getTeam(), player->getItsLevel()));
+
+    QGraphicsView::keyPressEvent(event);
+
 }
 
 void Game::mousePressEvent(QMouseEvent *event){
@@ -78,6 +92,7 @@ void Game::mouseDoubleClickEvent(QMouseEvent *event){
     // Prevent loss of focus when clicking within the game view
 }
 
+
 void Game::updateView() {
     // Periodically refresh the game scene and re-center if necessary
     scene()->update();
@@ -88,42 +103,85 @@ void Game::updateView() {
 
 void Game::showFight() {
     // Switch the scene to the battle interface
-    resetTransform();
     setScene(gui->battle(player->getTeam().front(), model->getData()->randompokemon()));
 }
 
 void Game::fight() {
     // Manage initiating and processing a battle round
 
-    if(waitFight->isActive()) return;
+    gui->battle()->getAttackButton()->setEnabled(false); // Disable the attack button to prevent multiple clicks
+    gui->battle()->getRunButton()->setEnabled(false); // Disable the run button to prevent running during a fight
 
     battle = new Battle(player, gui->battle()->getPokemon2(), gui->battle());
     battle->attack(&player->getTeam().front()->getItsMoves()[0], gui->battle()->getPokemon2());
 
-
-    waitFight->start(1000);
+    QTimer::singleShot(2000, this, &Game::continuefight);
 }
 
 void Game::continuefight()
 {
     // Continue the fight based on battle outcome or player actions
 
-    waitFight->stop();
-
     battle->attack(&gui->battle()->getPokemon2()->getItsMoves()[0], player->getTeam().front());
+
+    QTimer::singleShot(1000, this, [&](){
+        gui->battle()->getAttackButton()->setEnabled(true);
+        gui->battle()->getRunButton()->setEnabled(true);
+    });
 
     if(gui->battle()->getPokemon1()->getHealth() <= 0)
     {
-        resetTransform();
-        setScene(gui->gameOver());
+        endFight(false);
         return;
     }
     else if(gui->battle()->getPokemon2()->getHealth() <= 0)
     {
-        setScene(gui->map());
-        scale(1.5, 1.5);
+        endFight(true);
         return;
     }
 
 }
 
+void Game::run()
+{
+    endFight(true);
+}
+
+void Game::endFight(bool playerWon)
+{
+    if (playerWon)
+    {
+        generateNewOpponent();
+        setScene(gui->map());
+        player->incrementWinCount();
+        double playerLevel = player->getItsLevel();
+        int winsRequired = 0;
+
+        if (playerLevel == 1.0) {
+            winsRequired = 1;
+        } else if (playerLevel == 2.0) {
+            winsRequired = 2;
+        } else if (playerLevel >= 3.0) {
+            winsRequired = 5;
+        }
+
+        if (player->getWinCount() >= winsRequired) {
+            player->setItsLevel(playerLevel + (playerLevel >= 3.0 ? 1.0 : 0.5));
+            player->setWinCount(0); // Réinitialise le compteur de victoires après avoir passé le niveau
+        }
+
+
+        qDebug() << "Level player: " << player->getItsLevel();
+        qDebug() << "Wins player: " << player->getWinCount();
+    }
+    else
+    {
+        setScene(gui->gameOver());
+    }
+}
+
+void Game::generateNewOpponent()
+{
+    Pokemon* newOpponent = model->getData()->randompokemon();
+    gui->battle()->setPokemon(player->getTeam().front(), newOpponent);
+}

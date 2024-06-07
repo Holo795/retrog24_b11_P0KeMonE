@@ -42,9 +42,8 @@ public:
 private:
     Model *model; ///< Pointer to the game model.
     GUI *gui; ///< Pointer to the graphical user interface.
-    Player *player; ///< Pointer to the player object.
+    Player *player = nullptr; ///< Pointer to the player object.
     Battle *battle; ///< Pointer to the current battle context.
-    QTimer *waitFight; ///< Timer to manage delays between fight rounds.
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
@@ -52,10 +51,16 @@ protected:
     void mouseDoubleClickEvent(QMouseEvent *event) override;
 
 public slots:
+
+    void setScene(QGraphicsScene *scene); ///< Sets the current scene for the game view.
+
     void updateView(); ///< Updates the view to ensure the player remains centered.
     void showFight(); ///< Transitions the game to the battle scene.
     void fight(); ///< Initiates a fight round.
     void continuefight(); ///< Continues the ongoing fight.
+    void endFight(bool playerWon); ///< End the ongoing fight.
+    void run(); ///< When the run button is clicked
+    void generateNewOpponent(); ///< To prepare the next fight
 };
 
 #endif // GAME_H

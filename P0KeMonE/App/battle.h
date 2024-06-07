@@ -6,6 +6,8 @@
 #ifndef BATTLE_H
 #define BATTLE_H
 
+#include <random>
+
 #include "battlehud.h"
 #include "player.h"
 #include "pokemon.h"
@@ -23,6 +25,7 @@ private:
     Player *itsPlayer1;           /**< Pointer to the player participating in the battle. */
     Pokemon *itsOpponent1;        /**< Pointer to the opponent Pokémon in the battle. */
     BattleHUD *itsBattleHUD1;     /**< Pointer to the battle HUD interface. */
+    std::mt19937 gen;           /**< Mersenne Twister random number generator. */
 
 public:
     /**

@@ -22,6 +22,7 @@ SOURCES += \
     model.cpp \
     move.cpp \
     player.cpp \
+    playerhud.cpp \
     pokemon.cpp
 
 HEADERS += \
@@ -31,11 +32,13 @@ HEADERS += \
     game.h \
     gameoverhud.h \
     gui.h \
+    include/json.hpp \
     mainhud.h \
     maphud.h \
     model.h \
     move.h \
     player.h \
+    playerhud.h \
     pokemon.h \
     typeDef.h
 

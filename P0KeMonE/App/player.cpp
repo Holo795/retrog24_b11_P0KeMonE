@@ -77,6 +77,7 @@ void Player::addPokemon(Pokemon *pokemon) {
     itsTeam.push_back(pokemon);
 }
 
+
 /**
  * @brief Checks for collisions at the new position.
  * @param newPos The new position to check for collisions.
@@ -160,3 +161,21 @@ void Player::updateSprite(const QString &direction) {
 
     setPixmap(QPixmap(sprites[index]).scaled(QSize(11, 16) * scale));
 }
+
+
+/**
+ * @brief Returns the current level of this Player.
+ */
+float Player::getItsLevel() const
+{
+    return itsLevel;
+}
+
+/**
+ * @brief Sets the current level of this Player.
+ */
+void Player::setItsLevel(float newItsLevel)
+{
+    itsLevel = newItsLevel;
+}
+

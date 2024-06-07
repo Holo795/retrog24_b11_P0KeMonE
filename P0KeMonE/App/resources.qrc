@@ -576,22 +576,44 @@
         <file>main_menu_assets/logo_menu.png</file>
         <file>main_menu_assets/player_menu.png</file>
         <file>battlehud_assets/back_button.png</file>
-        <file>battlehud_assets/electrikButton.png</file>
-        <file>battlehud_assets/electrikButton2.png</file>
-        <file>battlehud_assets/fireButton.png</file>
-        <file>battlehud_assets/fireButton2.png</file>
-        <file>battlehud_assets/flyingButton.png</file>
-        <file>battlehud_assets/flyingButton2.png</file>
-        <file>battlehud_assets/grassButton.png</file>
-        <file>battlehud_assets/grassButton2.png</file>
-        <file>battlehud_assets/groundButton.png</file>
-        <file>battlehud_assets/groundButton2.png</file>
-        <file>battlehud_assets/normalButton.png</file>
-        <file>battlehud_assets/normalButton2.png</file>
-        <file>battlehud_assets/waterButton.png</file>
-        <file>battlehud_assets/waterButton2.png</file>
         <file>playerhud_assets/arrow.png</file>
         <file>battlehud_assets/boss_image.png</file>
         <file>battlehud_assets/dialogue_box.png</file>
+        <file>battlehud_assets/0Button.png</file>
+        <file>battlehud_assets/0Button_hover.png</file>
+        <file>battlehud_assets/1Button.png</file>
+        <file>battlehud_assets/1Button_hover.png</file>
+        <file>battlehud_assets/2Button.png</file>
+        <file>battlehud_assets/2Button_hover.png</file>
+        <file>battlehud_assets/3Button.png</file>
+        <file>battlehud_assets/3Button_hover.png</file>
+        <file>battlehud_assets/4Button.png</file>
+        <file>battlehud_assets/4Button_hover.png</file>
+        <file>battlehud_assets/5Button.png</file>
+        <file>battlehud_assets/5Button_hover.png</file>
+        <file>battlehud_assets/6Button.png</file>
+        <file>battlehud_assets/6Button_hover.png</file>
+        <file>battlehud_assets/7Button.png</file>
+        <file>battlehud_assets/7Button_hover.png</file>
+        <file>battlehud_assets/8Button.png</file>
+        <file>battlehud_assets/8Button_hover.png</file>
+        <file>battlehud_assets/9Button.png</file>
+        <file>battlehud_assets/9Button_hover.png</file>
+        <file>battlehud_assets/10Button.png</file>
+        <file>battlehud_assets/10Button_hover.png</file>
+        <file>battlehud_assets/11Button.png</file>
+        <file>battlehud_assets/11Button_hover.png</file>
+        <file>battlehud_assets/12Button.png</file>
+        <file>battlehud_assets/12Button_hover.png</file>
+        <file>battlehud_assets/13Button.png</file>
+        <file>battlehud_assets/13Button_hover.png</file>
+        <file>battlehud_assets/14Button.png</file>
+        <file>battlehud_assets/14Button_hover.png</file>
+        <file>battlehud_assets/15Button.png</file>
+        <file>battlehud_assets/15Button_hover.png</file>
+        <file>battlehud_assets/16Button.png</file>
+        <file>battlehud_assets/16Button_hover.png</file>
+        <file>battlehud_assets/17Button.png</file>
+        <file>battlehud_assets/17Button_hover.png</file>
     </qresource>
 </RCC>

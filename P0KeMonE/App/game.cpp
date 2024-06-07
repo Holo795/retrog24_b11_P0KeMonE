@@ -70,19 +70,14 @@ void Game::keyPressEvent(QKeyEvent *event) {
 
     }
 
+    if (event->key() == Qt::Key_I && scene()->objectName() == gui->TeamHUD()->objectName()) {
+        setScene(gui->map());
+    } else
     if (event->key() == Qt::Key_I && scene()->objectName() == gui->map()->objectName())
         setScene(gui->playerTeam(player->getTeam(), player->getItsLevel()));
 
     QGraphicsView::keyPressEvent(event);
 
-}
-
-void Game::keyReleaseEvent(QKeyEvent *event) {
-    // Handle key releases for game interactions
-    if (event->key() == Qt::Key_I && scene()->objectName() == gui->TeamHUD()->objectName())
-        setScene(gui->map());
-
-    QGraphicsView::keyReleaseEvent(event);
 }
 
 void Game::mousePressEvent(QMouseEvent *event){

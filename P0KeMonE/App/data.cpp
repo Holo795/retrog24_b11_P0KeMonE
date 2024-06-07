@@ -60,7 +60,7 @@ Pokemon* Data::randompokemon()
         int special_attack = query.value("special_attack").toInt();
         int special_defense = query.value("special_defense").toInt();
         int speed = query.value("speed").toInt();
-        PKTYPE type = static_cast<PKTYPE>(query.value("id_type").toInt());
+        PKTYPE type = static_cast<PKTYPE>(query.value("id_type").toInt()-1);
 
         Pokemon* pokemon = new Pokemon(id, name.toStdString(), type, hp, speed, attack, special_attack, defense, special_defense, 1);
 
@@ -96,6 +96,8 @@ QList<Move> Data::getMoves(int pokemon_id)
         FROM move
         JOIN move_pk ON move.id = move_pk.id_move
         WHERE move_pk.id_pk = :pokemon_id
+        ORDER BY RANDOM()
+        LIMIT 4
     )";
 
     query.prepare(queryString);
@@ -114,7 +116,7 @@ QList<Move> Data::getMoves(int pokemon_id)
         int power = query.value("power").toInt();
         int accuracy = query.value("accuracy").toInt();
         MOVENATURE nature = query.value("spephy").toString() == "special" ? MOVENATURE::Spéciale : MOVENATURE::Physique;
-        PKTYPE type = static_cast<PKTYPE>(query.value("type").toInt());
+        PKTYPE type = static_cast<PKTYPE>(query.value("type").toInt()-1);
         Move move(name.toStdString(), power, accuracy, nature, type);
         moves.append(move);
     }

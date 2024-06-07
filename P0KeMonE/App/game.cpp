@@ -31,6 +31,7 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     });
 
     connect(gui->battle()->getBackButton(), &QPushButton::clicked, this, &Game::showFightMenu);
+    connect(gui->battle()->getRunButton(), &QPushButton::clicked, this, &Game::run);
 
 
 

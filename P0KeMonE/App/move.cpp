@@ -42,6 +42,10 @@ MOVENATURE Move::getItsNature() const
     return itsNature;
 }
 
+PKTYPE Move::getItsType() const
+{
+    return itsType;
+}
 
 /**
  * Calculates the damage this move will do when used.

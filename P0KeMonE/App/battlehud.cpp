@@ -15,6 +15,9 @@
  */
 BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     setObjectName("BattleHUD");
+
+    backButton = new QPushButton();
+
     // Load and position the background image
     QGraphicsPixmapItem* background = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/battleHUD-background.png").scaled(480, 240));
     background->setPos(0, 0);
@@ -283,7 +286,6 @@ void BattleHUD::displayMoves(QList<Move> moves)
         moveButton->setIcon(QPixmap(":/hud/battlehud_assets/" + qType + "Button.png").scaled(buttonWidth, buttonHeight));
         moveButton->setGeometry(positions[i].x(), positions[i].y(), buttonWidth, buttonHeight);
         moveButton->setIconSize(QSize(buttonWidth, buttonHeight));
-        moveButton->setFixedSize(buttonWidth, buttonHeight);
 
         // Create and configure a QLabel for the move name
         QLabel *moveLabel = new QLabel(QString::fromStdString(moves[i].getItsName()), moveButton);
@@ -302,10 +304,8 @@ void BattleHUD::displayMoves(QList<Move> moves)
     }
 
 
-    backButton = new QPushButton();
     backButton->setIcon(QPixmap(":/hud/battlehud_assets/back_button.png").scaled(buttonWidth, buttonHeight));
     backButton->setIconSize(QSize(buttonWidth, buttonHeight));
-    backButton->setFixedSize(buttonWidth, buttonHeight);
     backButton->setGeometry(320 , 240, buttonWidth, buttonHeight);
     addWidget(backButton);
 
@@ -314,13 +314,15 @@ void BattleHUD::displayMoves(QList<Move> moves)
 
 void BattleHUD::menuFight()
 {
-    attackButton->setVisible(1);
-    pokemonButton->setVisible(1);
-    runButton->setVisible(1);
-    dialogueBox->setVisible(1);
+    attackButton->setVisible(true);
+    pokemonButton->setVisible(true);
+    runButton->setVisible(true);
+    dialogueBox->setVisible(true);
+
+    backButton->setVisible(false);
 
 
-    moveButton->setVisible(0);
+    moveButton->setVisible(false);
 }
 
 QButtonGroup *BattleHUD::getMoveGroup() const

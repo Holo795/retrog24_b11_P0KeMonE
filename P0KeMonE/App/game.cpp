@@ -25,7 +25,7 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
 
     //connect(gui->battle()->getMoveGroup(), &BattleHUD::moveButtonClicked, this, &Game::onMoveButtonClicked);
     connect(gui->battle()->getBackButton(), &QPushButton::clicked, this, &Game::showFightMenu);
-    qDebug() << "connect";
+
 
 
 

@@ -121,8 +121,6 @@ void MapHUD::keyPressEvent(QKeyEvent *event) {
     int y_foot = player->y() + player->pixmap().height();
     int tileType = model->getMap()[y_foot / 32][x_foot / 32];
 
-    if (model->getMap()[y_foot / 32][x_foot / 32] < 16 && model->getMap()[y_foot / 32][x_foot / 32] > 6) {
-        if (encounterDist(gen) < 15) { // Use the distribution and generator
     switch(tileType) {
     case 76: // Herbe haute pour les rencontres aléatoires
         if (encounterDist(gen) < 15) {

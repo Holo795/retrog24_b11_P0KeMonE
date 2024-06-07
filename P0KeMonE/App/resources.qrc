@@ -576,7 +576,6 @@
         <file>main_menu_assets/logo_menu.png</file>
         <file>main_menu_assets/player_menu.png</file>
         <file>battlehud_assets/back_button.png</file>
-        <file>playerhud_assets/arrow.png</file>
         <file>battlehud_assets/boss_image.png</file>
         <file>battlehud_assets/dialogue_box.png</file>
         <file>battlehud_assets/0Button.png</file>
@@ -615,5 +614,6 @@
         <file>battlehud_assets/16Button_hover.png</file>
         <file>battlehud_assets/17Button.png</file>
         <file>battlehud_assets/17Button_hover.png</file>
+        <file>battlehud_assets/arrow.png</file>
     </qresource>
 </RCC>

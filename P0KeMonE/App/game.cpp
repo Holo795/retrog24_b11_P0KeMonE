@@ -23,7 +23,13 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     //connect(gui->battle()->getPokemonButton(), &QPushButton::clicked, this, &Game::switchPokemon);
 
 
-    //connect(gui->battle()->getMoveGroup(), &BattleHUD::moveButtonClicked, this, &Game::onMoveButtonClicked);
+    connect(gui->battle()->getMoveGroup(), QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked), [=](QAbstractButton *button) {
+
+        int buttonId = gui->battle()->getMoveGroup()->id(button);
+        qDebug() << "Attack button clicked: " << buttonId;
+        onMoveButtonClicked(buttonId);
+    });
+
     connect(gui->battle()->getBackButton(), &QPushButton::clicked, this, &Game::showFightMenu);
 
 
@@ -120,7 +126,6 @@ void Game::showFight() {
 }
 
 void Game::showFightMenu() {
-    qDebug() << "showFightMenu";
     gui->battle()->menuFight();
 }
 

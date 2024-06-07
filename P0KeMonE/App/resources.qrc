@@ -65,6 +65,7 @@
         <file>map_assets/water_top_left.png</file>
         <file>map_assets/water_top_right.png</file>
         <file>mapPoke2.json</file>
+        <file>battlehud_assets/dialogue_box.png</file>
     </qresource>
     <qresource prefix="/sprites">
         <file>pk_sprites/1_front.png</file>
@@ -606,5 +607,6 @@
         <file>battlehud_assets/waterButton.png</file>
         <file>battlehud_assets/waterButton2.png</file>
         <file>playerhud_assets/arrow.png</file>
+        <file>battlehud_assets/dialogue_box.png</file>
     </qresource>
 </RCC>

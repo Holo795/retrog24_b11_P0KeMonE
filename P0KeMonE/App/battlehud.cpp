@@ -303,26 +303,32 @@ void BattleHUD::displayMoves(QList<Move> moves)
         moveButtonsGroup->addButton(moveButton, i);
     }
 
-
+    backButton->setVisible(1);
     backButton->setIcon(QPixmap(":/hud/battlehud_assets/back_button.png").scaled(buttonWidth, buttonHeight));
     backButton->setIconSize(QSize(buttonWidth, buttonHeight));
     backButton->setGeometry(320 , 240, buttonWidth, buttonHeight);
     addWidget(backButton);
 
+    qDebug() << "Number of buttons in moveButtonsGroup: " << moveButtonsGroup->buttons().size();
+
+
 
 }
 
-void BattleHUD::menuFight()
-{
+void BattleHUD::menuFight() {
     attackButton->setVisible(true);
     pokemonButton->setVisible(true);
     runButton->setVisible(true);
     dialogueBox->setVisible(true);
+
+
     backButton->setVisible(false);
 
-    moveButton->setVisible(false);
+    // Hide all move buttons
+    for(QAbstractButton *button : moveButtonsGroup->buttons()) {
+        button->setVisible(false);
+    }
 }
-
 QButtonGroup *BattleHUD::getMoveGroup() const
 {
     return moveButtonsGroup;

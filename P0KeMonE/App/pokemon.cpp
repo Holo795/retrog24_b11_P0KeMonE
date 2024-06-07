@@ -109,7 +109,7 @@ int Pokemon::getItsMaxHealth() const
 /**
  * Returns the list of moves this Pokemon can perform.
  */
-QList<Move> Pokemon::getItsMoves() const
+QList<Move*> Pokemon::getItsMoves() const
 {
     return itsMoves;
 }
@@ -117,7 +117,7 @@ QList<Move> Pokemon::getItsMoves() const
 /**
  * Sets the list of moves this Pokemon can perform.
  */
-void Pokemon::setItsMoves(const QList<Move> &newItsMoves)
+void Pokemon::setItsMoves(const QList<Move*> &newItsMoves)
 {
     itsMoves = newItsMoves;
 }

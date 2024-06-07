@@ -67,7 +67,7 @@ Pokemon* Data::randompokemon()
         qDebug() << "Pokemon created: " << name;
 
         // Fetch and set the moves for the Pokémon
-        QList<Move> moves = getMoves(id);
+        QList<Move*> moves = getMoves(id);
         if (moves.isEmpty())
         {
             return randompokemon(); // If no moves, fetch another Pokémon
@@ -86,7 +86,7 @@ Pokemon* Data::randompokemon()
 /**
  * Fetches and returns a list of moves associated with a given Pokémon ID.
  */
-QList<Move> Data::getMoves(int pokemon_id)
+QList<Move*> Data::getMoves(int pokemon_id)
 {
     qDebug() << "Entering getMoves() with pokemon_id:" << pokemon_id;
     QSqlQuery query;
@@ -106,10 +106,10 @@ QList<Move> Data::getMoves(int pokemon_id)
     if (!query.exec())
     {
         qDebug() << "Error: query execution failed" << query.lastError();
-        return QList<Move>();
+        return QList<Move*>();
     }
 
-    QList<Move> moves;
+    QList<Move*> moves;
     while (query.next())
     {
         QString name = query.value("name").toString();
@@ -117,7 +117,7 @@ QList<Move> Data::getMoves(int pokemon_id)
         int accuracy = query.value("accuracy").toInt();
         MOVENATURE nature = query.value("spephy").toString() == "special" ? MOVENATURE::Spéciale : MOVENATURE::Physique;
         PKTYPE type = static_cast<PKTYPE>(query.value("type").toInt()-1);
-        Move move(name.toStdString(), power, accuracy, nature, type);
+        Move* move = new Move(name.toStdString(), power, accuracy, nature, type);
         moves.append(move);
     }
     return moves;

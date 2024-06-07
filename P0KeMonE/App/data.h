@@ -50,7 +50,7 @@ public:
      * @param pokemon_id The ID of the Pokémon to fetch moves for.
      * @return A QList of Move objects associated with the Pokémon.
      */
-    QList<Move> getMoves(int pokemon_id);
+    QList<Move*> getMoves(int pokemon_id);
 };
 
 #endif // DATA_H

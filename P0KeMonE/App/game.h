@@ -56,7 +56,7 @@ protected:
 public slots:
 
     void setScene(QGraphicsScene *scene); ///< Sets the current scene for the game view.
-
+    void changePokemon(Pokemon *pokemon); ///< Changes the player's active Pokémon.
     void updateView(); ///< Updates the view to ensure the player remains centered.
     void showFight(); ///< Transitions the game to the battle scene.
     void fight(); ///< Initiates a fight round.
@@ -64,7 +64,8 @@ public slots:
     void endFight(bool playerWon); ///< End the ongoing fight.
     void run(); ///< When the run button is clicked
     void generateNewOpponent(); ///< To prepare the next fight
-    void showMoves();
+    void showMoves(); ///< Show the moves for the current Pokémon
+    void switchPokemon(); ///< Switch the current Pokémon
     void onMoveButtonClicked(int moveIndex);
     void showFightMenu();
 };

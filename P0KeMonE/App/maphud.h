@@ -59,6 +59,8 @@ protected:
      * @param event The key event.
      */
     void keyPressEvent(QKeyEvent *event);
+
+    void enteringBoat(Player *player, const std::string &direction);
 };
 
 #endif // MAPHUD_H

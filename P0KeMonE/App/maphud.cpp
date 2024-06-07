@@ -39,20 +39,8 @@ void MapHUD::drawMap() {
 
     // Decorative and functional map elements
     const QMap<int, QPair<QString, int>> pixmapMap = {
-        {1, qMakePair(QString(":/map/map_assets/big_tree.png"), 1)},
-        {2, qMakePair(QString(":/map/map_assets/tree.png"), 1)},
-        {3, qMakePair(QString(":/map/map_assets/rock.png"), 1)},
-        {4, qMakePair(QString(":/map/map_assets/little_tree.png"), 1)},
-        {5, qMakePair(QString(":/map/map_assets/bush.png"), 1)},
-        {7, qMakePair(QString(":/map/map_assets/tallgrass_bottom.png"), 0)},
-        {8, qMakePair(QString(":/map/map_assets/tallgrass_bottom_left.png"), 0)},
-        {9, qMakePair(QString(":/map/map_assets/tallgrass_bottom_right.png"), 0)},
-        {10, qMakePair(QString(":/map/map_assets/tallgrass_left.png"), 0)},
-        {11, qMakePair(QString(":/map/map_assets/tallgrass_mid.png"), 0)},
-        {12, qMakePair(QString(":/map/map_assets/tallgrass_right.png"), 0)},
-        {13, qMakePair(QString(":/map/map_assets/tallgrass_top.png"), 0)},
-        {14, qMakePair(QString(":/map/map_assets/tallgrass_top_left.png"), 0)},
-        {15, qMakePair(QString(":/map/map_assets/tallgrass_top_right.png"), 0)},
+        {2, qMakePair(QString(":/map/map_assets/tree.png"), 2)},
+        {3, qMakePair(QString(":/map/map_assets/rock.png"), 2)},
         {17, qMakePair(QString(":/map/map_assets/flower1.png"), 0)},
         {18, qMakePair(QString(":/map/map_assets/flower2.png"), 0)},
         {19, qMakePair(QString(":/map/map_assets/path_bottom.png"), 0)},
@@ -79,26 +67,25 @@ void MapHUD::drawMap() {
         {40, qMakePair(QString(":/map/map_assets/water_top.png"), 1)},
         {41, qMakePair(QString(":/map/map_assets/water_top_left.png"), 1)},
         {42, qMakePair(QString(":/map/map_assets/water_top_right.png"), 1)},
-        {43, qMakePair(QString(":/map/map_assets/platform_bottom.png"), 0)},
-        {44, qMakePair(QString(":/map/map_assets/platform_top.png"), 0)},
-        {48, qMakePair(QString(":/map/map_assets/platform_top_left.png"), 1)},
-        {50, qMakePair(QString(":/map/map_assets/platform_bottom_left.png"), 1)},
-        {51, qMakePair(QString(":/map/map_assets/mountain.png"), 1)},
-        {53, qMakePair(QString(":/map/map_assets/fence_vertical.png"), 1)},
-        {55, qMakePair(QString(":/map/map_assets/fence_horizontal2.png"), 1)},
-        {56, qMakePair(QString(":/map/map_assets/fence_corner_left2.png"), 1)},
-        {57, qMakePair(QString(":/map/map_assets/fence_corner_right2.png"), 1)},
-        {62, qMakePair(QString(":/map/map_assets/little_fence_right.png"), 1)},
-        {63, qMakePair(QString(":/map/map_assets/little_fence_left.png"), 1)},
+        {52, qMakePair(QString(":/map/map_assets/fence_horizontal.png"), 2)},
+        {53, qMakePair(QString(":/map/map_assets/fence_vertical.png"), 2)},
         {64, qMakePair(QString(":/map/map_assets/street_light_left.png"), 1)},
         {65, qMakePair(QString(":/map/map_assets/street_light_right.png"), 1)},
         {66, qMakePair(QString(":/map/map_assets/sign.png"), 1)},
-        {67, qMakePair(QString(":/map/map_assets/stairs_left.png"), 0)},
-        {68, qMakePair(QString(":/map/map_assets/stairs_right.png"), 0)},
+        {67, qMakePair(QString(":/map/map_assets/stairs_left.png"), 2)},
+        {68, qMakePair(QString(":/map/map_assets/stairs_right.png"), 2)},
         {69, qMakePair(QString(":/map/map_assets/boat_left.png"), 0)},
         {70, qMakePair(QString(":/map/map_assets/boat_right.png"), 0)},
-        {71, qMakePair(QString(":/map/map_assets/ball_close.png"), 1)},
-        {72, qMakePair(QString(":/map/map_assets/ball_open.png"), 1)},
+        {71, qMakePair(QString(":/map/map_assets/ball_close.png"), 2)},
+        {72, qMakePair(QString(":/map/map_assets/ball_open.png"), 2)},
+        {73, qMakePair(QString(":/map/map_assets/boss_zone.png"), 2)},
+        {76, qMakePair(QString(":/map/map_assets/tallgrass.png"), 1)},
+        {83, qMakePair(QString(":/map/map_assets/montagne.png"), 2)},
+        {92, qMakePair(QString(":/map/map_assets/pont.png"), 2)},
+        {93, qMakePair(QString(":/map/map_assets/big_tree.png"), 2)},
+        {94, qMakePair(QString(":/map/map_assets/bush.png"), 2)},
+        {95, qMakePair(QString(":/map/map_assets/little_tree.png"), 2)},
+        {96, qMakePair(QString(":/map/map_assets/sign.png"), 2)},
     };
 
     // Add decorative elements to the scene with appropriate z-values
@@ -118,7 +105,7 @@ void MapHUD::drawMap() {
     // Initialize and add the player to the scene
     player = new Player();
     addItem(player);
-    player->setPos(290, 220); // Set the initial position of the player
+    player->setPos(150, 950); // Set the initial position of the player
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus(); // Focus the player to receive key events
 }
@@ -132,12 +119,25 @@ void MapHUD::keyPressEvent(QKeyEvent *event) {
 
     int x_foot = player->x() + 2;
     int y_foot = player->y() + player->pixmap().height();
+    int tileType = model->getMap()[y_foot / 32][x_foot / 32];
 
-    if (model->getMap()[y_foot / 32][x_foot / 32] < 16 && model->getMap()[y_foot / 32][x_foot / 32] > 6) {
-        if (encounterDist(gen) < 15) { // Use the distribution and generator
+    switch(tileType) {
+    case 76: // Herbe haute pour les rencontres aléatoires
+        if (encounterDist(gen) < 15) {
             player->stopMoving();
             emit player->startEncounterCombat();
         }
+        break;
+    case 69: // Bateau gauche
+        player->stopMoving();
+        enteringBoat(player, "left");
+        break;
+    case 70: // Bateau droite
+        player->stopMoving();
+        enteringBoat(player, "right");
+        break;
+    default:
+        break;
     }
 }
 
@@ -146,4 +146,13 @@ void MapHUD::keyPressEvent(QKeyEvent *event) {
  */
 Player * MapHUD::getPlayer() {
     return player;
+}
+
+// Gérer l'entrée dans le bateau
+void MapHUD::enteringBoat(Player *player, const std::string &direction) {
+    if (direction == "left") {
+        player->setPos(1100, 950);
+    } else {
+        player->setPos(500, 950);
+    }
 }

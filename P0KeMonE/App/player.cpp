@@ -10,8 +10,10 @@
  * @param parent The parent QGraphicsItem, default is nullptr.
  */
 Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
-    setZValue(2);
-    setPixmap(QPixmap(":/sprites/player_sprites/leftStandPlayer.png").scaled(QSize(11, 16) * scale));
+    setZValue(3);
+    setPixmap(QPixmap(":/sprites/player_sprites/rightStandPlayer.png").scaled(QSize(11, 16) * scale));
+
+    setTransformationMode(Qt::SmoothTransformation);
 
     movementTimer = new QTimer(this);
     connect(movementTimer, &QTimer::timeout, this, &Player::move);

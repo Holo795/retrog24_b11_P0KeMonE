@@ -105,7 +105,7 @@ void MapHUD::drawMap() {
     // Initialize and add the player to the scene
     player = new Player();
     addItem(player);
-    player->setPos(580, 920); // Set the initial position of the player
+    player->setPos(1000, 900); // Set the initial position of the player
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus(); // Focus the player to receive key events
 }

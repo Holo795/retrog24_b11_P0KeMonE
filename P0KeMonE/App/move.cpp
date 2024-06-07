@@ -38,9 +38,9 @@ int Move::getItsAccuracy() const
 /**
  * Returns the type of the move (e.g., physical or special).
  */
-MOVENATURE Move::getItsType() const
+MOVENATURE Move::getItsNature() const
 {
-    return itsType;
+    return itsNature;
 }
 
 /**

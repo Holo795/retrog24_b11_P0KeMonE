@@ -90,8 +90,9 @@ QList<Move> Data::getMoves(int pokemon_id)
 {
     qDebug() << "Entering getMoves() with pokemon_id:" << pokemon_id;
     QSqlQuery query;
-    QString queryString = "SELECT move.name, move.power, move.accuracy, move.spephy "
+    QString queryString = "SELECT move.name, move.power, move.accuracy, move.spephy, move.type "
                           "FROM pokemon "
+                          "JOIN type ON move.type = type.id"
                           "JOIN move_pk ON pokemon.id = move_pk.id_pk "
                           "JOIN move ON move_pk.id_move = move.id "
                           "WHERE pokemon.id = " + QString::number(pokemon_id);
@@ -109,8 +110,8 @@ QList<Move> Data::getMoves(int pokemon_id)
         int power = query.value("power").toInt();
         int accuracy = query.value("accuracy").toInt();
         MOVENATURE nature = query.value("spephy").toString() == "special" ? MOVENATURE::Spéciale : MOVENATURE::Physique;
-
-        Move move(name.toStdString(), power, accuracy, nature);
+        PKTYPE type = static_cast<PKTYPE>(query.value("type").toInt());
+        Move move(name.toStdString(), power, accuracy, nature, type);
         moves.append(move);
     }
     return moves;

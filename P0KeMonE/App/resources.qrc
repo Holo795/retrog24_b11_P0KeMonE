@@ -591,5 +591,6 @@
         <file>battlehud_assets/waterButton.png</file>
         <file>battlehud_assets/waterButton2.png</file>
         <file>playerhud_assets/arrow.png</file>
+        <file>battlehud_assets/boss_image.png</file>
     </qresource>
 </RCC>

@@ -26,6 +26,7 @@ private:
     Pokemon *itsOpponent1;        /**< Pointer to the opponent Pokémon in the battle. */
     BattleHUD *itsBattleHUD1;     /**< Pointer to the battle HUD interface. */
     std::mt19937 gen;           /**< Mersenne Twister random number generator. */
+    std::vector<Pokemon*> itsBossTeam; /**< Vector of Pokémon pointers representing the boss's team. */
 
 public:
     /**
@@ -47,6 +48,12 @@ public:
      * @param target Pointer to the Pokémon being targeted.
      */
     void attack(Move *move, Pokemon *target);
+
+    /**
+     * @brief Retrieves the boss's team of Pokémon.
+     * @return A constant reference to a vector of pointers to Pokémon.
+     */
+    std::vector<Pokemon*> getBossTeam() const;
 };
 
 #endif // BATTLE_H

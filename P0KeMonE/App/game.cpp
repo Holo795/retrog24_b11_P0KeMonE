@@ -67,8 +67,9 @@ void Game::keyPressEvent(QKeyEvent *event) {
             player->addPokemon(model->getData()->randompokemon());
             qDebug() << player->getTeam().front()->getItsMoves().size();
         }
+        //battle->getBossTeam()
 
-    }
+    };
 
     if (event->key() == Qt::Key_I && scene()->objectName() == gui->map()->objectName())
         setScene(gui->playerTeam(player->getTeam(), player->getItsLevel()));

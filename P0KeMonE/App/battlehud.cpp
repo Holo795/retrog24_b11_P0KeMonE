@@ -16,6 +16,9 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     QGraphicsPixmapItem* background = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/battleHUD-background.png").scaled(480, 240));
     background->setPos(0, 0);
 
+    QGraphicsPixmapItem* bossItem = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/boss_image.png"));
+    bossItem->setPos(200,5);
+
     int buttonWidth = 105;
     int buttonHeight = 40;
 
@@ -44,8 +47,12 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     runButton->setFixedSize(buttonWidth, buttonHeight);
     runButton->setGeometry(340, 250, buttonWidth, buttonHeight);
 
+
+
+
     // Add elements to the scene
     addItem(background);
+    addItem(bossItem);
     addWidget(attackButton);
     addWidget(pokemonButton);
     addWidget(runButton);

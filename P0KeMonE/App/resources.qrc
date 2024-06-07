@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/map">
         <file>map_assets/big_tree.png</file>
-        <file>map_assets/fence_horizontal.png</file>
         <file>map_assets/fence_vertical.png</file>
         <file>map_assets/grass.png</file>
         <file>map_assets/path_bottom.png</file>
@@ -18,15 +17,6 @@
         <file>map_assets/path_top_left_in.png</file>
         <file>map_assets/path_top_right.png</file>
         <file>map_assets/path_top_right_in.png</file>
-        <file>map_assets/tallgrass_bottom.png</file>
-        <file>map_assets/tallgrass_bottom_left.png</file>
-        <file>map_assets/tallgrass_bottom_right.png</file>
-        <file>map_assets/tallgrass_left.png</file>
-        <file>map_assets/tallgrass_mid.png</file>
-        <file>map_assets/tallgrass_right.png</file>
-        <file>map_assets/tallgrass_top.png</file>
-        <file>map_assets/tallgrass_top_left.png</file>
-        <file>map_assets/tallgrass_top_right.png</file>
         <file>map_assets/tree.png</file>
         <file>map.txt</file>
         <file>map_assets/ball_close.png</file>
@@ -34,19 +24,9 @@
         <file>map_assets/boat_left.png</file>
         <file>map_assets/boat_right.png</file>
         <file>map_assets/bush.png</file>
-        <file>map_assets/fence_corner_left2.png</file>
-        <file>map_assets/fence_corner_right2.png</file>
-        <file>map_assets/fence_horizontal2.png</file>
         <file>map_assets/flower1.png</file>
         <file>map_assets/flower2.png</file>
-        <file>map_assets/little_fence_left.png</file>
-        <file>map_assets/little_fence_right.png</file>
         <file>map_assets/little_tree.png</file>
-        <file>map_assets/mountain.png</file>
-        <file>map_assets/platform_bottom.png</file>
-        <file>map_assets/platform_bottom_left.png</file>
-        <file>map_assets/platform_top.png</file>
-        <file>map_assets/platform_top_left.png</file>
         <file>map_assets/rock.png</file>
         <file>map_assets/sand.png</file>
         <file>map_assets/sandcastle.png</file>
@@ -65,6 +45,11 @@
         <file>map_assets/water_top_left.png</file>
         <file>map_assets/water_top_right.png</file>
         <file>mapPoke2.json</file>
+        <file>map_assets/boss_zone.png</file>
+        <file>map_assets/montagne.png</file>
+        <file>map_assets/pont.png</file>
+        <file>map_assets/tallgrass.png</file>
+        <file>map_assets/fence_horizontal.png</file>
     </qresource>
     <qresource prefix="/sprites">
         <file>pk_sprites/1_front.png</file>

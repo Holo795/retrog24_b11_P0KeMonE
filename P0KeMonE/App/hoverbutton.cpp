@@ -1,6 +1,6 @@
 #include "hoverbutton.h"
 
-HoverButton::HoverButton(const QString &normalIconPath, const QString &hoverIconPath, QWidget *parent)
+HoverButton::HoverButton(const QPixmap &normalIconPath, const QPixmap &hoverIconPath, QWidget *parent)
     : QPushButton(parent), normalIcon(normalIconPath), hoverIcon(hoverIconPath)
 {
     setIcon(normalIcon);

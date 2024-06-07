@@ -1,4 +1,5 @@
 #include "battlehud.h"
+#include "hoverbutton.h"
 #include <QGraphicsPixmapItem>
 #include <QGraphicsTextItem>
 #include <QGraphicsItemAnimation>
@@ -17,6 +18,8 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     setObjectName("BattleHUD");
 
     backButton = new QPushButton();
+    moveButtonsGroup = new QButtonGroup(this);
+
 
     // Load and position the background image
     QGraphicsPixmapItem* background = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/battleHUD-background.png").scaled(480, 240));
@@ -236,65 +239,28 @@ Pokemon *BattleHUD::getPokemon2() const
 
 void BattleHUD::displayMoves(QList<Move> moves)
 {
+    attackButton->setVisible(false);
+    pokemonButton->setVisible(false);
+    runButton->setVisible(false);
+    dialogueBox->setVisible(false);
 
-    attackButton->setVisible(0);
-    pokemonButton->setVisible(0);
-    runButton->setVisible(0);
-    dialogueBox->setVisible(0);
-
-
-    // Create and add new move buttons
     int buttonWidth = 160;
     int buttonHeight = 40;
-
-    moveButtonsGroup = new QButtonGroup(this);
-
     QPoint positions[] = { QPoint(0, 240), QPoint(160, 240), QPoint(0, 280), QPoint(160, 280) };
 
     for(int i = 0; i < pokemon1->getItsMoves().size(); ++i) {
         if(i > 3) {
             break;
         }
-        std::string typeName;
-        switch(pokemon1->getItsType()) {
-        case 0 :
-            typeName = "grass";
-            qDebug() << typeName;
-            break;
-        case 1 :
-            typeName = "fire";
-            qDebug() << typeName;
-            break;
-        case 2 :
-            typeName = "water";
-            qDebug() << typeName;
-            break;
-        case 3 :
-            typeName = "electrik";
-            qDebug() << typeName;
 
-            break;
-        case 4 :
-            typeName = "ground";
-            qDebug() << typeName;
-            break;
-        case 5 :
-            typeName = "flying";
-            qDebug() << typeName;
-            break;
-        }
+        QPixmap defaultPixmap(":/hud/battlehud_assets/" + QString::number(pokemon1->getItsMoves().at(i).getItsType()) + "Button.png");
+        QPixmap hoverPixmap(":/hud/battlehud_assets/" + QString::number(pokemon1->getItsMoves().at(i).getItsType()) + "Button_hover.png");
 
-
-
-        // Create and configure the move button
-        QString qType = QString::fromStdString(typeName);
-        moveButton = new QPushButton();
-
-        moveButton->setIcon(QPixmap(":/hud/battlehud_assets/" + qType + "Button.png").scaled(buttonWidth, buttonHeight));
+        HoverButton *moveButton = new HoverButton(defaultPixmap, hoverPixmap);
+        moveButton->setIcon(QIcon(defaultPixmap.scaled(buttonWidth, buttonHeight)));
         moveButton->setGeometry(positions[i].x(), positions[i].y(), buttonWidth, buttonHeight);
         moveButton->setIconSize(QSize(buttonWidth, buttonHeight));
 
-        // Create and configure a QLabel for the move name
         QLabel *moveLabel = new QLabel(QString::fromStdString(moves[i].getItsName()), moveButton);
         moveLabel->setGeometry(0, 0, buttonWidth, buttonHeight);
         moveLabel->setAlignment(Qt::AlignCenter);
@@ -305,21 +271,20 @@ void BattleHUD::displayMoves(QList<Move> moves)
             emit moveButtonClicked(i);
         });
 
-        // Add the button to the scene and button group
+
+
         addWidget(moveButton);
         moveButtonsGroup->addButton(moveButton, i);
     }
 
-    backButton->setVisible(1);
-    backButton->setIcon(QPixmap(":/hud/battlehud_assets/back_button.png").scaled(buttonWidth, buttonHeight));
+    backButton->setVisible(true);
+    QPixmap backButtonImage(":/hud/battlehud_assets/back_button.png");
+    backButton->setIcon(backButtonImage.scaled(buttonWidth, buttonHeight));
     backButton->setIconSize(QSize(buttonWidth, buttonHeight));
     backButton->setGeometry(320 , 240, buttonWidth, buttonHeight);
     addWidget(backButton);
 
     qDebug() << "Number of buttons in moveButtonsGroup: " << moveButtonsGroup->buttons().size();
-
-
-
 }
 
 void BattleHUD::menuFight() {

@@ -12,7 +12,7 @@ class HoverButton : public QPushButton
     Q_OBJECT
 
 public:
-    HoverButton(const QString &normalIconPath, const QString &hoverIconPath, QWidget *parent = nullptr);
+    HoverButton(const QPixmap &normalIconPath, const QPixmap &hoverIconPath, QWidget *parent = nullptr);
 
 protected:
     void enterEvent(QEnterEvent *event) override;

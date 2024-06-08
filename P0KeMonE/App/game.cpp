@@ -208,9 +208,10 @@ void Game::endFight(bool playerWon)
     if (playerWon)
     {
         generateNewOpponent();
-        setScene(gui->map());
         player->incrementWinCount();
-        double playerLevel = player->getItsLevel();
+
+        double initialPlayerLevel = player->getItsLevel();
+        double playerLevel = initialPlayerLevel;
         int winsRequired = 0;
 
         if (playerLevel == 1.0) {
@@ -226,6 +227,20 @@ void Game::endFight(bool playerWon)
             player->setWinCount(0); // Réinitialise le compteur de victoires après avoir passé le niveau
         }
 
+        double updatedPlayerLevel = player->getItsLevel();
+
+        if (updatedPlayerLevel != initialPlayerLevel) {
+            qDebug() <<"pas meme niveau " ; // pour moi voir si ca marche
+            if(player->getTeam().size() < 3)
+            {
+                player->addPokemon(model->getData()->randompokemon());
+                setScene(gui->map());
+            }
+            else
+            {
+                setScene(gui->selectPokemon(player->getTeam()));
+            }
+        }
 
         qDebug() << "Level player: " << player->getItsLevel();
         qDebug() << "Wins player: " << player->getWinCount();

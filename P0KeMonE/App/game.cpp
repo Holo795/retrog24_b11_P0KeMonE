@@ -200,7 +200,7 @@ void Game::continuefight()
 
 void Game::run()
 {
-    endFight(true);
+    setScene(gui->map());
 }
 
 void Game::endFight(bool playerWon)

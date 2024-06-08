@@ -50,6 +50,9 @@
         <file>map_assets/pont.png</file>
         <file>map_assets/tallgrass.png</file>
         <file>map_assets/fence_horizontal.png</file>
+        <file>map_assets/sandy_tallgrass.png</file>
+        <file>map_assets/boss.png</file>
+        <file>map_assets/old_men.png</file>
     </qresource>
     <qresource prefix="/sprites">
         <file>pk_sprites/1_front.png</file>
@@ -615,5 +618,6 @@
         <file>battlehud_assets/17Button.png</file>
         <file>battlehud_assets/17Button_hover.png</file>
         <file>battlehud_assets/arrow.png</file>
+        <file>battlehud_assets/game_won_bg.png</file>
     </qresource>
 </RCC>

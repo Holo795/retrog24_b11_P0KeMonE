@@ -21,27 +21,11 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     connect(gui->battle()->getAttackButton(), &QPushButton::clicked, this, &Game::showMoves);
     connect(gui->battle()->getPokemonButton(), &QPushButton::clicked, this, &Game::switchPokemon);
 
-    connect(gui->battle()->getMoveGroup(), QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked), [=](QAbstractButton *button) {
-
-        int buttonId = gui->battle()->getMoveGroup()->id(button);
-        qDebug() << "Attack button clicked: " << buttonId;
-
-        battle = new Battle(player, gui->battle()->getPokemon2(), gui->battle());
-
-        // Assuming the player has already selected a move, for example:
-
-        for (QAbstractButton *button : gui->battle()->getMoveGroup()->buttons()) {
-            button->setEnabled(false);
-        }
-
-        battle->attack(gui->battle()->getPokemon1()->getItsMoves()[buttonId], gui->battle()->getPokemon2());
-
-        QTimer::singleShot(2000, this, &Game::continuefight);
-    });
-
+    connect(gui->battle()->getMoveGroup(), QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked), this, &Game::onMoveButtonClicked);
     connect(gui->battle()->getBackButton(), &QPushButton::clicked, this, &Game::showFightMenu);
+
     connect(gui->battle()->getRunButton(), &QPushButton::clicked, this, &Game::run);
-    connect(gui->TeamHUD(), &PlayerHUD::pokemonSelected, this, &Game::changePokemon);
+    connect(gui->team(), &PlayerHUD::pokemonSelected, this, &Game::changePokemon);
 
     // Timer for updating the view regularly
     QTimer *updateTimer = new QTimer(this);
@@ -104,7 +88,7 @@ void Game::keyPressEvent(QKeyEvent *event) {
 
 void Game::keyReleaseEvent(QKeyEvent *event) {
     // Handle key releases for game interactions
-    if (event->key() == Qt::Key_I && scene()->objectName() == gui->TeamHUD()->objectName())
+    if (event->key() == Qt::Key_I && scene()->objectName() == gui->team()->objectName())
         setScene(gui->map());
 
     QGraphicsView::keyReleaseEvent(event);
@@ -151,33 +135,45 @@ void Game::showFightMenu() {
     gui->battle()->menuFight();
 }
 
-void Game::fight() {
-    // Manage initiating and processing a battle round
-    battle = new Battle(player, gui->battle()->getPokemon2(), gui->battle());
-
-    // Assuming the player has already selected a move, for example:
-    Move* selectedMove = player->getTeam().front()->getItsMoves()[0]; // Change this based on player's choice
-    battle->attack(selectedMove, gui->battle()->getPokemon2());
-
-    QTimer::singleShot(2000, this, &Game::continuefight);
-
-}
-
 void Game::showMoves() {
     // Retrieve the moves of the player's current Pokémon
     QList<Move*> movePk1 = gui->battle()->getPokemon1()->getItsMoves();
     gui->battle()->displayMoves(movePk1);
 }
 
-void Game::onMoveButtonClicked(int moveIndex) {
-    qDebug() << "Move button clicked with index:" << moveIndex;
+void Game::onMoveButtonClicked(QAbstractButton *button) {
+
+    int buttonId = gui->battle()->getMoveGroup()->id(button);
+    battle = new Battle(gui->battle()->getPokemon1(), gui->battle()->getPokemon2(), gui->battle());
+
+    qDebug() << "onMoveButtonClicked()";
+    qDebug() << "pk1 :" << gui->battle()->getPokemon1()->getItsName();
+    qDebug() << "pk2 :" << gui->battle()->getPokemon2()->getItsName();
+
+    for (QAbstractButton *button : gui->battle()->getMoveGroup()->buttons()) {
+        button->setEnabled(false);
+    }
+
+    battle->attack(gui->battle()->getPokemon1()->getItsMoves()[buttonId], gui->battle()->getPokemon2());
+
+
+    qDebug() << "onMoveButtonClicked()";
+    qDebug() << "pk1 :" << gui->battle()->getPokemon1()->getItsName();
+    qDebug() << "pk2 :" << gui->battle()->getPokemon2()->getItsName();
+
+    QTimer::singleShot(2000, this, &Game::continuefight);
+
 }
 
 void Game::continuefight()
 {
     // Continue the fight based on battle outcome or player actions
 
-    battle->attack(gui->battle()->getPokemon2()->getItsMoves()[0], player->getTeam().front());
+    qDebug() << "continuefight()";
+    qDebug() << "pk1 :" << gui->battle()->getPokemon1()->getItsName();
+    qDebug() << "pk2 :" << gui->battle()->getPokemon2()->getItsName();
+
+    battle->attack(gui->battle()->getPokemon2()->getItsMoves()[0], gui->battle()->getPokemon1());
 
     QTimer::singleShot(1000, this, [&](){
         for (QAbstractButton *button : gui->battle()->getMoveGroup()->buttons()) {
@@ -248,4 +244,9 @@ void Game::switchPokemon(){
 
 void Game::changePokemon(Pokemon* pokemon){
     setScene(gui->battle(pokemon, gui->battle()->getPokemon2()));
+
+    qDebug() << "changePokemon()";
+    qDebug() << "pk1 :" << gui->battle()->getPokemon1()->getItsName();
+    qDebug() << "pk2 :" << gui->battle()->getPokemon2()->getItsName();
+
 }

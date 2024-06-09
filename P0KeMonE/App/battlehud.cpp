@@ -250,6 +250,11 @@ void BattleHUD::displayMoves(QList<Move*> moves)
     runButton->setVisible(false);
     dialogueBox->setVisible(false);
 
+    //vider le qgroupbutton
+    for(QAbstractButton *button : moveButtonsGroup->buttons()) {
+        moveButtonsGroup->removeButton(button);
+    }
+
     int buttonWidth = 160;
     int buttonHeight = 40;
     QPoint positions[] = { QPoint(0, 240), QPoint(160, 240), QPoint(0, 280), QPoint(160, 280) };

@@ -146,20 +146,11 @@ void Game::onMoveButtonClicked(QAbstractButton *button) {
     int buttonId = gui->battle()->getMoveGroup()->id(button);
     battle = new Battle(gui->battle()->getPokemon1(), gui->battle()->getPokemon2(), gui->battle());
 
-    qDebug() << "onMoveButtonClicked()";
-    qDebug() << "pk1 :" << gui->battle()->getPokemon1()->getItsName();
-    qDebug() << "pk2 :" << gui->battle()->getPokemon2()->getItsName();
-
     for (QAbstractButton *button : gui->battle()->getMoveGroup()->buttons()) {
         button->setEnabled(false);
     }
 
     battle->attack(gui->battle()->getPokemon1()->getItsMoves()[buttonId], gui->battle()->getPokemon2());
-
-
-    qDebug() << "onMoveButtonClicked()";
-    qDebug() << "pk1 :" << gui->battle()->getPokemon1()->getItsName();
-    qDebug() << "pk2 :" << gui->battle()->getPokemon2()->getItsName();
 
     QTimer::singleShot(2000, this, &Game::continuefight);
 
@@ -168,10 +159,6 @@ void Game::onMoveButtonClicked(QAbstractButton *button) {
 void Game::continuefight()
 {
     // Continue the fight based on battle outcome or player actions
-
-    qDebug() << "continuefight()";
-    qDebug() << "pk1 :" << gui->battle()->getPokemon1()->getItsName();
-    qDebug() << "pk2 :" << gui->battle()->getPokemon2()->getItsName();
 
     battle->attack(gui->battle()->getPokemon2()->getItsMoves()[0], gui->battle()->getPokemon1());
 

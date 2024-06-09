@@ -74,7 +74,7 @@ PlayerHUD *GUI::playerTeam(vector<Pokemon *> pokemons, int itsLevel) {
 /**
  * Returns the player HUD.
  */
-PlayerHUD *GUI::TeamHUD() {
+PlayerHUD *GUI::team() {
     return playerHUD;
 }
 

@@ -78,7 +78,7 @@ public:
      * @brief Accessor for the player HUD.
      * @return Pointer to the PlayerHUD object.
      */
-    PlayerHUD * TeamHUD();
+    PlayerHUD * team();
 
     /**
      * @brief Accessor for the player HUD.

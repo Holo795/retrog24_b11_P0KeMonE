@@ -89,14 +89,6 @@ void Game::keyPressEvent(QKeyEvent *event) {
 
 }
 
-void Game::keyReleaseEvent(QKeyEvent *event) {
-    // Handle key releases for game interactions
-    /*if (event->key() == Qt::Key_I && scene()->objectName() == gui->team()->objectName())
-        setScene(gui->map());*/
-
-    QGraphicsView::keyReleaseEvent(event);
-}
-
 void Game::mousePressEvent(QMouseEvent *event){
     // Prevent loss of focus when clicking within the game view
     if(scene()->objectName() != gui->battle()->objectName()) return;

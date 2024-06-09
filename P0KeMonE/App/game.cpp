@@ -81,6 +81,9 @@ void Game::keyPressEvent(QKeyEvent *event) {
 
     if (event->key() == Qt::Key_I && scene()->objectName() == gui->map()->objectName())
         setScene(gui->playerTeam(player->getTeam(), player->getItsLevel()));
+    else if(event->key() == Qt::Key_I && scene()->objectName() == gui->team()->objectName()) {
+        setScene(gui->map());
+    }
 
     QGraphicsView::keyPressEvent(event);
 
@@ -88,8 +91,8 @@ void Game::keyPressEvent(QKeyEvent *event) {
 
 void Game::keyReleaseEvent(QKeyEvent *event) {
     // Handle key releases for game interactions
-    if (event->key() == Qt::Key_I && scene()->objectName() == gui->team()->objectName())
-        setScene(gui->map());
+    /*if (event->key() == Qt::Key_I && scene()->objectName() == gui->team()->objectName())
+        setScene(gui->map());*/
 
     QGraphicsView::keyReleaseEvent(event);
 }
@@ -168,15 +171,10 @@ void Game::continuefight()
         }
     });
 
-    if(gui->battle()->getPokemon1()->getHealth() <= 0)
-    {
+    if(gui->battle()->getPokemon1()->getHealth() <= 0){
         endFight(false);
-        return;
-    }
-    else if(gui->battle()->getPokemon2()->getHealth() <= 0)
-    {
+    }else if(gui->battle()->getPokemon2()->getHealth() <= 0){
         endFight(true);
-        return;
     }
 
 }
@@ -231,9 +229,4 @@ void Game::switchPokemon(){
 
 void Game::changePokemon(Pokemon* pokemon){
     setScene(gui->battle(pokemon, gui->battle()->getPokemon2()));
-
-    qDebug() << "changePokemon()";
-    qDebug() << "pk1 :" << gui->battle()->getPokemon1()->getItsName();
-    qDebug() << "pk2 :" << gui->battle()->getPokemon2()->getItsName();
-
 }

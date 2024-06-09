@@ -13,6 +13,7 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     setObjectName("BattleHUD");
 
     moveButtonsGroup = new QButtonGroup(this);
+    //remove background of move buttons
 
     // Load and position the background image
     QGraphicsPixmapItem* background = createPixmapItem(":/hud/battlehud_assets/battleHUD-background.png", QSize(480, 240), QPoint(0, 0));
@@ -248,6 +249,7 @@ void BattleHUD::createMoveButton(Move* move, const QPoint &pos, int width, int h
     moveButton->setIcon(QIcon(defaultPixmap.scaled(width, height)));
     moveButton->setGeometry(pos.x(), pos.y(), width, height);
     moveButton->setIconSize(QSize(width, height));
+    moveButton->setStyleSheet("background: transparent;");
 
     QLabel *moveLabel = new QLabel(QString::fromStdString(move->getItsName()), moveButton);
     moveLabel->setGeometry(0, 0, width, height);

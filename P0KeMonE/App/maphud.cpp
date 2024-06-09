@@ -26,8 +26,8 @@ void MapHUD::drawMap() {
 }
 
 void MapHUD::drawGrassLayer(const std::vector<std::vector<int>>& map) {
-    for (int y = 0; y < map.size(); ++y) {
-        for (int x = 0; x < map[y].size(); ++x) {
+    for (int y = 0; y < static_cast<int>(map.size()); ++y) {
+        for (int x = 0; x < static_cast<int>(map[y].size()); ++x) {
             QGraphicsPixmapItem *grass = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/grass.png"));
             grass->setPos(x * 32, y * 32); // Position each grass tile
             addItem(grass);
@@ -97,8 +97,8 @@ void MapHUD::drawDecorativeElements(const std::vector<std::vector<int>>& map) {
                                                       {96, qMakePair(QString(":/map/map_assets/sign.png"), 2)},
                                                       };
 
-    for (int i = 0; i < map.size(); ++i) {
-        for (int j = 0; j < map[i].size(); ++j) {
+    for (int i = 0; i < static_cast<int>(map.size()); ++i) {
+        for (int j = 0; j < static_cast<int>(map[i].size()); ++j) {
             int tileId = map[i][j];
             if (pixmapMap.contains(tileId)) {
                 const auto& pixmapData = pixmapMap.value(tileId);
@@ -119,6 +119,14 @@ void MapHUD::drawDecorativeElements(const std::vector<std::vector<int>>& map) {
 }
 
 void MapHUD::keyPressEvent(QKeyEvent *event) {
+
+    QList<int> keys = {Qt::Key_Up, Qt::Key_Down, Qt::Key_Left, Qt::Key_Right,
+                       Qt::Key_Z, Qt::Key_S, Qt::Key_Q, Qt::Key_D};
+
+    if (!keys.contains(event->key())) {
+        return;
+    }
+
     player->keyPressEvent(event);
 
     int x_foot = player->x() + 2;

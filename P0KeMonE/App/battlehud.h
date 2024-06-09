@@ -83,10 +83,9 @@ public:
     Pokemon *getPokemon2() const;
 
     /**
-     * @brief Displays the available moves as buttons.
-     * @param moves List of moves to display.
+     * @brief Displays the available moves from pokemon 1 as buttons.
      */
-    void displayMoves(QList<Move*> moves);
+    void displayMoves();
 
     /**
      * @brief Shows the fight menu with attack, pokemon, and run buttons.

@@ -113,7 +113,7 @@ Pokemon *BattleHUD::getPokemon2() const
     return pokemon2;
 }
 
-void BattleHUD::displayMoves(QList<Move*> moves)
+void BattleHUD::displayMoves()
 {
     attackButton->setVisible(false);
     pokemonButton->setVisible(false);

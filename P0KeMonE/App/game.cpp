@@ -97,15 +97,15 @@ void Game::mousePressEvent(QMouseEvent *event){
 
 }
 
-void Game::mouseDoubleClickEvent(QMouseEvent *event){
+void Game::mouseDoubleClickEvent(QMouseEvent *){
     // Prevent loss of focus when clicking within the game view
 }
 
-void Game::focusOutEvent(QFocusEvent *event){
+void Game::focusOutEvent(QFocusEvent *){
     // Prevent loss of focus when clicking within the game view
 }
 
-void Game::focusInEvent(QFocusEvent *event){
+void Game::focusInEvent(QFocusEvent *){
     // Prevent loss of focus when clicking within the game view
     if (scene()->objectName() == gui->map()->objectName()) {
         player->setFocus();
@@ -132,8 +132,7 @@ void Game::showFightMenu() {
 
 void Game::showMoves() {
     // Retrieve the moves of the player's current Pokémon
-    QList<Move*> movePk1 = gui->battle()->getPokemon1()->getItsMoves();
-    gui->battle()->displayMoves(movePk1);
+    gui->battle()->displayMoves();
 }
 
 void Game::onMoveButtonClicked(QAbstractButton *button) {

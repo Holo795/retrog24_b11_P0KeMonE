@@ -257,10 +257,6 @@ void BattleHUD::createMoveButton(Move* move, const QPoint &pos, int width, int h
     moveLabel->setStyleSheet("QLabel { color: white; font: bold 14px; }");
     moveLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
 
-    connect(moveButton, &QPushButton::clicked, [this, id]() {
-        emit moveButtonClicked(id);
-    });
-
     addWidget(moveButton);
     moveButtonsGroup->addButton(moveButton, id);
 }

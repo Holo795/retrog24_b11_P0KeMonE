@@ -105,13 +105,6 @@ public:
      */
     QPushButton *getBackButton() const;
 
-signals:
-    /**
-     * @brief Signal emitted when a move button is clicked.
-     * @param moveIndex Index of the clicked move.
-     */
-    void moveButtonClicked(int moveIndex);
-
 private:
     QPushButton *attackButton;           /**< Button used for initiating attacks. */
     QPushButton *pokemonButton;          /**< Button used for switching pokemons. */

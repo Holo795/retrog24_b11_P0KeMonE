@@ -15,6 +15,7 @@ SOURCES += \
     data.cpp \
     game.cpp \
     gameoverhud.cpp \
+    global.cpp \
     gui.cpp \
     hoverbutton.cpp \
     main.cpp \
@@ -32,6 +33,7 @@ HEADERS += \
     data.h \
     game.h \
     gameoverhud.h \
+    global.h \
     gui.h \
     hoverbutton.h \
     include/json.hpp \

@@ -12,7 +12,7 @@
 #include <QKeyEvent>
 #include <vector>
 #include <QTimer>
-
+#include "global.h"
 #include "pokemon.h"
 
 /**
@@ -79,6 +79,7 @@ private:
     QSet<int> activeKeys; ///< Set of currently pressed keys.
     float itsLevel = 1.0; ///< The player's movement speed.
     int winCount = 0; ///< The number of battles won by the player.
+
 
     /**
      * @brief Checks for collisions at the new position.

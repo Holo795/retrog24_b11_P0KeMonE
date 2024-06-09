@@ -8,6 +8,7 @@
 
 #include <QGraphicsScene>
 #include <QKeyEvent>
+#include <QBitmap>
 #include <random>
 #include <unordered_map>
 
@@ -53,6 +54,8 @@ private:
     Player *player; ///< Pointer to the player.
     std::mt19937 gen; ///< Mersenne Twister random number generator.
     std::uniform_int_distribution<> encounterDist; ///< Distribution for random encounters.
+    QGraphicsPixmapItem *bossItem; ///< Pointer to the boss item.
+    QGraphicsPixmapItem *oldMenItem; ///< Pointer to the old men item.
 
     /**
      * @brief Draws the grass layer of the map.

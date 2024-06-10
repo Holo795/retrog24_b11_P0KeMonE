@@ -83,7 +83,6 @@ private:
     float itsLevel = 1.0; ///< The player's movement speed.
     int winCount = 0; ///< The number of battles won by the player.
 
-
     /**
      * @brief Checks for collisions at the new position.
      * @param newPos The new position to check for collisions.

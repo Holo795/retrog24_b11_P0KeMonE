@@ -47,6 +47,32 @@ PKTYPE Move::getItsType() const
     return itsType;
 }
 
+string Move::getItsTextType(int type) const
+{
+    switch (type) {
+    case Grass: return "Plante";
+    case Poison: return "Poison";
+    case Normal: return "Normal";
+    case Bug: return "Insecte";
+    case Psychic: return "Psy";
+    case Ghost: return "Spectre";
+    case Ground: return "Sol";
+    case Dragon: return "Dragon";
+    case Fairy: return "Fée";
+    case Fire: return "Feu";
+    case Fighting: return "Combat";
+    case Dark: return "Ténèbres";
+    case Electric: return "Electrique";
+    case Flying: return "Vol";
+    case Rock: return "Roche";
+    case Steel: return "Acier";
+    case Water: return "Eau";
+    case Ice: return "Glace";
+    default: return "Inconnu";
+    }
+}
+
+
 /**
  * Calculates the damage this move will do when used.
  * Implements the standard damage formula from games like Pokémon.

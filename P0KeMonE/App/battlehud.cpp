@@ -7,10 +7,18 @@
 #include <QButtonGroup>
 #include <QLabel>
 #include <QDebug>
+#include <QTimer>
+
+#include <QFontDatabase>
+#include <QGraphicsTextItem>
+
 #include "pokemon.h"
+#include "qpainter.h"
 
 BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     setObjectName("BattleHUD");
+
+    setSceneRect(0, 0, 478, 318);
 
     moveButtonsGroup = new QButtonGroup(this);
     //remove background of move buttons
@@ -45,15 +53,30 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     pokemon1Item = createPixmapItem(QPoint(20, 70));
     pokemon2Item = createPixmapItem(QPoint(300, 30));
 
-    QFont promptFont("Arial", 15);
-    health1 = createTextItem(Qt::white, promptFont, QPoint(80, 100));
-    health2 = createTextItem(Qt::white, promptFont, QPoint(320, 30));
+    // Load custom font
+    int fontId = QFontDatabase::addApplicationFont(":/hud/battlehud_assets/Minecraft.ttf");
+    if (fontId == -1) {
+        qDebug() << "Failed to load Minecraft font.";
+    }
+    QString fontFamily = QFontDatabase::applicationFontFamilies(fontId).at(0);
+    QFont customFont(fontFamily, 15);
 
-    // Add Pokémon images and health displays to the scene
+    QFont promptFont("Arial", 15);
+    health1 = createTextItem(Qt::white, customFont, QPoint(80, 100));
+    health2 = createTextItem(Qt::white, customFont, QPoint(320, 30));
+
+
+    attackText = createTextItem(Qt::white, customFont, QPoint(10, 260));
+    menuText = createTextItem(Qt::white, customFont, QPoint(10, 260));
+
+
+    // Add Pokemon images and health displays to the scene
     addItem(pokemon1Item);
     addItem(pokemon2Item);
     addItem(health1);
     addItem(health2);
+    addItem(menuText);
+    addItem(attackText);
 }
 
 BattleHUD::~BattleHUD()
@@ -71,6 +94,7 @@ QPushButton *BattleHUD::getRunButton()
     return runButton;
 }
 
+
 void BattleHUD::setPokemon(Pokemon *pk1, Pokemon *pk2) {
     pokemon1 = pk1;
     pokemon2 = pk2;
@@ -82,6 +106,9 @@ void BattleHUD::setPokemon(Pokemon *pk1, Pokemon *pk2) {
 
     QString healthText2 = QString::number(pk2->getHealth()) + "/" + QString::number(pk2->getItsMaxHealth());
     health2->setPlainText(healthText2);
+
+    QString textMenuText = "Let's go " + QString::fromStdString(pk1->getItsName()).toUpper() + " !";
+    menuText->setPlainText(textMenuText);
 
     qDebug() << healthText2; // Debug output to trace health updates
 }
@@ -119,6 +146,7 @@ void BattleHUD::displayMoves()
     pokemonButton->setVisible(false);
     runButton->setVisible(false);
     dialogueBox->setVisible(false);
+    menuText->setVisible(false);
 
     clearMoveButtons();
 
@@ -135,15 +163,49 @@ void BattleHUD::displayMoves()
     qDebug() << "Number of buttons in moveButtonsGroup: " << moveButtonsGroup->buttons().size();
 }
 
+
 void BattleHUD::menuFight() {
+    backButton->setVisible(false);
+    // Masquer les boutons de déplacement
+    for (QAbstractButton *button : moveButtonsGroup->buttons()) {
+        button->setVisible(false);
+    }
+
+    // Afficher le texte
+    dialogueBox->setVisible(true);
+
     attackButton->setVisible(true);
     pokemonButton->setVisible(true);
     runButton->setVisible(true);
-    backButton->setVisible(false);
-    dialogueBox->setVisible(true);
+    menuText->setVisible(true);
 
-    for(QAbstractButton *button : moveButtonsGroup->buttons()) {
-        button->setVisible(false);
+
+    attackButton->setEnabled(false);
+    pokemonButton->setEnabled(false);
+    runButton->setEnabled(false);
+
+
+    if (pokemon2->getHealth() != pokemon2->getItsMaxHealth()) {
+
+
+        QString textMenuText = QString::fromStdString(pokemon1->getItsName()).toUpper() + " used " ;
+        menuText->setPlainText(textMenuText);
+
+
+        // Créer un minuteur pour réafficher les boutons après deux secondes
+        QTimer::singleShot(2000, this, [this]() {
+            // Réafficher les boutons
+            attackButton->setEnabled(true);
+            pokemonButton->setEnabled(true);
+            runButton->setEnabled(true);
+
+        });
+
+    } else {
+        // Si la santé du Pokémon 2 est pleine, affiche simplement les boutons
+        attackButton->setEnabled(true);
+        pokemonButton->setEnabled(true);
+        runButton->setEnabled(true);
     }
 }
 
@@ -256,6 +318,11 @@ void BattleHUD::createMoveButton(Move* move, const QPoint &pos, int width, int h
     moveLabel->setAlignment(Qt::AlignCenter);
     moveLabel->setStyleSheet("QLabel { color: white; font: bold 14px; }");
     moveLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
+
+    // Set tooltip for the move button
+    moveButton->setToolTip("Nom: " + QString::fromStdString(move->getItsName()) + "<br>"
+                           + "Type: " +  QString::fromStdString(move->getItsTextType(move->getItsType())) + "<br>"
+                           + "Puissance: " + QString::number(move->getItsPower()));
 
     addWidget(moveButton);
     moveButtonsGroup->addButton(moveButton, id);

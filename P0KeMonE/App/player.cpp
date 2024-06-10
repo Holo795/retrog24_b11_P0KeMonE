@@ -79,6 +79,19 @@ void Player::addPokemon(Pokemon *pokemon) {
     itsTeam.push_back(pokemon);
 }
 
+void Player::removePokemon(Pokemon *pokemon)
+{
+    // Find the Pokémon in the team
+    auto it = std::find(itsTeam.begin(), itsTeam.end(), pokemon);
+
+    // If the Pokémon is found, remove it
+    if (it != itsTeam.end()) {
+        itsTeam.erase(it);
+    }
+
+    
+}
+
 
 /**
  * @brief Checks for collisions at the new position.

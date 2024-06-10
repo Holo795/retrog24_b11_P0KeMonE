@@ -17,6 +17,8 @@
 BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     setObjectName("BattleHUD");
 
+    setSceneRect(0, 0, 478, 318);
+
     moveButtonsGroup = new QButtonGroup(this);
 
     // Load and position the background image

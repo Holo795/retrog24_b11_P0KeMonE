@@ -46,29 +46,39 @@ void Player::addPokemon(Pokemon *pokemon) {
 }
 
 bool Player::checkCollision(QPointF newPos) {
-    // Définir la zone de collision du joueur
     QRectF footPlayerRect(newPos.x() + 2, newPos.y() + pixmap().height() - 2, pixmap().width() - 4, 2);
-
+    QRectF headPlayerRect(newPos.x() + 2, newPos.y(), pixmap().width() - 4, 2);
     QList<QGraphicsItem*> items = scene()->items(QRectF(newPos, QSizeF(pixmap().width(), pixmap().height())));
+
     for (QGraphicsItem* item : items) {
-        if (item != this && item->zValue() + 1 == zValue()) {
+        if (item != this && item->zValue() + 1 >= zValue()) {
             int tileId = item->data(0).toInt();
             if (masks.contains(tileId)) {
-                QBitmap itemMask = masks[tileId];
-
-                // Convertir les coordonnées du joueur dans le système de coordonnées de l'item
+                const QBitmap& itemMask = masks[tileId];
                 QPointF itemTopLeft = item->pos();
                 QRectF itemRect = QRectF(itemTopLeft, itemMask.size());
 
-                // Vérifier la collision pixel par pixel
-                for (int x = 0; x < footPlayerRect.width(); ++x) {
-                    for (int y = 0; y < footPlayerRect.height(); ++y) {
-                        QPointF playerPixelPos = QPointF(footPlayerRect.x() + x, footPlayerRect.y() + y);
-                        QPoint maskPos = playerPixelPos.toPoint() - itemTopLeft.toPoint();
+                if (tileId == 64) { // ID du lampadaire
+                    QRect baseLayer(itemTopLeft.x() + 4, itemTopLeft.y() + 33, 13, 33);
 
-                        if (maskPos.x() >= 0 && maskPos.y() >= 0 &&
-                            maskPos.x() < itemMask.width() && maskPos.y() < itemMask.height()) {
-                            if (itemMask.toImage().pixelColor(maskPos) != Qt::transparent) {
+                    if(headPlayerRect.intersects(itemRect) && !footPlayerRect.intersects(itemRect)){
+                        item->setZValue(2);
+                    } else {
+                        item->setZValue(4);
+                    }
+
+                    return footPlayerRect.intersects(baseLayer);
+                } else if (tileId == 32) {
+                    //todo
+                }
+
+                // Convertir le rectangle de collision du joueur dans le système de coordonnées de l'item
+                QRectF intersectRect = footPlayerRect.intersected(itemRect);
+                if (!intersectRect.isEmpty()) {
+                    QRect playerRectInItemCoords = intersectRect.translated(-itemTopLeft).toRect();
+                    for (int y = 0; y < playerRectInItemCoords.height(); ++y) {
+                        for (int x = 0; x < playerRectInItemCoords.width(); ++x) {
+                            if (itemMask.toImage().pixelColor(playerRectInItemCoords.topLeft() + QPoint(x, y)) != Qt::transparent) {
                                 return true;
                             }
                         }

@@ -104,6 +104,7 @@ public:
      */
     QPushButton *getBackButton() const;
 
+
 private:
     QPushButton *attackButton;           /**< Button used for initiating attacks. */
     QPushButton *pokemonButton;          /**< Button used for switching pokemons. */
@@ -115,6 +116,8 @@ private:
     QGraphicsPixmapItem *bossItem;       /**< Graphics item for the boss's image. */
     QGraphicsTextItem *health1;          /**< Text item for the first Pokémon's health. */
     QGraphicsTextItem *health2;          /**< Text item for the second Pokémon's health. */
+    QGraphicsTextItem *menuText;            /**< "What will `pokemon` will do" */
+    QGraphicsTextItem *attackText;         /**< `pokemon` used `move`! */
     QGraphicsPixmapItem *dialogueBox;    /**< Graphics item for battle dialogue. */
     QButtonGroup *moveButtonsGroup;      /**< Button group for move buttons. */
     QPushButton *backButton;             /**< Button used for going back. */

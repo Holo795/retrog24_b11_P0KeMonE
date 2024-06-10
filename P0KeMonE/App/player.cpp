@@ -159,3 +159,7 @@ int Player::getWinCount() const {
 void Player::setWinCount(int newWinCount) {
     winCount = newWinCount;
 }
+
+void Player::setTeam(vector<Pokemon*> newTeam) {
+    itsTeam = newTeam;
+}

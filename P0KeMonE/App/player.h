@@ -43,6 +43,9 @@ public:
      */
     std::vector<Pokemon*> getTeam() const;
 
+    void setTeam(vector<Pokemon*>);
+
+
     /**
      * @brief Handles key press events for player movement.
      * @param event The key event.

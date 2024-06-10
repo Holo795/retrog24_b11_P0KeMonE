@@ -68,6 +68,8 @@ public:
      */
     PKTYPE getItsType() const;
 
+    string getItsTextType(int type) const;
+
 
     /**
      * @brief Calculates the damage inflicted by the move.

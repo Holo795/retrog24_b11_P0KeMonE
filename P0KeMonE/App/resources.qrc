@@ -618,5 +618,6 @@
         <file>battlehud_assets/17Button_hover.png</file>
         <file>battlehud_assets/arrow.png</file>
         <file>battlehud_assets/game_won_bg.png</file>
+        <file>battlehud_assets/Minecraft.ttf</file>
     </qresource>
 </RCC>

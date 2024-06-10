@@ -1,6 +1,5 @@
 #include "game.h"
 #include "player.h"
-#include "battle.h"
 
 
 Game::Game(Model *model, GUI *gui, QWidget *parent)
@@ -87,6 +86,18 @@ void Game::keyPressEvent(QKeyEvent *event) {
         setScene(gui->map());
     }
 
+    if (event->key() == Qt::Key_Space && scene()->objectName() == "GameOverHUD") {
+        player->setItsLevel(1.0);
+        player->setWinCount(0);
+        std::vector<Pokemon*> emptyTeam;
+        player->setTeam(emptyTeam);
+        player->setPos(200, 950);
+
+
+        setScene(gui->mainMenu());
+
+    }
+
     QGraphicsView::keyPressEvent(event);
 
 }
@@ -153,29 +164,32 @@ void Game::onMoveButtonClicked(QAbstractButton *button) {
 
     int buttonId = gui->battle()->getMoveGroup()->id(button);
     battle = new Battle(gui->battle()->getPokemon1(), gui->battle()->getPokemon2(), gui->battle());
-
+/*
     for (QAbstractButton *button : gui->battle()->getMoveGroup()->buttons()) {
         button->setEnabled(false);
     }
-
+*/
     battle->attack(gui->battle()->getPokemon1()->getItsMoves()[buttonId], gui->battle()->getPokemon2());
 
-    QTimer::singleShot(2000, this, &Game::continuefight);
+    showFightMenu();
 
+    QTimer::singleShot(2000, this, &Game::continuefight);
 }
 
 void Game::continuefight()
 {
-    // Continue the fight based on battle outcome or player actions
+    showFightMenu();
 
+    // Continue the fight based on battle outcome or player actions
     battle->attack(gui->battle()->getPokemon2()->getItsMoves()[0], gui->battle()->getPokemon1());
 
+/*
     QTimer::singleShot(1000, this, [&](){
         for (QAbstractButton *button : gui->battle()->getMoveGroup()->buttons()) {
             button->setEnabled(true);
         }
     });
-
+*/
     if(gui->battle()->getPokemon1()->getHealth() <= 0){
         endFight(false);
     }else if(gui->battle()->getPokemon2()->getHealth() <= 0){

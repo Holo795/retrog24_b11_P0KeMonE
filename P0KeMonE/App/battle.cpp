@@ -38,12 +38,17 @@ void Battle::attack(Move *move, Pokemon *target) {
 
     int damage = move->calculateDamage(lvl, atk, def, crit);
 
+
     if (random <= successRate) {
         itsBattleHUD1->frontDashPokemon(attacker);
         itsBattleHUD1->shakePokemon(defender);
         defender->takeDamage(damage);
-    }
+        itsBattleHUD1->setText(QString::fromStdString(attacker->getItsName() + " used " + move->getItsName() + "!"));
 
+    } else {
+        itsBattleHUD1->setText(QString::fromStdString(attacker->getItsName() + " used " + move->getItsName() + " and missed !"));
+
+    }
     itsBattleHUD1->setPokemon(itsOpponent1, itsOpponent2);
 }
 

@@ -55,6 +55,19 @@ void Battle::attack(Move *move, Pokemon *target) {
 std::vector<Pokemon*> Battle::getBossTeam() const {
     return itsBossTeam;
 }
+
+/**
+ * @brief Sets the boss's team of Pokémon.
+ * @param team Vector of pointers to Pokémon representing the boss's team.
+ */
+void Battle::setBossTeam(std::vector<Pokemon*> team) {
+    itsBossTeam = team;
+}
+
+/**
+ * @brief Retrieves the battle HUD.
+ * @return Pointer to the battle HUD.
+ */
 BattleHUD *Battle::getBattleHUD()
 {
     return itsBattleHUD1;

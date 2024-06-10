@@ -53,6 +53,17 @@ public:
      * @return A constant reference to a vector of pointers to Pokémon.
      */
     std::vector<Pokemon*> getBossTeam() const;
+
+    /**
+     * @brief Sets the boss's team of Pokémon.
+     * @param team Vector of pointers to Pokémon representing the boss's team.
+     */
+    void setBossTeam(std::vector<Pokemon*> team);
+
+    /**
+     * @brief Retrieves the battle HUD.
+     * @return Pointer to the battle HUD.
+     */
     BattleHUD *getBattleHUD();
 };
 

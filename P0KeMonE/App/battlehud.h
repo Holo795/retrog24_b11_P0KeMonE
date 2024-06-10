@@ -104,6 +104,9 @@ public:
      */
     QPushButton *getBackButton() const;
 
+    void setText(QString text);
+
+
 
 private:
     QPushButton *attackButton;           /**< Button used for initiating attacks. */

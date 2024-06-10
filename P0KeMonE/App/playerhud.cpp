@@ -130,7 +130,7 @@ void PlayerHUD::keyPressEvent(QKeyEvent *event)
             selectedIndex--;
             updateSelectionArrow();
         } else
-        if ((event->key() == Qt::Key_Right || event->key() == Qt::Key_D) && selectedIndex < pokemons.size() - 1) {
+            if ((event->key() == Qt::Key_Right || event->key() == Qt::Key_D) && selectedIndex < static_cast<int>(pokemons.size()) - 1) {
             selectedIndex++;
             updateSelectionArrow();
         } else

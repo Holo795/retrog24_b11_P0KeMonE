@@ -4,8 +4,8 @@
  * Constructor for the Battle class.
  * Initializes a new battle instance with given player, opponent, and HUD.
  */
-Battle::Battle(Player *player1, Pokemon *opponent1, BattleHUD *battleHUD1)
-    : itsPlayer1(player1), itsOpponent1(opponent1), itsBattleHUD1(battleHUD1),
+Battle::Battle(Pokemon *opponent1, Pokemon *opponent2, BattleHUD *battleHUD1)
+    : itsOpponent1(opponent1), itsOpponent2(opponent2), itsBattleHUD1(battleHUD1),
     gen(std::random_device{}()) // Seed the generator with random_device
 {}
 
@@ -14,8 +14,8 @@ Battle::Battle(Player *player1, Pokemon *opponent1, BattleHUD *battleHUD1)
  */
 Battle::~Battle()
 {
-    delete itsPlayer1;
     delete itsOpponent1;
+    delete itsOpponent2;
     delete itsBattleHUD1;
 }
 
@@ -29,8 +29,8 @@ void Battle::attack(Move *move, Pokemon *target) {
     int successRate = move->getItsAccuracy();
     bool crit = random > 94; // 6% chance of critical hit
 
-    Pokemon* attacker = target == itsOpponent1 ? itsPlayer1->getTeam().front() : itsOpponent1;
-    Pokemon* defender = target == itsOpponent1 ? itsOpponent1 : itsPlayer1->getTeam().front();
+    Pokemon* attacker = target == itsOpponent2 ? itsOpponent1 : itsOpponent2;
+    Pokemon* defender = target == itsOpponent2 ? itsOpponent2 : itsOpponent1;
 
     int lvl = attacker->getLvl();
     int atk = (move->getItsNature() == 0) ? attacker->getAtk() : attacker->getSpAtk();
@@ -44,7 +44,7 @@ void Battle::attack(Move *move, Pokemon *target) {
         defender->takeDamage(damage);
     }
 
-    itsBattleHUD1->setPokemon(itsPlayer1->getTeam().front(), itsOpponent1);
+    itsBattleHUD1->setPokemon(itsOpponent1, itsOpponent2);
 }
 
 

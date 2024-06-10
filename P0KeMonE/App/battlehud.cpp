@@ -5,70 +5,33 @@
 #include <QGraphicsItemAnimation>
 #include <QTimeLine>
 #include <QButtonGroup>
-
 #include <QLabel>
-
+#include <QDebug>
 #include "pokemon.h"
 
-/**
- * Constructor for the BattleHUD class. Initializes the HUD with a background, Pokémon images,
- * health displays, and an attack button.
- */
 BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     setObjectName("BattleHUD");
 
     moveButtonsGroup = new QButtonGroup(this);
+    //remove background of move buttons
 
     // Load and position the background image
-    QGraphicsPixmapItem* background = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/battleHUD-background.png").scaled(480, 240));
-    background->setPos(0, 0);
-
-    QGraphicsPixmapItem* bossItem = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/boss_image.png"));
-    bossItem->setPos(200,5);
+    QGraphicsPixmapItem* background = createPixmapItem(":/hud/battlehud_assets/battleHUD-background.png", QSize(480, 240), QPoint(0, 0));
+    QGraphicsPixmapItem* bossItem = createPixmapItem(":/hud/battlehud_assets/boss_image.png", QSize(), QPoint(200, 5));
     bossItem->setVisible(false);
 
     int buttonWidth = 105;
     int buttonHeight = 40;
 
-    // Initialize the attack button with an image and dimensions
-    attackButton = new QPushButton();
-    QPixmap buttonImage1(":/hud/battlehud_assets/fight_button.png");
-    attackButton->setIcon(QIcon(buttonImage1));
-
-    pokemonButton = new QPushButton();
-    QPixmap buttonImage2(":/hud/battlehud_assets/pokemon_button.png");
-    pokemonButton->setIcon(QIcon(buttonImage2));
-
-    runButton = new QPushButton();
-    QPixmap buttonImage3(":/hud/battlehud_assets/run_button.png");
-    runButton->setIcon(QIcon(buttonImage3));
-
-    attackButton->setIconSize(QSize(buttonWidth, buttonHeight));
-    attackButton->setFixedSize(buttonWidth, buttonHeight);
-    attackButton->setGeometry(270, 240, buttonWidth, buttonHeight);
-
-    pokemonButton->setIconSize(QSize(buttonWidth, buttonHeight));
-    pokemonButton->setFixedSize(buttonWidth, buttonHeight);
-    pokemonButton->setGeometry(375, 240, buttonWidth, buttonHeight);
-
-    runButton->setIconSize(QSize(buttonWidth, buttonHeight));
-    runButton->setFixedSize(buttonWidth, buttonHeight);
-    runButton->setGeometry(322, 280, buttonWidth, buttonHeight);
-
-    backButton = new QPushButton();
-    QPixmap backButtonImage(":/hud/battlehud_assets/back_button.png");
-    backButton->setIcon(QIcon(backButtonImage));
-    backButton->setIconSize(QSize(buttonWidth, buttonHeight));
-    backButton->setGeometry(375, 240, buttonWidth, buttonHeight);
+    // Initialize the buttons with images and dimensions
+    attackButton = createButton(":/hud/battlehud_assets/fight_button.png", buttonWidth, buttonHeight, QPoint(270, 240));
+    pokemonButton = createButton(":/hud/battlehud_assets/pokemon_button.png", buttonWidth, buttonHeight, QPoint(375, 240));
+    runButton = createButton(":/hud/battlehud_assets/run_button.png", buttonWidth, buttonHeight, QPoint(322, 280));
+    backButton = createButton(":/hud/battlehud_assets/back_button.png", buttonWidth, buttonHeight, QPoint(375, 240));
     backButton->setVisible(false);
 
-    // Initailize the moves buttons and texte dialogue box
-    dialogueBox = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/dialogue_box.png").scaled(270, 80));
-    dialogueBox->setPos(0, 240);
-
-
-
-
+    // Initialize the dialogue box
+    dialogueBox = createPixmapItem(":/hud/battlehud_assets/dialogue_box.png", QSize(270, 80), QPoint(0, 240));
 
     // Add elements to the scene
     addItem(dialogueBox);
@@ -78,22 +41,13 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     addWidget(pokemonButton);
     addWidget(runButton);
     addWidget(backButton);
-    pokemon1Item = new QGraphicsPixmapItem();
-    pokemon1Item->setPos(20, 70);
 
-    pokemon2Item = new QGraphicsPixmapItem();
-    pokemon2Item->setPos(300, 30);
+    pokemon1Item = createPixmapItem(QPoint(20, 70));
+    pokemon2Item = createPixmapItem(QPoint(300, 30));
 
     QFont promptFont("Arial", 15);
-    health1 = new QGraphicsTextItem();
-    health1->setDefaultTextColor(Qt::white);
-    health1->setFont(promptFont);
-    health1->setPos(80, 100);
-
-    health2 = new QGraphicsTextItem();
-    health2->setDefaultTextColor(Qt::white);
-    health2->setFont(promptFont);
-    health2->setPos(320, 30);
+    health1 = createTextItem(Qt::white, promptFont, QPoint(80, 100));
+    health2 = createTextItem(Qt::white, promptFont, QPoint(320, 30));
 
     // Add Pokémon images and health displays to the scene
     addItem(pokemon1Item);
@@ -102,185 +56,78 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     addItem(health2);
 }
 
-/**
- * Destructor for the BattleHUD.
- */
 BattleHUD::~BattleHUD()
 {
-    delete attackButton;
-    delete pokemon1Item;
-    delete pokemon2Item;
-    delete health1;
-    delete health2;
+    // No need to delete widgets if they have a parent set
 }
 
-/**
- * Returns the QPushButton used for switching pokemon.
- */
 QPushButton *BattleHUD::getPokemonButton()
 {
     return pokemonButton;
 }
 
-/**
- * Returns the QPushButton used for leaving the battle.
- */
 QPushButton *BattleHUD::getRunButton()
 {
     return runButton;
 }
 
-/**
- * Updates the displayed Pokémon images and their health statistics on the HUD.
- */
 void BattleHUD::setPokemon(Pokemon *pk1, Pokemon *pk2) {
     pokemon1 = pk1;
     pokemon2 = pk2;
-    pokemon1Item->setPixmap(QPixmap(":/sprites/pk_sprites/" + QString::number(pk1->getId()) + "_back.png").scaled(200, 200));
-    pokemon2Item->setPixmap(QPixmap(":/sprites/pk_sprites/" + QString::number(pk2->getId()) + "_front.png"));
+    updatePokemonGraphics(pokemon1Item, pk1, true);
+    updatePokemonGraphics(pokemon2Item, pk2, false);
 
-    QString fulllifePK1 = QString::number(pk1->getItsMaxHealth());
-    QString fulllifePK2 = QString::number(pk2->getItsMaxHealth());
-
-    QString healthText1 = QString::number(pk1->getHealth()) + "/" + fulllifePK1;
+    QString healthText1 = QString::number(pk1->getHealth()) + "/" + QString::number(pk1->getItsMaxHealth());
     health1->setPlainText(healthText1);
 
-    QString healthText2 = QString::number(pk2->getHealth()) + "/" + fulllifePK2;
+    QString healthText2 = QString::number(pk2->getHealth()) + "/" + QString::number(pk2->getItsMaxHealth());
     health2->setPlainText(healthText2);
 
     qDebug() << healthText2; // Debug output to trace health updates
 }
 
-/**
- * Shakes the Pokémon's image on the HUD.
- */
 void BattleHUD::shakePokemon(Pokemon *pk) {
-    // Get the associated QGraphicsPixmapItem based on which Pokemon is passed
     QGraphicsPixmapItem *pokemonItem = (pk == pokemon1) ? pokemon1Item : pokemon2Item;
-
-    // Configure the timeline for the shake effect
-    int totalDuration = 700;  // Including delay and shake duration
-    QTimeLine* timeLine = new QTimeLine(totalDuration, this);
-    timeLine->setLoopCount(1);  // Play the shake animation once
-
-    // Set up the item animation
-    QGraphicsItemAnimation* animation = new QGraphicsItemAnimation;
-    animation->setItem(pokemonItem);
-    animation->setTimeLine(timeLine);
-
-    // Define the start time for the shake and interval between position changes
-    double startTime = 500.0 / totalDuration;
-    double interval = 50.0 / totalDuration;
-
-    // Set key frames for shaking the Pokemon item
-    for (double t = startTime; t <= 1.0; t += interval) {
-        QPointF direction = (t == startTime) ? QPointF(10, 0) : pokemonItem->pos() - animation->posAt(t - interval);
-        animation->setPosAt(t, pokemonItem->pos() + direction);
-    }
-    animation->setPosAt(1.0, pokemonItem->pos());  // Return to original position
-
-    // Connect the shake animation to the timeline and re-enable the attack button when done
-    connect(timeLine, &QTimeLine::finished, timeLine, &QTimeLine::deleteLater);
-    connect(timeLine, &QTimeLine::finished, animation, &QGraphicsItemAnimation::deleteLater);
-
-    // Signal the shake is done
-    timeLine->start();  // Start the timeline to begin the animation
+    applyShakeAnimation(pokemonItem, 700, 500);
 }
 
-/**
- * Animates the front Pokemon to dash forward and then return to its original position.
- */
 void BattleHUD::frontDashPokemon(Pokemon *pk) {
-    // Retrieve the associated QGraphicsPixmapItem for the Pokemon
     QGraphicsPixmapItem *pokemonItem = (pk == pokemon1) ? pokemon1Item : pokemon2Item;
-    if (!pokemonItem) return;  // Exit if no item found
-
-    // Setup the timeline for the dash effect
-    QTimeLine* timeLine = new QTimeLine(500, this);  // Dash duration
-    timeLine->setLoopCount(1);  // Play the dash animation once
-
-    // Initialize the animation and link to the timeline
-    QGraphicsItemAnimation* animation = new QGraphicsItemAnimation;
-    animation->setItem(pokemonItem);
-    animation->setTimeLine(timeLine);
-
-    // Calculate the movement increment based on the Pokemon
-    QPointF increment = (pk == pokemon1) ? QPointF(10, -10) : QPointF(-10, 10);
-
-    // Create key frames for the dash effect
-    for (double t = 0.0; t <= 0.6; t += 0.1) {
-        animation->setPosAt(t, pokemonItem->pos() + increment * (t * 10));
+    if (pokemonItem) {
+        applyDashAnimation(pokemonItem, 500, (pk == pokemon1) ? QPointF(10, -10) : QPointF(-10, 10));
     }
-    animation->setPosAt(1.0, pokemonItem->pos());  // End at the original position
-
-    // Ensure clean up after the animation completes
-    connect(timeLine, &QTimeLine::finished, timeLine, &QTimeLine::deleteLater);
-    connect(timeLine, &QTimeLine::finished, animation, &QGraphicsItemAnimation::deleteLater);
-    timeLine->start();  // Begin the animation
 }
 
-/**
- * Returns the QPushButton used for initiating attacks.
- */
 QPushButton *BattleHUD::getAttackButton()
 {
     return attackButton;
 }
 
-/**
- * Retrieves the first Pokémon currently displayed on the HUD.
- */
 Pokemon *BattleHUD::getPokemon1() const
 {
     return pokemon1;
 }
 
-/**
- * Retrieves the second Pokémon currently displayed on the HUD.
- */
 Pokemon *BattleHUD::getPokemon2() const
 {
     return pokemon2;
 }
 
-void BattleHUD::displayMoves(QList<Move*> moves)
+void BattleHUD::displayMoves()
 {
     attackButton->setVisible(false);
     pokemonButton->setVisible(false);
     runButton->setVisible(false);
     dialogueBox->setVisible(false);
 
+    clearMoveButtons();
+
     int buttonWidth = 160;
     int buttonHeight = 40;
     QPoint positions[] = { QPoint(0, 240), QPoint(160, 240), QPoint(0, 280), QPoint(160, 280) };
 
-    for(int i = 0; i < pokemon1->getItsMoves().size(); ++i) {
-        if(i > 3) {
-            break;
-        }
-
-        QPixmap defaultPixmap(":/hud/battlehud_assets/" + QString::number(pokemon1->getItsMoves().at(i)->getItsType()) + "Button.png");
-        QPixmap hoverPixmap(":/hud/battlehud_assets/" + QString::number(pokemon1->getItsMoves().at(i)->getItsType()) + "Button_hover.png");
-
-        HoverButton *moveButton = new HoverButton(defaultPixmap, hoverPixmap);
-        moveButton->setIcon(QIcon(defaultPixmap.scaled(buttonWidth, buttonHeight)));
-        moveButton->setGeometry(positions[i].x(), positions[i].y(), buttonWidth, buttonHeight);
-        moveButton->setIconSize(QSize(buttonWidth, buttonHeight));
-
-        QLabel *moveLabel = new QLabel(QString::fromStdString(moves[i]->getItsName()), moveButton);
-        moveLabel->setGeometry(0, 0, buttonWidth, buttonHeight);
-        moveLabel->setAlignment(Qt::AlignCenter);
-        moveLabel->setStyleSheet("QLabel { color: white; font: bold 14px; }");
-        moveLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
-
-        connect(moveButton, &QPushButton::clicked, [this, i]() {
-            emit moveButtonClicked(i);
-        });
-
-
-
-        addWidget(moveButton);
-        moveButtonsGroup->addButton(moveButton, i);
+    for(int i = 0; i < pokemon1->getItsMoves().size() && i < 4; ++i) {
+        createMoveButton(pokemon1->getItsMoves().at(i), positions[i], buttonWidth, buttonHeight, i);
     }
 
     backButton->setVisible(true);
@@ -295,14 +142,11 @@ void BattleHUD::menuFight() {
     backButton->setVisible(false);
     dialogueBox->setVisible(true);
 
-
-    backButton->setVisible(false);
-
-    // Hide all move buttons
     for(QAbstractButton *button : moveButtonsGroup->buttons()) {
         button->setVisible(false);
     }
 }
+
 QButtonGroup *BattleHUD::getMoveGroup() const
 {
     return moveButtonsGroup;
@@ -313,4 +157,106 @@ QPushButton *BattleHUD::getBackButton() const
     return backButton;
 }
 
+// Helper methods
 
+QGraphicsPixmapItem* BattleHUD::createPixmapItem(const QString &path, const QSize &size, const QPoint &pos) {
+    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap(path).scaled(size));
+    item->setPos(pos);
+    return item;
+}
+
+QGraphicsPixmapItem* BattleHUD::createPixmapItem(const QPoint &pos) {
+    QGraphicsPixmapItem* item = new QGraphicsPixmapItem();
+    item->setPos(pos);
+    return item;
+}
+
+QPushButton* BattleHUD::createButton(const QString &path, int width, int height, const QPoint &pos) {
+    QPushButton *button = new QPushButton();
+    button->setIcon(QIcon(QPixmap(path)));
+    button->setIconSize(QSize(width, height));
+    button->setFixedSize(width, height);
+    button->setGeometry(pos.x(), pos.y(), width, height);
+    return button;
+}
+
+QGraphicsTextItem* BattleHUD::createTextItem(const QColor &color, const QFont &font, const QPoint &pos) {
+    QGraphicsTextItem* item = new QGraphicsTextItem();
+    item->setDefaultTextColor(color);
+    item->setFont(font);
+    item->setPos(pos);
+    return item;
+}
+
+void BattleHUD::updatePokemonGraphics(QGraphicsPixmapItem* item, Pokemon* pk, bool isBack) {
+    QString path = QString(":/sprites/pk_sprites/") + QString::number(pk->getId()) + (isBack ? "_back.png" : "_front.png");
+    item->setPixmap(QPixmap(path).scaled(200, 200));
+}
+
+void BattleHUD::applyShakeAnimation(QGraphicsPixmapItem* item, int totalDuration, int delay) {
+    QTimeLine* timeLine = new QTimeLine(totalDuration, this);
+    timeLine->setLoopCount(1);
+
+    QGraphicsItemAnimation* animation = new QGraphicsItemAnimation;
+    animation->setItem(item);
+    animation->setTimeLine(timeLine);
+
+    double startTime = delay / static_cast<double>(totalDuration);
+    double interval = 50.0 / totalDuration;
+
+    for (double t = startTime; t <= 1.0; t += interval) {
+        QPointF direction = (t == startTime) ? QPointF(10, 0) : item->pos() - animation->posAt(t - interval);
+        animation->setPosAt(t, item->pos() + direction);
+    }
+    animation->setPosAt(1.0, item->pos());
+
+    connect(timeLine, &QTimeLine::finished, timeLine, &QTimeLine::deleteLater);
+    connect(timeLine, &QTimeLine::finished, animation, &QGraphicsItemAnimation::deleteLater);
+
+    timeLine->start();
+}
+
+void BattleHUD::applyDashAnimation(QGraphicsPixmapItem* item, int duration, const QPointF &increment) {
+    QTimeLine* timeLine = new QTimeLine(duration, this);
+    timeLine->setLoopCount(1);
+
+    QGraphicsItemAnimation* animation = new QGraphicsItemAnimation;
+    animation->setItem(item);
+    animation->setTimeLine(timeLine);
+
+    for (double t = 0.0; t <= 0.6; t += 0.1) {
+        animation->setPosAt(t, item->pos() + increment * (t * 10));
+    }
+    animation->setPosAt(1.0, item->pos());
+
+    connect(timeLine, &QTimeLine::finished, timeLine, &QTimeLine::deleteLater);
+    connect(timeLine, &QTimeLine::finished, animation, &QGraphicsItemAnimation::deleteLater);
+    timeLine->start();
+}
+
+void BattleHUD::clearMoveButtons() {
+    for(QAbstractButton *button : moveButtonsGroup->buttons()) {
+        moveButtonsGroup->removeButton(button);
+        button->deleteLater();
+    }
+}
+
+void BattleHUD::createMoveButton(Move* move, const QPoint &pos, int width, int height, int id) {
+    QPixmap defaultPixmap(":/hud/battlehud_assets/" + QString::number(move->getItsType()) + "Button.png");
+    QPixmap hoverPixmap(":/hud/battlehud_assets/" + QString::number(move->getItsType()) + "Button_hover.png");
+
+    HoverButton *moveButton = new HoverButton(defaultPixmap, hoverPixmap);
+    moveButton->setIcon(QIcon(defaultPixmap.scaled(width, height)));
+    moveButton->setGeometry(pos.x(), pos.y(), width, height);
+    moveButton->setIconSize(QSize(width, height));
+    moveButton->setStyleSheet("background: transparent;");
+
+    QLabel *moveLabel = new QLabel(QString::fromStdString(move->getItsName()), moveButton);
+    moveLabel->setGeometry(0, 0, width, height);
+    moveLabel->setAlignment(Qt::AlignCenter);
+    moveLabel->setStyleSheet("QLabel { color: white; font: bold 14px; }");
+    moveLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
+
+    addWidget(moveButton);
+    moveButtonsGroup->addButton(moveButton, id);
+}

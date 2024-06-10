@@ -9,7 +9,6 @@
 #include <random>
 
 #include "battlehud.h"
-#include "player.h"
 #include "pokemon.h"
 
 /**
@@ -22,8 +21,8 @@
 class Battle
 {
 private:
-    Player *itsPlayer1;           /**< Pointer to the player participating in the battle. */
-    Pokemon *itsOpponent1;        /**< Pointer to the opponent Pokémon in the battle. */
+    Pokemon *itsOpponent1;          /**< Pointer to the player's Pokémon in the battle. */
+    Pokemon *itsOpponent2;        /**< Pointer to the opponent Pokémon in the battle. */
     BattleHUD *itsBattleHUD1;     /**< Pointer to the battle HUD interface. */
     std::mt19937 gen;           /**< Mersenne Twister random number generator. */
     std::vector<Pokemon*> itsBossTeam; /**< Vector of Pokémon pointers representing the boss's team. */
@@ -31,11 +30,11 @@ private:
 public:
     /**
      * @brief Constructs a Battle instance with provided player, opponent, and HUD.
-     * @param itsPlayer1 Pointer to the player.
-     * @param opponent1 Pointer to the opponent Pokémon.
+     * @param opponent1 Pointer to the player Pokémon.
+     * @param opponent2 Pointer to the opponent Pokémon.
      * @param battleHUD1 Pointer to the battle HUD.
      */
-    Battle(Player *itsPlayer1, Pokemon *opponent1, BattleHUD *battleHUD1);
+    Battle(Pokemon *opponent1, Pokemon *opponent2, BattleHUD *battleHUD1);
 
     /**
      * @brief Destructor for the Battle class.

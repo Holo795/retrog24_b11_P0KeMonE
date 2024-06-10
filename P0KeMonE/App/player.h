@@ -117,6 +117,16 @@ signals:
      * @brief Signal emitted when the player encounters combat conditions.
      */
     void startEncounterCombat();
+
+    /**
+     * @brief Signal emitted when the player encounters a boss.
+     */
+    void startEncouterBoss();
+
+    /**
+     * @brief Signal emitted when the player encounters
+     */
+    void startEncouterOldMen();
 };
 
 #endif // PLAYER_H

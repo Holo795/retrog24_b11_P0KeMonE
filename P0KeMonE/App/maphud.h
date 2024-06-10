@@ -98,6 +98,18 @@ protected:
      * @param direction The direction of the boat.
      */
     void enteringBoat(Player *player, const std::string &direction);
+
+    /**
+     * @brief Manages the player's entrance into the boss zone.
+     * @param player Pointer to the player.
+     */
+    void enteringBossZone(Player *player);
+
+    /**
+     * @brief Manages the player's entrance into the old men zone.
+     * @param player Pointer to the player.
+     */
+    void enteringOldMenZone(Player *player);
 };
 
 #endif // MAPHUD_H

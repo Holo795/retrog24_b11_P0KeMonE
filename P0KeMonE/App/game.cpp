@@ -18,6 +18,8 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
 
     // Setup connections for player encounters and button clicks
     connect(gui->map()->getPlayer(), &Player::startEncounterCombat, this, &Game::showFight);
+    connect(gui->map()->getPlayer(), &::Player::startEncouterBoss, this, &Game::showBossFight);
+    connect(gui->map()->getPlayer(), &::Player::startEncouterOldMen, this, &Game::showOldMenSpeach);
     connect(gui->battle()->getAttackButton(), &QPushButton::clicked, this, &Game::showMoves);
     connect(gui->battle()->getPokemonButton(), &QPushButton::clicked, this, &Game::switchPokemon);
 
@@ -112,7 +114,6 @@ void Game::focusInEvent(QFocusEvent *){
     }
 }
 
-
 void Game::updateView() {
     // Periodically refresh the game scene and re-center if necessary
     scene()->update();
@@ -125,6 +126,19 @@ void Game::showFight() {
     // Switch the scene to the battle interface
     setScene(gui->battle(player->getTeam().front(), model->getData()->randompokemon()));
 }
+
+void Game::showBossFight() {
+    // Switch the scene to the boss battle interface
+    //setScene(gui->battle(player->getTeam().front(), battle->getBossTeam().front()));
+    qDebug() << "boss fight";
+}
+
+void Game::showOldMenSpeach() {
+    // Afficher un message dans la console pour confirmer l'affichage du dialogue
+    setScene(gui->selectPokemon(model->getFirstTeam()));
+    qDebug() << "Old Man is speaking";
+}
+
 
 void Game::showFightMenu() {
     gui->battle()->menuFight();

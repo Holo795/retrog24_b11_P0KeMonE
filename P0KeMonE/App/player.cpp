@@ -22,6 +22,8 @@ std::vector<Pokemon*> Player::getTeam() const {
 }
 
 void Player::keyPressEvent(QKeyEvent *event) {
+    if (event->isAutoRepeat()) return;
+
     activeKeys.insert(event->key());
     if (!movementTimer->isActive()) {
         startMoving();
@@ -30,6 +32,8 @@ void Player::keyPressEvent(QKeyEvent *event) {
 }
 
 void Player::keyReleaseEvent(QKeyEvent *event) {
+    if (event->isAutoRepeat()) return;
+
     activeKeys.remove(event->key());
     if (activeKeys.isEmpty()) {
         stopMoving();

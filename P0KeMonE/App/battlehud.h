@@ -106,6 +106,8 @@ public:
 
     void setText(QString text);
 
+    QGraphicsTextItem* getMenuText() const;
+
 
 
 private:

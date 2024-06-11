@@ -22,7 +22,7 @@ public:
      * @brief Constructs a GameOverHUD object.
      * @param parent The parent QObject, default is nullptr.
      */
-    GameOverHUD(QObject *parent = nullptr);
+    explicit GameOverHUD(QObject *parent = nullptr);
 };
 
 #endif // GAMEOVERHUD_H

@@ -1,13 +1,15 @@
 #include "gameoverhud.h"
-#include "QtWidgets/qgraphicsitem.h"
+#include <QGraphicsPixmapItem>
 
 /**
- * Constructor for the GameOverHUD class.
+ * @brief Constructor for the GameOverHUD class.
  * Initializes the game over screen with a background image.
+ * @param parent The parent QObject, default is nullptr.
  */
 GameOverHUD::GameOverHUD(QObject *parent) : QGraphicsScene(parent)
 {
     setObjectName("GameOverHUD");
+
     // Load a background image for the game over screen
     QImage backgroundImage(":/hud/battlehud_assets/game_over_bg.png");
 

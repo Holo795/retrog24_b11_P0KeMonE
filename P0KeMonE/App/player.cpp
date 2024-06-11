@@ -1,68 +1,106 @@
 #include "player.h"
-#include "typeDef.h" // Inclusion de la déclaration de la map de masques
 
-Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
+/**
+ * @brief Constructs a Player object with an optional parent item.
+ * @param parent The parent QGraphicsItem, default is nullptr.
+ */
+Player::Player(QGraphicsItem *parent)
+    : QGraphicsPixmapItem(parent), movementTimer(new QTimer(this))
+{
     setZValue(3);
     setPixmap(QPixmap(":/sprites/player_sprites/backStandPlayer.png").scaled(QSize(11, 16) * scale));
     setTransformationMode(Qt::SmoothTransformation);
 
-    movementTimer = new QTimer(this);
     connect(movementTimer, &QTimer::timeout, this, &Player::move);
 
     qDebug() << "Player initialized.";
-
 }
 
+/**
+ * @brief Destructor for the Player class.
+ */
 Player::~Player() {
     delete movementTimer;
 }
 
+/**
+ * @brief Retrieves the player's team of Pokémon.
+ * @return A constant reference to a vector of pointers to Pokémon.
+ */
 std::vector<Pokemon*> Player::getTeam() const {
     return itsTeam;
 }
 
+/**
+ * @brief Sets the player's team of Pokémon.
+ * @param newTeam A vector of pointers to Pokémon.
+ */
+void Player::setTeam(const std::vector<Pokemon*>& newTeam) {
+    itsTeam = newTeam;
+}
+
+/**
+ * @brief Adds a Pokémon to the player's team.
+ * @param pokemon Pointer to the Pokémon to add.
+ */
+void Player::addPokemon(Pokemon *pokemon) {
+    itsTeam.push_back(pokemon);
+}
+
+/**
+ * @brief Removes a Pokémon from the player's team.
+ * @param pokemon Pointer to the Pokémon to remove.
+ */
+void Player::removePokemon(Pokemon *pokemon) {
+    auto it = std::find(itsTeam.begin(), itsTeam.end(), pokemon);
+    if (it != itsTeam.end()) {
+        itsTeam.erase(it);
+    }
+}
+
+/**
+ * @brief Handles key press events for player movement.
+ * @param event The key event.
+ */
 void Player::keyPressEvent(QKeyEvent *event) {
     activeKeys.insert(event->key());
     if (!movementTimer->isActive()) {
         startMoving();
     }
-
 }
 
+/**
+ * @brief Handles key release events to stop player movement.
+ * @param event The key event.
+ */
 void Player::keyReleaseEvent(QKeyEvent *event) {
     activeKeys.remove(event->key());
     if (activeKeys.isEmpty()) {
         stopMoving();
     }
-
 }
 
+/**
+ * @brief Initiates movement in a specific direction.
+ */
 void Player::startMoving() {
     movementTimer->start(30);
-
 }
 
+/**
+ * @brief Stops the player's movement.
+ */
 void Player::stopMoving() {
     movementTimer->stop();
     activeKeys.clear();
 }
 
-void Player::addPokemon(Pokemon *pokemon) {
-    itsTeam.push_back(pokemon);
+void Player::handleKeyPress(QKeyEvent *event) {
+    keyPressEvent(event);
 }
 
-void Player::removePokemon(Pokemon *pokemon)
-{
-    // Find the Pokémon in the team
-    auto it = std::find(itsTeam.begin(), itsTeam.end(), pokemon);
-
-    // If the Pokémon is found, remove it
-    if (it != itsTeam.end())
-    {
-        itsTeam.erase(it);
-    }
-
-    
+void Player::handleKeyRelease(QKeyEvent *event) {
+    keyReleaseEvent(event);
 }
 
 
@@ -71,7 +109,7 @@ void Player::removePokemon(Pokemon *pokemon)
  * @param newPos The new position to check for collisions.
  * @return true if there is a collision, false otherwise.
  */
-bool Player::checkCollision(QPointF newPos) {
+bool Player::checkCollision(QPointF newPos) const {
     QRectF footPlayerRect(newPos.x() + 2, newPos.y() + pixmap().height() - 2, pixmap().width() - 4, 2);
     QRectF headPlayerRect(newPos.x() + 2, newPos.y(), pixmap().width() - 4, 2);
     QRectF actualFootPlayerRect(pos().x() + 2, pos().y() + pixmap().height() - 2, pixmap().width() - 4, 2);
@@ -103,29 +141,9 @@ bool Player::checkCollision(QPointF newPos) {
             baseLayer = QRect(itemTopLeft.x() + 15, itemTopLeft.y() + 34, 13, 34);
             updateZValue = true;
             break;
-        case 93: // Arbre
-            baseLayer = QRect(itemTopLeft.x() + 6, itemTopLeft.y() + 25, 58, 43);
-            updateZValue = true;
-            break;
         case 67:
         case 68:
             return false;
-            break;
-        case 92: // Pont
-        {
-            QRect bridge(330, 21 * 32, 640, 65);
-            QRect exitBridge(330 + 43, 21 * 32 + 60, 44, 70);
-
-            if (footPlayerRect.intersects(bridge) && actualFootPlayerRect.intersects(bridge)) {
-                return false;
-            }
-
-            if (footPlayerRect.intersects(exitBridge) && actualFootPlayerRect.intersects(exitBridge)) {
-                return false;
-            }
-
-            break;
-        }
         case 83:
         {
             QRect montain(970, 551, 188, 172 + 10);
@@ -149,6 +167,32 @@ bool Player::checkCollision(QPointF newPos) {
 
             break;
         }
+        case 92: // Pont
+        {
+            QRect bridge(330, 21 * 32, 640, 65);
+            QRect exitBridge(330 + 43, 21 * 32 + 60, 44, 70);
+
+            if (footPlayerRect.intersects(bridge) && actualFootPlayerRect.intersects(bridge)) {
+                return false;
+            }
+
+            if (footPlayerRect.intersects(exitBridge) && actualFootPlayerRect.intersects(exitBridge)) {
+                return false;
+            }
+
+            break;
+        }
+        case 93: // Arbre
+            baseLayer = QRect(itemTopLeft.x() + 6, itemTopLeft.y() + 25, 58, 43);
+            updateZValue = true;
+            break;
+        case 96:
+        {
+            baseLayer = QRect(itemTopLeft.x() + 5, itemTopLeft.y() + 21, 20, 16);
+            updateZValue = true;
+            emit signEncounter(itemRect.x(), itemRect.y());
+            break;
+        }
         default:
             break;
         }
@@ -161,7 +205,6 @@ bool Player::checkCollision(QPointF newPos) {
             continue;
         }
 
-        // Convertir le rectangle de collision du joueur dans le système de coordonnées de l'item
         QRectF intersectRect = footPlayerRect.intersected(itemRect);
         if (!intersectRect.isEmpty()) {
             QRect playerRectInItemCoords = intersectRect.translated(-itemTopLeft).toRect();
@@ -178,8 +221,9 @@ bool Player::checkCollision(QPointF newPos) {
     return false;
 }
 
-
-
+/**
+ * @brief Moves the player based on the currently pressed key.
+ */
 void Player::move() {
     if (activeKeys.isEmpty() || activeKeys.size() > 1) return;
 
@@ -222,9 +266,12 @@ void Player::move() {
             updateSprite("front");
         }
     }
-
 }
 
+/**
+ * @brief Updates the player's sprite based on the direction.
+ * @param direction The direction in which the player is moving.
+ */
 void Player::updateSprite(const QString &direction) {
     static const QMap<QString, QStringList> spriteDirections {
         {"left", {":/sprites/player_sprites/leftStandPlayer.png", ":/sprites/player_sprites/leftWalkPlayer1.png", ":/sprites/player_sprites/leftWalkPlayer2.png"}},
@@ -240,26 +287,41 @@ void Player::updateSprite(const QString &direction) {
     setPixmap(QPixmap(sprites[index]).scaled(QSize(12, 18) * scale));
 }
 
-void Player::incrementWinCount() {
-    winCount++;
-}
-
+/**
+ * @brief Retrieves the player's current level.
+ * @return The player's current level.
+ */
 float Player::getItsLevel() const {
     return itsLevel;
 }
 
+/**
+ * @brief Sets the player's current level.
+ * @param newItsLevel The new level to set.
+ */
 void Player::setItsLevel(float newItsLevel) {
     itsLevel = newItsLevel;
 }
 
+/**
+ * @brief Retrieves the player's win count.
+ * @return The player's win count.
+ */
 int Player::getWinCount() const {
     return winCount;
 }
 
+/**
+ * @brief Sets the player's win count.
+ * @param newWinCount The new win count to set.
+ */
 void Player::setWinCount(int newWinCount) {
     winCount = newWinCount;
 }
 
-void Player::setTeam(vector<Pokemon*> newTeam) {
-    itsTeam = newTeam;
+/**
+ * @brief Increments the player's win count.
+ */
+void Player::incrementWinCount() {
+    winCount++;
 }

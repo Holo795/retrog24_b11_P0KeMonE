@@ -70,8 +70,8 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
 
 
     attackText = createTextItem(Qt::white, customFont, QPoint(10, 260));
-    menuText = createTextItem(Qt::white, customFont, QPoint(10, 260));
-
+    menuText = createTextItem(Qt::white, customFont, QPoint(10, 255));
+    menuText->setTextWidth(250);
 
     // Add Pokemon images and health displays to the scene
     addItem(pokemon1Item);
@@ -110,8 +110,6 @@ void BattleHUD::setPokemon(Pokemon *pk1, Pokemon *pk2) {
     QString healthText2 = QString::number(pk2->getHealth()) + "/" + QString::number(pk2->getItsMaxHealth());
     health2->setPlainText(healthText2);
 
-    QString textMenuText = "Let's go " + QString::fromStdString(pk1->getItsName()).toUpper() + " !";
-    menuText->setPlainText(textMenuText);
 
     qDebug() << healthText2; // Debug output to trace health updates
 }
@@ -158,6 +156,7 @@ void BattleHUD::displayMoves()
     QPoint positions[] = { QPoint(0, 240), QPoint(160, 240), QPoint(0, 280), QPoint(160, 280) };
 
     for(int i = 0; i < pokemon1->getItsMoves().size() && i < 4; ++i) {
+
         createMoveButton(pokemon1->getItsMoves().at(i), positions[i], buttonWidth, buttonHeight, i);
     }
 
@@ -190,13 +189,8 @@ void BattleHUD::menuFight() {
 
     if (pokemon2->getHealth() != pokemon2->getItsMaxHealth()) {
 
-
-        QString textMenuText = QString::fromStdString(pokemon1->getItsName()).toUpper() + " used " ;
-        menuText->setPlainText(textMenuText);
-
-
         // Créer un minuteur pour réafficher les boutons après deux secondes
-        QTimer::singleShot(2000, this, [this]() {
+        QTimer::singleShot(1000, this, [this]() {
             // Réafficher les boutons
             attackButton->setEnabled(true);
             pokemonButton->setEnabled(true);
@@ -210,6 +204,10 @@ void BattleHUD::menuFight() {
         pokemonButton->setEnabled(true);
         runButton->setEnabled(true);
     }
+}
+
+void BattleHUD::setText(QString text) {
+    menuText->setPlainText(text);
 }
 
 QButtonGroup *BattleHUD::getMoveGroup() const

@@ -100,7 +100,6 @@ void Game::keyPressEvent(QKeyEvent *event) {
         std::vector<Pokemon*> emptyTeam;
         player->setTeam(emptyTeam);
         player->setPos(200, 950);
-        player->addPokemon(model->getData()->randompokemon());
 
 
         setScene(gui->mainMenu());
@@ -182,7 +181,7 @@ void Game::onMoveButtonClicked(QAbstractButton *button) {
 
     showFightMenu();
 
-    QTimer::singleShot(1000, this, &Game::continuefight);
+    QTimer::singleShot(2000, this, &Game::continuefight);
 }
 
 void Game::continuefight()

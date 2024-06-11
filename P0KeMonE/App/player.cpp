@@ -61,7 +61,6 @@ void Player::removePokemon(Pokemon *pokemon)
         itsTeam.erase(it);
     }
 
-    
 }
 
 
@@ -145,6 +144,15 @@ bool Player::checkCollision(QPointF newPos) {
             if (footPlayerRect.intersects(exitMontain) && actualFootPlayerRect.intersects(exitMontain)) {
                 return false;
             }
+
+            break;
+        }
+        case 96: //sign
+        {
+            baseLayer = QRect(itemTopLeft.x() + 5, itemTopLeft.y() + 21, 20, 16);
+            updateZValue = true;
+
+            emit signEncounter(itemRect.x(), itemRect.y());
 
             break;
         }

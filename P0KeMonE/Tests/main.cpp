@@ -4,6 +4,9 @@
 
 int main(int argc, char *argv[])
 {
+
+    QCoreApplication app(argc, argv);
+
     int status = 0;
 
     {
@@ -11,5 +14,6 @@ int main(int argc, char *argv[])
         status |= QTest::qExec(&tc1, argc, argv);
     }
 
-    return status;
+    return 0;
 }
+

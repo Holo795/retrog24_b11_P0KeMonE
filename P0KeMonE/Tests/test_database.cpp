@@ -53,7 +53,7 @@ void test_database::test_randomPokemon() {
 }
 
 void test_database::test_getMoves() {
-    QList<Move*> moves = data->getMoves(2);  // Assuming there is a Pokémon with ID 1
+    QList<Move*> moves = data->getMoves(1);  // Assuming there is a Pokémon with ID 1
     QVERIFY(!moves.isEmpty());
     for (Move* move : moves) {
         QVERIFY(!move->getItsName().empty());

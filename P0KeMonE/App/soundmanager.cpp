@@ -11,7 +11,7 @@ SoundManager::SoundManager(QObject *parent) : QObject(parent)
     grassWalk = new QMediaPlayer(this);
     grassWalkAudioOutput = new QAudioOutput(this);
     grassWalk->setAudioOutput(grassWalkAudioOutput);
-    grassWalk->setSource(QUrl::fromLocalFile(":/sounds/sounds/grass_walk.wav"));
+    grassWalk->setSource(QUrl("qrc:/sounds/sounds/grass_walk.wav"));
     grassWalkAudioOutput->setVolume(itsEffectsVolume);
     qDebug() << "Loaded grass_walk.wav" << grassWalk->errorString();
 
@@ -19,7 +19,7 @@ SoundManager::SoundManager(QObject *parent) : QObject(parent)
     mainMusic = new QMediaPlayer(this);
     mainMusicAudioOutput = new QAudioOutput(this);
     mainMusic->setAudioOutput(mainMusicAudioOutput);
-    mainMusic->setSource(QUrl::fromLocalFile(":/sounds/sounds/mainMusic.wav"));
+    mainMusic->setSource(QUrl("qrc:/sounds/sounds/mainMusic.wav"));
     mainMusicAudioOutput->setVolume(itsVolume);
     qDebug() << "Loaded mainMusic.wav" << mainMusic->errorString();
 
@@ -73,4 +73,14 @@ void SoundManager::setEffectsVolume(float volume)
 {
     itsEffectsVolume = volume;
     grassWalkAudioOutput->setVolume(volume);
+}
+
+QMediaPlayer *SoundManager::getMainMusic() const
+{
+    return mainMusic;
+}
+
+QMediaPlayer *SoundManager::getGrassWalk() const
+{
+    return grassWalk;
 }

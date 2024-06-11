@@ -106,6 +106,21 @@ int Pokemon::getItsMaxHealth() const
     return itsMaxHealth;
 }
 
+void Pokemon::upgradeStats() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> disInt(193, 493);
+
+    std::array<int*, 6> stats = { &itsMaxHealth, &itsSpeed, &itsAtk, &itsSpAtk, &itsDef, &itsSpDef };
+
+    for (int* stat : stats) {
+        *stat += *stat / 50 + disInt(gen);
+    }
+
+    itsHealth += 10;
+}
+
+
 /**
  * Returns the list of moves this Pokemon can perform.
  */

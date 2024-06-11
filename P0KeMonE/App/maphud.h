@@ -100,16 +100,11 @@ protected:
     void enteringBoat(Player *player, const std::string &direction);
 
     /**
-     * @brief Manages the player's entrance into the boss zone.
+     * @brief Manages the player's entrance into the launcher zone.
      * @param player Pointer to the player.
      */
-    void enteringBossZone(Player *player);
+    void enteringLauncher(Player *player);
 
-    /**
-     * @brief Manages the player's entrance into the old men zone.
-     * @param player Pointer to the player.
-     */
-    void enteringOldMenZone(Player *player);
 };
 
 #endif // MAPHUD_H

@@ -7,6 +7,7 @@
 #define GAME_H
 
 #include <QWidget>
+#include <QGraphicsPixmapItem>
 #include <QGraphicsView>
 #include <QKeyEvent>
 

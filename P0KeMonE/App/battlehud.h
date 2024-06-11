@@ -106,6 +106,8 @@ public:
 
     void setText(QString text);
 
+    void addPersonalItem (QGraphicsPixmapItem *item);
+
 
 
 private:
@@ -116,7 +118,6 @@ private:
     Pokemon *pokemon2;                   /**< Second Pokémon displayed on the HUD. */
     QGraphicsPixmapItem *pokemon1Item;   /**< Graphics item for the first Pokémon's image. */
     QGraphicsPixmapItem *pokemon2Item;   /**< Graphics item for the second Pokémon's image. */
-    QGraphicsPixmapItem *bossItem;       /**< Graphics item for the boss's image. */
     QGraphicsTextItem *health1;          /**< Text item for the first Pokémon's health. */
     QGraphicsTextItem *health2;          /**< Text item for the second Pokémon's health. */
     QGraphicsTextItem *menuText;            /**< "What will `pokemon` will do" */

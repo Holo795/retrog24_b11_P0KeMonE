@@ -13,7 +13,6 @@
 #include <QGraphicsTextItem>
 
 #include "pokemon.h"
-#include "qpainter.h"
 
 BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     setObjectName("BattleHUD");
@@ -25,8 +24,6 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
 
     // Load and position the background image
     QGraphicsPixmapItem* background = createPixmapItem(":/hud/battlehud_assets/battleHUD-background.png", QSize(480, 240), QPoint(0, 0));
-    QGraphicsPixmapItem* bossItem = createPixmapItem(":/hud/battlehud_assets/boss_image.png", QSize(), QPoint(200, 5));
-    bossItem->setVisible(false);
 
     int buttonWidth = 105;
     int buttonHeight = 40;
@@ -44,7 +41,6 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     // Add elements to the scene
     addItem(dialogueBox);
     addItem(background);
-    addItem(bossItem);
     addWidget(attackButton);
     addWidget(pokemonButton);
     addWidget(runButton);
@@ -170,6 +166,9 @@ void BattleHUD::menuFight() {
         button->setVisible(false);
     }
 
+
+    getRunButton()->isEnabled() ? getRunButton()->setEnabled(true) : getRunButton()->setEnabled(false);
+
     // Afficher le texte
     dialogueBox->setVisible(true);
 
@@ -205,6 +204,10 @@ void BattleHUD::menuFight() {
 
 void BattleHUD::setText(QString text) {
     menuText->setPlainText(text);
+}
+
+void BattleHUD::addPersonalItem(QGraphicsPixmapItem* item) {
+    addItem(item);
 }
 
 QButtonGroup *BattleHUD::getMoveGroup() const

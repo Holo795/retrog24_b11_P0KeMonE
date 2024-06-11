@@ -47,8 +47,9 @@ void MapHUD::drawDecorativeElements(const std::vector<std::vector<int>>& map) {
     const QMap<int, QPair<QString, int>> pixmapMap = {
       {2, qMakePair(QString(":/map/map_assets/tree.png"), 3)},
       {3, qMakePair(QString(":/map/map_assets/rock.png"), 2)},
-      {4, qMakePair(QString(":/map/map_assets/boss.png"), 1)},
-      {5, qMakePair(QString(":/map/map_assets/old_men.png"), 1)},
+      {4, qMakePair(QString(":/map/map_assets/boss.png"), 2)},
+      {5, qMakePair(QString(":/map/map_assets/old_men.png"), 2)},
+      {6, qMakePair(QString(":/map/map_assets/launcher.png"), 0)},
       {17, qMakePair(QString(":/map/map_assets/flower1.png"), 0)},
       {18, qMakePair(QString(":/map/map_assets/flower2.png"), 0)},
       {19, qMakePair(QString(":/map/map_assets/path_bottom.png"), 1)},
@@ -135,11 +136,12 @@ void MapHUD::keyPressEvent(QKeyEvent *event) {
 }
 
 void MapHUD::handleTileInteraction(int tileType) {
+    qDebug() << "Tile type: " << tileType;
+    qDebug() << "Encounterdist " << encounterDist(gen);
     switch(tileType) {
-    case 4:
-        enteringBossZone(player);
-    case 5:
-        enteringOldMenZone(player);
+    case 6:
+        enteringLauncher(player);
+        break;
     case 76: // Tall grass for random encounters
     case 77: // Sandy tall grass for random encounters
         handleRandomEncounter();
@@ -193,14 +195,7 @@ void MapHUD::enteringBoat(Player *player, const std::string &direction) {
     }
 }
 
-void MapHUD::enteringBossZone(Player *player) {
-    player->stopMoving();
-    qDebug() << player->x() << player->y();
-    emit player->startEncouterBoss();
+void MapHUD::enteringLauncher(Player *player) {
+        emit player->startEncouterBoss();
 }
 
-void MapHUD::enteringOldMenZone(Player *player) {
-    player->stopMoving();
-    qDebug() << player->x() << player->y();
-    emit player->startEncouterOldMen();
-}

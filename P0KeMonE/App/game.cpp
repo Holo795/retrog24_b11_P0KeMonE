@@ -1,7 +1,6 @@
 #include "game.h"
 #include "player.h"
 
-
 Game::Game(Model *model, GUI *gui, QWidget *parent)
     : QGraphicsView(parent), model(model), gui(gui) {
     // Configure the initial scene and scaling
@@ -18,7 +17,6 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     // Setup connections for player encounters and button clicks
     connect(gui->map()->getPlayer(), &Player::startEncounterCombat, this, &Game::showFight);
     connect(gui->map()->getPlayer(), &::Player::startEncouterBoss, this, &Game::showBossFight);
-    connect(gui->map()->getPlayer(), &::Player::startEncouterOldMen, this, &Game::showOldMenSpeach);
     connect(gui->battle()->getAttackButton(), &QPushButton::clicked, this, &Game::showMoves);
     connect(gui->battle()->getPokemonButton(), &QPushButton::clicked, this, &Game::switchPokemon);
 
@@ -71,12 +69,9 @@ void Game::keyPressEvent(QKeyEvent *event) {
         setScene(gui->map());
         if(player->getTeam().empty())
         {
-            player->addPokemon(model->getData()->randompokemon());
-
-            player->addPokemon(model->getData()->randompokemon());
-            qDebug() << player->getTeam().front()->getItsMoves().size();
+            showOldMenSpeach();
+            battle->setBossTeam({model->getData()->pokemonById(244), model->getData()->pokemonById(245), model->getData()->pokemonById(243)});
         }
-        //battle->getBossTeam()
 
     };
 
@@ -92,8 +87,6 @@ void Game::keyPressEvent(QKeyEvent *event) {
         std::vector<Pokemon*> emptyTeam;
         player->setTeam(emptyTeam);
         player->setPos(200, 950);
-
-
         setScene(gui->mainMenu());
 
     }
@@ -139,13 +132,20 @@ void Game::showFight() {
 }
 
 void Game::showBossFight() {
+    QGraphicsPixmapItem* bossItem = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/boss_image.png"));
+    bossItem->setPos(QPointF(200, 5)); // Set position separately after creation
+    bossItem->setVisible(true);
+
     // Switch the scene to the boss battle interface
-    //setScene(gui->battle(player->getTeam().front(), battle->getBossTeam().front()));
-    qDebug() << "boss fight";
+    gui->battle()->addPersonalItem(bossItem);
+
+    setScene(gui->battle(player->getTeam().front(), battle->getBossTeam().front()));
+
+    gui->battle()->getRunButton()->setEnabled(false);
 }
 
+
 void Game::showOldMenSpeach() {
-    // Afficher un message dans la console pour confirmer l'affichage du dialogue
     setScene(gui->selectPokemon(model->getFirstTeam()));
     qDebug() << "Old Man is speaking";
 }

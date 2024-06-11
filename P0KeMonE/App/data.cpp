@@ -83,6 +83,59 @@ Pokemon* Data::randompokemon()
     return nullptr;
 }
 
+
+Pokemon* Data::pokemonById(int pokemonId)
+{
+    qDebug() << "Entering pokemonById() with ID:" << pokemonId;
+    QSqlQuery query;
+    query.prepare("SELECT P.id, P.name, P.base_experience, P.height, P.weight, P.hp, P.attack, P.defense, P.special_attack, P.special_defense, P.speed, T.id_type "
+                  "FROM pokemon P "
+                  "JOIN type_pk T ON P.id = T.id_pk "
+                  "WHERE P.id = :id");
+    query.bindValue(":id", pokemonId);
+
+    if (!query.exec())
+    {
+        qDebug() << "Error: query execution failed" << query.lastError();
+        return nullptr;
+    }
+
+    if (query.next())
+    {
+        // Create a new Pokémon object from the retrieved data
+        int id = query.value("id").toInt();
+        QString name = query.value("name").toString();
+        int hp = query.value("hp").toInt();
+        int attack = query.value("attack").toInt();
+        int defense = query.value("defense").toInt();
+        int special_attack = query.value("special_attack").toInt();
+        int special_defense = query.value("special_defense").toInt();
+        int speed = query.value("speed").toInt();
+        PKTYPE type = static_cast<PKTYPE>(query.value("id_type").toInt() - 1);
+
+        Pokemon* pokemon = new Pokemon(id, name.toStdString(), type, hp, speed, attack, special_attack, defense, special_defense, 5);
+
+        qDebug() << "Pokemon created: " << name;
+
+        // Fetch and set the moves for the Pokémon
+        QList<Move*> moves = getMoves(id);
+        if (moves.isEmpty())
+        {
+            qDebug() << "Error: no moves found for Pokémon with ID:" << id;
+            return nullptr;
+        }
+
+        pokemon->setItsMoves(moves);
+        return pokemon;
+    }
+    else
+    {
+        qDebug() << "Error: no results returned from query";
+    }
+    return nullptr;
+}
+
+
 /**
  * Fetches and returns a list of moves associated with a given Pokémon ID.
  */

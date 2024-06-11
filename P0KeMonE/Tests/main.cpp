@@ -1,7 +1,8 @@
-#include <QGuiApplication>>
+#include <QGuiApplication>
 #include <QtTest>
 #include "test_database.cpp"
 #include "test_pokemon.cpp"
+#include "test_collisions.cpp"
 
 int main(int argc, char *argv[])
 {
@@ -18,6 +19,11 @@ int main(int argc, char *argv[])
     {
         test_pokemon tc2;
         status |= QTest::qExec(&tc2, argc, argv);
+    }
+
+    {
+        test_pokemon tc3;
+        status |= QTest::qExec(&tc3, argc, argv);
     }
 
 

@@ -22,6 +22,7 @@ SOURCES +=  \
     ../App/pokemon.cpp \
     ../App/typeDef.cpp \
     main.cpp \
+    test_collisions.cpp \
     test_database.cpp \
     test_pokemon.cpp
 

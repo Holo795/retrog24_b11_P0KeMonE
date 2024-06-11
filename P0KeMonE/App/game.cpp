@@ -1,4 +1,5 @@
 #include "game.h"
+#include "QtWidgets/qlabel.h"
 #include "QtWidgets/qmessagebox.h"
 #include "player.h"
 #include "battle.h"
@@ -9,6 +10,7 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     // Configure the initial scene and scaling
     setScene(gui->mainMenu());
     setFixedSize(480, 320); // Set fixed size to maintain consistent UI
+    setWindowIcon(QIcon(":/hud/battlehud_assets/logoP0KeMonE.png"));
 
     // Disable scrollbars for a cleaner look
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -203,8 +205,8 @@ void Game::continuefight()
 
 void Game::run()
 {
-    //endFight(true);
-    setScene(gui->map());
+    endFight(true);
+    //setScene(gui->map());
 }
 
 void Game::endFight(bool playerWon)
@@ -249,23 +251,27 @@ void Game::endFight(bool playerWon)
                 }
                 else
                 {
+                    gui->TeamHUD()->setPokemonLabel(new QGraphicsTextItem("Veuillez sélectionner un Pokémon à échanger"));
+
                     gui->TeamHUD()->setPokemons(newPokemons, player->getItsLevel());
                     gui->TeamHUD()->setSelectionMode(true);
                     setScene(gui->TeamHUD());
 
-                    // Connect the signal for selecting the new Pokémon
+
+
                     qDebug() << "Connect the signal for selecting the new Pokémon";
                     QObject::connect(gui->TeamHUD(), &PlayerHUD::pokemonSelected, this, [=](Pokemon* newPokemon) {
                         qDebug() << "Nouveau Pokémon sélectionné";
                         selectedNewPokemon = newPokemon;
 
-                        // Déconnecter le signal pour éviter les doublons
                         QObject::disconnect(gui->TeamHUD(), &PlayerHUD::pokemonSelected, this, nullptr);
 
                         // Afficher l'interface de sélection des Pokémon actuels de l'équipe
+                        gui->TeamHUD()->setPokemonLabel(new QGraphicsTextItem("Veuillez sélectionner un Pokémon à retirer"));
                         gui->TeamHUD()->setPokemons(player->getTeam(), player->getItsLevel());
                         gui->TeamHUD()->setSelectionMode(true);
                         setScene(gui->TeamHUD());
+
 
                         // Connecter le signal pour la sélection du Pokémon à retirer
                         qDebug() << "Connect the signal for selecting the Pokémon to remove";

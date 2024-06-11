@@ -615,5 +615,6 @@
         <file>battlehud_assets/17Button.png</file>
         <file>battlehud_assets/17Button_hover.png</file>
         <file>battlehud_assets/arrow.png</file>
+        <file>battlehud_assets/logoP0KeMonE.png</file>
     </qresource>
 </RCC>

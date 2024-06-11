@@ -40,14 +40,13 @@ void test_database::cleanupTestCase() {
 }
 
 void test_database::test_databaseConnection() {
-    data = new Data();
     QVERIFY(data->getDb().open());
 }
 
 void test_database::test_randomPokemon() {
     Pokemon* pokemon = data->randompokemon();
     QVERIFY(pokemon != nullptr);
-    QVERIFY(pokemon->getItsName() != "");
+    QVERIFY(!pokemon->getName().empty());
     QVERIFY(pokemon->getHealth() > 0);
     delete pokemon;
 }

@@ -621,6 +621,7 @@
         <file>battlehud_assets/logoP0KeMonE.png</file>
     </qresource>
     <qresource prefix="/sounds">
-        <file>grass_walk.mp3</file>
+        <file>sounds/grass_walk.wav</file>
+        <file>sounds/mainMusic.wav</file>
     </qresource>
 </RCC>

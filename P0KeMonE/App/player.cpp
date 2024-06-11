@@ -1,5 +1,4 @@
 #include "player.h"
-#include "global.h" // Inclusion de la déclaration de la map de masques
 
 Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
     setZValue(3);
@@ -8,10 +7,15 @@ Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
 
     movementTimer = new QTimer(this);
     connect(movementTimer, &QTimer::timeout, this, &Player::move);
+
+    qDebug() << "Player initialized.";
+
 }
 
 Player::~Player() {
     delete movementTimer;
+    delete soundManager;
+
 }
 
 std::vector<Pokemon*> Player::getTeam() const {
@@ -23,6 +27,7 @@ void Player::keyPressEvent(QKeyEvent *event) {
     if (!movementTimer->isActive()) {
         startMoving();
     }
+
 }
 
 void Player::keyReleaseEvent(QKeyEvent *event) {
@@ -30,15 +35,18 @@ void Player::keyReleaseEvent(QKeyEvent *event) {
     if (activeKeys.isEmpty()) {
         stopMoving();
     }
+
 }
 
 void Player::startMoving() {
     movementTimer->start(30);
+
 }
 
 void Player::stopMoving() {
     movementTimer->stop();
     activeKeys.clear();
+
 }
 
 void Player::addPokemon(Pokemon *pokemon) {
@@ -152,12 +160,15 @@ void Player::move() {
     if (activeKeys.isEmpty() || activeKeys.size() > 1) return;
 
     QPointF newPos = pos();
+    bool moved = false;
+
 
     if (activeKeys.contains(Qt::Key_Left) || activeKeys.contains(Qt::Key_Q)) {
         newPos.setX(newPos.x() - 4);
         if (x() > 0 && !checkCollision(newPos)) {
             setPos(newPos);
             updateSprite("left");
+            moved = true;
         }
     }
 
@@ -168,6 +179,7 @@ void Player::move() {
         if (x() + pixmap().width() < scene()->width() && !checkCollision(newPos)) {
             setPos(newPos);
             updateSprite("right");
+            moved = true;
         }
     }
 
@@ -178,6 +190,7 @@ void Player::move() {
         if (y() > 0 && !checkCollision(newPos)) {
             setPos(newPos);
             updateSprite("back");
+            moved = true;
         }
     }
 
@@ -188,8 +201,15 @@ void Player::move() {
         if (y() + pixmap().height() < scene()->height() && !checkCollision(newPos)) {
             setPos(newPos);
             updateSprite("front");
+            moved = true;
         }
     }
+/*
+    if (moved) {
+        soundManager->playGrassWalk();
+        qDebug() << "Playing grass walk sound...";
+
+    }*/
 }
 
 void Player::updateSprite(const QString &direction) {

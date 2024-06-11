@@ -45,6 +45,7 @@ private:
     Player *player = nullptr; ///< Pointer to the player object.
     Battle *battle; ///< Pointer to the current battle context.
     Pokemon *selectedNewPokemon; ///< Pointer to the selected new Pokémon.
+    SoundManager *soundManager;
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;

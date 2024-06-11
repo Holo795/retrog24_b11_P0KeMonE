@@ -14,6 +14,11 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     setFixedSize(480, 320); // Set fixed size to maintain consistent UI
     setWindowIcon(QIcon(":/hud/battlehud_assets/logoP0KeMonE.png"));
 
+    soundManager = new SoundManager();
+    qDebug() << "Game initialized.";
+    soundManager->playMainMusic();
+
+
     // Disable scrollbars for a cleaner look
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

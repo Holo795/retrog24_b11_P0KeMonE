@@ -1,42 +1,66 @@
+/**
+ * @file soundmanager.h
+ * @brief Definition of the SoundManager class.
+ */
+
 #ifndef SOUNDMANAGER_H
 #define SOUNDMANAGER_H
 
 #include <QObject>
-#include <QThread>
-#include <QtMultimedia/QMediaPlayer>
-
-#include <QAudioOutput>
+#include <QMap>
+#include <QMediaPlayer>
+#include <QUrl>
 
 /**
  * @class SoundManager
- * @brief The SoundManager class manages the playback of various sounds and music in the application.
+ * @brief The SoundManager class provides functionality for loading, playing, and managing sounds.
  *
- * The SoundManager class provides functionality to play jump sound effects,
- * main music, menu music, death music, win music, and level passed music.
- * It also allows setting the main and effects volume, stopping all sounds, and retrieving volume levels.
+ * This class extends QObject and allows for the loading, playing, stopping, and checking the status of sounds.
  */
 class SoundManager : public QObject
 {
     Q_OBJECT
-
 public:
+    /**
+     * @brief Constructs a SoundManager object.
+     * @param parent The parent object.
+     */
     explicit SoundManager(QObject *parent = nullptr);
 
-    void playMainMusic();
-    void playGrassWalk();
+    /**
+     * @brief Loads a sound from a given URL and associates it with a name.
+     * @param name The name to associate with the sound.
+     * @param url The URL of the sound file.
+     */
+    void loadSound(const QString &name, const QUrl &url);
+
+    /**
+     * @brief Plays a sound associated with a given name.
+     * @param name The name of the sound to play.
+     * @param loop If true, the sound will loop; otherwise, it will play once.
+     */
+    void playSound(const QString &name, bool loop = false);
+
+    /**
+     * @brief Stops the sound associated with a given name.
+     * @param name The name of the sound to stop.
+     */
+    void stopSound(const QString &name);
+
+    /**
+     * @brief Checks if a sound associated with a given name is playing.
+     * @param name The name of the sound to check.
+     * @return True if the sound is playing, false otherwise.
+     */
+    bool isPlaying(const QString &name);
+
+    /**
+     * @brief Stops all sounds that are currently playing.
+     */
     void stopAllSounds();
-    void setMainMusicVolume(float volume);
-    void setEffectsVolume(float volume);
 
 private:
-    float itsVolume;
-    float itsEffectsVolume;
-
-    QMediaPlayer *grassWalk;
-    QAudioOutput *grassWalkAudioOutput;
-
-    QMediaPlayer *mainMusic;
-    QAudioOutput *mainMusicAudioOutput;
+    QMap<QString, QMediaPlayer*> sounds; ///< A map of sound names to QMediaPlayer objects.
 };
 
 #endif // SOUNDMANAGER_H

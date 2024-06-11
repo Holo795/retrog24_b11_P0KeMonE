@@ -16,11 +16,6 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     setFixedSize(960, 640); // Set fixed size to maintain consistent UI
     setWindowIcon(QIcon(":/hud/battlehud_assets/logoP0KeMonE.png"));
 
-    soundManager = new SoundManager();
-    qDebug() << "Game initialized.";
-    soundManager->playMainMusic();
-
-
     // Disable scrollbars for a cleaner look
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -39,6 +34,10 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
 
     connect(gui->battle()->getRunButton(), &QPushButton::clicked, this, &Game::run);
     connect(gui->team(), &PlayerHUD::pokemonSelected, this, &Game::changePokemon);
+
+    soundManager = new SoundManager(this);
+
+    qDebug() << "Game initialized.";
 
     // Timer for updating the view regularly
     QTimer *updateTimer = new QTimer(this);
@@ -285,7 +284,24 @@ void Game::run()
 
 void Game::endFight(bool playerWon)
 {
-    if (playerWon)
+    if (!playerWon) { setScene(gui->gameOver()); return; }
+
+    generateNewOpponent();
+    player->incrementWinCount();
+
+    double playerLevel = player->getItsLevel();
+    int winsRequired = (playerLevel == 1.0) ? 2 : (playerLevel == 2.0) ? 3 : 5;
+
+    if (player->getWinCount() < winsRequired) { setScene(gui->map()); return; }
+
+    player->setItsLevel(playerLevel + 1.0);
+    player->setWinCount(0);
+
+    std::vector<Pokemon*> newPokemons(3);
+    std::generate(newPokemons.begin(), newPokemons.end(), [&]() { return model->getData()->randompokemon(); });
+
+
+    if (player->getTeam().size() < 3)
     {
         generateNewOpponent();
         player->incrementWinCount();
@@ -370,11 +386,41 @@ void Game::endFight(bool playerWon)
 
         qDebug() << "Level player: " << player->getItsLevel();
         qDebug() << "Wins player: " << player->getWinCount();
+        setScene(gui->map());
     }
     else
     {
-        setScene(gui->gameOver());
+        QGraphicsTextItem *pokemonLabel = new QGraphicsTextItem("Veuillez sélectionner un Pokémon à ajouter");
+        pokemonLabel->setDefaultTextColor(Qt::black);
+        pokemonLabel->setFont(QFont(":/hud/battlehud_assets/Minecraft.ttf", 17, QFont::Bold));
+        gui->team()->addItem(pokemonLabel);
+        pokemonLabel->setPos(90, 10);
+        gui->team()->setPokemons(newPokemons, player->getItsLevel());
+        gui->team()->setSelectionMode(true);
+        setScene(gui->team());
+
+        QObject::connect(gui->team(), &PlayerHUD::pokemonSelected, this, [=](Pokemon* newPokemon) {
+            selectedNewPokemon = newPokemon;
+            QObject::disconnect(gui->team(), &PlayerHUD::pokemonSelected, this, nullptr);
+
+            pokemonLabel->setPlainText("Veuillez sélectionner un Pokémon à retirer");
+
+            gui->team()->setPokemons(player->getTeam(), player->getItsLevel());
+            gui->team()->setSelectionMode(true);
+            setScene(gui->team());
+
+            QObject::connect(gui->team(), &PlayerHUD::pokemonSelected, this, [=](Pokemon* oldPokemon) {
+                QObject::disconnect(gui->team(), &PlayerHUD::pokemonSelected, this, nullptr);
+                player->removePokemon(oldPokemon);
+                player->addPokemon(selectedNewPokemon);
+                setScene(gui->map());
+                gui->team()->removeItem(pokemonLabel);
+            });
+        });
     }
+
+    qDebug() << "Level player: " << player->getItsLevel();
+    qDebug() << "Wins player: " << player->getWinCount();
 }
 
 void Game::generateNewOpponent()

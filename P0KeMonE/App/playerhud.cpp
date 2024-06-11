@@ -134,16 +134,6 @@ void PlayerHUD::updateSelectionArrow()
     selectionArrow->setPos(xPos + 50, 35); // Adjust the position of the arrow
 }
 
-QGraphicsTextItem *PlayerHUD::getPokemonLabel() const
-{
-    return pokemonLabel;
-}
-
-void PlayerHUD::setPokemonLabel(QGraphicsTextItem *newPokemonLabel)
-{
-    pokemonLabel = newPokemonLabel;
-}
-
 void PlayerHUD::keyPressEvent(QKeyEvent *event)
 {
     qDebug() << "Key pressed: " << event->key();

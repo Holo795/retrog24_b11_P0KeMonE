@@ -107,6 +107,7 @@ public:
     void setText(QString text);
 
     void addPersonalItem (QGraphicsPixmapItem *item);
+    QGraphicsTextItem* getMenuText() const;
 
 
 

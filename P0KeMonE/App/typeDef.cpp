@@ -21,3 +21,4 @@ std::map<int, QString> dialogues = {
     {16, "N'oublie pas, la clé est le lien qui t'unit avec tes pokémones."},
     {17, "Bonne chance, jeune dresseur !"}
 };
+QMap<int, QBitmap> masks;

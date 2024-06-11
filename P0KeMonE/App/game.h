@@ -61,6 +61,7 @@ private:
     std::vector<Pokemon*> itsBossTeam; /**< Vector of Pokémon pointers representing the boss's team. */
     std::vector<Pokemon*> getBossTeam() const;
 
+    SoundManager *soundManager;
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;

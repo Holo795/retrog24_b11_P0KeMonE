@@ -4,6 +4,8 @@
 #include <map>
 #include <QString>
 
+#include <QBitmap>
+#include <QMap>
 
 /**
  * @enum PKTYPE
@@ -41,5 +43,6 @@ enum MOVENATURE {
 };
 
 extern std::map<int, QString> dialogues; ///< Map of dialogues for the game
+extern QMap<int, QBitmap> masks;
 
 #endif // TYPEDEF_H

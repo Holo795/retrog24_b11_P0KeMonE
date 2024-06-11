@@ -7,11 +7,19 @@
 
 Game::Game(Model *model, GUI *gui, QWidget *parent)
     : QGraphicsView(parent), model(model), gui(gui) {
+
+    setWindowTitle("P0KeMonE");
+
     // Configure the initial scene and scaling
     currentDialogueIndex = 0;
     setScene(gui->mainMenu());
-    setFixedSize(480, 320); // Set fixed size to maintain consistent UI
+    setFixedSize(960, 640); // Set fixed size to maintain consistent UI
     setWindowIcon(QIcon(":/hud/battlehud_assets/logoP0KeMonE.png"));
+
+    soundManager = new SoundManager();
+    qDebug() << "Game initialized.";
+    soundManager->playMainMusic();
+
 
     // Disable scrollbars for a cleaner look
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -63,6 +71,8 @@ void Game::setScene(QGraphicsScene *scene) {
         scale(1.5, 1.5); // Scale up for the battle view
         player->setFocus(); // Set focus on the player object
     }
+
+    scale(2, 2);
 
     QGraphicsView::setScene(scene);
 }
@@ -195,6 +205,8 @@ void Game::showOldMenSpeach() {
 void Game::showFight() {
     // Switch the scene to the battle interface
     setScene(gui->battle(player->getTeam().front(), model->getData()->randompokemon()));
+    QString menuTextText = QString::fromStdString("Let's go " +gui->battle()->getPokemon1()->getItsName() + " !");
+    gui->battle()->getMenuText()->setPlainText(menuTextText);
 }
 
 void Game::showBossFight() {
@@ -222,18 +234,19 @@ void Game::showMoves() {
 
 void Game::onMoveButtonClicked(QAbstractButton *button) {
 
+
     int buttonId = gui->battle()->getMoveGroup()->id(button);
     battle = new Battle(gui->battle()->getPokemon1(), gui->battle()->getPokemon2(), gui->battle());
-/*
-    for (QAbstractButton *button : gui->battle()->getMoveGroup()->buttons()) {
-        button->setEnabled(false);
-    }
-*/
-    battle->attack(gui->battle()->getPokemon1()->getItsMoves()[buttonId], gui->battle()->getPokemon2());
+
+    gui->battle()->getAttackButton()->setEnabled(false);
+    gui->battle()->getRunButton()->setEnabled(false);
+    gui->battle()->getPokemonButton()->setEnabled(false);
 
     showFightMenu();
 
-    QTimer::singleShot(2000, this, &Game::continuefight);
+    battle->attack(gui->battle()->getPokemon1()->getItsMoves()[buttonId], gui->battle()->getPokemon2());
+
+    QTimer::singleShot(1000, this, &Game::continuefight);
 }
 
 void Game::continuefight()
@@ -244,9 +257,9 @@ void Game::continuefight()
     battle->attack(gui->battle()->getPokemon2()->getItsMoves()[0], player->getTeam().front());
 
     QTimer::singleShot(1000, this, [&](){
-        for (QAbstractButton *button : gui->battle()->getMoveGroup()->buttons()) {
-            button->setEnabled(true);
-        }
+        gui->battle()->getAttackButton()->setEnabled(true);
+        gui->battle()->getRunButton()->setEnabled(true);
+        gui->battle()->getPokemonButton()->setEnabled(true);
     });
 
     if(gui->battle()->getPokemon1()->getHealth() <= 0)

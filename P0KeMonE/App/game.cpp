@@ -5,6 +5,9 @@
 
 Game::Game(Model *model, GUI *gui, QWidget *parent)
     : QGraphicsView(parent), model(model), gui(gui) {
+
+    setWindowTitle("P0KeMonE");
+
     // Configure the initial scene and scaling
     setScene(gui->mainMenu());
     setFixedSize(480, 320); // Set fixed size to maintain consistent UI

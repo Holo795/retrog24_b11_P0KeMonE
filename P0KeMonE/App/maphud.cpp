@@ -1,5 +1,5 @@
 #include "maphud.h"
-#include "global.h" // Inclusion de la déclaration de la map de masques
+#include "typeDef.h" // Inclusion de la déclaration de la map de masques
 #include "model.h"
 #include "player.h"
 

@@ -90,7 +90,14 @@ bool Player::checkCollision(QPointF newPos) {
                 (footPlayerRect.intersects(exitBridge) && actualFootPlayerRect.intersects(exitBridge))) {
                 return false;
             }
+            break;
         }
+        case 83:
+
+            //QRect montain()
+            return false;
+
+            break;
         default:
             break;
         }

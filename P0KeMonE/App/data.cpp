@@ -1,6 +1,7 @@
 #include "data.h"
 #include "pokemon.h"
 #include "typeDef.h"
+#include "QCoreApplication"
 
 /**
  * Initializes the Data object by setting up and opening a database connection.
@@ -23,6 +24,7 @@ Data::Data()
         qDebug() << "Database: connection ok";
     }
 }
+
 
 
 /**

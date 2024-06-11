@@ -620,4 +620,8 @@
         <file>battlehud_assets/Minecraft.ttf</file>
         <file>battlehud_assets/logoP0KeMonE.png</file>
     </qresource>
+    <qresource prefix="/sounds">
+        <file>sounds/grass_walk.wav</file>
+        <file>sounds/mainMusic.wav</file>
+    </qresource>
 </RCC>

@@ -110,6 +110,8 @@ void BattleHUD::setPokemon(Pokemon *pk1, Pokemon *pk2) {
     QString healthText2 = QString::number(pk2->getHealth()) + "/" + QString::number(pk2->getItsMaxHealth());
     health2->setPlainText(healthText2);
 
+    /*QString menuTextText = QString::fromStdString("Let's go " + pk1->getItsName() + "!");
+    menuText->setPlainText(menuTextText);*/
 
     qDebug() << healthText2; // Debug output to trace health updates
 }
@@ -139,6 +141,10 @@ Pokemon *BattleHUD::getPokemon1() const
 Pokemon *BattleHUD::getPokemon2() const
 {
     return pokemon2;
+}
+
+QGraphicsTextItem* BattleHUD::getMenuText() const {
+    return menuText;
 }
 
 void BattleHUD::displayMoves()
@@ -175,39 +181,17 @@ void BattleHUD::menuFight() {
 
     // Afficher le texte
     dialogueBox->setVisible(true);
-
     attackButton->setVisible(true);
     pokemonButton->setVisible(true);
     runButton->setVisible(true);
-    menuText->setVisible(true);
-
-
-    attackButton->setEnabled(false);
-    pokemonButton->setEnabled(false);
-    runButton->setEnabled(false);
-
-
-    if (pokemon2->getHealth() != pokemon2->getItsMaxHealth()) {
-
-        // Créer un minuteur pour réafficher les boutons après deux secondes
-        QTimer::singleShot(1000, this, [this]() {
-            // Réafficher les boutons
-            attackButton->setEnabled(true);
-            pokemonButton->setEnabled(true);
-            runButton->setEnabled(true);
-
-        });
-
-    } else {
-        // Si la santé du Pokémon 2 est pleine, affiche simplement les boutons
-        attackButton->setEnabled(true);
-        pokemonButton->setEnabled(true);
-        runButton->setEnabled(true);
-    }
 }
 
 void BattleHUD::setText(QString text) {
+    qDebug() << "Setting text to:" << text;
+    menuText->setVisible(true); // Assurez-vous que menuText est visible
     menuText->setPlainText(text);
+    qDebug() << "menuText content:" << menuText->toPlainText();
+    update(); // Assurez-vous de mettre à jour la scène si nécessaire
 }
 
 QButtonGroup *BattleHUD::getMoveGroup() const

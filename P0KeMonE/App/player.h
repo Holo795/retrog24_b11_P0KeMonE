@@ -14,6 +14,7 @@
 #include <QTimer>
 #include "typeDef.h"
 #include "pokemon.h"
+#include "soundmanager.h"
 
 /**
  * @class Player
@@ -106,6 +107,9 @@ private:
      * @param direction The direction in which the player is moving.
      */
     void updateSprite(const QString &direction);
+
+    SoundManager *soundManager;
+
 
 protected:
     /**

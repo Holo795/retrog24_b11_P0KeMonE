@@ -4,13 +4,15 @@ CONFIG += qt warn_on depend_includepath testcase
 
 TEMPLATE = app
 
-SOURCES +=  tst_test_database.cpp \
+SOURCES +=  \
     ../App/data.cpp \
     ../App/model.cpp \
     ../App/move.cpp \
     ../App/pktype.cpp \
     ../App/pokemon.cpp \
-    ../App/typeDef.cpp
+    ../App/typeDef.cpp \
+    main.cpp \
+    test_database.cpp
 
 RESOURCES += \
     ../App/resources.qrc

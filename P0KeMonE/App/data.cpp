@@ -119,3 +119,11 @@ QList<Move*> Data::getMoves(int pokemon_id)
     return moves;
 }
 
+/**
+ * Returns the database object.
+ */
+QSqlDatabase Data::getDb()
+{
+    return db;
+}
+

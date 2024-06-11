@@ -53,6 +53,8 @@ public:
      * @return A QList of Move objects associated with the Pokémon.
      */
     QList<Move*> getMoves(int pokemon_id);
+
+    QSqlDatabase getDb();
 };
 
 #endif // DATA_H

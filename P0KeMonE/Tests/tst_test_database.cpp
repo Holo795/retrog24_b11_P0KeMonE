@@ -18,7 +18,12 @@ private slots:
 };
 
 test_database::test_database() {
-
+    try {
+        Data *data = new Data();
+        delete data;
+    } catch (std::exception &e) {
+        QFAIL(e.what());
+    }
 }
 
 test_database::~test_database() {}

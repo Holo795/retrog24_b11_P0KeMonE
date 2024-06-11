@@ -12,7 +12,7 @@
 #include <QKeyEvent>
 #include <vector>
 #include <QTimer>
-#include "global.h"
+#include "typeDef.h"
 #include "pokemon.h"
 
 /**

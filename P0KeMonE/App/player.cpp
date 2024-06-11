@@ -1,5 +1,5 @@
 #include "player.h"
-#include "global.h" // Inclusion de la déclaration de la map de masques
+#include "typeDef.h" // Inclusion de la déclaration de la map de masques
 
 Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
     setZValue(3);
@@ -97,7 +97,7 @@ bool Player::checkCollision(QPointF newPos) {
             updateZValue = true;
             break;
         case 93: // Arbre
-            baseLayer = QRect(itemTopLeft.x() + 6, itemTopLeft.y() + 25, 58, 41);
+            baseLayer = QRect(itemTopLeft.x() + 6, itemTopLeft.y() + 25, 58, 43);
             updateZValue = true;
             break;
         case 92: // Pont

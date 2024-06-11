@@ -25,6 +25,14 @@ Data::Data()
 }
 
 /**
+ * Destructor for the Data object, closes the database connection.
+ */
+Data::~Data()
+{
+    db.close();
+}
+
+/**
  * Fetches a random Pokémon from the database and returns a pointer to a newly created Pokémon object.
  */
 Pokemon* Data::randompokemon()

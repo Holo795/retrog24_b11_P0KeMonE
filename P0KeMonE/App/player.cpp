@@ -81,21 +81,23 @@ bool Player::checkCollision(QPointF newPos) {
             baseLayer = QRect(itemTopLeft.x() + 6, itemTopLeft.y() + 25, 58, 41);
             updateZValue = true;
             break;
-        case 68: // Pont
-        case 67:
-            return false;
         case 92: // Pont
         {
             QRect bridge(330, 21 * 32, 640, 65);
-            QRect exitBridge(330 + 43, 21 * 32 + 60, 44, 38);
+            QRect exitBridge(330 + 43, 21 * 32 + 60, 44, 70);
 
             if ((footPlayerRect.intersects(bridge) && actualFootPlayerRect.intersects(bridge)) ||
                 (footPlayerRect.intersects(exitBridge) && actualFootPlayerRect.intersects(exitBridge))) {
                 return false;
-            } else {
-                return true;
             }
+            break;
         }
+        case 83:
+
+            //QRect montain()
+            return false;
+
+            break;
         default:
             break;
         }

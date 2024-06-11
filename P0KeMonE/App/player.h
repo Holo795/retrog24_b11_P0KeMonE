@@ -64,6 +64,12 @@ public:
     void addPokemon(Pokemon *pokemon);
 
     /**
+     * @brief Removes a Pokémon from the player's team.
+     * @param pokemon Pointer to the Pokémon to remove.
+     */
+    void removePokemon(Pokemon *pokemon);
+
+    /**
      * @brief Retrieves the player's scale factor.
      * @return The scale factor for the player's graphical representation.
      */

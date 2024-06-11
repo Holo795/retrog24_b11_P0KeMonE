@@ -9,6 +9,7 @@
 #include <QObject>
 #include <QMap>
 #include <QMediaPlayer>
+#include <QAudioOutput>
 #include <QUrl>
 
 /**

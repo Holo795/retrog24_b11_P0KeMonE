@@ -140,8 +140,10 @@ void MapHUD::handleTileInteraction(int tileType) {
     switch(tileType) {
     case 4:
         enteringBossZone(player);
+        break;
     case 5:
         enteringOldMenZone(player);
+        break;
     case 76: // Tall grass for random encounters
     case 77: // Sandy tall grass for random encounters
         handleRandomEncounter();

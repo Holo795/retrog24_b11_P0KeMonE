@@ -15,8 +15,6 @@ Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
 
 Player::~Player() {
     delete movementTimer;
-    delete soundManager;
-
 }
 
 std::vector<Pokemon*> Player::getTeam() const {
@@ -47,7 +45,6 @@ void Player::startMoving() {
 void Player::stopMoving() {
     movementTimer->stop();
     activeKeys.clear();
-
 }
 
 void Player::addPokemon(Pokemon *pokemon) {
@@ -186,15 +183,12 @@ void Player::move() {
     if (activeKeys.isEmpty() || activeKeys.size() > 1) return;
 
     QPointF newPos = pos();
-    bool moved = false;
-
 
     if (activeKeys.contains(Qt::Key_Left) || activeKeys.contains(Qt::Key_Q)) {
         newPos.setX(newPos.x() - 4);
         if (x() > 0 && !checkCollision(newPos)) {
             setPos(newPos);
             updateSprite("left");
-            moved = true;
         }
     }
 
@@ -205,7 +199,6 @@ void Player::move() {
         if (x() + pixmap().width() < scene()->width() && !checkCollision(newPos)) {
             setPos(newPos);
             updateSprite("right");
-            moved = true;
         }
     }
 
@@ -216,7 +209,6 @@ void Player::move() {
         if (y() > 0 && !checkCollision(newPos)) {
             setPos(newPos);
             updateSprite("back");
-            moved = true;
         }
     }
 
@@ -227,15 +219,9 @@ void Player::move() {
         if (y() + pixmap().height() < scene()->height() && !checkCollision(newPos)) {
             setPos(newPos);
             updateSprite("front");
-            moved = true;
         }
     }
-/*
-    if (moved) {
-        soundManager->playGrassWalk();
-        qDebug() << "Playing grass walk sound...";
 
-    }*/
 }
 
 void Player::updateSprite(const QString &direction) {

@@ -620,5 +620,6 @@
         <file>battlehud_assets/arrow.png</file>
         <file>battlehud_assets/game_won_bg.png</file>
         <file>battlehud_assets/Minecraft.ttf</file>
+        <file>battlehud_assets/logoP0KeMonE.png</file>
     </qresource>
 </RCC>

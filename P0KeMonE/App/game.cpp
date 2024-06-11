@@ -1,4 +1,6 @@
 #include "game.h"
+#include "QtWidgets/qlabel.h"
+#include "QtWidgets/qmessagebox.h"
 #include "player.h"
 
 Game::Game(Model *model, GUI *gui, QWidget *parent)
@@ -6,6 +8,7 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     // Configure the initial scene and scaling
     setScene(gui->mainMenu());
     setFixedSize(480, 320); // Set fixed size to maintain consistent UI
+    setWindowIcon(QIcon(":/hud/battlehud_assets/logoP0KeMonE.png"));
 
     // Disable scrollbars for a cleaner look
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -25,6 +28,8 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
 
     connect(gui->battle()->getRunButton(), &QPushButton::clicked, this, &Game::run);
     connect(gui->team(), &PlayerHUD::pokemonSelected, this, &Game::changePokemon);
+
+
 
     // Timer for updating the view regularly
     QTimer *updateTimer = new QTimer(this);
@@ -52,10 +57,10 @@ void Game::setScene(QGraphicsScene *scene) {
         player->stopMoving();
 
     if(gui->mainMenu()->objectName() == scene->objectName()) {
-            scale(0.55, 0.55); // Scale down for the initial menu view
+        scale(0.55, 0.55); // Scale down for the initial menu view
     } else if (gui->map()->objectName() == scene->objectName()) {
-            scale(1.5, 1.5); // Scale up for the battle view
-            player->setFocus(); // Set focus on the player object
+        scale(1.5, 1.5); // Scale up for the battle view
+        player->setFocus(); // Set focus on the player object
     }
 
     QGraphicsView::setScene(scene);
@@ -181,26 +186,38 @@ void Game::continuefight()
     showFightMenu();
 
     // Continue the fight based on battle outcome or player actions
-    battle->attack(gui->battle()->getPokemon2()->getItsMoves()[0], gui->battle()->getPokemon1());
+    battle->attack(gui->battle()->getPokemon2()->getItsMoves()[0], player->getTeam().front());
 
-/*
     QTimer::singleShot(1000, this, [&](){
         for (QAbstractButton *button : gui->battle()->getMoveGroup()->buttons()) {
             button->setEnabled(true);
         }
     });
-*/
-    if(gui->battle()->getPokemon1()->getHealth() <= 0){
-        endFight(false);
-    }else if(gui->battle()->getPokemon2()->getHealth() <= 0){
+
+    if(gui->battle()->getPokemon1()->getHealth() <= 0)
+    {
+        player->removePokemon(player->getTeam().front());
+        if(player->getTeam().size() != 0)
+        {
+            changePokemon(player->getTeam().front());
+        }
+    }
+    else if(gui->battle()->getPokemon2()->getHealth() <= 0)
+    {
         endFight(true);
     }
-
+    return;
 }
+
+
+
+
+
 
 void Game::run()
 {
     endFight(true);
+    //setScene(gui->map());
 }
 
 void Game::endFight(bool playerWon)
@@ -208,23 +225,90 @@ void Game::endFight(bool playerWon)
     if (playerWon)
     {
         generateNewOpponent();
-        setScene(gui->map());
         player->incrementWinCount();
-        double playerLevel = player->getItsLevel();
+
+        double initialPlayerLevel = player->getItsLevel();
         int winsRequired = 0;
 
-        if (playerLevel == 1.0) {
-            winsRequired = 1;
-        } else if (playerLevel == 2.0) {
+        if (player->getItsLevel() == 1.0) {
             winsRequired = 2;
-        } else if (playerLevel >= 3.0) {
+        } else if (player->getItsLevel() == 2.0) {
+            winsRequired = 3;
+        } else if (player->getItsLevel() >= 3.0) {
             winsRequired = 5;
         }
 
-        if (player->getWinCount() >= winsRequired) {
-            player->setItsLevel(playerLevel + (playerLevel >= 3.0 ? 1.0 : 0.5));
+        if (player->getWinCount() >= winsRequired)
+        {
+            player->setItsLevel(player->getItsLevel() + 1.0);
+
+
             player->setWinCount(0); // Réinitialise le compteur de victoires après avoir passé le niveau
+
+
+
+            if (player->getItsLevel() != initialPlayerLevel) {
+                qDebug() << "Le joueur a gagné un niveau !";
+                std::vector<Pokemon*> newPokemons;
+
+                for (int i = 0; i < 3; i++) {
+                    newPokemons.push_back(model->getData()->randompokemon());
+                }
+
+                if(player->getTeam().size() < 3)
+                {
+                    player->addPokemon(model->getData()->randompokemon());
+                    setScene(gui->map());
+                }
+                else
+                {
+                    gui->TeamHUD()->setPokemonLabel(new QGraphicsTextItem("Veuillez sélectionner un Pokémon à échanger"));
+
+                    gui->TeamHUD()->setPokemons(newPokemons, player->getItsLevel());
+                    gui->TeamHUD()->setSelectionMode(true);
+                    setScene(gui->TeamHUD());
+
+
+
+                    qDebug() << "Connect the signal for selecting the new Pokémon";
+                    QObject::connect(gui->TeamHUD(), &PlayerHUD::pokemonSelected, this, [=](Pokemon* newPokemon) {
+                        qDebug() << "Nouveau Pokémon sélectionné";
+                        selectedNewPokemon = newPokemon;
+
+                        QObject::disconnect(gui->TeamHUD(), &PlayerHUD::pokemonSelected, this, nullptr);
+
+                        // Afficher l'interface de sélection des Pokémon actuels de l'équipe
+                        gui->TeamHUD()->setPokemonLabel(new QGraphicsTextItem("Veuillez sélectionner un Pokémon à retirer"));
+                        gui->TeamHUD()->setPokemons(player->getTeam(), player->getItsLevel());
+                        gui->TeamHUD()->setSelectionMode(true);
+                        setScene(gui->TeamHUD());
+
+
+                        // Connecter le signal pour la sélection du Pokémon à retirer
+                        qDebug() << "Connect the signal for selecting the Pokémon to remove";
+                        QObject::connect(gui->TeamHUD(), &PlayerHUD::pokemonSelected, this, [=](Pokemon* oldPokemon) {
+                            qDebug() << "Ancien Pokémon sélectionné";
+                            QObject::disconnect(gui->TeamHUD(), &PlayerHUD::pokemonSelected, this, nullptr);
+
+                            // Retirer le Pokémon sélectionné et ajouter le nouveau Pokémon
+                            player->removePokemon(oldPokemon);
+                            player->addPokemon(selectedNewPokemon);
+
+                            // Retourner à la carte après la mise à jour de l'équipe
+                            setScene(gui->map());
+                        });
+                    });
+                }
+
+            }
         }
+        else
+        {
+            setScene(gui->map());
+
+        }
+
+
 
 
         qDebug() << "Level player: " << player->getItsLevel();
@@ -235,6 +319,11 @@ void Game::endFight(bool playerWon)
         setScene(gui->gameOver());
     }
 }
+
+
+
+
+
 
 void Game::generateNewOpponent()
 {

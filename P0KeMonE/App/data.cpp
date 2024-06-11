@@ -1,6 +1,7 @@
 #include "data.h"
 #include "pokemon.h"
 #include "typeDef.h"
+#include "QCoreApplication"
 
 /**
  * Initializes the Data object by setting up and opening a database connection.
@@ -10,12 +11,8 @@ Data::Data()
     // Establish a connection to the database using SQLite
     db = QSqlDatabase::addDatabase("QSQLITE");
 
-// Set the path to the database file based on the operating system
-#if defined _WIN32
-    db.setDatabaseName("../../../../P0KeMonE/App/pokemon.sqlite");
-#elif defined(__LINUX__) || defined(__gnu_linux__) || defined(__linux__) || defined (__APPLE__)
-    db.setDatabaseName("../../../../../P0KeMonE/App/pokemon.sqlite");
-#endif
+    db.setDatabaseName(QCoreApplication::applicationDirPath() + "/pokemon.sqlite");
+
 
     // Open the database and log the status
     if (!db.open())
@@ -27,6 +24,8 @@ Data::Data()
         qDebug() << "Database: connection ok";
     }
 }
+
+
 
 /**
  * Closes the database connection when the Data object is destroyed.

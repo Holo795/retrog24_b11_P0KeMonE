@@ -45,6 +45,26 @@ void Player::addPokemon(Pokemon *pokemon) {
     itsTeam.push_back(pokemon);
 }
 
+void Player::removePokemon(Pokemon *pokemon)
+{
+    // Find the Pokémon in the team
+    auto it = std::find(itsTeam.begin(), itsTeam.end(), pokemon);
+
+    // If the Pokémon is found, remove it
+    if (it != itsTeam.end())
+    {
+        itsTeam.erase(it);
+    }
+
+    
+}
+
+
+/**
+ * @brief Checks for collisions at the new position.
+ * @param newPos The new position to check for collisions.
+ * @return true if there is a collision, false otherwise.
+ */
 bool Player::checkCollision(QPointF newPos) {
     // Définir la zone de collision du joueur
     QRectF footPlayerRect(newPos.x() + 2, newPos.y() + pixmap().height() - 2, pixmap().width() - 4, 2);

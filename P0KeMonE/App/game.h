@@ -45,6 +45,7 @@ private:
     GUI *gui; ///< Pointer to the graphical user interface.
     Player *player = nullptr; ///< Pointer to the player object.
     Battle *battle; ///< Pointer to the current battle context.
+    Pokemon *selectedNewPokemon; ///< Pointer to the selected new Pokémon.
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
@@ -69,6 +70,13 @@ public slots:
     void switchPokemon(); ///< Switch the current Pokémon
     void onMoveButtonClicked(QAbstractButton *moveButton);
     void showFightMenu();
+
+
+public:
+    void offerPokemonSwitch();
+    void onNewPokemonSelected(Pokemon* newPokemon);
+    void onOldPokemonSelected(Pokemon* oldPokemon);
+
 };
 
 #endif // GAME_H

@@ -1,5 +1,5 @@
 #include "maphud.h"
-#include "global.h" // Inclusion de la déclaration de la map de masques
+#include "typeDef.h" // Inclusion de la déclaration de la map de masques
 #include "model.h"
 #include "player.h"
 
@@ -38,7 +38,7 @@ void MapHUD::drawGrassLayer(const std::vector<std::vector<int>>& map) {
 void MapHUD::initializePlayer() {
     player = new Player();
     addItem(player);
-    player->setPos(200, 950); // Set the initial position of the player
+    player->setPos(1080, 600); // Set the initial position of the player
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus(); // Focus the player to receive key events
 }
@@ -89,8 +89,8 @@ void MapHUD::drawDecorativeElements(const std::vector<std::vector<int>>& map) {
                                                       {73, qMakePair(QString(":/map/map_assets/boss_zone.png"), 2)},
                                                       {76, qMakePair(QString(":/map/map_assets/tallgrass.png"), 0)},
                                                       {77, qMakePair(QString(":/map/map_assets/sandy_tallgrass.png"), 0)},
-                                                      {83, qMakePair(QString(":/map/map_assets/montagne.png"), 1)},
-                                                      {92, qMakePair(QString(":/map/map_assets/pont.png"), 1)},
+                                                      {83, qMakePair(QString(":/map/map_assets/montagne.png"), 2)},
+                                                      {92, qMakePair(QString(":/map/map_assets/pont.png"), 2)},
                                                       {93, qMakePair(QString(":/map/map_assets/big_tree.png"), 2)},
                                                       {94, qMakePair(QString(":/map/map_assets/bush.png"), 2)},
                                                       {95, qMakePair(QString(":/map/map_assets/little_tree.png"), 2)},
@@ -138,6 +138,10 @@ void MapHUD::keyPressEvent(QKeyEvent *event) {
 
 void MapHUD::handleTileInteraction(int tileType) {
     switch(tileType) {
+    case 4:
+        enteringBossZone(player);
+    case 5:
+        enteringOldMenZone(player);
     case 76: // Tall grass for random encounters
     case 77: // Sandy tall grass for random encounters
         handleRandomEncounter();
@@ -189,4 +193,16 @@ void MapHUD::enteringBoat(Player *player, const std::string &direction) {
             }
         }
     }
+}
+
+void MapHUD::enteringBossZone(Player *player) {
+    player->stopMoving();
+    qDebug() << player->x() << player->y();
+    emit player->startEncouterBoss();
+}
+
+void MapHUD::enteringOldMenZone(Player *player) {
+    player->stopMoving();
+    qDebug() << player->x() << player->y();
+    emit player->startEncouterOldMen();
 }

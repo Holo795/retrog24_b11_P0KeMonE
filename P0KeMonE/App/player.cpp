@@ -3,7 +3,7 @@
 
 Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
     setZValue(3);
-    setPixmap(QPixmap(":/sprites/player_sprites/rightStandPlayer.png").scaled(QSize(11, 16) * scale));
+    setPixmap(QPixmap(":/sprites/player_sprites/backStandPlayer.png").scaled(QSize(11, 16) * scale));
     setTransformationMode(Qt::SmoothTransformation);
 
     movementTimer = new QTimer(this);
@@ -45,33 +45,99 @@ void Player::addPokemon(Pokemon *pokemon) {
     itsTeam.push_back(pokemon);
 }
 
+void Player::removePokemon(Pokemon *pokemon)
+{
+    // Find the Pokémon in the team
+    auto it = std::find(itsTeam.begin(), itsTeam.end(), pokemon);
+
+    // If the Pokémon is found, remove it
+    if (it != itsTeam.end()) {
+        itsTeam.erase(it);
+    }
+
+    
+}
+
+
+/**
+ * @brief Checks for collisions at the new position.
+ * @param newPos The new position to check for collisions.
+ * @return true if there is a collision, false otherwise.
+ */
 bool Player::checkCollision(QPointF newPos) {
-    // Définir la zone de collision du joueur
     QRectF footPlayerRect(newPos.x() + 2, newPos.y() + pixmap().height() - 2, pixmap().width() - 4, 2);
-
+    QRectF headPlayerRect(newPos.x() + 2, newPos.y(), pixmap().width() - 4, 2);
+    QRectF actualFootPlayerRect(pos().x() + 2, pos().y() + pixmap().height() - 2, pixmap().width() - 4, 2);
     QList<QGraphicsItem*> items = scene()->items(QRectF(newPos, QSizeF(pixmap().width(), pixmap().height())));
+
     for (QGraphicsItem* item : items) {
-        if (item != this && item->zValue() + 1 == zValue()) {
-            int tileId = item->data(0).toInt();
-            if (masks.contains(tileId)) {
-                QBitmap itemMask = masks[tileId];
+        if (item == this || item->zValue() + 1 < zValue()) {
+            continue;
+        }
 
-                // Convertir les coordonnées du joueur dans le système de coordonnées de l'item
-                QPointF itemTopLeft = item->pos();
-                QRectF itemRect = QRectF(itemTopLeft, itemMask.size());
+        int tileId = item->data(0).toInt();
+        if (!masks.contains(tileId)) {
+            continue;
+        }
 
-                // Vérifier la collision pixel par pixel
-                for (int x = 0; x < footPlayerRect.width(); ++x) {
-                    for (int y = 0; y < footPlayerRect.height(); ++y) {
-                        QPointF playerPixelPos = QPointF(footPlayerRect.x() + x, footPlayerRect.y() + y);
-                        QPoint maskPos = playerPixelPos.toPoint() - itemTopLeft.toPoint();
+        const QBitmap& itemMask = masks[tileId];
+        QPointF itemTopLeft = item->pos();
+        QRectF itemRect(itemTopLeft, itemMask.size());
 
-                        if (maskPos.x() >= 0 && maskPos.y() >= 0 &&
-                            maskPos.x() < itemMask.width() && maskPos.y() < itemMask.height()) {
-                            if (itemMask.toImage().pixelColor(maskPos) != Qt::transparent) {
-                                return true;
-                            }
-                        }
+        QRect baseLayer;
+        bool updateZValue = false;
+
+        switch (tileId) {
+        case 64: // Lampadaire
+            baseLayer = QRect(itemTopLeft.x() + 4, itemTopLeft.y() + 33, 13, 33);
+            updateZValue = true;
+            break;
+        case 65: // Autre lampadaire
+            baseLayer = QRect(itemTopLeft.x() + 15, itemTopLeft.y() + 34, 13, 34);
+            updateZValue = true;
+            break;
+        case 93: // Arbre
+            baseLayer = QRect(itemTopLeft.x() + 6, itemTopLeft.y() + 25, 58, 41);
+            updateZValue = true;
+            break;
+        case 92: // Pont
+        {
+            QRect bridge(330, 21 * 32, 640, 65);
+            QRect exitBridge(330 + 43, 21 * 32 + 60, 44, 70);
+
+            if ((footPlayerRect.intersects(bridge) && actualFootPlayerRect.intersects(bridge)) ||
+                (footPlayerRect.intersects(exitBridge) && actualFootPlayerRect.intersects(exitBridge))) {
+                return false;
+            }
+            break;
+        }
+        case 83:
+
+            //QRect montain()
+            return false;
+
+            break;
+        default:
+            break;
+        }
+
+        if (updateZValue) {
+            item->setZValue(headPlayerRect.intersects(itemRect) && !footPlayerRect.intersects(itemRect) ? 2 : 4);
+            if (footPlayerRect.intersects(baseLayer)) {
+                return true;
+            }
+            continue;
+        }
+
+        // Convertir le rectangle de collision du joueur dans le système de coordonnées de l'item
+        QRectF intersectRect = footPlayerRect.intersected(itemRect);
+        if (!intersectRect.isEmpty()) {
+            QRect playerRectInItemCoords = intersectRect.translated(-itemTopLeft).toRect();
+            QImage maskImage = itemMask.toImage();
+            for (int y = 0; y < playerRectInItemCoords.height(); ++y) {
+                for (int x = 0; x < playerRectInItemCoords.width(); ++x) {
+                    if (maskImage.pixelColor(playerRectInItemCoords.topLeft() + QPoint(x, y)) != Qt::transparent) {
+                        return true;
                     }
                 }
             }
@@ -79,6 +145,7 @@ bool Player::checkCollision(QPointF newPos) {
     }
     return false;
 }
+
 
 
 void Player::move() {

@@ -15,7 +15,6 @@ SOURCES += \
     data.cpp \
     game.cpp \
     gameoverhud.cpp \
-    global.cpp \
     gui.cpp \
     hoverbutton.cpp \
     main.cpp \
@@ -25,7 +24,8 @@ SOURCES += \
     move.cpp \
     player.cpp \
     playerhud.cpp \
-    pokemon.cpp
+    pokemon.cpp \
+    typeDef.cpp
 
 HEADERS += \
     battle.h \
@@ -33,7 +33,6 @@ HEADERS += \
     data.h \
     game.h \
     gameoverhud.h \
-    global.h \
     gui.h \
     hoverbutton.h \
     include/json.hpp \

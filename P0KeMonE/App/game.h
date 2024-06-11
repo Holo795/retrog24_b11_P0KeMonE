@@ -44,6 +44,7 @@ private:
     GUI *gui; ///< Pointer to the graphical user interface.
     Player *player = nullptr; ///< Pointer to the player object.
     Battle *battle; ///< Pointer to the current battle context.
+    Pokemon *selectedNewPokemon; ///< Pointer to the selected new Pokémon.
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
@@ -58,6 +59,8 @@ public slots:
     void changePokemon(Pokemon *pokemon); ///< Changes the player's active Pokémon.
     void updateView(); ///< Updates the view to ensure the player remains centered.
     void showFight(); ///< Transitions the game to the battle scene.
+    void showBossFight(); ///< Transitions the game to the boss battle scene.
+    void showOldMenSpeach(); ///< Displays the speach of the old men.
     void continuefight(); ///< Continues the ongoing fight.
     void endFight(bool playerWon); ///< End the ongoing fight.
     void run(); ///< When the run button is clicked
@@ -66,6 +69,13 @@ public slots:
     void switchPokemon(); ///< Switch the current Pokémon
     void onMoveButtonClicked(QAbstractButton *moveButton);
     void showFightMenu();
+
+
+public:
+    void offerPokemonSwitch();
+    void onNewPokemonSelected(Pokemon* newPokemon);
+    void onOldPokemonSelected(Pokemon* oldPokemon);
+
 };
 
 #endif // GAME_H

@@ -1,6 +1,8 @@
 #ifndef TYPEDEF_H
 #define TYPEDEF_H
 
+#include <QBitmap>
+#include <QMap>
 
 /**
  * @enum PKTYPE
@@ -37,5 +39,6 @@ enum MOVENATURE {
     Spéciale  /**< Attaque Spéciale */
 };
 
+extern QMap<int, QBitmap> masks;
 
 #endif // TYPEDEF_H

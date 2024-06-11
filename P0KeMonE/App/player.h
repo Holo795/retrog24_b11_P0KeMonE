@@ -64,6 +64,12 @@ public:
     void addPokemon(Pokemon *pokemon);
 
     /**
+     * @brief Removes a Pokémon from the player's team.
+     * @param pokemon Pointer to the Pokémon to remove.
+     */
+    void removePokemon(Pokemon *pokemon);
+
+    /**
      * @brief Retrieves the player's scale factor.
      * @return The scale factor for the player's graphical representation.
      */
@@ -82,7 +88,6 @@ private:
     QSet<int> activeKeys; ///< Set of currently pressed keys.
     float itsLevel = 1.0; ///< The player's movement speed.
     int winCount = 0; ///< The number of battles won by the player.
-
 
     /**
      * @brief Checks for collisions at the new position.
@@ -120,6 +125,16 @@ signals:
      * @brief Signal emitted when the player encounters combat conditions.
      */
     void startEncounterCombat();
+
+    /**
+     * @brief Signal emitted when the player encounters a boss.
+     */
+    void startEncouterBoss();
+
+    /**
+     * @brief Signal emitted when the player encounters
+     */
+    void startEncouterOldMen();
 };
 
 #endif // PLAYER_H

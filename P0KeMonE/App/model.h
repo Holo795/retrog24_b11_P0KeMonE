@@ -44,6 +44,12 @@ public:
     const std::vector<std::vector<int>>& getMap() const;
 
     /**
+     * @brief Retrieves the first team of Pokémon from the database.
+     * @return A vector of pointers to the Pokémon in the first team.
+     */
+    const vector<Pokemon*>& getFirstTeam() const;
+
+    /**
      * @brief Provides access to the game's data handling object.
      * @return Pointer to the Data instance managing database interactions.
      */

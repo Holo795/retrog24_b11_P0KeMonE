@@ -17,6 +17,9 @@
 
 BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     setObjectName("BattleHUD");
+    setSceneRect(0, 0, 478, 318);
+
+    setSceneRect(0, 0, 478, 318);
 
     setSceneRect(0, 0, 478, 318);
 

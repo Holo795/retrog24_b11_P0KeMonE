@@ -20,6 +20,9 @@ public:
     void setSelectionMode(bool selectionMode);
     void updateHUD();
 
+    QGraphicsTextItem *getPokemonLabel() const;
+    void setPokemonLabel(QGraphicsTextItem *newPokemonLabel);
+
 protected:
     void keyPressEvent(QKeyEvent *event) override;
 
@@ -32,6 +35,7 @@ private:
     QList<QGraphicsTextItem*> healthTextItems;
     QList<QGraphicsProxyWidget*> healthBars;
     QGraphicsPixmapItem *selectionArrow;
+    QGraphicsTextItem *pokemonLabel;
     bool selectionMode;
     int selectedIndex;
     int itsLevelPlayer;

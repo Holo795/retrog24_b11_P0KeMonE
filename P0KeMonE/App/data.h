@@ -12,6 +12,8 @@
 #include <QtSql/QSqlRecord>
 #include <QSqlError>
 
+#include <QCoreApplication>
+
 #include "pokemon.h"
 
 /**

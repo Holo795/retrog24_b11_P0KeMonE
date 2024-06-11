@@ -1,4 +1,5 @@
 #include "soundmanager.h"
+#include "QtMultimedia/qaudiooutput.h"
 
 SoundManager::SoundManager(QObject *parent)
     : QObject(parent)

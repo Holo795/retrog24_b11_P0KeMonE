@@ -68,6 +68,11 @@ public:
      */
     PKTYPE getItsType() const;
 
+
+    /**
+     * @brief getItsTextType Returns the string representation of the type of the move.
+     * @param The type of the move.
+     */
     string getItsTextType(int type) const;
 
 

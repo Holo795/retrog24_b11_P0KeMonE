@@ -72,16 +72,7 @@ void PlayerHUD::updateHUD()
         addItem(levelText);
         levelText->setPos(10, 10);
 
-        pokemonLabel = new QGraphicsTextItem();
-        pokemonLabel->setDefaultTextColor(Qt::black);
-        pokemonLabel->setFont(QFont("Arial", 17, QFont::Bold));
-        addItem(pokemonLabel);
-        pokemonLabel->setPos(100, 10);
-
     }
-
-
-
 }
 
 void PlayerHUD::addCharacter(const QPixmap &characterImage, int currentHealth, int maxHealth, int xPos, int yPos)
@@ -130,16 +121,6 @@ void PlayerHUD::updateSelectionArrow()
     }
     int xPos = 25 + selectedIndex * 150; // Calculate x position based on selectedIndex
     selectionArrow->setPos(xPos + 50, 35); // Adjust the position of the arrow
-}
-
-QGraphicsTextItem *PlayerHUD::getPokemonLabel() const
-{
-    return pokemonLabel;
-}
-
-void PlayerHUD::setPokemonLabel(QGraphicsTextItem *newPokemonLabel)
-{
-    pokemonLabel = newPokemonLabel;
 }
 
 void PlayerHUD::keyPressEvent(QKeyEvent *event)

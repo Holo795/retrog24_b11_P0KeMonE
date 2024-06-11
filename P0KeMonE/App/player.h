@@ -107,8 +107,6 @@ private:
      */
     void updateSprite(const QString &direction);
 
-    SoundManager *soundManager;
-
 
 protected:
     /**

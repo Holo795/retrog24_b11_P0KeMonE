@@ -1,76 +1,64 @@
 #include "soundmanager.h"
 
-SoundManager::SoundManager(QObject *parent) : QObject(parent)
+SoundManager::SoundManager(QObject *parent)
+    : QObject(parent)
 {
-    itsVolume = 0.5f;
-    itsEffectsVolume = 0.5f;
 
-    qDebug() << "Initializing SoundManager...";
+    loadSound("background", QUrl("qrc:/sounds/sounds/mainMusic.wav"));
+    loadSound("step", QUrl("qrc:/sounds/sounds/grass_walk.wav"));
 
+}
 
-    grassWalk = new QMediaPlayer(this);
-    grassWalkAudioOutput = new QAudioOutput(this);
-    grassWalk->setAudioOutput(grassWalkAudioOutput);
-    grassWalk->setSource(QUrl("qrc:/sounds/sounds/grass_walk.wav"));
-    grassWalkAudioOutput->setVolume(itsEffectsVolume);
-    qDebug() << "Loaded grass_walk.wav" << grassWalk->errorString();
+void SoundManager::loadSound(const QString &name, const QUrl &url)
+{
+    if (sounds.contains(name)) {
+        delete sounds[name];
+    }
 
+    QMediaPlayer *player = new QMediaPlayer(this);
+    player->setAudioOutput(new QAudioOutput(this));
+    player->setSource(url);
+    sounds[name] = player;
+}
 
-    mainMusic = new QMediaPlayer(this);
-    mainMusicAudioOutput = new QAudioOutput(this);
-    mainMusic->setAudioOutput(mainMusicAudioOutput);
-    mainMusic->setSource(QUrl("qrc:/sounds/sounds/mainMusic.wav"));
-    mainMusicAudioOutput->setVolume(itsVolume);
-    qDebug() << "Loaded mainMusic.wav" << mainMusic->errorString();
+void SoundManager::playSound(const QString &name, bool loop)
+{
+    if (sounds.contains(name)) {
 
-
-    connect(mainMusic, &QMediaPlayer::playbackStateChanged, this, [this](QMediaPlayer::PlaybackState state) {
-        if (state == QMediaPlayer::StoppedState) {
-            mainMusic->setPosition(0);
-            mainMusic->play(); // Loop the main music
+        if (loop) {
+            sounds[name]->setLoops(QMediaPlayer::Infinite);
+        } else {
+            sounds[name]->setLoops(1);
         }
-    });
 
-    qDebug() << "SoundManager initialized.";
-
+        sounds[name]->play();
+    } else {
+        qWarning() << "Sound" << name << "not found!";
+    }
 }
 
-void SoundManager::playMainMusic()
+void SoundManager::stopSound(const QString &name)
 {
-    qDebug() << "Playing main music...";
-    stopAllSounds();
-    mainMusic->play();
-    qDebug() << "Main music state:" << mainMusic->playbackState();
+    if (sounds.contains(name)) {
+        sounds[name]->stop();
+    } else {
+        qWarning() << "Sound" << name << "not found!";
+    }
 }
 
-void SoundManager::playGrassWalk()
+bool SoundManager::isPlaying(const QString &name)
 {
-    qDebug() << "Playing grass walk sound...";
-    grassWalk->play();
-    qDebug() << "Grass walk state:" << grassWalk->playbackState();
+    if (sounds.contains(name)) {
+        return sounds[name]->isPlaying();
+    } else {
+        qWarning() << "Sound" << name << "not found!";
+        return false;
+    }
 }
 
 void SoundManager::stopAllSounds()
 {
-    if (mainMusic->isPlaying())
-    {
-        mainMusic->stop();
+    for (auto player : sounds.values()) {
+        player->stop();
     }
-
-    if (grassWalk->isPlaying())
-    {
-        grassWalk->stop();
-    }
-}
-
-void SoundManager::setMainMusicVolume(float volume)
-{
-    itsVolume = volume;
-    mainMusicAudioOutput->setVolume(volume);
-}
-
-void SoundManager::setEffectsVolume(float volume)
-{
-    itsEffectsVolume = volume;
-    grassWalkAudioOutput->setVolume(volume);
 }

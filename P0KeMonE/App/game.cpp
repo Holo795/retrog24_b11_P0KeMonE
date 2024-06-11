@@ -14,11 +14,6 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     setFixedSize(480, 320); // Set fixed size to maintain consistent UI
     setWindowIcon(QIcon(":/hud/battlehud_assets/logoP0KeMonE.png"));
 
-    soundManager = new SoundManager();
-    qDebug() << "Game initialized.";
-    soundManager->playMainMusic();
-
-
     // Disable scrollbars for a cleaner look
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -39,7 +34,9 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     connect(gui->battle()->getRunButton(), &QPushButton::clicked, this, &Game::run);
     connect(gui->team(), &PlayerHUD::pokemonSelected, this, &Game::changePokemon);
 
+    soundManager = new SoundManager(this);
 
+    qDebug() << "Game initialized.";
 
     // Timer for updating the view regularly
     QTimer *updateTimer = new QTimer(this);

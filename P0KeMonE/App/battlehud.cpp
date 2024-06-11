@@ -57,7 +57,6 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     QString fontFamily = QFontDatabase::applicationFontFamilies(fontId).at(0);
     QFont customFont(fontFamily, 15);
 
-    QFont promptFont("Arial", 15);
     health1 = createTextItem(Qt::white, customFont, QPoint(80, 100));
     health2 = createTextItem(Qt::white, customFont, QPoint(320, 30));
 

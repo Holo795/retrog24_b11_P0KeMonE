@@ -7,7 +7,9 @@
 Battle::Battle(Pokemon *opponent1, Pokemon *opponent2, BattleHUD *battleHUD1)
     : itsOpponent1(opponent1), itsOpponent2(opponent2), itsBattleHUD1(battleHUD1),
     gen(std::random_device{}()) // Seed the generator with random_device
-{}
+{
+
+}
 
 /**
  * Destructor for the Battle class.
@@ -52,22 +54,6 @@ void Battle::attack(Move *move, Pokemon *target) {
     itsBattleHUD1->setPokemon(itsOpponent1, itsOpponent2);
 }
 
-
-/**
- * @brief Retrieves the boss's team of Pokémon.
- * @return A constant reference to a vector of pointers to Pokémon.
- */
-std::vector<Pokemon*> Battle::getBossTeam() const {
-    return itsBossTeam;
-}
-
-/**
- * @brief Sets the boss's team of Pokémon.
- * @param team Vector of pointers to Pokémon representing the boss's team.
- */
-void Battle::setBossTeam(std::vector<Pokemon*> team) {
-    itsBossTeam = team;
-}
 
 /**
  * @brief Retrieves the battle HUD.

@@ -40,12 +40,27 @@ public:
      */
     ~Game();
 
+
+    /**
+     * @brief Sets the boss's team of Pokémon.
+     * @param team Vector of pointers to Pokémon representing the boss's team.
+     */
+    void setBossTeam(std::vector<Pokemon*> team);
+
 private:
     Model *model; ///< Pointer to the game model.
     GUI *gui; ///< Pointer to the graphical user interface.
     Player *player = nullptr; ///< Pointer to the player object.
     Battle *battle; ///< Pointer to the current battle context.
     Pokemon *selectedNewPokemon; ///< Pointer to the selected new Pokémon.
+    size_t currentDialogueIndex; ///< Index of the current dialogue.
+    QGraphicsTextItem *textItem; ///< Pointer to the text item for dialogues.
+    QGraphicsPixmapItem *boxItem; ///< Pointer to the box item for dialogues.
+    QGraphicsPixmapItem *oldMenItem; ///< Pointer to the box item for dialogues.
+    QGraphicsPixmapItem *ballsItem; ///< Pointer to the box item for dialogues.
+    std::vector<Pokemon*> itsBossTeam; /**< Vector of Pokémon pointers representing the boss's team. */
+    std::vector<Pokemon*> getBossTeam() const;
+
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
@@ -76,7 +91,8 @@ public:
     void offerPokemonSwitch();
     void onNewPokemonSelected(Pokemon* newPokemon);
     void onOldPokemonSelected(Pokemon* oldPokemon);
-
+    void showFirstScenario();
+    void showNextDialogue();
 };
 
 #endif // GAME_H

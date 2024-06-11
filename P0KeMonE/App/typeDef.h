@@ -1,6 +1,9 @@
 #ifndef TYPEDEF_H
 #define TYPEDEF_H
 
+#include <map>
+#include <QString>
+
 
 /**
  * @enum PKTYPE
@@ -37,5 +40,6 @@ enum MOVENATURE {
     Spéciale  /**< Attaque Spéciale */
 };
 
+extern std::map<int, QString> dialogues; ///< Map of dialogues for the game
 
 #endif // TYPEDEF_H

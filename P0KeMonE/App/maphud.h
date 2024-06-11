@@ -10,7 +10,6 @@
 #include <QKeyEvent>
 #include <QBitmap>
 #include <random>
-#include <unordered_map>
 
 #include "player.h"
 #include "model.h"

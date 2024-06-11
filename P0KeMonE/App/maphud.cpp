@@ -38,7 +38,7 @@ void MapHUD::drawGrassLayer(const std::vector<std::vector<int>>& map) {
 void MapHUD::initializePlayer() {
     player = new Player();
     addItem(player);
-    player->setPos(1080, 600); // Set the initial position of the player
+    player->setPos(1040, 630); // Set the initial position of the player
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus(); // Focus the player to receive key events
 }
@@ -48,7 +48,6 @@ void MapHUD::drawDecorativeElements(const std::vector<std::vector<int>>& map) {
       {2, qMakePair(QString(":/map/map_assets/tree.png"), 3)},
       {3, qMakePair(QString(":/map/map_assets/rock.png"), 2)},
       {4, qMakePair(QString(":/map/map_assets/boss.png"), 2)},
-      {5, qMakePair(QString(":/map/map_assets/old_men.png"), 2)},
       {6, qMakePair(QString(":/map/map_assets/launcher.png"), 0)},
       {17, qMakePair(QString(":/map/map_assets/flower1.png"), 0)},
       {18, qMakePair(QString(":/map/map_assets/flower2.png"), 0)},
@@ -85,7 +84,6 @@ void MapHUD::drawDecorativeElements(const std::vector<std::vector<int>>& map) {
       {68, qMakePair(QString(":/map/map_assets/stairs_right.png"), 1)},
       {69, qMakePair(QString(":/map/map_assets/boat_left.png"), 1)},
       {70, qMakePair(QString(":/map/map_assets/boat_right.png"), 1)},
-      {71, qMakePair(QString(":/map/map_assets/ball_open.png"), 2)},
       {73, qMakePair(QString(":/map/map_assets/boss_zone.png"), 2)},
       {76, qMakePair(QString(":/map/map_assets/tallgrass.png"), 0)},
       {77, qMakePair(QString(":/map/map_assets/sandy_tallgrass.png"), 0)},
@@ -136,8 +134,6 @@ void MapHUD::keyPressEvent(QKeyEvent *event) {
 }
 
 void MapHUD::handleTileInteraction(int tileType) {
-    qDebug() << "Tile type: " << tileType;
-    qDebug() << "Encounterdist " << encounterDist(gen);
     switch(tileType) {
     case 6:
         enteringLauncher(player);

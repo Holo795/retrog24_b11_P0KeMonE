@@ -10,6 +10,7 @@
 
 #include "battlehud.h"
 #include "pokemon.h"
+#include "model.h"
 
 /**
  * @class Battle
@@ -25,7 +26,6 @@ private:
     Pokemon *itsOpponent2;        /**< Pointer to the opponent Pokémon in the battle. */
     BattleHUD *itsBattleHUD1;     /**< Pointer to the battle HUD interface. */
     std::mt19937 gen;           /**< Mersenne Twister random number generator. */
-    std::vector<Pokemon*> itsBossTeam; /**< Vector of Pokémon pointers representing the boss's team. */
 
 public:
     /**
@@ -53,12 +53,6 @@ public:
      * @return A constant reference to a vector of pointers to Pokémon.
      */
     std::vector<Pokemon*> getBossTeam() const;
-
-    /**
-     * @brief Sets the boss's team of Pokémon.
-     * @param team Vector of pointers to Pokémon representing the boss's team.
-     */
-    void setBossTeam(std::vector<Pokemon*> team);
 
     /**
      * @brief Retrieves the battle HUD.

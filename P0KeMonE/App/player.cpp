@@ -157,7 +157,7 @@ void Player::updateSprite(const QString &direction) {
     int step = qRound(direction == "left" || direction == "right" ? x() : y()) % 48;
     int index = step < 16 ? 0 : step < 32 ? 1 : 2;
 
-    setPixmap(QPixmap(sprites[index]).scaled(QSize(11, 16) * scale));
+    setPixmap(QPixmap(sprites[index]).scaled(QSize(12, 18) * scale));
 }
 
 void Player::incrementWinCount() {

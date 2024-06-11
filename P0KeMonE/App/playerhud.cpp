@@ -12,12 +12,14 @@ void PlayerHUD::setPokemons(const std::vector<Pokemon*>& pokemons, int itsLevelP
     this->pokemons = pokemons;
     this->itsLevelPlayer = itsLevelPlayer;
 
+    qDebug() << "Pokemons set with level player:" << itsLevelPlayer;
     updateHUD();
 }
 
 void PlayerHUD::setSelectionMode(bool selectionMode)
 {
     this->selectionMode = selectionMode;
+    qDebug() << "Selection mode set to:" << selectionMode;
     updateHUD();
 }
 
@@ -43,10 +45,9 @@ void PlayerHUD::updateHUD()
     healthBars.clear();
 
     if (pokemons.empty()) {
+        qDebug() << "No pokemons to display.";
         return;
     }
-
-
 
     int xOffset = 24; // Start x position
     int yOffset = 50; // Start y position
@@ -54,8 +55,14 @@ void PlayerHUD::updateHUD()
 
     for (size_t i = 0; i < pokemons.size(); i++) {
         Pokemon *pokemon = pokemons[i];
-        QPixmap characterImage = QPixmap(":/sprites/pk_sprites/" + QString::number(pokemon->getId()) + "_front.png").scaled(150, 150);
-        addCharacter(characterImage, pokemon->getHealth(), pokemon->getItsMaxHealth(), xOffset + i * spacing, yOffset);
+        QString spritePath = ":/sprites/pk_sprites/" + QString::number(pokemon->getId()) + "_front.png";
+        QPixmap characterImage = QPixmap(spritePath).scaled(150, 150);
+
+        if (characterImage.isNull()) {
+            qDebug() << "Failed to load image:" << spritePath;
+        } else {
+            addCharacter(characterImage, pokemon->getHealth(), pokemon->getItsMaxHealth(), xOffset + i * spacing, yOffset);
+        }
     }
 
     if (selectionMode) {
@@ -65,7 +72,6 @@ void PlayerHUD::updateHUD()
         delete selectionArrow;
         selectionArrow = nullptr;
     } else {
-
         QGraphicsTextItem *levelText = new QGraphicsTextItem(QString("Level %1").arg(itsLevelPlayer));
         levelText->setDefaultTextColor(Qt::black);
         levelText->setFont(QFont("Arial", 12, QFont::Bold));
@@ -77,11 +83,7 @@ void PlayerHUD::updateHUD()
         pokemonLabel->setFont(QFont("Arial", 17, QFont::Bold));
         addItem(pokemonLabel);
         pokemonLabel->setPos(100, 10);
-
     }
-
-
-
 }
 
 void PlayerHUD::addCharacter(const QPixmap &characterImage, int currentHealth, int maxHealth, int xPos, int yPos)

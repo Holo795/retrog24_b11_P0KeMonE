@@ -25,7 +25,8 @@ SOURCES += \
     move.cpp \
     player.cpp \
     playerhud.cpp \
-    pokemon.cpp
+    pokemon.cpp \
+    typeDef.cpp
 
 HEADERS += \
     battle.h \

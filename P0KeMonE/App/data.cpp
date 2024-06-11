@@ -11,7 +11,7 @@ Data::Data()
     // Establish a connection to the database using SQLite
     db = QSqlDatabase::addDatabase("QSQLITE");
 
-    db.setDatabaseName(QCoreApplication::applicationDirPath() + "/pokemon.sqlite");
+    db.setDatabaseName(QCoreApplication::applicationDirPath() + "/pokemon_final.sqlite");
 
 
     // Open the database and log the status
@@ -67,11 +67,6 @@ Pokemon* Data::randompokemon()
 
         // Fetch and set the moves for the Pokémon
         QList<Move*> moves = getMoves(id);
-        if (moves.isEmpty())
-        {
-            return randompokemon(); // If no moves, fetch another Pokémon
-        }
-
         pokemon->setItsMoves(moves);
         return pokemon;
     }

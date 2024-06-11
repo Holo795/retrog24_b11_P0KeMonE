@@ -1,11 +1,14 @@
 #include "game.h"
-#include "QtWidgets/qlabel.h"
 #include "QtWidgets/qmessagebox.h"
 #include "player.h"
+#include "maphud.h"
+#include <QFontDatabase>
+#include <QGraphicsTextItem>
 
 Game::Game(Model *model, GUI *gui, QWidget *parent)
     : QGraphicsView(parent), model(model), gui(gui) {
     // Configure the initial scene and scaling
+    currentDialogueIndex = 0;
     setScene(gui->mainMenu());
     setFixedSize(480, 320); // Set fixed size to maintain consistent UI
     setWindowIcon(QIcon(":/hud/battlehud_assets/logoP0KeMonE.png"));
@@ -28,8 +31,6 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
 
     connect(gui->battle()->getRunButton(), &QPushButton::clicked, this, &Game::run);
     connect(gui->team(), &PlayerHUD::pokemonSelected, this, &Game::changePokemon);
-
-
 
     // Timer for updating the view regularly
     QTimer *updateTimer = new QTimer(this);
@@ -74,30 +75,34 @@ void Game::keyPressEvent(QKeyEvent *event) {
         setScene(gui->map());
         if(player->getTeam().empty())
         {
-            showOldMenSpeach();
-            battle->setBossTeam({model->getData()->pokemonById(244), model->getData()->pokemonById(245), model->getData()->pokemonById(243)});
+            showFirstScenario();
+            qDebug() << "First scenario";
+            // Définir l'équipe de boss
+            setBossTeam({model->getData()->pokemonById(244), model->getData()->pokemonById(245), model->getData()->pokemonById(243)});
         }
-
-    };
+    }
+    if (event->key() == Qt::Key_Space && scene()->objectName() == gui->map()->objectName() && currentDialogueIndex < dialogues.size())
+    {
+        showNextDialogue();
+    }
 
     if (event->key() == Qt::Key_I && scene()->objectName() == gui->map()->objectName())
         setScene(gui->playerTeam(player->getTeam(), player->getItsLevel()));
-    else if(event->key() == Qt::Key_I && scene()->objectName() == gui->team()->objectName()) {
+    else if(event->key() == Qt::Key_I && scene()->objectName() == gui->team()->objectName())
+    {
         setScene(gui->map());
     }
 
-    if (event->key() == Qt::Key_Space && scene()->objectName() == "GameOverHUD") {
+    if (event->key() == Qt::Key_Space && scene()->objectName() == gui->gameOver()->objectName())
+    {
         player->setItsLevel(1.0);
         player->setWinCount(0);
         std::vector<Pokemon*> emptyTeam;
         player->setTeam(emptyTeam);
         player->setPos(200, 950);
         setScene(gui->mainMenu());
-
     }
-
     QGraphicsView::keyPressEvent(event);
-
 }
 
 void Game::mousePressEvent(QMouseEvent *event){
@@ -131,6 +136,62 @@ void Game::updateView() {
     }
 }
 
+void Game::showFirstScenario() {
+
+        oldMenItem = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/old_men.png"));
+        oldMenItem->setPos(1040, 560);
+
+        ballsItem = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/ball_open.png"));
+        ballsItem->setPos(1050, 520);
+
+        // Création de l'élément graphique pixmap
+        boxItem = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/dialogue_box.png").scaled(280, 60));
+        boxItem->setPos(906, 670);
+
+        // Définir Z-value pour mettre l'élément au premier plan
+        oldMenItem->setZValue(10);
+        ballsItem->setZValue(10);
+        boxItem->setZValue(10);
+
+        // Ajouter l'élément graphique à la scène
+        gui->map()->addItem(oldMenItem);
+        gui->map()->addItem(ballsItem);
+        gui->map()->addItem(boxItem);
+
+        // Création de l'élément texte
+        QString fontFamily;
+        int fontId = QFontDatabase::addApplicationFont(":/hud/battlehud_assets/Minecraft.ttf");
+        if (fontId == -1) {
+            fontFamily = "Arial";
+        } else {
+            fontFamily = QFontDatabase::applicationFontFamilies(fontId).at(0);
+        }
+        QFont customFont(fontFamily, 9);
+        textItem = new QGraphicsTextItem("", boxItem); // Ajouté en tant qu'enfant de l'élément graphique
+        textItem->setPos(QPointF(8, 4)); // Positionner le texte à l'intérieur de l'élément graphique
+        textItem->setDefaultTextColor(Qt::black); // Définir la couleur du texte
+        textItem->setFont(customFont); // Définir la police et la taille du texte
+        textItem->setTextWidth(256); // Définir la largeur du texte pour le retour à la ligne
+        qDebug() << "show first scenario done";
+}
+
+void Game::showNextDialogue() {
+    if (currentDialogueIndex < dialogues.size()) {
+        textItem->setPlainText(dialogues[currentDialogueIndex]);
+        currentDialogueIndex++;
+    }
+    if (currentDialogueIndex >= dialogues.size())
+    {
+        showOldMenSpeach();
+    }
+}
+
+
+void Game::showOldMenSpeach() {
+    setScene(gui->selectPokemon(model->getFirstTeam()));
+    qDebug() << "Old Man is speaking";
+}
+
 void Game::showFight() {
     // Switch the scene to the battle interface
     setScene(gui->battle(player->getTeam().front(), model->getData()->randompokemon()));
@@ -144,15 +205,9 @@ void Game::showBossFight() {
     // Switch the scene to the boss battle interface
     gui->battle()->addPersonalItem(bossItem);
 
-    setScene(gui->battle(player->getTeam().front(), battle->getBossTeam().front()));
+    setScene(gui->battle(player->getTeam().front(), getBossTeam().front()));
 
     gui->battle()->getRunButton()->setEnabled(false);
-}
-
-
-void Game::showOldMenSpeach() {
-    setScene(gui->selectPokemon(model->getFirstTeam()));
-    qDebug() << "Old Man is speaking";
 }
 
 
@@ -209,11 +264,6 @@ void Game::continuefight()
     return;
 }
 
-
-
-
-
-
 void Game::run()
 {
     endFight(true);
@@ -262,33 +312,30 @@ void Game::endFight(bool playerWon)
                 }
                 else
                 {
-                    gui->TeamHUD()->setPokemonLabel(new QGraphicsTextItem("Veuillez sélectionner un Pokémon à échanger"));
+                    gui->team()->setPokemonLabel(new QGraphicsTextItem("Veuillez sélectionner un Pokémon à échanger"));
 
-                    gui->TeamHUD()->setPokemons(newPokemons, player->getItsLevel());
-                    gui->TeamHUD()->setSelectionMode(true);
-                    setScene(gui->TeamHUD());
-
-
+                    gui->team()->setPokemons(newPokemons, player->getItsLevel());
+                    gui->team()->setSelectionMode(true);
+                    setScene(gui->team());
 
                     qDebug() << "Connect the signal for selecting the new Pokémon";
-                    QObject::connect(gui->TeamHUD(), &PlayerHUD::pokemonSelected, this, [=](Pokemon* newPokemon) {
+                    QObject::connect(gui->team(), &PlayerHUD::pokemonSelected, this, [=](Pokemon* newPokemon) {
                         qDebug() << "Nouveau Pokémon sélectionné";
                         selectedNewPokemon = newPokemon;
 
-                        QObject::disconnect(gui->TeamHUD(), &PlayerHUD::pokemonSelected, this, nullptr);
+                        QObject::disconnect(gui->team(), &PlayerHUD::pokemonSelected, this, nullptr);
 
                         // Afficher l'interface de sélection des Pokémon actuels de l'équipe
-                        gui->TeamHUD()->setPokemonLabel(new QGraphicsTextItem("Veuillez sélectionner un Pokémon à retirer"));
-                        gui->TeamHUD()->setPokemons(player->getTeam(), player->getItsLevel());
-                        gui->TeamHUD()->setSelectionMode(true);
-                        setScene(gui->TeamHUD());
-
+                        gui->team()->setPokemonLabel(new QGraphicsTextItem("Veuillez sélectionner un Pokémon à retirer"));
+                        gui->team()->setPokemons(player->getTeam(), player->getItsLevel());
+                        gui->team()->setSelectionMode(true);
+                        setScene(gui->team());
 
                         // Connecter le signal pour la sélection du Pokémon à retirer
                         qDebug() << "Connect the signal for selecting the Pokémon to remove";
-                        QObject::connect(gui->TeamHUD(), &PlayerHUD::pokemonSelected, this, [=](Pokemon* oldPokemon) {
+                        QObject::connect(gui->team(), &PlayerHUD::pokemonSelected, this, [=](Pokemon* oldPokemon) {
                             qDebug() << "Ancien Pokémon sélectionné";
-                            QObject::disconnect(gui->TeamHUD(), &PlayerHUD::pokemonSelected, this, nullptr);
+                            QObject::disconnect(gui->team(), &PlayerHUD::pokemonSelected, this, nullptr);
 
                             // Retirer le Pokémon sélectionné et ajouter le nouveau Pokémon
                             player->removePokemon(oldPokemon);
@@ -308,9 +355,6 @@ void Game::endFight(bool playerWon)
 
         }
 
-
-
-
         qDebug() << "Level player: " << player->getItsLevel();
         qDebug() << "Wins player: " << player->getWinCount();
     }
@@ -319,11 +363,6 @@ void Game::endFight(bool playerWon)
         setScene(gui->gameOver());
     }
 }
-
-
-
-
-
 
 void Game::generateNewOpponent()
 {
@@ -336,5 +375,34 @@ void Game::switchPokemon(){
 }
 
 void Game::changePokemon(Pokemon* pokemon){
-    setScene(gui->battle(pokemon, gui->battle()->getPokemon2()));
+    if(player->getTeam().empty())
+    {
+        player->addPokemon(pokemon);
+        qDebug() << pokemon->getItsName();
+        setScene(gui->map());
+        gui->map()->removeItem(textItem);
+        gui->map()->removeItem(boxItem);
+
+    }
+    else
+    {
+        setScene(gui->battle(pokemon, gui->battle()->getPokemon2()));
+    }
 }
+
+/**
+ * @brief Sets the boss's team of Pokémon.
+ * @param team Vector of pointers to Pokémon representing the boss's team.
+ */
+void Game::setBossTeam(std::vector<Pokemon*> team) {
+    itsBossTeam = team;
+}
+
+/**
+ * @brief Retrieves the boss's team of Pokémon.
+ * @return A constant reference to a vector of pointers to Pokémon.
+ */
+std::vector<Pokemon*> Game::getBossTeam() const {
+    return itsBossTeam;
+}
+

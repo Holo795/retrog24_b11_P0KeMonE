@@ -46,7 +46,7 @@ void test_database::test_databaseConnection() {
 void test_database::test_randomPokemon() {
     Pokemon* pokemon = data->randompokemon();
     QVERIFY(pokemon != nullptr);
-    QVERIFY(!pokemon->getName().empty());
+    QVERIFY(!pokemon->getItsName().empty());
     QVERIFY(pokemon->getHealth() > 0);
     delete pokemon;
 }

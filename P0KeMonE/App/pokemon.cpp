@@ -1,6 +1,8 @@
 #include "pokemon.h"
 
 
+
+
 Pokemon::Pokemon(int id_pk, string itsName, PKTYPE itsType, int itsHealth, int itsSpeed, int itsAtk, int itsSpAtk, int itsDef, int itsSpDef, int itsLevel)
     : id_pk(id_pk), itsName(itsName), itsType(itsType), itsHealth(itsHealth), itsMaxHealth(itsHealth), itsSpeed(itsSpeed), itsAtk(itsAtk),
     itsSpAtk(itsSpAtk), itsDef(itsDef), itsSpDef(itsSpDef), itsLevel(itsLevel)
@@ -129,4 +131,9 @@ void Pokemon::setItsMoves(const QList<Move*> &newItsMoves)
 PKTYPE Pokemon::getItsType() const
 {
     return itsType;
+}
+
+void Pokemon::setItsHealth(int newItsHealth)
+{
+    itsHealth = newItsHealth;
 }

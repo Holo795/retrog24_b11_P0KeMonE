@@ -53,6 +53,7 @@ public:
     QList<Move*> getItsMoves() const;
     void setItsMoves(const QList<Move*> &newItsMoves);
     PKTYPE getItsType() const;
+    void setItsHealth(int newItsHealth);
 };
 
 #endif // POKEMON_H

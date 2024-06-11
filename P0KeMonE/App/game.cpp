@@ -255,33 +255,33 @@ void Game::endFight(bool playerWon)
                 }
                 else
                 {
-                    gui->TeamHUD()->setPokemonLabel(new QGraphicsTextItem("Veuillez sélectionner un Pokémon à échanger"));
+                    gui->team()->setPokemonLabel(new QGraphicsTextItem("Veuillez sélectionner un Pokémon à échanger"));
 
-                    gui->TeamHUD()->setPokemons(newPokemons, player->getItsLevel());
-                    gui->TeamHUD()->setSelectionMode(true);
-                    setScene(gui->TeamHUD());
+                    gui->team()->setPokemons(newPokemons, player->getItsLevel());
+                    gui->team()->setSelectionMode(true);
+                    setScene(gui->team());
 
 
 
                     qDebug() << "Connect the signal for selecting the new Pokémon";
-                    QObject::connect(gui->TeamHUD(), &PlayerHUD::pokemonSelected, this, [=](Pokemon* newPokemon) {
+                    QObject::connect(gui->team(), &PlayerHUD::pokemonSelected, this, [=](Pokemon* newPokemon) {
                         qDebug() << "Nouveau Pokémon sélectionné";
                         selectedNewPokemon = newPokemon;
 
-                        QObject::disconnect(gui->TeamHUD(), &PlayerHUD::pokemonSelected, this, nullptr);
+                        QObject::disconnect(gui->team(), &PlayerHUD::pokemonSelected, this, nullptr);
 
                         // Afficher l'interface de sélection des Pokémon actuels de l'équipe
-                        gui->TeamHUD()->setPokemonLabel(new QGraphicsTextItem("Veuillez sélectionner un Pokémon à retirer"));
-                        gui->TeamHUD()->setPokemons(player->getTeam(), player->getItsLevel());
-                        gui->TeamHUD()->setSelectionMode(true);
-                        setScene(gui->TeamHUD());
+                        gui->team()->setPokemonLabel(new QGraphicsTextItem("Veuillez sélectionner un Pokémon à retirer"));
+                        gui->team()->setPokemons(player->getTeam(), player->getItsLevel());
+                        gui->team()->setSelectionMode(true);
+                        setScene(gui->team());
 
 
                         // Connecter le signal pour la sélection du Pokémon à retirer
                         qDebug() << "Connect the signal for selecting the Pokémon to remove";
-                        QObject::connect(gui->TeamHUD(), &PlayerHUD::pokemonSelected, this, [=](Pokemon* oldPokemon) {
+                        QObject::connect(gui->team(), &PlayerHUD::pokemonSelected, this, [=](Pokemon* oldPokemon) {
                             qDebug() << "Ancien Pokémon sélectionné";
-                            QObject::disconnect(gui->TeamHUD(), &PlayerHUD::pokemonSelected, this, nullptr);
+                            QObject::disconnect(gui->team(), &PlayerHUD::pokemonSelected, this, nullptr);
 
                             // Retirer le Pokémon sélectionné et ajouter le nouveau Pokémon
                             player->removePokemon(oldPokemon);

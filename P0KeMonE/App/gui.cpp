@@ -1,19 +1,20 @@
 #include "gui.h"
 
 /**
- * Initializes the GUI class, setting up HUDs for different parts of the game.
+ * @brief Constructor for GUI, initializes all HUDs using a given model.
+ * @param model Pointer to the model used for game data and logic.
  */
 GUI::GUI(Model *model) : model(model) {
     // Initialize HUDs for various game scenes
-    this->gameOverHUD = new GameOverHUD();
-    this->mapHUD = new MapHUD(model);
-    this->mainHUD = new MainHUD();
-    this->battleHUD = new BattleHUD();
-    this->playerHUD = new PlayerHUD();
+    gameOverHUD = new GameOverHUD();
+    mapHUD = new MapHUD(model);
+    mainHUD = new MainHUD();
+    battleHUD = new BattleHUD();
+    playerHUD = new PlayerHUD();
 }
 
 /**
- * Destructor for the GUI class.
+ * @brief Destructor for the GUI class.
  */
 GUI::~GUI() {
     // Delete all HUDs
@@ -25,65 +26,78 @@ GUI::~GUI() {
 }
 
 /**
- * Returns the main menu HUD.
+ * @brief Accessor for the main menu HUD.
+ * @return Pointer to the MainHUD object.
  */
-MainHUD * GUI::mainMenu() {
+MainHUD* GUI::mainMenu() const {
     return mainHUD;
 }
 
 /**
- * Returns the game over HUD.
+ * @brief Accessor for the game over HUD.
+ * @return Pointer to the GameOverHUD object.
  */
-GameOverHUD * GUI::gameOver() {
+GameOverHUD* GUI::gameOver() const {
     return gameOverHUD;
 }
 
 /**
- * Returns the map HUD.
+ * @brief Accessor for the map HUD.
+ * @return Pointer to the MapHUD object.
  */
-MapHUD * GUI::map() {
+MapHUD* GUI::map() const {
     return mapHUD;
 }
 
 /**
- * Initializes the battle HUD with two specific Pokémon and returns it.
+ * @brief Returns the battle HUD initialized with specific Pokémon.
+ * @param pk1 Pointer to the first Pokémon.
+ * @param pk2 Pointer to the second Pokémon.
+ * @return Pointer to the BattleHUD object.
  */
-BattleHUD *GUI::battle(Pokemon *pk1, Pokemon *pk2) {
+BattleHUD* GUI::battle(Pokemon *pk1, Pokemon *pk2) const {
     // Set the Pokémon in the battle HUD before returning it
     battleHUD->setPokemon(pk1, pk2);
     return battleHUD;
 }
 
 /**
- * Returns the default battle HUD, typically used when no specific Pokémon are set.
+ * @brief Accessor for the default battle HUD.
+ * @return Pointer to the BattleHUD object.
  */
-BattleHUD *GUI::battle() {
+BattleHUD* GUI::battle() const {
     return battleHUD;
 }
 
 /**
- * Initializes the player HUD with a specific player object and returns it.
+ * @brief Accessor for the player HUD.
+ * @param pokemons A vector of pointers to the player's Pokémon.
+ * @param itsLevel The level of the player.
+ * @return Pointer to the PlayerHUD object.
  */
-PlayerHUD *GUI::playerTeam(vector<Pokemon *> pokemons, int itsLevel) {
-    // Set the player in the player HUD before returning it
+PlayerHUD* GUI::playerTeam(const std::vector<Pokemon*>& pokemons, int itsLevel) const {
+    // Set the Pokémon in the player HUD before returning it
     playerHUD->setPokemons(pokemons, itsLevel);
     playerHUD->setSelectionMode(false);
     return playerHUD;
 }
 
 /**
- * Returns the player HUD.
+ * @brief Accessor for the player HUD.
+ * @return Pointer to the PlayerHUD object.
  */
-PlayerHUD *GUI::team() {
+PlayerHUD* GUI::team() const {
     return playerHUD;
 }
 
 /**
- * Initializes the player HUD with a specific player object and returns it.
+ * @brief Accessor for the player HUD.
+ * @param pokemons A vector of pointers to the player's Pokémon.
+ * @return Pointer to the PlayerHUD object.
  */
-PlayerHUD *GUI::selectPokemon(vector<Pokemon *> pokemons) {
-    // Set the player in the player HUD before returning it
+PlayerHUD* GUI::selectPokemon(const std::vector<Pokemon*>& pokemons) const {
+    // Set the Pokémon in the player HUD before returning it
     playerHUD->setSelectionMode(true);
-    playerHUD->setPokemons(pokemons,1);
+    playerHUD->setPokemons(pokemons, 1);
     return playerHUD;
 }

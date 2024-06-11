@@ -13,6 +13,7 @@
 #include <QButtonGroup>
 #include <QGraphicsProxyWidget>
 #include <QKeyEvent>
+#include <vector>
 
 #include "pokemon.h"
 
@@ -94,6 +95,7 @@ private:
     bool selectionMode; ///< Indicates whether selection mode is enabled.
     int selectedIndex; ///< The index of the selected Pokémon.
     int itsLevelPlayer; ///< The level of the player.
+    QGraphicsTextItem *pokemonLabel; ///< The label of the selected Pokémon.
 
 signals:
     /**

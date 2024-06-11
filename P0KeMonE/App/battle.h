@@ -32,7 +32,7 @@ public:
      * @brief Constructs a Battle instance with provided player, opponent, and HUD.
      * @param opponent1 Pointer to the player Pokémon.
      * @param opponent2 Pointer to the opponent Pokémon.
-     * @param battleHUD1 Pointer to the battle HUD.
+     * @param battleHUD Pointer to the battle HUD.
      */
     Battle(Pokemon *opponent1, Pokemon *opponent2, BattleHUD *battleHUD);
 
@@ -47,12 +47,6 @@ public:
      * @param target Pointer to the Pokémon being targeted.
      */
     void attack(Move *move, Pokemon *target);
-
-    /**
-     * @brief Retrieves the boss's team of Pokémon.
-     * @return A constant reference to a vector of pointers to Pokémon.
-     */
-    std::vector<Pokemon*> getBossTeam() const;
 
     /**
      * @brief Retrieves the battle HUD.

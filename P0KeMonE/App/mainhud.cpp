@@ -6,8 +6,9 @@
 #include <QFontDatabase>
 
 /**
- * Constructor for the MainHUD class.
+ * @brief Constructor for the MainHUD class.
  * Initializes the main menu scene with graphical elements.
+ * @param parent The parent QObject, default is nullptr.
  */
 MainHUD::MainHUD(QObject *parent) : QGraphicsScene(parent)
 {
@@ -22,7 +23,6 @@ MainHUD::MainHUD(QObject *parent) : QGraphicsScene(parent)
     // Load and position the character image
     QGraphicsPixmapItem* characterImage = new QGraphicsPixmapItem(QPixmap(":/hud/main_menu_assets/player_menu.png"));
     characterImage->setPos(220, 100); // Position the character image
-
 
     // Load custom font
     int fontId = QFontDatabase::addApplicationFont(":/hud/battlehud_assets/Minecraft.ttf");

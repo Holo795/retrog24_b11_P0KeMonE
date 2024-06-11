@@ -26,7 +26,7 @@ public:
      * @brief Constructs a BattleHUD scene with an optional parent.
      * @param parent The parent QObject, default is nullptr.
      */
-    BattleHUD(QObject *parent = nullptr);
+    explicit BattleHUD(QObject *parent = nullptr);
 
     /**
      * @brief Destructor for the BattleHUD.
@@ -37,19 +37,19 @@ public:
      * @brief Retrieves the attack button.
      * @return A pointer to the QPushButton used for attacks.
      */
-    QPushButton *getAttackButton();
+    QPushButton *getAttackButton() const;
 
     /**
-     * @brief Retrieves the pokemon button.
-     * @return A pointer to the QPushButton used for changing pokemon.
+     * @brief Retrieves the Pokémon button.
+     * @return A pointer to the QPushButton used for changing Pokémon.
      */
-    QPushButton *getPokemonButton();
+    QPushButton *getPokemonButton() const;
 
     /**
      * @brief Retrieves the run button.
      * @return A pointer to the QPushButton used for leaving the battle.
      */
-    QPushButton *getRunButton();
+    QPushButton *getRunButton() const;
 
     /**
      * @brief Updates the displayed Pokémon and their health on the HUD.
@@ -83,12 +83,12 @@ public:
     Pokemon *getPokemon2() const;
 
     /**
-     * @brief Displays the available moves from pokemon 1 as buttons.
+     * @brief Displays the available moves from the first Pokémon as buttons.
      */
     void displayMoves();
 
     /**
-     * @brief Shows the fight menu with attack, pokemon, and run buttons.
+     * @brief Shows the fight menu with attack, Pokémon, and run buttons.
      */
     void menuFight();
 
@@ -104,28 +104,39 @@ public:
      */
     QPushButton *getBackButton() const;
 
-    void setText(QString text);
+    /**
+     * @brief Sets the text of the menu.
+     * @param text The text to be displayed.
+     */
+    void setText(const QString &text);
 
-    void addPersonalItem (QGraphicsPixmapItem *item);
+    /**
+     * @brief Adds a personal item to the scene.
+     * @param item The QGraphicsPixmapItem to add.
+     */
+    void addPersonalItem(QGraphicsPixmapItem *item);
+
+    /**
+     * @brief Retrieves the menu text item.
+     * @return A pointer to the QGraphicsTextItem for the menu text.
+     */
     QGraphicsTextItem* getMenuText() const;
-
-
 
 private:
     QPushButton *attackButton;           /**< Button used for initiating attacks. */
-    QPushButton *pokemonButton;          /**< Button used for switching pokemons. */
+    QPushButton *pokemonButton;          /**< Button used for switching Pokémon. */
     QPushButton *runButton;              /**< Button used for leaving the fight. */
+    QPushButton *backButton;             /**< Button used for going back. */
     Pokemon *pokemon1;                   /**< First Pokémon displayed on the HUD. */
     Pokemon *pokemon2;                   /**< Second Pokémon displayed on the HUD. */
     QGraphicsPixmapItem *pokemon1Item;   /**< Graphics item for the first Pokémon's image. */
     QGraphicsPixmapItem *pokemon2Item;   /**< Graphics item for the second Pokémon's image. */
     QGraphicsTextItem *health1;          /**< Text item for the first Pokémon's health. */
     QGraphicsTextItem *health2;          /**< Text item for the second Pokémon's health. */
-    QGraphicsTextItem *menuText;            /**< "What will `pokemon` will do" */
-    QGraphicsTextItem *attackText;         /**< `pokemon` used `move`! */
+    QGraphicsTextItem *menuText;         /**< Text item for the menu text. */
+    QGraphicsTextItem *attackText;       /**< Text item for the attack text. */
     QGraphicsPixmapItem *dialogueBox;    /**< Graphics item for battle dialogue. */
     QButtonGroup *moveButtonsGroup;      /**< Button group for move buttons. */
-    QPushButton *backButton;             /**< Button used for going back. */
 
     // Helper methods
     QGraphicsPixmapItem* createPixmapItem(const QString &path, const QSize &size, const QPoint &pos);

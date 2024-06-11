@@ -11,9 +11,7 @@
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlRecord>
 #include <QSqlError>
-
 #include <QCoreApplication>
-
 #include "pokemon.h"
 
 /**
@@ -23,8 +21,7 @@
  * This class encapsulates all database interactions in a Pokémon game, including retrieving and
  * storing Pokémon and their moves.
  */
-class Data
-{
+class Data {
 private:
     QSqlDatabase db; /**< Instance of the SQLite database */
 
@@ -45,8 +42,13 @@ public:
      * @brief Retrieves a random Pokémon from the database.
      * @return A new Pokémon object initialized with the fetched data.
      */
-    Pokemon * randompokemon();
+    Pokemon* randompokemon();
 
+    /**
+     * @brief Fetches a Pokémon by its ID from the database.
+     * @param pokemonId The ID of the Pokémon to fetch.
+     * @return A new Pokémon object initialized with the fetched data.
+     */
     Pokemon* pokemonById(int pokemonId);
 
     /**

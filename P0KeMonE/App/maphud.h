@@ -30,7 +30,7 @@ public:
      * @param model Pointer to the game model used for obtaining map data.
      * @param parent Optional parent QObject, default is nullptr.
      */
-    MapHUD(Model *model, QObject *parent = nullptr);
+    explicit MapHUD(Model *model, QObject *parent = nullptr);
 
     /**
      * @brief Destructor for the MapHUD.
@@ -46,7 +46,7 @@ public:
      * @brief Retrieves a pointer to the player object.
      * @return Pointer to the player.
      */
-    Player *getPlayer();
+    Player *getPlayer() const;
 
 private:
     Model *model; ///< Pointer to the model.
@@ -55,6 +55,7 @@ private:
     std::uniform_int_distribution<> encounterDist; ///< Distribution for random encounters.
     QGraphicsPixmapItem *bossItem; ///< Pointer to the boss item.
     QGraphicsPixmapItem *oldMenItem; ///< Pointer to the old men item.
+    QMap<int, QBitmap> masks; ///< Map of masks for collision detection.
 
     /**
      * @brief Draws the grass layer of the map.
@@ -89,7 +90,7 @@ protected:
      * @brief Handles key press events for player movement and interactions.
      * @param event The key event.
      */
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
 
     /**
      * @brief Manages the player's entrance into a boat.
@@ -103,7 +104,6 @@ protected:
      * @param player Pointer to the player.
      */
     void enteringLauncher(Player *player);
-
 };
 
 #endif // MAPHUD_H

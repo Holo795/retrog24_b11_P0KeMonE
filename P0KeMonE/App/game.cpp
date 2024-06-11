@@ -11,7 +11,7 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
 
     // Configure the initial scene and scaling
     setScene(gui->mainMenu());
-    setFixedSize(480, 320); // Set fixed size to maintain consistent UI
+    setFixedSize(960, 640); // Set fixed size to maintain consistent UI
     setWindowIcon(QIcon(":/hud/battlehud_assets/logoP0KeMonE.png"));
 
     // Disable scrollbars for a cleaner look
@@ -67,6 +67,8 @@ void Game::setScene(QGraphicsScene *scene) {
         scale(1.5, 1.5); // Scale up for the battle view
         player->setFocus(); // Set focus on the player object
     }
+
+    scale(2, 2);
 
     QGraphicsView::setScene(scene);
 }

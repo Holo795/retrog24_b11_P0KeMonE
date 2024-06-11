@@ -1,5 +1,5 @@
 #include "player.h"
-#include "global.h" // Inclusion de la déclaration de la map de masques
+#include "typeDef.h" // Inclusion de la déclaration de la map de masques
 
 Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
     setZValue(3);
@@ -97,26 +97,51 @@ bool Player::checkCollision(QPointF newPos) {
             updateZValue = true;
             break;
         case 93: // Arbre
-            baseLayer = QRect(itemTopLeft.x() + 6, itemTopLeft.y() + 25, 58, 41);
+            baseLayer = QRect(itemTopLeft.x() + 6, itemTopLeft.y() + 25, 58, 43);
             updateZValue = true;
+            break;
+        case 67:
+        case 68:
+            return false;
             break;
         case 92: // Pont
         {
             QRect bridge(330, 21 * 32, 640, 65);
             QRect exitBridge(330 + 43, 21 * 32 + 60, 44, 70);
 
-            if ((footPlayerRect.intersects(bridge) && actualFootPlayerRect.intersects(bridge)) ||
-                (footPlayerRect.intersects(exitBridge) && actualFootPlayerRect.intersects(exitBridge))) {
+            if (footPlayerRect.intersects(bridge) && actualFootPlayerRect.intersects(bridge)) {
                 return false;
             }
+
+            if (footPlayerRect.intersects(exitBridge) && actualFootPlayerRect.intersects(exitBridge)) {
+                return false;
+            }
+
             break;
         }
         case 83:
+        {
+            QRect montain(970, 551, 188, 172 + 10);
+            QRect bridge_montain(934, 671, 28, 52 + 10);
+            QRect exitMontain(1034, 731, 50, 50);
 
-            //QRect montain()
-            return false;
+            qDebug() << footPlayerRect;
+            qDebug() << actualFootPlayerRect;
+
+            if (footPlayerRect.intersects(montain) && actualFootPlayerRect.intersects(montain)) {
+                return false;
+            }
+
+            if (footPlayerRect.intersects(bridge_montain) && actualFootPlayerRect.intersects(bridge_montain)) {
+                return false;
+            }
+
+            if (footPlayerRect.intersects(exitMontain) && actualFootPlayerRect.intersects(exitMontain)) {
+                return false;
+            }
 
             break;
+        }
         default:
             break;
         }

@@ -180,8 +180,6 @@ void Game::onMoveButtonClicked(int moveIndex) {
 
 void Game::continuefight()
 {
-    // Continue the fight based on battle outcome or player actions
-
     battle->attack(gui->battle()->getPokemon2()->getItsMoves()[0], player->getTeam().front());
 
     QTimer::singleShot(1000, this, [&](){
@@ -192,16 +190,24 @@ void Game::continuefight()
 
     if(gui->battle()->getPokemon1()->getHealth() <= 0)
     {
-        endFight(false);
-        return;
+        player->removePokemon(player->getTeam().front());
+        if(player->getTeam().size() != 0)
+        {
+            changePokemon(player->getTeam().front());
+        }
     }
     else if(gui->battle()->getPokemon2()->getHealth() <= 0)
     {
         endFight(true);
         return;
     }
-
+    return;
 }
+
+
+
+
+
 
 void Game::run()
 {

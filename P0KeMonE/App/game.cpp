@@ -36,6 +36,13 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
 
     soundManager = new SoundManager(this);
 
+    // Charger et jouer la musique de fond
+    soundManager->loadSound("background", QUrl("qrc:/sounds/sounds/mainMusic.wav"));
+    soundManager->playSound("background", true);
+
+    soundManager->loadSound("gameOver", QUrl("qrc:/sounds/sounds/gameOver.wav"));
+    soundManager->loadSound("button", QUrl("qrc:/sounds/sounds/button.wav"));
+
     qDebug() << "Game initialized.";
 
     // Timer for updating the view regularly
@@ -77,6 +84,7 @@ void Game::keyPressEvent(QKeyEvent *event) {
     // Handle key presses for game interactions
     if (event->key() == Qt::Key_Space && scene()->objectName() == gui->mainMenu()->objectName())
     {
+        soundManager->stopAllSounds();
         player = gui->map()->getPlayer();
         setScene(gui->map());
         if(player->getTeam().empty())
@@ -168,6 +176,12 @@ void Game::showFightMenu() {
 }
 
 void Game::showMoves() {
+    if(soundManager->isPlaying("button")) {
+        soundManager->stopSound("button");
+        soundManager->playSound("button", false);
+    } else {
+        soundManager->playSound("button");
+    }
     // Retrieve the moves of the player's current Pokémon
     gui->battle()->displayMoves();
 }
@@ -183,6 +197,13 @@ void Game::onMoveButtonClicked(QAbstractButton *button) {
     gui->battle()->getPokemonButton()->setEnabled(false);
 
     showFightMenu();
+
+    if(soundManager->isPlaying("button")) {
+        soundManager->stopSound("button");
+        soundManager->playSound("button", false);
+    } else {
+        soundManager->playSound("button");
+    }
 
     battle->attack(gui->battle()->getPokemon1()->getItsMoves()[buttonId], gui->battle()->getPokemon2());
 
@@ -223,7 +244,14 @@ void Game::continuefight()
 
 void Game::run()
 {
-    endFight(true);
+    if(soundManager->isPlaying("button")) {
+        soundManager->stopSound("button");
+        soundManager->playSound("button", false);
+    } else {
+        soundManager->playSound("button");
+    }
+
+    endFight(false);
     //setScene(gui->map());
 }
 
@@ -323,13 +351,11 @@ void Game::endFight(bool playerWon)
     }
     else
     {
+        soundManager->playSound("gameOver", false);
         setScene(gui->gameOver());
+
     }
 }
-
-
-
-
 
 
 void Game::generateNewOpponent()
@@ -339,6 +365,13 @@ void Game::generateNewOpponent()
 }
 
 void Game::switchPokemon(){
+    if(soundManager->isPlaying("button")) {
+        soundManager->stopSound("button");
+        soundManager->playSound("button", false);
+    } else {
+        soundManager->playSound("button");
+    }
+
     setScene(gui->selectPokemon(player->getTeam()));
 }
 

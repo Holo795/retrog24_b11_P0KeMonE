@@ -623,5 +623,7 @@
     <qresource prefix="/sounds">
         <file>sounds/grass_walk.wav</file>
         <file>sounds/mainMusic.wav</file>
+        <file>sounds/button.wav</file>
+        <file>sounds/gameOver.wav</file>
     </qresource>
 </RCC>

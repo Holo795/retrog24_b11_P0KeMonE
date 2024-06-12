@@ -7,6 +7,7 @@
 #define MAINHUD_H
 
 #include <QGraphicsScene>
+#include "soundmanager.h"
 
 /**
  * @class MainHUD
@@ -28,6 +29,9 @@ public:
      * @brief Displays the main menu elements on the scene.
      */
     void displayMainMenu();
+private:
+    SoundManager *soundManager;
+
 };
 
 #endif // MAINHUD_H

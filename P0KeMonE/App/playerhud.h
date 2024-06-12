@@ -10,6 +10,7 @@
 #include <QKeyEvent>
 
 #include "pokemon.h"
+#include "soundmanager.h"
 
 class PlayerHUD : public QGraphicsScene
 {
@@ -39,6 +40,7 @@ private:
     bool selectionMode;
     int selectedIndex;
     int itsLevelPlayer;
+    SoundManager *soundManager;
 
 signals:
     void pokemonSelected(Pokemon *pokemon);

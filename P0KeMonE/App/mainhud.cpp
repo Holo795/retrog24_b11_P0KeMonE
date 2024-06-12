@@ -5,6 +5,7 @@
 #include <QGraphicsPixmapItem>
 #include <QFontDatabase>
 
+
 /**
  * Constructor for the MainHUD class.
  * Initializes the main menu scene with graphical elements.
@@ -45,6 +46,7 @@ MainHUD::MainHUD(QObject *parent) : QGraphicsScene(parent)
     tag->setFont(tagFont);
     tag->setDefaultTextColor(Qt::black);
     tag->setPos(260, 500); // Position the production label at the bottom
+
 
     // Add all elements to the scene
     addItem(titleImage);

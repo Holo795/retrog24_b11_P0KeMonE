@@ -5,6 +5,11 @@ PlayerHUD::PlayerHUD(QObject *parent)
 {
     setObjectName("PlayerHUD");
     setSceneRect(0, 0, 478, 318);
+    soundManager = new SoundManager(this);
+
+    // Charger et jouer la musique de fond
+    soundManager->loadSound("button", QUrl("qrc:/sounds/sounds/button.wav"));
+
  }
 
 void PlayerHUD::setPokemons(const std::vector<Pokemon*>& pokemons, int itsLevelPlayer)
@@ -150,10 +155,22 @@ void PlayerHUD::keyPressEvent(QKeyEvent *event)
         if ((event->key() == Qt::Key_Left || event->key() == Qt::Key_Q) && selectedIndex > 0) {
             selectedIndex--;
             updateSelectionArrow();
+            if(soundManager->isPlaying("button")) {
+                soundManager->stopSound("button");
+                soundManager->playSound("button", false);
+            } else {
+                soundManager->playSound("button");
+            }
         } else
             if ((event->key() == Qt::Key_Right || event->key() == Qt::Key_D) && selectedIndex < static_cast<int>(pokemons.size()) - 1) {
             selectedIndex++;
             updateSelectionArrow();
+            if(soundManager->isPlaying("button")) {
+                soundManager->stopSound("button");
+                soundManager->playSound("button", false);
+            } else {
+                soundManager->playSound("button");
+            }
         } else
         if (event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) {
             // Handle the selection confirmation

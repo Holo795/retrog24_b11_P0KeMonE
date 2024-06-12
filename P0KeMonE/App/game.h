@@ -56,7 +56,7 @@ private:
     Player *player = nullptr; ///< Pointer to the player object.
     Battle *battle; ///< Pointer to the current battle context.
     Pokemon *selectedNewPokemon; ///< Pointer to the selected new Pokémon.
-    size_t currentDialogueIndex; ///< Index of the current dialogue.
+    size_t currentDialogueIndex = 0; ///< Index of the current dialogue.
     QGraphicsTextItem *textItem; ///< Pointer to the text item for dialogues.
     QGraphicsPixmapItem *boxItem; ///< Pointer to the box item for dialogues.
     QGraphicsPixmapItem *oldMenItem; ///< Pointer to the box item for dialogues.

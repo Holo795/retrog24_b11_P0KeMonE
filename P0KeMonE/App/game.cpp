@@ -11,25 +11,18 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     setWindowTitle("P0KeMonE");
     setFixedSize(960, 640); // Set fixed size to maintain consistent UI
 
-    QString fontFamily;
-    int fontId = QFontDatabase::addApplicationFont(":/hud/battlehud_assets/Minecraft.ttf");
-    if (fontId == -1) {
-        fontFamily = "Arial";
-    } else {
-        fontFamily = QFontDatabase::applicationFontFamilies(fontId).at(0);
-    }
-    QFont customFont(fontFamily, 9);
+    QFontDatabase::addApplicationFont(":/hud/battlehud_assets/Minecraft.ttf");
+
     oldMenItem = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/old_men.png"));
     ballsItem = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/ball_open.png"));
     boxItem = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/dialogue_box.png").scaled(280, 60));
     textItem = new QGraphicsTextItem("", boxItem); // Ajouté en tant qu'enfant de l'élément graphique
     textItem->setPos(QPointF(8, 4)); // Positionner le texte à l'intérieur de l'élément graphique
     textItem->setDefaultTextColor(Qt::black); // Définir la couleur du texte
-    textItem->setFont(customFont); // Définir la police et la taille du texte
+    textItem->setFont(QFont("Minecraft", 9)); // Définir la police et la taille du texte
     textItem->setTextWidth(256); // Définir la largeur du texte pour le retour à la ligne
 
     // Configure the initial scene and scaling
-    currentDialogueIndex = 0;
     setWindowIcon(QIcon(":/hud/battlehud_assets/logoP0KeMonE.png"));
 
     // Disable scrollbars for a cleaner look
@@ -85,7 +78,7 @@ void Game::setScene(QGraphicsScene *scene) {
     if(gui->mainMenu()->objectName() == scene->objectName()) {
         scale(0.55, 0.55); // Scale down for the initial menu view
     } else if (gui->map()->objectName() == scene->objectName()) {
-        scale(1.2, 1.2); // Scale up for the battle view
+        scale(1.25, 1.25); // Scale up for the battle view
         player->setFocus(); // Set focus on the player object
     }
 

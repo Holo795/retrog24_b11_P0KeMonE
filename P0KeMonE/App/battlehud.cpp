@@ -51,12 +51,13 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     addWidget(backButton);
 
     pokemon1Item = createPixmapItem(QPoint(20, 70));
-    pokemon2Item = createPixmapItem(QPoint(300, 30))
+    pokemon2Item = createPixmapItem(QPoint(300, 30));
 
 
     oldMenPixmap = createPixmapItem(":/hud/battlehud_assets/oldMen_image.png", QSize(64,124), QPoint(200, 5));
 
-    bossPixmap = createPixmapItem(":/hud/battlehud_assets/boss_image.png", QSize(100,114), QPoint(200, 5));;
+    bossPixmap = createPixmapItem(":/hud/battlehud_assets/boss_image.png", QSize(100,114), QPoint(200, 5));
+    bossPixmap->setVisible(false);
 
     // Load custom font
     int fontId = QFontDatabase::addApplicationFont(":/hud/battlehud_assets/Minecraft.ttf");
@@ -81,6 +82,8 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     addItem(health2);
     addItem(menuText);
     addItem(attackText);
+    addItem(oldMenPixmap);
+    addItem(bossPixmap);
 }
 
 BattleHUD::~BattleHUD()

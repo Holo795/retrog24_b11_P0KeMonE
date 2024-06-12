@@ -147,10 +147,6 @@ Pokemon *BattleHUD::getPokemon2() const
     return pokemon2;
 }
 
-QGraphicsTextItem* BattleHUD::getMenuText() const {
-    return menuText;
-}
-
 void BattleHUD::displayMoves()
 {
     attackButton->setVisible(false);
@@ -193,10 +189,10 @@ void BattleHUD::menuFight() {
     runButton->setVisible(true);
 }
 
-void BattleHUD::setText(QString text) {
+void BattleHUD::setText(string text) {
     qDebug() << "Setting text to:" << text;
     menuText->setVisible(true); // Assurez-vous que menuText est visible
-    menuText->setPlainText(text);
+    menuText->setPlainText(QString::fromStdString(text));
     qDebug() << "menuText content:" << menuText->toPlainText();
     update(); // Assurez-vous de mettre à jour la scène si nécessaire
 }

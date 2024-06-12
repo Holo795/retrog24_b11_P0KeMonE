@@ -104,10 +104,9 @@ public:
      */
     QPushButton *getBackButton() const;
 
-    void setText(QString text);
+    void setText(string text);
 
     void addPersonalItem (QGraphicsPixmapItem *item);
-    QGraphicsTextItem* getMenuText() const;
     QGraphicsPixmapItem* getOldMenPixmap();
     QGraphicsPixmapItem* getBossPixmap();
 

@@ -45,10 +45,10 @@ void Battle::attack(Move *move, Pokemon *target) {
         itsBattleHUD->frontDashPokemon(attacker);
         itsBattleHUD->shakePokemon(defender);
         defender->takeDamage(damage);
-        itsBattleHUD->setText(QString::fromStdString(attacker->getItsName() + " used " + move->getItsName() + "!"));
+        itsBattleHUD->setText(attacker->getItsName() + " used " + move->getItsName() + "!");
 
     } else {
-        itsBattleHUD->setText(QString::fromStdString(attacker->getItsName() + " used " + move->getItsName() + " and missed !"));
+        itsBattleHUD->setText(attacker->getItsName() + " used " + move->getItsName() + " and missed !");
 
     }
     itsBattleHUD->setPokemon(itsOpponent1, itsOpponent2);

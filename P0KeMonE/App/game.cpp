@@ -239,6 +239,16 @@ void Game::endFight(bool playerWon)
     double playerLevel = player->getItsLevel();
     int winsRequired = (playerLevel == 1.0) ? 2 : (playerLevel == 2.0) ? 3 : 5;
 
+    if(playerLevel != player->getItsLevel())
+    {
+        for (int i = 0; i < player->getTeam().size(); i++)
+        {
+            player->getTeam()[i]->setItsLevel(player->getItsLevel());
+            //player->getTeam()[i]->upgradesStats();
+        }
+    }
+
+
     if (player->getWinCount() < winsRequired) { setScene(gui->map()); return; }
 
     player->setItsLevel(playerLevel + 1.0);
@@ -258,8 +268,6 @@ void Game::endFight(bool playerWon)
         statepokemonChanged = true;
 
         setScene(gui->selectPokemon(newPokemons, "Qu'elle pokemon tu veux ajouter ?"));
-
-
     }
 
     qDebug() << "Level player: " << player->getItsLevel();

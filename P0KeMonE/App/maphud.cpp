@@ -11,6 +11,8 @@ MapHUD::MapHUD(Model *model, QObject *parent)
     setObjectName("map");
     model->loadMap(":/map/mapPoke2.json");
     drawMap();
+
+    connect(player, &Player::signEncounter, this, &MapHUD::signMessage);
 }
 
 MapHUD::~MapHUD() {
@@ -80,8 +82,8 @@ void MapHUD::drawDecorativeElements(const std::vector<std::vector<int>>& map) {
                                                       {64, qMakePair(QString(":/map/map_assets/street_light_left.png"), 2)},
                                                       {65, qMakePair(QString(":/map/map_assets/street_light_right.png"), 2)},
                                                       {66, qMakePair(QString(":/map/map_assets/sign.png"), 1)},
-                                                      {67, qMakePair(QString(":/map/map_assets/stairs_left.png"), 1)},
-                                                      {68, qMakePair(QString(":/map/map_assets/stairs_right.png"), 1)},
+                                                      {67, qMakePair(QString(":/map/map_assets/stairs_left.png"), 2)},
+                                                      {68, qMakePair(QString(":/map/map_assets/stairs_right.png"), 2)},
                                                       {69, qMakePair(QString(":/map/map_assets/boat_left.png"), 1)},
                                                       {70, qMakePair(QString(":/map/map_assets/boat_right.png"), 1)},
                                                       {71, qMakePair(QString(":/map/map_assets/ball_close.png"), 2)},
@@ -208,3 +210,23 @@ void MapHUD::enteringOldMenZone(Player *player) {
     qDebug() << player->x() << player->y();
     emit player->startEncouterOldMen();
 }
+
+void MapHUD::signMessage(int x, int y) {
+    if(showSignMessage) {
+        showSignMessage = false;
+
+        QGraphicsTextItem *text = new QGraphicsTextItem();
+        text->setZValue(3);
+        text->setPos(x, y - 20);
+        text->setTextWidth(200);
+        text->setPlainText("8===D");
+        text->setDefaultTextColor(Qt::white);
+        addItem(text);
+
+        QTimer::singleShot(3000, this, [=](){
+            removeItem(text);
+            showSignMessage = true;
+        });
+    }
+}
+

@@ -1,4 +1,5 @@
 #include "player.h"
+#include "typeDef.h" // Inclusion de la déclaration de la map de masques
 
 Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
     setZValue(3);
@@ -21,6 +22,8 @@ std::vector<Pokemon*> Player::getTeam() const {
 }
 
 void Player::keyPressEvent(QKeyEvent *event) {
+    if (event->isAutoRepeat()) return;
+
     activeKeys.insert(event->key());
     if (!movementTimer->isActive()) {
         startMoving();
@@ -29,6 +32,8 @@ void Player::keyPressEvent(QKeyEvent *event) {
 }
 
 void Player::keyReleaseEvent(QKeyEvent *event) {
+    if (event->isAutoRepeat()) return;
+
     activeKeys.remove(event->key());
     if (activeKeys.isEmpty()) {
         stopMoving();
@@ -60,7 +65,6 @@ void Player::removePokemon(Pokemon *pokemon)
         itsTeam.erase(it);
     }
 
-    
 }
 
 
@@ -102,26 +106,60 @@ bool Player::checkCollision(QPointF newPos) {
             updateZValue = true;
             break;
         case 93: // Arbre
-            baseLayer = QRect(itemTopLeft.x() + 6, itemTopLeft.y() + 25, 58, 41);
+            baseLayer = QRect(itemTopLeft.x() + 6, itemTopLeft.y() + 25, 58, 43);
             updateZValue = true;
+            break;
+        case 67:
+        case 68:
+            return false;
             break;
         case 92: // Pont
         {
             QRect bridge(330, 21 * 32, 640, 65);
             QRect exitBridge(330 + 43, 21 * 32 + 60, 44, 70);
 
-            if ((footPlayerRect.intersects(bridge) && actualFootPlayerRect.intersects(bridge)) ||
-                (footPlayerRect.intersects(exitBridge) && actualFootPlayerRect.intersects(exitBridge))) {
+            if (footPlayerRect.intersects(bridge) && actualFootPlayerRect.intersects(bridge)) {
                 return false;
             }
+
+            if (footPlayerRect.intersects(exitBridge) && actualFootPlayerRect.intersects(exitBridge)) {
+                return false;
+            }
+
             break;
         }
         case 83:
+        {
+            QRect montain(970, 551, 188, 172 + 10);
+            QRect bridge_montain(934, 671, 28, 52 + 10);
+            QRect exitMontain(1034, 731, 50, 50);
 
-            //QRect montain()
-            return false;
+            qDebug() << footPlayerRect;
+            qDebug() << actualFootPlayerRect;
+
+            if (footPlayerRect.intersects(montain) && actualFootPlayerRect.intersects(montain)) {
+                return false;
+            }
+
+            if (footPlayerRect.intersects(bridge_montain) && actualFootPlayerRect.intersects(bridge_montain)) {
+                return false;
+            }
+
+            if (footPlayerRect.intersects(exitMontain) && actualFootPlayerRect.intersects(exitMontain)) {
+                return false;
+            }
 
             break;
+        }
+        case 96: //sign
+        {
+            baseLayer = QRect(itemTopLeft.x() + 5, itemTopLeft.y() + 21, 20, 16);
+            updateZValue = true;
+
+            emit signEncounter(itemRect.x(), itemRect.y());
+
+            break;
+        }
         default:
             break;
         }
@@ -234,4 +272,12 @@ void Player::setWinCount(int newWinCount) {
 
 void Player::setTeam(vector<Pokemon*> newTeam) {
     itsTeam = newTeam;
+}
+
+bool Player::getCompleteTeam() const {
+    return completeTeam;
+}
+
+void Player::setCompleteTeam(bool newCompleteTeam) {
+    completeTeam = newCompleteTeam;
 }

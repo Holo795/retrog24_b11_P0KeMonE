@@ -47,7 +47,7 @@ public:
      * @brief Retrieves the first team of Pokémon from the database.
      * @return A vector of pointers to the Pokémon in the first team.
      */
-    vector<Pokemon*> getFirstTeam() const;
+    vector<Pokemon*> getPokemonsChoice() const;
 
     /**
      * @brief Provides access to the game's data handling object.

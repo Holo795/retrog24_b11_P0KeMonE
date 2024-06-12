@@ -22,6 +22,8 @@ std::vector<Pokemon*> Player::getTeam() const {
 }
 
 void Player::keyPressEvent(QKeyEvent *event) {
+    if (event->isAutoRepeat()) return;
+
     activeKeys.insert(event->key());
     if (!movementTimer->isActive() && canMove) {
         startMoving();
@@ -30,6 +32,8 @@ void Player::keyPressEvent(QKeyEvent *event) {
 }
 
 void Player::keyReleaseEvent(QKeyEvent *event) {
+    if (event->isAutoRepeat()) return;
+
     activeKeys.remove(event->key());
     if (activeKeys.isEmpty()) {
         stopMoving();
@@ -62,7 +66,6 @@ void Player::removePokemon(Pokemon *pokemon)
         itsTeam.erase(it);
     }
 
-    
 }
 
 
@@ -146,6 +149,15 @@ bool Player::checkCollision(QPointF newPos) {
             if (footPlayerRect.intersects(exitMontain) && actualFootPlayerRect.intersects(exitMontain)) {
                 return false;
             }
+
+            break;
+        }
+        case 96: //sign
+        {
+            baseLayer = QRect(itemTopLeft.x() + 5, itemTopLeft.y() + 21, 20, 16);
+            updateZValue = true;
+
+            emit signEncounter(itemRect.x(), itemRect.y());
 
             break;
         }
@@ -266,4 +278,12 @@ void Player::setCanMove(bool newCanMove) {
 
 void Player::setTeam(vector<Pokemon*> newTeam) {
     itsTeam = newTeam;
+}
+
+bool Player::getCompleteTeam() const {
+    return completeTeam;
+}
+
+void Player::setCompleteTeam(bool newCompleteTeam) {
+    completeTeam = newCompleteTeam;
 }

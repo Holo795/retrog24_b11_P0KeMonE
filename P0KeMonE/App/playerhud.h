@@ -67,7 +67,7 @@ private:
      * @param xPos The x position of the character.
      * @param yPos The y position of the character.
      */
-    void addCharacter(const QPixmap &characterImage, int currentHealth, int maxHealth, int xPos, int yPos);
+    void addCharacter(const QPixmap &characterImage, int currentHealth, int maxHealth, int xPos, int yPos, Pokemon *pokemon);
 
     /**
      * @brief Updates the position of the selection arrow.

@@ -55,6 +55,7 @@ private:
     std::uniform_int_distribution<> encounterDist; ///< Distribution for random encounters.
     QGraphicsPixmapItem *bossItem; ///< Pointer to the boss item.
     QGraphicsPixmapItem *oldMenItem; ///< Pointer to the old men item.
+    bool showSignMessage = true; ///< Flag to show sign message.
 
     /**
      * @brief Draws the grass layer of the map.
@@ -83,6 +84,12 @@ private:
      * @brief Handles random encounters in specific map tiles.
      */
     void handleRandomEncounter();
+
+private slots:
+    /**
+     * @brief Show sign message
+     */
+    void signMessage(int x, int y);
 
 protected:
     /**

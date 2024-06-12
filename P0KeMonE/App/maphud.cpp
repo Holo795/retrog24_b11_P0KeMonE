@@ -11,6 +11,8 @@ MapHUD::MapHUD(Model *model, QObject *parent)
     setObjectName("map");
     model->loadMap(":/map/mapPoke2.json");
     drawMap();
+
+    connect(player, &Player::signEncounter, this, &MapHUD::signMessage);
 }
 
 MapHUD::~MapHUD() {
@@ -193,5 +195,24 @@ void MapHUD::enteringBoat(Player *player, const std::string &direction) {
 
 void MapHUD::enteringLauncher(Player *player) {
         emit player->startEncouterBoss();
+}
+
+void MapHUD::signMessage(int x, int y) {
+    if(showSignMessage) {
+        showSignMessage = false;
+
+        QGraphicsTextItem *text = new QGraphicsTextItem();
+        text->setZValue(3);
+        text->setPos(x, y - 20);
+        text->setTextWidth(200);
+        text->setPlainText("8===D");
+        text->setDefaultTextColor(Qt::white);
+        addItem(text);
+
+        QTimer::singleShot(3000, this, [=](){
+            removeItem(text);
+            showSignMessage = true;
+        });
+    }
 }
 

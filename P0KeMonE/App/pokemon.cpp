@@ -145,3 +145,15 @@ PKTYPE Pokemon::getItsType() const
 {
     return itsType;
 }
+
+
+int Pokemon::getItsLevel() const
+{
+    return itsLevel;
+}
+
+void Pokemon::setItsLevel(int newItsLevel)
+{
+    itsLevel = newItsLevel;
+}
+

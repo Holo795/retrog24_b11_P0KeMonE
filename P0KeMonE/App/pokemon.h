@@ -54,6 +54,8 @@ public:
     QList<Move*> getItsMoves() const;
     void setItsMoves(const QList<Move*> &newItsMoves);
     PKTYPE getItsType() const;
+    int getItsLevel() const;
+    void setItsLevel(int newItsLevel);
 };
 
 #endif // POKEMON_H

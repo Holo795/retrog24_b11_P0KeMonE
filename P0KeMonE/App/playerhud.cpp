@@ -5,6 +5,12 @@ PlayerHUD::PlayerHUD(QObject *parent)
 {
     setObjectName("PlayerHUD");
     setSceneRect(0, 0, 478, 318);
+
+    titleLabel = new QGraphicsTextItem("");
+    titleLabel->setDefaultTextColor(Qt::black);
+    titleLabel->setFont(QFont("Arial", 17, QFont::Bold));
+    addItem(titleLabel);
+    titleLabel->setPos(90, 10);
  }
 
 void PlayerHUD::setPokemons(const std::vector<Pokemon*>& pokemons, int itsLevelPlayer)
@@ -65,7 +71,10 @@ void PlayerHUD::updateHUD()
         removeItem(selectionArrow);
         delete selectionArrow;
         selectionArrow = nullptr;
-    } else {
+    }
+    if(!selectionMode)
+    {
+
         QGraphicsTextItem *levelText = new QGraphicsTextItem(QString("Level %1").arg(itsLevelPlayer));
         healthTextItems.append(levelText);
         levelText->setDefaultTextColor(Qt::black);
@@ -73,6 +82,11 @@ void PlayerHUD::updateHUD()
         addItem(levelText);
         levelText->setPos(10, 10);
     }
+}
+
+void PlayerHUD::setPokemonLabel(string newPokemonLabel)
+{
+    titleLabel->setPlainText(QString::fromStdString(newPokemonLabel));
 }
 
 void PlayerHUD::addCharacter(const QPixmap &characterImage, int currentHealth, int maxHealth, int xPos, int yPos, Pokemon* pokemon)
@@ -106,7 +120,6 @@ void PlayerHUD::addCharacter(const QPixmap &characterImage, int currentHealth, i
         healthTextItem->setPos(xPos + 10, yPos + characterItem->pixmap().height());
         proxyWidget->setPos(xPos + 5, yPos + characterItem->pixmap().height() + 20);
         characterItem->setPos(xPos, yPos);
-       // statText->setPos(xPos + 10, yPos + characterItem->pixmap().height() + 40);
     } else {
         characterItem->setPos(xPos, yPos + 50);
     }
@@ -140,6 +153,9 @@ void PlayerHUD::updateSelectionArrow()
     selectionArrow->setPos(xPos + 50, 35); // Adjust the position of the arrow
 }
 
+
+
+
 void PlayerHUD::keyPressEvent(QKeyEvent *event)
 {
     qDebug() << "Key pressed: " << event->key();
@@ -162,4 +178,15 @@ void PlayerHUD::keyPressEvent(QKeyEvent *event)
         }
     }
     QGraphicsScene::keyPressEvent(event);
+}
+
+Pokemon * PlayerHUD::getPokemonChanged() const
+{
+    return pokemonChanged;
+}
+
+
+void PlayerHUD::setPokemonChanged(Pokemon *newPokemonChanged)
+{
+    pokemonChanged = newPokemonChanged;
 }

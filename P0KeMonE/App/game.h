@@ -67,7 +67,8 @@ private:
     bool itsBossFight = false;
     bool itsFirstFight = false;
 
-    SoundManager *soundManager;
+    SoundManager *soundManager; ///< Pointer to the sound manager.
+    bool statepokemonChanged = false; ///< Flag to indicate if the Pokémon has changed.
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;

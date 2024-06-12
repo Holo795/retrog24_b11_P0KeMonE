@@ -249,6 +249,7 @@ void Game::showFight() {
 }
 
 void Game::showBossFight() {
+    setItsBossFight(true);
     QGraphicsPixmapItem* bossItem = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/boss_image.png"));
     bossItem->setPos(QPointF(200, 5)); // Set position separately after creation
     bossItem->setVisible(true);
@@ -288,7 +289,7 @@ void Game::onMoveButtonClicked(QAbstractButton *button) {
     QTimer::singleShot(1000, this, &Game::continuefight);
 }
 
-void Game::continuefight(bool isBossFight)
+void Game::continuefight()
 {
     showFightMenu();
 
@@ -311,7 +312,7 @@ void Game::continuefight(bool isBossFight)
     }
     else if(gui->battle()->getPokemon2()->getHealth() <= 0)
     {
-        if (isBossFight){
+        if (getItsBossFight()){
             if(itsBossTeam.size() != 0)
             {
                 changePokemon(itsBossTeam.front());
@@ -392,16 +393,32 @@ void Game::generateNewOpponent()
     gui->battle()->setPokemon(player->getTeam().front(), newOpponent);
 }
 
+
+void Game::setItsBossFight(bool isBossFight)
+{
+    itsBossFight = isBossFight;
+}
+
+bool Game::getItsBossFight()
+{
+    return itsBossFight;
+}
+
+
 void Game::switchPokemon(){
     setScene(gui->selectPokemon(player->getTeam()));
 }
 
 void Game::changePokemon(Pokemon* pokemon){
-    if(player->getCompleteTeam()) {
-        player->setCompleteTeam(false);
+    if(player->getTeam().empty())
+    {
         player->addPokemon(pokemon);
+        qDebug() << pokemon->getItsName();
         setScene(gui->map());
-    } else {
+        showSecondScenario();
+        player->setCanMove(true);
+    }
+     else {
         setScene(gui->battle(pokemon, gui->battle()->getPokemon2()));
     }
 }
@@ -421,4 +438,3 @@ void Game::setBossTeam(std::vector<Pokemon*> team) {
 std::vector<Pokemon*> Game::getBossTeam() const {
     return itsBossTeam;
 }
-

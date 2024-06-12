@@ -64,6 +64,7 @@ private:
     std::vector<Pokemon*> itsBossTeam; /**< Vector of Pokémon pointers representing the boss's team. */
     std::vector<Pokemon*> getBossTeam() const;
     bool firstFightDone = false;
+    bool itsBossFight = false;
 
     SoundManager *soundManager;
 
@@ -82,7 +83,7 @@ public slots:
     void showFight(); ///< Transitions the game to the battle scene.
     void showBossFight(); ///< Transitions the game to the boss battle scene.
     void showOldMenChoice(); ///< Displays the choice of the old men.
-    void continuefight(bool isBossFight = false); ///< Continues the ongoing fight.
+    void continuefight(); ///< Continues the ongoing fight.
     void endFight(bool playerWon); ///< End the ongoing fight.
     void run(); ///< When the run button is clicked
     void generateNewOpponent(); ///< To prepare the next fight
@@ -100,6 +101,8 @@ public:
     void showSecondScenario();
     void showThirdScenario();
     void showNextDialogue();
+    void setItsBossFight(bool isBossFight);
+    bool getItsBossFight();
 };
 
 #endif // GAME_H

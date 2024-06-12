@@ -341,8 +341,6 @@ void Game::endFight(bool playerWon)
                 }
                 else
                 {
-                    gui->team()->setPokemonLabel(new QGraphicsTextItem("Veuillez sélectionner un Pokémon à échanger"));
-
                     gui->team()->setPokemons(newPokemons, player->getItsLevel());
                     gui->team()->setSelectionMode(true);
                     setScene(gui->team());
@@ -355,7 +353,6 @@ void Game::endFight(bool playerWon)
                         QObject::disconnect(gui->team(), &PlayerHUD::pokemonSelected, this, nullptr);
 
                         // Afficher l'interface de sélection des Pokémon actuels de l'équipe
-                        gui->team()->setPokemonLabel(new QGraphicsTextItem("Veuillez sélectionner un Pokémon à retirer"));
                         gui->team()->setPokemons(player->getTeam(), player->getItsLevel());
                         gui->team()->setSelectionMode(true);
                         setScene(gui->team());

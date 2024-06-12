@@ -51,18 +51,6 @@ public:
      */
     void updateHUD();
 
-    /**
-     * @brief Gets the label of the currently selected Pokémon.
-     * @return A pointer to the QGraphicsTextItem representing the Pokémon label.
-     */
-    QGraphicsTextItem *getPokemonLabel() const;
-
-    /**
-     * @brief Sets the label of the currently selected Pokémon.
-     * @param newPokemonLabel A pointer to the new QGraphicsTextItem to be set as the Pokémon label.
-     */
-    void setPokemonLabel(QGraphicsTextItem *newPokemonLabel);
-
 protected:
     /**
      * @brief Handles key press events.

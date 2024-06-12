@@ -77,12 +77,6 @@ void PlayerHUD::updateHUD()
         levelText->setFont(QFont("Arial", 12, QFont::Bold));
         addItem(levelText);
         levelText->setPos(10, 10);
-
-        pokemonLabel = new QGraphicsTextItem();
-        pokemonLabel->setDefaultTextColor(Qt::black);
-        pokemonLabel->setFont(QFont("Arial", 17, QFont::Bold));
-        addItem(pokemonLabel);
-        pokemonLabel->setPos(100, 10);
     }
 }
 

@@ -52,16 +52,14 @@ public:
     void updateHUD();
 
     /**
-     * @brief Gets the label of the currently selected Pokémon.
-     * @return A pointer to the QGraphicsTextItem representing the Pokémon label.
-     */
-    QGraphicsTextItem *getPokemonLabel() const;
-
-    /**
      * @brief Sets the label of the currently selected Pokémon.
      * @param newPokemonLabel A pointer to the new QGraphicsTextItem to be set as the Pokémon label.
      */
-    void setPokemonLabel(QGraphicsTextItem *newPokemonLabel);
+    void setPokemonLabel(string newPokemonLabel);
+
+    Pokemon *getPokemonChanged() const;
+
+    void setPokemonChanged(Pokemon *newPokemonChanged);
 
 protected:
     /**
@@ -91,9 +89,12 @@ private:
     QList<QGraphicsTextItem*> healthTextItems; ///< The list of health text items.
     QList<QGraphicsProxyWidget*> healthBars; ///< The list of health bars.
     QGraphicsPixmapItem *selectionArrow; ///< The selection arrow.
+    QGraphicsTextItem *titleLabel; ///< The label for the currently selected Pokémon.
+    Pokemon* pokemonChanged = nullptr; ///< The player's Pokémon team.
     bool selectionMode; ///< Indicates whether selection mode is enabled.
     int selectedIndex; ///< The index of the selected Pokémon.
     int itsLevelPlayer; ///< The level of the player.
+
 
 signals:
     /**

@@ -22,7 +22,7 @@ GameOverHUD::GameOverHUD(QObject *parent) : QGraphicsScene(parent)
     QGraphicsTextItem *replayText = new QGraphicsTextItem("PRESS SPACE TO REPLAY !");
     replayText->setDefaultTextColor(Qt::white);
     replayText->setFont(QFont("Arial", 12, QFont::Bold));
-    replayText->setPos(180, 280);
+    replayText->setPos(140, 260);
     replayText->setZValue(3);
 
     addItem(replayText);

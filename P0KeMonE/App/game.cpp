@@ -251,7 +251,7 @@ void Game::run()
         soundManager->playSound("button");
     }
 
-    endFight(false);
+    endFight(true);
     //setScene(gui->map());
 }
 

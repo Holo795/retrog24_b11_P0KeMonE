@@ -195,7 +195,6 @@ void Player::move() {
             updateSprite("front");
         }
     }
-
 }
 
 void Player::updateSprite(const QString &direction) {

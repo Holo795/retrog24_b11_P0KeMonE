@@ -274,3 +274,11 @@ void Player::setWinCount(int newWinCount) {
 void Player::setTeam(vector<Pokemon*> newTeam) {
     itsTeam = newTeam;
 }
+
+bool Player::getCompleteTeam() const {
+    return completeTeam;
+}
+
+void Player::setCompleteTeam(bool newCompleteTeam) {
+    completeTeam = newCompleteTeam;
+}

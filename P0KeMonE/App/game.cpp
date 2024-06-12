@@ -250,8 +250,8 @@ void Game::endFight(bool playerWon)
 
     if (player->getTeam().size() < 3)
     {
-        player->addPokemon(model->getData()->randompokemon());
-        setScene(gui->map());
+        player->setCompleteTeam(true);
+        setScene(gui->selectPokemon(newPokemons));
     }
     else
     {
@@ -305,5 +305,11 @@ void Game::switchPokemon(){
 }
 
 void Game::changePokemon(Pokemon* pokemon){
-    setScene(gui->battle(pokemon, gui->battle()->getPokemon2()));
+    if(player->getCompleteTeam()) {
+        player->setCompleteTeam(false);
+        player->addPokemon(pokemon);
+        setScene(gui->map());
+    } else {
+        setScene(gui->battle(pokemon, gui->battle()->getPokemon2()));
+    }
 }

@@ -53,13 +53,3 @@ void Battle::attack(Move *move, Pokemon *target) {
     }
     itsBattleHUD->setPokemon(itsOpponent1, itsOpponent2);
 }
-
-
-/**
- * @brief Retrieves the battle HUD.
- * @return Pointer to the battle HUD.
- */
-BattleHUD *Battle::getBattleHUD()
-{
-    return itsBattleHUD;
-}

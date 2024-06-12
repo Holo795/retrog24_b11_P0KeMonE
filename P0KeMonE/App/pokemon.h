@@ -7,7 +7,6 @@
 #define POKEMON_H
 
 #include <QList>
-#include <random>
 #include "move.h"
 #include "typeDef.h"
 
@@ -54,8 +53,8 @@ public:
     QList<Move*> getItsMoves() const;
     void setItsMoves(const QList<Move*> &newItsMoves);
     PKTYPE getItsType() const;
-    int getItsLevel() const;
-    void setItsLevel(int newItsLevel);
+    void setLevel(int newItsLevel);
+    Move* getRandMove();
 };
 
 #endif // POKEMON_H

@@ -6,8 +6,6 @@
 #ifndef GUI_H
 #define GUI_H
 
-#include <QGraphicsScene>
-
 #include "model.h"
 #include "gameoverhud.h"
 #include "maphud.h"

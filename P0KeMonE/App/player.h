@@ -140,11 +140,6 @@ signals:
     void startEncouterBoss();
 
     /**
-     * @brief Signal emitted when the player encounters
-     */
-    void startEncouterOldMen();
-
-    /**
      * @brief Signal emitted when the player face on sign
      */
     void signEncounter(int x, int y);

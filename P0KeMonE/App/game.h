@@ -41,31 +41,27 @@ public:
      */
     ~Game();
 
-
-    /**
-     * @brief Sets the boss's team of Pokémon.
-     * @param team Vector of pointers to Pokémon representing the boss's team.
-     */
-    void setBossTeam(std::vector<Pokemon*> team);
-
 private:
     Model *model; ///< Pointer to the game model.
     GUI *gui; ///< Pointer to the graphical user interface.
     Player *player = nullptr; ///< Pointer to the player object.
     Battle *battle; ///< Pointer to the current battle context.
-    Pokemon *selectedNewPokemon; ///< Pointer to the selected new Pokémon.
     size_t currentDialogueIndex = 0; ///< Index of the current dialogue.
     std::vector<Pokemon*> itsBossTeam; /**< Vector of Pokémon pointers representing the boss's team. */
     bool itsBossFight = false;
     bool itsFirstFight = false;
+    bool itsInFight = false;
 
     SoundManager *soundManager; ///< Pointer to the sound manager.
     bool statepokemonChanged = false; ///< Flag to indicate if the Pokémon has changed.
 
-    void generateNewOpponent(); ///< To prepare the next fight
     void endFight(bool playerWon); ///< End the ongoing fight.
     void setScene(QGraphicsScene *scene); ///< Sets the current scene for the game view.
     void restartGame(); ///< Restarts the game.
+
+    void handleSpaceKeyPress(QString currentScene);
+    void handleEscIKeyPress(QString currentScene);
+    void handleMainMenuSpaceKeyPress();
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;

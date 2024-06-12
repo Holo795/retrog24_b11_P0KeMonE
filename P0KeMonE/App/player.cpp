@@ -135,9 +135,6 @@ bool Player::checkCollision(QPointF newPos) {
             QRect bridge_montain(934, 671, 28, 52 + 10);
             QRect exitMontain(1034, 731, 50, 50);
 
-            qDebug() << footPlayerRect;
-            qDebug() << actualFootPlayerRect;
-
             if (footPlayerRect.intersects(montain) && actualFootPlayerRect.intersects(montain)) {
                 return false;
             }

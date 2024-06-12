@@ -9,6 +9,15 @@
 #include <QGraphicsScene>
 #include <QPushButton>
 #include <QButtonGroup>
+#include <QGraphicsPixmapItem>
+#include <QGraphicsTextItem>
+#include <QGraphicsItemAnimation>
+#include <QTimeLine>
+#include <QButtonGroup>
+#include <QLabel>
+#include <QDebug>
+#include <QTimer>
+
 #include "pokemon.h"
 
 /**
@@ -109,6 +118,9 @@ public:
     void addPersonalItem (QGraphicsPixmapItem *item);
     QGraphicsPixmapItem* getOldMenPixmap();
     QGraphicsPixmapItem* getBossPixmap();
+
+    void enableBattleButtons(bool exitButton = false);
+    void disableBattleButtons(bool exitButton = false);
 
 
 

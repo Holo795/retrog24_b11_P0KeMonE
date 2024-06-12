@@ -1,5 +1,7 @@
 #include "pokemon.h"
 
+#include <random>
+
 
 Pokemon::Pokemon(int id_pk, string itsName, PKTYPE itsType, int itsHealth, int itsSpeed, int itsAtk, int itsSpAtk, int itsDef, int itsSpDef, int itsLevel)
     : id_pk(id_pk), itsName(itsName), itsType(itsType), itsHealth(itsHealth), itsMaxHealth(itsHealth), itsSpeed(itsSpeed), itsAtk(itsAtk),
@@ -146,14 +148,17 @@ PKTYPE Pokemon::getItsType() const
     return itsType;
 }
 
-
-int Pokemon::getItsLevel() const
-{
-    return itsLevel;
-}
-
-void Pokemon::setItsLevel(int newItsLevel)
+void Pokemon::setLevel(int newItsLevel)
 {
     itsLevel = newItsLevel;
+}
+
+Move* Pokemon::getRandMove()
+{
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, itsMoves.size() - 1);
+
+    return itsMoves[dis(gen)];
 }
 

@@ -1,17 +1,5 @@
 #include "battlehud.h"
 #include "hoverbutton.h"
-#include <QGraphicsPixmapItem>
-#include <QGraphicsTextItem>
-#include <QGraphicsItemAnimation>
-#include <QTimeLine>
-#include <QButtonGroup>
-#include <QLabel>
-#include <QDebug>
-#include <QTimer>
-
-#include <QFontDatabase>
-#include <QGraphicsTextItem>
-
 #include "pokemon.h"
 
 BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
@@ -59,20 +47,14 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     bossPixmap = createPixmapItem(":/hud/battlehud_assets/boss_image.png", QSize(100,114), QPoint(200, 5));
     bossPixmap->setVisible(false);
 
-    // Load custom font
-    int fontId = QFontDatabase::addApplicationFont(":/hud/battlehud_assets/Minecraft.ttf");
-    if (fontId == -1) {
-        qDebug() << "Failed to load Minecraft font.";
-    }
-    QString fontFamily = QFontDatabase::applicationFontFamilies(fontId).at(0);
-    QFont customFont(fontFamily, 15);
+    QFont minecraftFont("Minecraft", 15);
 
-    health1 = createTextItem(Qt::white, customFont, QPoint(80, 100));
-    health2 = createTextItem(Qt::white, customFont, QPoint(320, 30));
+    health1 = createTextItem(Qt::white, minecraftFont, QPoint(80, 100));
+    health2 = createTextItem(Qt::white, minecraftFont, QPoint(320, 30));
 
 
-    attackText = createTextItem(Qt::white, customFont, QPoint(10, 260));
-    menuText = createTextItem(Qt::white, customFont, QPoint(10, 255));
+    attackText = createTextItem(Qt::white, minecraftFont, QPoint(10, 260));
+    menuText = createTextItem(Qt::white, minecraftFont, QPoint(10, 255));
     menuText->setTextWidth(250);
 
     // Add Pokemon images and health displays to the scene
@@ -320,6 +302,18 @@ void BattleHUD::createMoveButton(Move* move, const QPoint &pos, int width, int h
 
     addWidget(moveButton);
     moveButtonsGroup->addButton(moveButton, id);
+}
+
+void BattleHUD::enableBattleButtons(bool exitButton) {
+    attackButton->setEnabled(true);
+    runButton->setEnabled(exitButton);
+    pokemonButton->setEnabled(true);
+}
+
+void BattleHUD::disableBattleButtons(bool exitButton) {
+    attackButton->setEnabled(false);
+    runButton->setEnabled(!exitButton);
+    pokemonButton->setEnabled(false);
 }
 
 

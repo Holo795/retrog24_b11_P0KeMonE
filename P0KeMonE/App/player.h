@@ -82,6 +82,8 @@ public:
     int getWinCount() const;
     void setWinCount(int newWinCount);
 
+    void setCanMove(bool newCanMove);
+
 private:
     float scale = 1.8; ///< Scale factor for the player's graphical representation.
     std::vector<Pokemon*> itsTeam; ///< The player's team of Pokémon.
@@ -89,6 +91,7 @@ private:
     QSet<int> activeKeys; ///< Set of currently pressed keys.
     float itsLevel = 1.0; ///< The player's movement speed.
     int winCount = 0; ///< The number of battles won by the player.
+    bool canMove = true; ///< Flag indicating whether the player can move.
 
     /**
      * @brief Checks for collisions at the new position.

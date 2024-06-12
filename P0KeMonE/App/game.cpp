@@ -84,6 +84,7 @@ void Game::keyPressEvent(QKeyEvent *event) {
         setScene(gui->map());
         if(player->getTeam().empty())
         {
+            player->setCanMove(false);
             showFirstScenario();
             qDebug() << "First scenario";
             // Définir l'équipe de boss
@@ -147,41 +148,41 @@ void Game::updateView() {
 
 void Game::showFirstScenario() {
 
-        oldMenItem = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/old_men.png"));
-        oldMenItem->setPos(1040, 560);
+    oldMenItem = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/old_men.png"));
+    oldMenItem->setPos(1040, 560);
 
-        ballsItem = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/ball_open.png"));
-        ballsItem->setPos(1050, 520);
+    ballsItem = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/ball_open.png"));
+    ballsItem->setPos(1050, 520);
 
-        // Création de l'élément graphique pixmap
-        boxItem = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/dialogue_box.png").scaled(280, 60));
-        boxItem->setPos(906, 670);
+    // Création de l'élément graphique pixmap
+    boxItem = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/dialogue_box.png").scaled(280, 60));
+    boxItem->setPos(906, 670);
 
-        // Définir Z-value pour mettre l'élément au premier plan
-        oldMenItem->setZValue(10);
-        ballsItem->setZValue(10);
-        boxItem->setZValue(10);
+    // Définir Z-value pour mettre l'élément au premier plan
+    oldMenItem->setZValue(10);
+    ballsItem->setZValue(10);
+    boxItem->setZValue(10);
 
-        // Ajouter l'élément graphique à la scène
-        gui->map()->addItem(oldMenItem);
-        gui->map()->addItem(ballsItem);
-        gui->map()->addItem(boxItem);
+    // Ajouter l'élément graphique à la scène
+    gui->map()->addItem(oldMenItem);
+    gui->map()->addItem(ballsItem);
+    gui->map()->addItem(boxItem);
 
-        // Création de l'élément texte
-        QString fontFamily;
-        int fontId = QFontDatabase::addApplicationFont(":/hud/battlehud_assets/Minecraft.ttf");
-        if (fontId == -1) {
-            fontFamily = "Arial";
-        } else {
-            fontFamily = QFontDatabase::applicationFontFamilies(fontId).at(0);
-        }
-        QFont customFont(fontFamily, 9);
-        textItem = new QGraphicsTextItem("", boxItem); // Ajouté en tant qu'enfant de l'élément graphique
-        textItem->setPos(QPointF(8, 4)); // Positionner le texte à l'intérieur de l'élément graphique
-        textItem->setDefaultTextColor(Qt::black); // Définir la couleur du texte
-        textItem->setFont(customFont); // Définir la police et la taille du texte
-        textItem->setTextWidth(256); // Définir la largeur du texte pour le retour à la ligne
-        qDebug() << "show first scenario done";
+    // Création de l'élément texte
+    QString fontFamily;
+    int fontId = QFontDatabase::addApplicationFont(":/hud/battlehud_assets/Minecraft.ttf");
+    if (fontId == -1) {
+        fontFamily = "Arial";
+    } else {
+        fontFamily = QFontDatabase::applicationFontFamilies(fontId).at(0);
+    }
+    QFont customFont(fontFamily, 9);
+    textItem = new QGraphicsTextItem("", boxItem); // Ajouté en tant qu'enfant de l'élément graphique
+    textItem->setPos(QPointF(8, 4)); // Positionner le texte à l'intérieur de l'élément graphique
+    textItem->setDefaultTextColor(Qt::black); // Définir la couleur du texte
+    textItem->setFont(customFont); // Définir la police et la taille du texte
+    textItem->setTextWidth(256); // Définir la largeur du texte pour le retour à la ligne
+    qDebug() << "show first scenario done";
 }
 
 void Game::showNextDialogue() {
@@ -189,7 +190,7 @@ void Game::showNextDialogue() {
         textItem->setPlainText(dialogues[currentDialogueIndex]);
         currentDialogueIndex++;
     }
-    if (currentDialogueIndex >= dialogues.size())
+    if (currentDialogueIndex == 12)
     {
         showOldMenSpeach();
     }
@@ -438,7 +439,7 @@ void Game::changePokemon(Pokemon* pokemon){
         setScene(gui->map());
         gui->map()->removeItem(textItem);
         gui->map()->removeItem(boxItem);
-
+        player->setCanMove(true);
     }
     else
     {

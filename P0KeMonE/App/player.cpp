@@ -23,7 +23,7 @@ std::vector<Pokemon*> Player::getTeam() const {
 
 void Player::keyPressEvent(QKeyEvent *event) {
     activeKeys.insert(event->key());
-    if (!movementTimer->isActive()) {
+    if (!movementTimer->isActive() && canMove) {
         startMoving();
     }
 
@@ -258,6 +258,10 @@ int Player::getWinCount() const {
 
 void Player::setWinCount(int newWinCount) {
     winCount = newWinCount;
+}
+
+void Player::setCanMove(bool newCanMove) {
+    canMove = newCanMove;
 }
 
 void Player::setTeam(vector<Pokemon*> newTeam) {

@@ -83,6 +83,13 @@ Pokemon* Data::randompokemon()
 
         // Fetch and set the moves for the Pokémon
         QList<Move*> moves = getMoves(id);
+
+        if (moves.isEmpty())
+        {
+            // If the Pokémon has no moves, fetch another random Pokémon
+            delete pokemon;
+            return randompokemon();
+        }
         pokemon->setItsMoves(moves);
         return pokemon;
     }
@@ -131,8 +138,8 @@ Pokemon* Data::pokemonById(int pokemonId)
         QList<Move*> moves = getMoves(id);
         if (moves.isEmpty())
         {
-            qDebug() << "Error: no moves found for Pokémon with ID:" << id;
-            return nullptr;
+            // If the Pokémon has no moves, fetch another random Pokémon
+            delete pokemon;
         }
 
         pokemon->setItsMoves(moves);

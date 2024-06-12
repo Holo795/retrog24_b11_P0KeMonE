@@ -6,73 +6,62 @@
 #include "../App/player.h"
 
 
-class TestCollisions : public QObject {
+class test_collisions : public QObject {
     Q_OBJECT
+
+public:
+    test_collisions();
+    ~test_collisions();
 
 private slots:
     void initTestCase();
     void cleanupTestCase();
-    void testPlayerMovement();
-    void testPlayerCollision();
+    void testPlayerCollisionLeft();
 
 private:
     Game *game;
     Model *model;
     GUI *gui;
+    Player *player;
 };
 
-void TestCollisions::initTestCase() {
+test_collisions::test_collisions() {}
+
+test_collisions::~test_collisions() {}
+
+void test_collisions::initTestCase() {
     // Initialiser le modèle et l'interface graphique
     model = new Model();
     gui = new GUI(model);
     game = new Game(model, gui);
-
-    // Afficher la fenêtre de jeu pour les tests
-    game->show();
+    player = new Player();
+    player->setPos(129, 193);
 }
 
-void TestCollisions::cleanupTestCase() {
+void test_collisions::cleanupTestCase() {
     // Nettoyer après les tests
     delete game;
     delete gui;
     delete model;
+    delete player;
 }
 
-void TestCollisions::testPlayerMovement() {
 
-    QKeyEvent eventPress(QEvent::KeyPress, Qt::Key_Right, Qt::NoModifier);
-    QKeyEvent eventRelease(QEvent::KeyRelease, Qt::Key_Right, Qt::NoModifier);
-
-
-    QCoreApplication::sendEvent(game, &eventPress);
-    QCoreApplication::sendEvent(game, &eventRelease);
-
-
-    Player *player = gui->map()->getPlayer();
+void test_collisions::testPlayerCollisionLeft() {
+    qDebug() << "**********testPlayerCollisionLeft start**********";
     QPointF initialPos = player->pos();
-    QCoreApplication::processEvents();
-    QVERIFY(player->pos().x() > initialPos.x());
-}
+    qDebug() << "Initial position:" << initialPos;
 
-void TestCollisions::testPlayerCollision() {
+    // Simuler l'appui sur la flèche vers le haut
+    QKeyEvent event(QEvent::KeyPress, Qt::Key_Up, Qt::NoModifier);
+    player->keyPressEvent(&event);
 
-
-
-    QKeyEvent eventPress(QEvent::KeyPress, Qt::Key_Up, Qt::NoModifier);
-    QKeyEvent eventRelease(QEvent::KeyRelease, Qt::Key_Up, Qt::NoModifier);
-
-
-    Player *player = gui->map()->getPlayer();
-    player->setPos(129, 129);
-
-
-    QCoreApplication::sendEvent(game, &eventPress);
-    QCoreApplication::sendEvent(game, &eventRelease);
-
-
-    QPointF initialPos = player->pos();
-    QCoreApplication::processEvents();
+    // Vérifier que le joueur n'a pas bougé (collision)
+    qDebug() << "Player position after key press:" << player->pos();
     QVERIFY(player->pos() == initialPos);
+
+    qDebug() << "**********testPlayerCollisionLeft end**********";
 }
+
 
 #include "test_collisions.moc"

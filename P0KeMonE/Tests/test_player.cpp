@@ -35,7 +35,7 @@ test_player::~test_player() {}
 
 void test_player::initTestCase() {
     player = new Player();
-    player->setPos(15, 15);
+    player->setPos(225, 353);
 }
 
 

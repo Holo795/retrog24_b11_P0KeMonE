@@ -10,6 +10,23 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
 
     setWindowTitle("P0KeMonE");
 
+    QString fontFamily;
+    int fontId = QFontDatabase::addApplicationFont(":/hud/battlehud_assets/Minecraft.ttf");
+    if (fontId == -1) {
+        fontFamily = "Arial";
+    } else {
+        fontFamily = QFontDatabase::applicationFontFamilies(fontId).at(0);
+    }
+    QFont customFont(fontFamily, 9);
+    oldMenItem = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/old_men.png"));
+    ballsItem = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/ball_open.png"));
+    boxItem = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/dialogue_box.png").scaled(280, 60));
+    textItem = new QGraphicsTextItem("", boxItem); // Ajouté en tant qu'enfant de l'élément graphique
+    textItem->setPos(QPointF(8, 4)); // Positionner le texte à l'intérieur de l'élément graphique
+    textItem->setDefaultTextColor(Qt::black); // Définir la couleur du texte
+    textItem->setFont(customFont); // Définir la police et la taille du texte
+    textItem->setTextWidth(256); // Définir la largeur du texte pour le retour à la ligne
+
     // Configure the initial scene and scaling
     currentDialogueIndex = 0;
     setScene(gui->mainMenu());
@@ -148,14 +165,11 @@ void Game::updateView() {
 
 void Game::showFirstScenario() {
 
-    oldMenItem = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/old_men.png"));
-    oldMenItem->setPos(1040, 560);
+    oldMenItem->setPos(1040, 580);
 
-    ballsItem = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/ball_open.png"));
-    ballsItem->setPos(1050, 520);
+    ballsItem->setPos(1016, 560);
 
     // Création de l'élément graphique pixmap
-    boxItem = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/dialogue_box.png").scaled(280, 60));
     boxItem->setPos(906, 670);
 
     // Définir Z-value pour mettre l'élément au premier plan
@@ -168,42 +182,67 @@ void Game::showFirstScenario() {
     gui->map()->addItem(ballsItem);
     gui->map()->addItem(boxItem);
 
-    // Création de l'élément texte
-    QString fontFamily;
-    int fontId = QFontDatabase::addApplicationFont(":/hud/battlehud_assets/Minecraft.ttf");
-    if (fontId == -1) {
-        fontFamily = "Arial";
-    } else {
-        fontFamily = QFontDatabase::applicationFontFamilies(fontId).at(0);
-    }
-    QFont customFont(fontFamily, 9);
-    textItem = new QGraphicsTextItem("", boxItem); // Ajouté en tant qu'enfant de l'élément graphique
-    textItem->setPos(QPointF(8, 4)); // Positionner le texte à l'intérieur de l'élément graphique
-    textItem->setDefaultTextColor(Qt::black); // Définir la couleur du texte
-    textItem->setFont(customFont); // Définir la police et la taille du texte
-    textItem->setTextWidth(256); // Définir la largeur du texte pour le retour à la ligne
+    if (currentDialogueIndex >= 12)
+    {
+    gui->map()->removeItem(oldMenItem);
+    gui->map()->removeItem(ballsItem);
+    gui->map()->removeItem(boxItem);
+
     qDebug() << "show first scenario done";
+    firstScenarioDone = true;
+    }
+}
+
+void Game::showSecondScenario() {
+
+    player->setPos(910, 820);
+    oldMenItem->setPos(910, 760);
+
+    // Création de l'élément graphique pixmap
+    boxItem->setPos(776, 860);
+
+    // Définir Z-value pour mettre l'élément au premier plan
+    oldMenItem->setZValue(10);
+    boxItem->setZValue(10);
+
+    // Ajouter l'élément graphique à la scène
+    gui->map()->addItem(oldMenItem);
+    gui->map()->addItem(boxItem);
+
+    if (firstFightDone)
+    {
+        qDebug() << "show first scenario done";
+        secondScenarioDone = true;
+        gui->map()->removeItem(boxItem);
+    }
 }
 
 void Game::showNextDialogue() {
-    if (currentDialogueIndex < dialogues.size()) {
+    if (currentDialogueIndex < 12 && !firstScenarioDone) {
         textItem->setPlainText(dialogues[currentDialogueIndex]);
         currentDialogueIndex++;
     }
     if (currentDialogueIndex == 12)
     {
-        showOldMenSpeach();
+        showOldMenChoice();
+        currentDialogueIndex++;
+    } else
+    if (currentDialogueIndex < dialogues.size() && !secondScenarioDone) {
+        textItem->setPlainText(dialogues[currentDialogueIndex]);
+        currentDialogueIndex++;
     }
 }
 
 
-void Game::showOldMenSpeach() {
+void Game::showOldMenChoice() {
     setScene(gui->selectPokemon(model->getFirstTeam()));
     qDebug() << "Old Man is speaking";
 }
 
 void Game::showFight() {
     // Switch the scene to the battle interface
+    firstFightDone = true;
+    qDebug() << firstFightDone;
     setScene(gui->battle(player->getTeam().front(), model->getData()->randompokemon()));
     QString menuTextText = QString::fromStdString("Let's go " +gui->battle()->getPokemon1()->getItsName() + " !");
     gui->battle()->getMenuText()->setPlainText(menuTextText);
@@ -249,7 +288,7 @@ void Game::onMoveButtonClicked(QAbstractButton *button) {
     QTimer::singleShot(1000, this, &Game::continuefight);
 }
 
-void Game::continuefight()
+void Game::continuefight(bool isBossFight)
 {
     showFightMenu();
 
@@ -272,6 +311,12 @@ void Game::continuefight()
     }
     else if(gui->battle()->getPokemon2()->getHealth() <= 0)
     {
+        if (isBossFight){
+            if(itsBossTeam.size() != 0)
+            {
+                changePokemon(itsBossTeam.front());
+            }
+        }
         endFight(true);
     }
     return;
@@ -280,7 +325,6 @@ void Game::continuefight()
 void Game::run()
 {
     endFight(true);
-    //setScene(gui->map());
 }
 
 void Game::endFight(bool playerWon)
@@ -437,8 +481,7 @@ void Game::changePokemon(Pokemon* pokemon){
         player->addPokemon(pokemon);
         qDebug() << pokemon->getItsName();
         setScene(gui->map());
-        gui->map()->removeItem(textItem);
-        gui->map()->removeItem(boxItem);
+        showSecondScenario();
         player->setCanMove(true);
     }
     else

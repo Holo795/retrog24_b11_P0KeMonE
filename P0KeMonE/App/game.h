@@ -47,6 +47,9 @@ public:
      */
     void setBossTeam(std::vector<Pokemon*> team);
 
+    bool firstScenarioDone = false;
+    bool secondScenarioDone = false;
+
 private:
     Model *model; ///< Pointer to the game model.
     GUI *gui; ///< Pointer to the graphical user interface.
@@ -60,6 +63,7 @@ private:
     QGraphicsPixmapItem *ballsItem; ///< Pointer to the box item for dialogues.
     std::vector<Pokemon*> itsBossTeam; /**< Vector of Pokémon pointers representing the boss's team. */
     std::vector<Pokemon*> getBossTeam() const;
+    bool firstFightDone = false;
 
     SoundManager *soundManager;
 
@@ -77,8 +81,8 @@ public slots:
     void updateView(); ///< Updates the view to ensure the player remains centered.
     void showFight(); ///< Transitions the game to the battle scene.
     void showBossFight(); ///< Transitions the game to the boss battle scene.
-    void showOldMenSpeach(); ///< Displays the speach of the old men.
-    void continuefight(); ///< Continues the ongoing fight.
+    void showOldMenChoice(); ///< Displays the choice of the old men.
+    void continuefight(bool isBossFight = false); ///< Continues the ongoing fight.
     void endFight(bool playerWon); ///< End the ongoing fight.
     void run(); ///< When the run button is clicked
     void generateNewOpponent(); ///< To prepare the next fight
@@ -93,6 +97,8 @@ public:
     void onNewPokemonSelected(Pokemon* newPokemon);
     void onOldPokemonSelected(Pokemon* oldPokemon);
     void showFirstScenario();
+    void showSecondScenario();
+    void showThirdScenario();
     void showNextDialogue();
 };
 

@@ -64,7 +64,9 @@ void PlayerHUD::updateHUD()
         removeItem(selectionArrow);
         delete selectionArrow;
         selectionArrow = nullptr;
-    } else {
+    }
+    if(!selectionMode)
+    {
 
         QGraphicsTextItem *levelText = new QGraphicsTextItem(QString("Level %1").arg(itsLevelPlayer));
         healthTextItems.append(levelText);

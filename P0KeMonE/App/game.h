@@ -65,6 +65,7 @@ private:
     std::vector<Pokemon*> getBossTeam() const;
     bool firstFightDone = false;
     bool itsBossFight = false;
+    bool itsFirstFight = false;
 
     SoundManager *soundManager;
 
@@ -91,6 +92,7 @@ public slots:
     void switchPokemon(); ///< Switch the current Pokémon
     void onMoveButtonClicked(QAbstractButton *moveButton);
     void showFightMenu();
+    void showFirstFight();
 
 
 public:
@@ -103,6 +105,8 @@ public:
     void showNextDialogue();
     void setItsBossFight(bool isBossFight);
     bool getItsBossFight();
+    void setItsFirstFight(bool isFirstFight);
+    bool getItsFirstFight();
 };
 
 #endif // GAME_H

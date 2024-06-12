@@ -108,6 +108,8 @@ public:
 
     void addPersonalItem (QGraphicsPixmapItem *item);
     QGraphicsTextItem* getMenuText() const;
+    QGraphicsPixmapItem* getOldMenPixmap();
+    QGraphicsPixmapItem* getBossPixmap();
 
 
 
@@ -126,6 +128,8 @@ private:
     QGraphicsPixmapItem *dialogueBox;    /**< Graphics item for battle dialogue. */
     QButtonGroup *moveButtonsGroup;      /**< Button group for move buttons. */
     QPushButton *backButton;             /**< Button used for going back. */
+    QGraphicsPixmapItem* oldMenPixmap;
+    QGraphicsPixmapItem* bossPixmap;
 
     // Helper methods
     QGraphicsPixmapItem* createPixmapItem(const QString &path, const QSize &size, const QPoint &pos);

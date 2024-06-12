@@ -117,7 +117,7 @@ void Pokemon::upgradeStats() {
         *stat += *stat / 50 + disInt(gen);
     }
 
-    itsHealth += 10;
+    itsHealth += itsHealth + 10 > itsMaxHealth ? itsMaxHealth - itsHealth : 10;
 }
 
 

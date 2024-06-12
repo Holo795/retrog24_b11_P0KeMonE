@@ -158,6 +158,7 @@ void PlayerHUD::keyPressEvent(QKeyEvent *event)
             // Emit a signal or call a method to process the selected Pokémon
             emit pokemonSelected(pokemons[selectedIndex]);
             selectedIndex=0;
+            updateSelectionArrow();
         }
     }
     QGraphicsScene::keyPressEvent(event);

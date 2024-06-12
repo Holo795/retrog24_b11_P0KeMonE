@@ -1,62 +1,54 @@
 #include "move.h"
 
-/**
- * @brief Constructor for a Move object.
- * @param itsName Name of the move.
- * @param itsPower Power of the move.
- * @param itsAccuracy Accuracy of the move.
- * @param itsNature Nature of the move (physical or special).
- * @param itsType Type of the move (PKTYPE).
- */
-Move::Move(const string &itsName, int itsPower, int itsAccuracy, MOVENATURE itsNature, PKTYPE itsType)
-    : itsName(itsName), itsPower(itsPower), itsAccuracy(itsAccuracy), itsNature(itsNature), itsType(itsType) {}
+
+Move::Move(string itsName, int itsPower, int itsAccuracy, MOVENATURE itsNature, PKTYPE itsType)
+{
+    this->itsName = itsName;
+    this->itsPower = itsPower;
+    this->itsAccuracy = itsAccuracy;
+    this->itsNature = itsNature;
+    this->itsType = itsType;
+}
 
 /**
- * @brief Retrieves the name of the move.
- * @return Name of the move.
+ * Returns the name of the move.
  */
-string Move::getItsName() const {
+string Move::getItsName() const
+{
     return itsName;
 }
 
 /**
- * @brief Retrieves the power of the move.
- * @return Power of the move.
+ * Returns the power of the move.
  */
-int Move::getItsPower() const {
+int Move::getItsPower() const
+{
     return itsPower;
 }
 
 /**
- * @brief Retrieves the accuracy of the move.
- * @return Accuracy of the move.
+ * Returns the accuracy of the move.
  */
-int Move::getItsAccuracy() const {
+int Move::getItsAccuracy() const
+{
     return itsAccuracy;
 }
 
 /**
- * @brief Retrieves the nature of the move.
- * @return Nature of the move.
+ * Returns the type of the move (e.g., physical or special).
  */
-MOVENATURE Move::getItsNature() const {
+MOVENATURE Move::getItsNature() const
+{
     return itsNature;
 }
 
-/**
- * @brief Retrieves the type of the move.
- * @return Type of the move.
- */
-PKTYPE Move::getItsType() const {
+PKTYPE Move::getItsType() const
+{
     return itsType;
 }
 
-/**
- * @brief Returns the string representation of the type of the move.
- * @param type The type of the move.
- * @return The string representation of the move type.
- */
-string Move::getItsTextType(int type) const {
+string Move::getItsTextType(int type) const
+{
     switch (type) {
     case Grass: return "Plante";
     case Poison: return "Poison";
@@ -80,16 +72,13 @@ string Move::getItsTextType(int type) const {
     }
 }
 
+
 /**
- * @brief Calculates the damage this move will do when used.
+ * Calculates the damage this move will do when used.
  * Implements the standard damage formula from games like Pokémon.
- * @param lvl Level of the attacking entity.
- * @param atk Attack stat of the attacking entity.
- * @param def Defense stat of the defending entity.
- * @param crit Whether the attack is a critical hit.
- * @return Calculated damage.
  */
-int Move::calculateDamage(int lvl, int atk, int def, bool crit) const {
+int Move::calculateDamage(int lvl, int atk, int def, bool crit) const
+{
     int level = lvl;
     int attackStat = atk;
     int defenseStat = def;

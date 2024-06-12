@@ -12,8 +12,6 @@
 #include <QKeyEvent>
 #include <vector>
 #include <QTimer>
-#include <QSet>
-#include <QPointF>
 #include "typeDef.h"
 #include "pokemon.h"
 #include "soundmanager.h"
@@ -46,11 +44,19 @@ public:
      */
     std::vector<Pokemon*> getTeam() const;
 
+    void setTeam(vector<Pokemon*>);
+
+
     /**
-     * @brief Sets the player's team of Pokémon.
-     * @param newTeam A vector of pointers to Pokémon.
+     * @brief Handles key press events for player movement.
+     * @param event The key event.
      */
-    void setTeam(const std::vector<Pokemon*> &newTeam);
+    void keyPressEvent(QKeyEvent *event);
+
+    /**
+     * @brief Stops the player's movement.
+     */
+    void stopMoving();
 
     /**
      * @brief Adds a Pokémon to the player's team.
@@ -65,33 +71,31 @@ public:
     void removePokemon(Pokemon *pokemon);
 
     /**
-     * @brief Retrieves the player's current level.
-     * @return The player's current level.
-     */
-    float getItsLevel() const;
-
-    /**
-     * @brief Sets the player's current level.
-     * @param newItsLevel The new level to set.
-     */
-    void setItsLevel(float newItsLevel);
-
-    /**
-     * @brief Retrieves the player's win count.
-     * @return The player's win count.
-     */
-    int getWinCount() const;
-
-    /**
-     * @brief Sets the player's win count.
-     * @param newWinCount The new win count to set.
-     */
-    void setWinCount(int newWinCount);
-
-    /**
-     * @brief Increments the player's win count.
+     * @brief Retrieves the player's scale factor.
+     * @return The scale factor for the player's graphical representation.
      */
     void incrementWinCount();
+
+    float getItsLevel() const;
+    void setItsLevel(float newItsLevel);
+
+    int getWinCount() const;
+    void setWinCount(int newWinCount);
+
+private:
+    float scale = 1.8; ///< Scale factor for the player's graphical representation.
+    std::vector<Pokemon*> itsTeam; ///< The player's team of Pokémon.
+    QTimer *movementTimer; ///< Timer for handling continuous movement.
+    QSet<int> activeKeys; ///< Set of currently pressed keys.
+    float itsLevel = 1.0; ///< The player's movement speed.
+    int winCount = 0; ///< The number of battles won by the player.
+
+    /**
+     * @brief Checks for collisions at the new position.
+     * @param newPos The new position to check for collisions.
+     * @return true if there is a collision, false otherwise.
+     */
+    bool checkCollision(QPointF newPos);
 
     /**
      * @brief Initiates movement in a specific direction.
@@ -99,35 +103,18 @@ public:
     void startMoving();
 
     /**
-     * @brief Stops the player's movement.
+     * @brief Updates the player's sprite based on the direction.
+     * @param direction The direction in which the player is moving.
      */
-    void stopMoving();
-
-    /**
-     * @brief Handles key press events for player movement.
-     * @param event The key event.
-     */
-    void handleKeyPress(QKeyEvent *event);
-
-    /**
-     * @brief Handles key release events to stop player movement.
-     * @param event The key event.
-     */
-    void handleKeyRelease(QKeyEvent *event);
+    void updateSprite(const QString &direction);
 
 
 protected:
     /**
-     * @brief Handles key press events for player movement.
-     * @param event The key event.
-     */
-    void keyPressEvent(QKeyEvent *event) override;
-
-    /**
      * @brief Handles key release events to stop player movement.
      * @param event The key event.
      */
-    void keyReleaseEvent(QKeyEvent *event) override;
+    void keyReleaseEvent(QKeyEvent *event);
 
 public slots:
     /**
@@ -150,33 +137,6 @@ signals:
      * @brief Signal emitted when the player encounters
      */
     void startEncouterOldMen();
-
-    /**
-     * @brief Signal emitted when the player face on sign
-     */
-    void signEncounter(int x, int y) const;
-
-
-private:
-    /**
-     * @brief Checks for collisions at the new position.
-     * @param newPos The new position to check for collisions.
-     * @return true if there is a collision, false otherwise.
-     */
-    bool checkCollision(QPointF newPos) const;
-
-    /**
-     * @brief Updates the player's sprite based on the direction.
-     * @param direction The direction in which the player is moving.
-     */
-    void updateSprite(const QString &direction);
-
-    float scale = 1.8; ///< Scale factor for the player's graphical representation.
-    std::vector<Pokemon*> itsTeam; ///< The player's team of Pokémon.
-    QTimer *movementTimer; ///< Timer for handling continuous movement.
-    QSet<int> activeKeys; ///< Set of currently pressed keys.
-    float itsLevel = 1.0; ///< The player's current level.
-    int winCount = 0; ///< The number of battles won by the player.
 };
 
 #endif // PLAYER_H

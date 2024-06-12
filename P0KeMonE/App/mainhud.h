@@ -22,7 +22,7 @@ public:
      * @brief Constructs a MainHUD object.
      * @param parent The parent QObject, default is nullptr.
      */
-    explicit MainHUD(QObject *parent = nullptr);
+    MainHUD(QObject *parent = nullptr);
 
     /**
      * @brief Displays the main menu elements on the scene.

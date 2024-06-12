@@ -7,6 +7,7 @@
 #define GUI_H
 
 #include <QGraphicsScene>
+
 #include "model.h"
 #include "gameoverhud.h"
 #include "maphud.h"
@@ -39,19 +40,19 @@ public:
      * @brief Accessor for the main menu HUD.
      * @return Pointer to the MainHUD object.
      */
-    MainHUD* mainMenu() const;
+    MainHUD * mainMenu();
 
     /**
      * @brief Accessor for the game over HUD.
      * @return Pointer to the GameOverHUD object.
      */
-    GameOverHUD* gameOver() const;
+    GameOverHUD * gameOver();
 
     /**
      * @brief Accessor for the map HUD.
      * @return Pointer to the MapHUD object.
      */
-    MapHUD* map() const;
+    MapHUD * map();
 
     /**
      * @brief Returns the battle HUD initialized with specific Pokémon.
@@ -59,34 +60,31 @@ public:
      * @param pk2 Pointer to the second Pokémon.
      * @return Pointer to the BattleHUD object.
      */
-    BattleHUD* battle(Pokemon *pk1, Pokemon *pk2) const;
+    BattleHUD *battle(Pokemon *pk1, Pokemon *pk2);
 
     /**
      * @brief Accessor for the default battle HUD.
      * @return Pointer to the BattleHUD object.
      */
-    BattleHUD* battle() const;
-
-    /**
-     * @brief Accessor for the player HUD.
-     * @param pokemons A vector of pointers to the player's Pokémon.
-     * @param itsLevel The level of the player.
-     * @return Pointer to the PlayerHUD object.
-     */
-    PlayerHUD* playerTeam(const std::vector<Pokemon*>& pokemons, int itsLevel) const;
+    BattleHUD *battle();
 
     /**
      * @brief Accessor for the player HUD.
      * @return Pointer to the PlayerHUD object.
      */
-    PlayerHUD* team() const;
+    PlayerHUD * playerTeam(vector<Pokemon *> pokemons, int itsLevel);
 
     /**
      * @brief Accessor for the player HUD.
-     * @param pokemons A vector of pointers to the player's Pokémon.
      * @return Pointer to the PlayerHUD object.
      */
-    PlayerHUD* selectPokemon(const std::vector<Pokemon*>& pokemons) const;
+    PlayerHUD * team();
+
+    /**
+     * @brief Accessor for the player HUD.
+     * @return Pointer to the PlayerHUD object.
+     */
+    PlayerHUD * selectPokemon(vector<Pokemon *> pokemons);
 
 private:
     Model *model; ///< Pointer to the game model.

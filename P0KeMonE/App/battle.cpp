@@ -1,10 +1,8 @@
 #include "battle.h"
 
 /**
- * @brief Constructs a Battle instance with provided player, opponent, and HUD.
- * @param opponent1 Pointer to the player Pokémon.
- * @param opponent2 Pointer to the opponent Pokémon.
- * @param battleHUD Pointer to the battle HUD.
+ * Constructor for the Battle class.
+ * Initializes a new battle instance with given player, opponent, and HUD.
  */
 Battle::Battle(Pokemon *opponent1, Pokemon *opponent2, BattleHUD *battleHUD)
     : itsOpponent1(opponent1), itsOpponent2(opponent2), itsBattleHUD(battleHUD),
@@ -14,7 +12,7 @@ Battle::Battle(Pokemon *opponent1, Pokemon *opponent2, BattleHUD *battleHUD)
 }
 
 /**
- * @brief Destructor for the Battle class.
+ * Destructor for the Battle class.
  */
 Battle::~Battle()
 {
@@ -24,10 +22,8 @@ Battle::~Battle()
 }
 
 /**
- * @brief Conducts an attack in a battle scenario using a specified move against a target Pokémon.
+ * Conducts an attack in a battle scenario using a specified move against a target Pokémon.
  * The function determines the damage based on move type and calculates whether the attack hits based on move accuracy.
- * @param move Pointer to the move being used in the attack.
- * @param target Pointer to the Pokémon being targeted.
  */
 void Battle::attack(Move *move, Pokemon *target) {
     std::uniform_int_distribution<> dis(1, 100);  // Distribution for attack calculations
@@ -44,16 +40,20 @@ void Battle::attack(Move *move, Pokemon *target) {
 
     int damage = move->calculateDamage(lvl, atk, def, crit);
 
+
     if (random <= successRate) {
         itsBattleHUD->frontDashPokemon(attacker);
         itsBattleHUD->shakePokemon(defender);
         defender->takeDamage(damage);
         itsBattleHUD->setText(QString::fromStdString(attacker->getItsName() + " used " + move->getItsName() + "!"));
+
     } else {
         itsBattleHUD->setText(QString::fromStdString(attacker->getItsName() + " used " + move->getItsName() + " and missed !"));
+
     }
     itsBattleHUD->setPokemon(itsOpponent1, itsOpponent2);
 }
+
 
 /**
  * @brief Retrieves the battle HUD.

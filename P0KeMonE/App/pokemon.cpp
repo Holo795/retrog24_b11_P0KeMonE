@@ -1,24 +1,22 @@
 #include "pokemon.h"
 
-Pokemon::Pokemon(int id_pk, const std::string &itsName, PKTYPE itsType, int itsHealth, int itsSpeed, int itsAtk, int itsSpAtk, int itsDef, int itsSpDef, int itsLevel)
+
+Pokemon::Pokemon(int id_pk, string itsName, PKTYPE itsType, int itsHealth, int itsSpeed, int itsAtk, int itsSpAtk, int itsDef, int itsSpDef, int itsLevel)
     : id_pk(id_pk), itsName(itsName), itsType(itsType), itsHealth(itsHealth), itsMaxHealth(itsHealth), itsSpeed(itsSpeed), itsAtk(itsAtk),
     itsSpAtk(itsSpAtk), itsDef(itsDef), itsSpDef(itsSpDef), itsLevel(itsLevel)
 {
 }
 
 /**
- * @brief Determines if the target Pokemon is "dead" or has no health left.
- * @param target Reference to the target Pokemon.
- * @return True if the target Pokemon has no health left, false otherwise.
+ * Determines if the target Pokemon is "dead" or has no health left.
  */
-bool Pokemon::isDead(const Pokemon &target) const
+bool Pokemon::isDead(Pokemon &target)
 {
     return target.itsHealth <= 0;
 }
 
 /**
- * @brief Applies damage to this Pokemon, reducing its health.
- * @param damage Amount of damage to apply.
+ * Applies damage to this Pokemon, reducing its health.
  */
 void Pokemon::takeDamage(int damage)
 {
@@ -29,17 +27,7 @@ void Pokemon::takeDamage(int damage)
 }
 
 /**
- * @brief Returns the identifier of this Pokemon.
- * @return Identifier of this Pokemon.
- */
-int Pokemon::getId() const
-{
-    return id_pk;
-}
-
-/**
- * @brief Returns the current level of this Pokemon.
- * @return Current level of this Pokemon.
+ * Returns the current level of this Pokemon.
  */
 int Pokemon::getLvl() const
 {
@@ -47,8 +35,7 @@ int Pokemon::getLvl() const
 }
 
 /**
- * @brief Returns the current health of this Pokemon.
- * @return Current health of this Pokemon.
+ * Returns the current health of this Pokemon.
  */
 int Pokemon::getHealth() const
 {
@@ -56,8 +43,7 @@ int Pokemon::getHealth() const
 }
 
 /**
- * @brief Returns the speed statistic of this Pokemon.
- * @return Speed statistic of this Pokemon.
+ * Returns the speed statistic of this Pokemon.
  */
 int Pokemon::getSpeed() const
 {
@@ -65,8 +51,7 @@ int Pokemon::getSpeed() const
 }
 
 /**
- * @brief Returns the attack statistic of this Pokemon.
- * @return Attack statistic of this Pokemon.
+ * Returns the attack statistic of this Pokemon.
  */
 int Pokemon::getAtk() const
 {
@@ -74,8 +59,7 @@ int Pokemon::getAtk() const
 }
 
 /**
- * @brief Returns the special attack statistic of this Pokemon.
- * @return Special attack statistic of this Pokemon.
+ * Returns the special attack statistic of this Pokemon.
  */
 int Pokemon::getSpAtk() const
 {
@@ -83,8 +67,7 @@ int Pokemon::getSpAtk() const
 }
 
 /**
- * @brief Returns the defense statistic of this Pokemon.
- * @return Defense statistic of this Pokemon.
+ * Returns the defense statistic of this Pokemon.
  */
 int Pokemon::getDef() const
 {
@@ -92,8 +75,7 @@ int Pokemon::getDef() const
 }
 
 /**
- * @brief Returns the special defense statistic of this Pokemon.
- * @return Special defense statistic of this Pokemon.
+ * Returns the special defense statistic of this Pokemon.
  */
 int Pokemon::getSpDef() const
 {
@@ -101,28 +83,30 @@ int Pokemon::getSpDef() const
 }
 
 /**
- * @brief Returns the name of this Pokemon.
- * @return Name of this Pokemon.
+ * Returns the identifier of this Pokemon.
  */
-std::string Pokemon::getItsName() const
+int Pokemon::getId() const
+{
+    return id_pk;
+}
+
+/**
+ * Returns the name of this Pokemon.
+ */
+string Pokemon::getItsName() const
 {
     return itsName;
 }
 
 /**
- * @brief Returns the maximum health of this Pokemon.
- * @return Maximum health of this Pokemon.
+ * Returns the maximum health of this Pokemon.
  */
 int Pokemon::getItsMaxHealth() const
 {
     return itsMaxHealth;
 }
 
-/**
- * @brief Upgrades the stats of this Pokemon.
- */
-void Pokemon::upgradeStats()
-{
+void Pokemon::upgradeStats() {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> disInt(193, 493);
@@ -136,9 +120,9 @@ void Pokemon::upgradeStats()
     itsHealth += 10;
 }
 
+
 /**
- * @brief Returns the list of moves this Pokemon can perform.
- * @return List of moves this Pokemon can perform.
+ * Returns the list of moves this Pokemon can perform.
  */
 QList<Move*> Pokemon::getItsMoves() const
 {
@@ -146,17 +130,16 @@ QList<Move*> Pokemon::getItsMoves() const
 }
 
 /**
- * @brief Sets the list of moves this Pokemon can perform.
- * @param newItsMoves New list of moves.
+ * Sets the list of moves this Pokemon can perform.
  */
 void Pokemon::setItsMoves(const QList<Move*> &newItsMoves)
 {
     itsMoves = newItsMoves;
 }
 
+
 /**
- * @brief Returns the type of this Pokemon.
- * @return Type of this Pokemon.
+ * Constructs a Pokemon with specified attributes.
  */
 PKTYPE Pokemon::getItsType() const
 {

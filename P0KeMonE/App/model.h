@@ -8,6 +8,7 @@
 
 #include <QTextStream>
 #include <QFile>
+
 #include "data.h"
 
 /**
@@ -38,7 +39,7 @@ public:
 
     /**
      * @brief Retrieves the game map.
-     * @return A constant reference to the map stored as a 2D vector of integers.
+     * @return A constant reference to the map stored as a 2D vector of characters.
      */
     const std::vector<std::vector<int>>& getMap() const;
 
@@ -46,7 +47,7 @@ public:
      * @brief Retrieves the first team of Pokémon from the database.
      * @return A vector of pointers to the Pokémon in the first team.
      */
-    std::vector<Pokemon*> getFirstTeam() const;
+    vector<Pokemon*> getFirstTeam() const;
 
     /**
      * @brief Provides access to the game's data handling object.
@@ -55,7 +56,7 @@ public:
     Data * getData();
 
 private:
-    std::vector<std::vector<int>> map; ///< The map of the game, stored as a 2D vector of integers.
+    std::vector<std::vector<int>> map; ///< The map of the game, stored as a 2D character vector.
     Data *data; ///< Pointer to the Data class instance for database operations.
 };
 

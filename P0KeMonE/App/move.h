@@ -7,8 +7,8 @@
 #define MOVE_H
 
 #include <string>
-#include "typeDef.h"
 
+#include "typeDef.h"
 using namespace std;
 
 /**
@@ -24,8 +24,8 @@ private:
     string itsName;       ///< Name of the move.
     int itsPower;         ///< Power value of the move, determines damage output.
     int itsAccuracy;      ///< Accuracy percentage of the move.
-    MOVENATURE itsNature; ///< Nature of the move (e.g., physical, special).
-    PKTYPE itsType;       ///< Type of the move (e.g., fire, grass).
+    MOVENATURE itsNature;   ///< Nature of the move (e.g., physical, special).
+    PKTYPE itsType;   ///< Type of the move (e.g., fire, grass).
 
 public:
     /**
@@ -36,7 +36,7 @@ public:
      * @param itsNature Nature of the move (physical or special).
      * @param itsType Type of the move (PKTYPE).
      */
-    Move(const string &itsName, int itsPower, int itsAccuracy, MOVENATURE itsNature, PKTYPE itsType);
+    Move(string itsName, int itsPower, int itsAccuracy, MOVENATURE itsNature, PKTYPE itsType);
 
     /**
      * @brief Retrieves the name of the move.
@@ -68,12 +68,13 @@ public:
      */
     PKTYPE getItsType() const;
 
+
     /**
-     * @brief Returns the string representation of the type of the move.
-     * @param type The type of the move.
-     * @return The string representation of the move type.
+     * @brief getItsTextType Returns the string representation of the type of the move.
+     * @param The type of the move.
      */
     string getItsTextType(int type) const;
+
 
     /**
      * @brief Calculates the damage inflicted by the move.

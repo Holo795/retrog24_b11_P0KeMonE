@@ -4,21 +4,21 @@
 using json = nlohmann::json;
 
 /**
- * @brief Constructor for the Model class.
- * Initializes the data handler.
+ * Initializes the Model object, setting up the data handler.
  */
-Model::Model() : data(new Data()) {}
+Model::Model() {
+    data = new Data(); // Initialize the data handler
+}
 
 /**
- * @brief Destructor for the Model class.
+ * Destructor for the Model object.
  */
 Model::~Model() {
     delete data; // Delete the data handler
 }
 
 /**
- * @brief Loads the game map from a JSON file and stores it in a 2D integer vector.
- * @param filename Path to the file containing the map data.
+ * Loads the game map from a JSON file and stores it in a 2D character vector.
  */
 void Model::loadMap(const QString& filename) {
     QFile file(filename);
@@ -36,7 +36,7 @@ void Model::loadMap(const QString& filename) {
     int height = j["height"];
     std::vector<int> data = j["layers"][0]["data"];
 
-    // Initialize the map for display
+    // Initialiser la carte pour l'affichage
     map.resize(height, std::vector<int>(width));
 
     for (int y = 0; y < height; ++y) {
@@ -47,24 +47,19 @@ void Model::loadMap(const QString& filename) {
 }
 
 /**
- * @brief Retrieves the game map.
- * @return A constant reference to the map stored as a 2D vector of integers.
+ * Provides a constant reference to the game map.
  */
 const std::vector<std::vector<int>>& Model::getMap() const {
     return map; // Return the map
 }
 
-/**
- * @brief Retrieves the first team of Pokémon from the database.
- * @return A vector of pointers to the Pokémon in the first team.
- */
 std::vector<Pokemon*> Model::getFirstTeam() const {
     return {data->randompokemon(), data->randompokemon(), data->randompokemon()}; // Return the first team of Pokémon
 }
 
+
 /**
- * @brief Provides access to the game's data handling object.
- * @return Pointer to the Data instance managing database interactions.
+ * Provides access to the game's data handling class.
  */
 Data * Model::getData() {
     return data; // Return the pointer to the Data instance

@@ -55,7 +55,7 @@ void PlayerHUD::updateHUD()
     for (size_t i = 0; i < pokemons.size(); i++) {
         Pokemon *pokemon = pokemons[i];
         QPixmap characterImage = QPixmap(":/sprites/pk_sprites/" + QString::number(pokemon->getId()) + "_front.png").scaled(150, 150);
-        addCharacter(characterImage, pokemon->getHealth(), pokemon->getItsMaxHealth(), xOffset + i * spacing, yOffset);
+        addCharacter(characterImage, pokemon->getHealth(), pokemon->getItsMaxHealth(), xOffset + i * spacing, yOffset, pokemon);
     }
 
     if (selectionMode) {
@@ -67,15 +67,15 @@ void PlayerHUD::updateHUD()
     } else {
 
         QGraphicsTextItem *levelText = new QGraphicsTextItem(QString("Level %1").arg(itsLevelPlayer));
+        healthTextItems.append(levelText);
         levelText->setDefaultTextColor(Qt::black);
         levelText->setFont(QFont("Arial", 12, QFont::Bold));
         addItem(levelText);
         levelText->setPos(10, 10);
-
     }
 }
 
-void PlayerHUD::addCharacter(const QPixmap &characterImage, int currentHealth, int maxHealth, int xPos, int yPos)
+void PlayerHUD::addCharacter(const QPixmap &characterImage, int currentHealth, int maxHealth, int xPos, int yPos, Pokemon* pokemon)
 {
     QGraphicsPixmapItem *characterItem = new QGraphicsPixmapItem(characterImage);
     characterItems.append(characterItem);
@@ -106,9 +106,26 @@ void PlayerHUD::addCharacter(const QPixmap &characterImage, int currentHealth, i
         healthTextItem->setPos(xPos + 10, yPos + characterItem->pixmap().height());
         proxyWidget->setPos(xPos + 5, yPos + characterItem->pixmap().height() + 20);
         characterItem->setPos(xPos, yPos);
+       // statText->setPos(xPos + 10, yPos + characterItem->pixmap().height() + 40);
     } else {
         characterItem->setPos(xPos, yPos + 50);
     }
+    QString statPokemon = QString("Speed: %1\nAttack: %2\nDefense: %3\nSpeAttack: %4\nSpeDefense: %5\n")
+                              .arg(pokemon->getSpeed())
+                              .arg(pokemon->getAtk())
+                              .arg(pokemon->getDef())
+                              .arg(pokemon->getSpAtk())
+                              .arg(pokemon->getSpDef());
+
+
+
+    QGraphicsTextItem *statText = new QGraphicsTextItem(QString(statPokemon));
+    statText->setDefaultTextColor(Qt::black);
+    statText->setFont(QFont("Arial", 12, QFont::Bold));
+    addItem(statText);
+    healthTextItems.append(statText);
+    statText->setPos(xPos + 10, yPos + characterItem->pixmap().height() + 40);
+
 
     addItem(characterItem);
 }

@@ -1,9 +1,6 @@
 #include "game.h"
-#include "QtWidgets/qmessagebox.h"
 #include "player.h"
 #include "maphud.h"
-#include <QFontDatabase>
-#include <QGraphicsTextItem>
 
 Game::Game(Model *model, GUI *gui, QWidget *parent)
     : QGraphicsView(parent), model(model), gui(gui) {
@@ -12,15 +9,6 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     setFixedSize(960, 640); // Set fixed size to maintain consistent UI
 
     QFontDatabase::addApplicationFont(":/hud/battlehud_assets/Minecraft.ttf");
-
-    oldMenItem = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/old_men.png"));
-    ballsItem = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/ball_open.png"));
-    boxItem = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/dialogue_box.png").scaled(280, 60));
-    textItem = new QGraphicsTextItem("", boxItem); // Ajouté en tant qu'enfant de l'élément graphique
-    textItem->setPos(QPointF(8, 4)); // Positionner le texte à l'intérieur de l'élément graphique
-    textItem->setDefaultTextColor(Qt::black); // Définir la couleur du texte
-    textItem->setFont(QFont("Minecraft", 9)); // Définir la police et la taille du texte
-    textItem->setTextWidth(256); // Définir la largeur du texte pour le retour à la ligne
 
     // Configure the initial scene and scaling
     setWindowIcon(QIcon(":/hud/battlehud_assets/logoP0KeMonE.png"));
@@ -95,11 +83,10 @@ void Game::keyPressEvent(QKeyEvent *event) {
         setScene(gui->map());
         if(player->getTeam().empty())
         {
-            player->setCanMove(false);
-            showFirstScenario();
+            gui->map()->showFirstScenario();
             qDebug() << "First scenario";
             // Définir l'équipe de boss
-            setBossTeam({model->getData()->pokemonById(1), model->getData()->pokemonById(7), model->getData()->pokemonById(4)});
+            itsBossTeam = {model->getData()->pokemonById(1), model->getData()->pokemonById(7), model->getData()->pokemonById(4)};
         }
     }
     if (event->key() == Qt::Key_Space && scene()->objectName() == gui->map()->objectName() && currentDialogueIndex < dialogues.size() + 1)
@@ -116,12 +103,7 @@ void Game::keyPressEvent(QKeyEvent *event) {
 
     if (event->key() == Qt::Key_Space && scene()->objectName() == gui->gameOver()->objectName())
     {
-        player->setItsLevel(1.0);
-        player->setWinCount(0);
-        std::vector<Pokemon*> emptyTeam;
-        player->setTeam(emptyTeam);
-        player->setPos(200, 950);
-        setScene(gui->mainMenu());
+        restartGame();
     }
     QGraphicsView::keyPressEvent(event);
 }
@@ -157,104 +139,59 @@ void Game::updateView() {
     }
 }
 
-void Game::showFirstScenario() {
+void Game::restartGame() {
+    QString program = QCoreApplication::applicationFilePath();
+    QStringList arguments = QCoreApplication::arguments();
 
-    oldMenItem->setPos(1040, 580);
-
-    ballsItem->setPos(1016, 560);
-
-    // Création de l'élément graphique pixmap
-    boxItem->setPos(906, 670);
-
-    // Définir Z-value pour mettre l'élément au premier plan
-    oldMenItem->setZValue(10);
-    ballsItem->setZValue(10);
-    boxItem->setZValue(10);
-
-    // Ajouter l'élément graphique à la scène
-    gui->map()->addItem(oldMenItem);
-    gui->map()->addItem(ballsItem);
-    gui->map()->addItem(boxItem);
-
-    if (currentDialogueIndex >= 12)
-    {
-    gui->map()->removeItem(oldMenItem);
-    gui->map()->removeItem(ballsItem);
-    gui->map()->removeItem(boxItem);
-
-    qDebug() << "show first scenario done";
-    firstScenarioDone = true;
-    }
-}
-
-void Game::showSecondScenario() {
-
-    player->setPos(910, 820);
-    oldMenItem->setPos(910, 760);
-
-    // Création de l'élément graphique pixmap
-    boxItem->setPos(776, 860);
-
-    // Définir Z-value pour mettre l'élément au premier plan
-    oldMenItem->setZValue(10);
-    boxItem->setZValue(10);
-
-    // Ajouter l'élément graphique à la scène
-    gui->map()->addItem(oldMenItem);
-    gui->map()->addItem(boxItem);
+    QProcess::startDetached(program, arguments);
+    QCoreApplication::quit();
 }
 
 void Game::showNextDialogue() {
+
+    if(!gui->battle()->getOldMenPixmap()->isVisible())
+        return;
+
     if (currentDialogueIndex == 11)
     {
-        textItem->setPlainText(dialogues[currentDialogueIndex]);
-        showOldMenChoice();
+        gui->map()->getDialogTextItem()->setPlainText(dialogues[currentDialogueIndex]);
+        setScene(gui->selectPokemon(model->getPokemonsChoice()));
+
     }
     if (currentDialogueIndex == 12)
     {
-        textItem->setPlainText(dialogues[currentDialogueIndex]);
+        gui->map()->getDialogTextItem()->setPlainText(dialogues[currentDialogueIndex]);
         showFirstFight();
         currentDialogueIndex++;
-    }else
-    if (currentDialogueIndex < dialogues.size()) {
-        textItem->setPlainText(dialogues[currentDialogueIndex]);
+    }else if (currentDialogueIndex < dialogues.size())
+    {
+        gui->map()->getDialogTextItem()->setPlainText(dialogues[currentDialogueIndex]);
         currentDialogueIndex++;
     }else
     {
-        player->setCanMove(true);
         gui->battle()->getOldMenPixmap()->setVisible(false);
+        gui->map()->endScenario();
 
-        gui->map()->removeItem(boxItem);
-        gui->map()->removeItem(oldMenItem);
-        gui->map()->removeItem(ballsItem);
-        player->setPos(1040, 630);
     }
 }
 
-
-void Game::showOldMenChoice() {
-    setScene(gui->selectPokemon(model->getFirstTeam()));
-}
-
 void Game::showFirstFight() {
-    setItsFirstFight(true);
+    itsFirstFight = true;
     qDebug() << "First fight";
     gui->battle()->getOldMenPixmap()->setVisible(true);
     Pokemon *firstOpponent = new Pokemon(4, "Old Men' Charmander", Fire, 18, 50, 30, 30, 30, 30, 1);
     firstOpponent->setItsMoves(model->getData()->getMoves(4));
     setScene(gui->battle(player->getTeam().front(),firstOpponent));
-    QString menuTextText = QString::fromStdString("Let's go " +gui->battle()->getPokemon1()->getItsName() + " !");
-    gui->battle()->getMenuText()->setPlainText(menuTextText);
+    gui->battle()->setText("Let's go " +gui->battle()->getPokemon1()->getItsName() + " !");
 }
 
 void Game::showBossFight() {
-    setItsBossFight(true);
+    itsBossFight = true;
     qDebug() << "Boss fight";
     gui->battle()->getBossPixmap()->setVisible(true);
 
-    setScene(gui->battle(player->getTeam().front(), getBossTeam().front()));
-    QString menuTextText = QString::fromStdString("Let's go " +gui->battle()->getPokemon1()->getItsName() + " !");
-    gui->battle()->getMenuText()->setPlainText(menuTextText);
+    setScene(gui->battle(player->getTeam().front(), itsBossTeam.front()));
+    gui->battle()->setText("Let's go " +gui->battle()->getPokemon1()->getItsName() + " !");
 
     gui->battle()->getRunButton()->setEnabled(false);
 }
@@ -262,8 +199,7 @@ void Game::showBossFight() {
 
 void Game::showFight() {
     setScene(gui->battle(player->getTeam().front(), model->getData()->randompokemon()));
-    QString menuTextText = QString::fromStdString("Let's go " +gui->battle()->getPokemon1()->getItsName() + " !");
-    gui->battle()->getMenuText()->setPlainText(menuTextText);
+    gui->battle()->setText("Let's go " +gui->battle()->getPokemon1()->getItsName() + " !");
 }
 
 
@@ -301,13 +237,13 @@ void Game::continuefight()
 
     if(gui->battle()->getPokemon2()->getHealth() <= 0)
     {
-        if (getItsBossFight()){
+        if (itsBossFight){
             itsBossTeam.erase(itsBossTeam.begin());
             gui->battle()->getAttackButton()->setEnabled(true);
             gui->battle()->getPokemonButton()->setEnabled(true);
             if(!itsBossTeam.empty())
             {
-                setScene(gui->battle(gui->battle()->getPokemon1(), getBossTeam().front()));
+                setScene(gui->battle(gui->battle()->getPokemon1(), itsBossTeam.front()));
             } else {
                 endFight(true);
                 return;
@@ -322,7 +258,7 @@ void Game::continuefight()
 
     QTimer::singleShot(2000, this, [&](){
         gui->battle()->getAttackButton()->setEnabled(true);
-        if(!getItsBossFight()) gui->battle()->getRunButton()->setEnabled(true);
+        if(!itsBossFight) gui->battle()->getRunButton()->setEnabled(true);
         gui->battle()->getPokemonButton()->setEnabled(true);
 
         if(gui->battle()->getPokemon1()->getHealth() <= 0)
@@ -331,11 +267,11 @@ void Game::continuefight()
             if(!player->getTeam().empty())
             {
                 changePokemon(player->getTeam().front());
+            } else {
+                endFight(false);
             }
         }
     });
-
-    return;
 }
 
 void Game::run()
@@ -354,12 +290,9 @@ void Game::endFight(bool playerWon)
         setScene(gui->gameOver());
         return; }
 
-    if(getItsBossFight() && playerWon) {
+    if(itsBossFight && playerWon) {
         qDebug() << "Boss defeated!";
         setScene(gui->mainMenu()); return;
-    }
-    if(getItsFirstFight() && playerWon) {
-        qDebug() << "First fight done!";
     }
 
     generateNewOpponent();
@@ -368,36 +301,28 @@ void Game::endFight(bool playerWon)
     double playerLevel = player->getItsLevel();
     int winsRequired = (playerLevel == 1.0) ? 2 : (playerLevel == 2.0) ? 3 : 5;
 
-    if(playerLevel != player->getItsLevel())
-    {
-        for (int i = 0; i < player->getTeam().size(); i++)
-        {
-            player->getTeam()[i]->setItsLevel(player->getItsLevel());
-            //player->getTeam()[i]->upgradesStats();
-        }
-    }
-
-
     if (player->getWinCount() < winsRequired) { setScene(gui->map()); return; }
+
+    for(Pokemon *pokemon : player->getTeam()) {
+        pokemon->upgradeStats();
+    }
 
     player->setItsLevel(playerLevel + 1.0);
     player->setWinCount(0);
 
-    std::vector<Pokemon*> newPokemons(3);
-    std::generate(newPokemons.begin(), newPokemons.end(), [&]() { return model->getData()->randompokemon(); });
-
+    std::vector<Pokemon*> newPokemons = model->getPokemonsChoice();
 
     if (player->getTeam().size() < 3)
     {
         player->setCompleteTeam(true);
-        setScene(gui->selectPokemon(newPokemons, "Qu'elle pokemon tu veux ajouter ?"));
     }
     else
     {
         statepokemonChanged = true;
-
-        setScene(gui->selectPokemon(newPokemons, "Qu'elle pokemon tu veux ajouter ?"));
     }
+
+    setScene(gui->selectPokemon(newPokemons, "Qu'elle pokemon tu veux ajouter ?"));
+
 
     qDebug() << "Level player: " << player->getItsLevel();
     qDebug() << "Wins player: " << player->getWinCount();
@@ -406,30 +331,15 @@ void Game::endFight(bool playerWon)
 void Game::generateNewOpponent()
 {
     Pokemon* newOpponent = model->getData()->randompokemon();
+
+    if(player->getItsLevel() > 3.0) {
+        for(int i = 0; i < player->getItsLevel() - 2; i++) {
+            newOpponent->upgradeStats();
+        }
+    }
+
     gui->battle()->setPokemon(player->getTeam().front(), newOpponent);
 }
-
-
-void Game::setItsBossFight(bool isBossFight)
-{
-    itsBossFight = isBossFight;
-}
-
-bool Game::getItsBossFight()
-{
-    return itsBossFight;
-}
-
-void Game::setItsFirstFight(bool isFirstFight)
-{
-    itsFirstFight = isFirstFight;
-}
-
-bool Game::getItsFirstFight()
-{
-    return itsFirstFight;
-}
-
 
 void Game::switchPokemon(){
     setScene(gui->selectPokemon(player->getTeam()));
@@ -458,33 +368,17 @@ void Game::changePokemon(Pokemon* pokemon){
             player->addPokemon(pokemon);
             qDebug() << pokemon->getItsName();
             setScene(gui->map());
-            showSecondScenario();
+            gui->map()->showSecondScenario();
         }else
-        if(player->getCompleteTeam()) {
-            player->setCompleteTeam(false);
-            player->addPokemon(pokemon);
-            setScene(gui->map());
-        }
-        else
-        {
-            setScene(gui->battle(pokemon, gui->battle()->getPokemon2()));
-        }
+            if(player->getCompleteTeam()) {
+                player->setCompleteTeam(false);
+                player->addPokemon(pokemon);
+                setScene(gui->map());
+            }
+            else
+            {
+                setScene(gui->battle(pokemon, gui->battle()->getPokemon2()));
+            }
     }
 
-}
-
-/**
- * @brief Sets the boss's team of Pokémon.
- * @param team Vector of pointers to Pokémon representing the boss's team.
- */
-void Game::setBossTeam(std::vector<Pokemon*> team) {
-    itsBossTeam = team;
-}
-
-/**
- * @brief Retrieves the boss's team of Pokémon.
- * @return A constant reference to a vector of pointers to Pokémon.
- */
-std::vector<Pokemon*> Game::getBossTeam() const {
-    return itsBossTeam;
 }

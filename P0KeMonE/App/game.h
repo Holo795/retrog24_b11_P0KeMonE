@@ -7,8 +7,9 @@
 #define GAME_H
 
 #include <QWidget>
-#include <QGraphicsPixmapItem>
+#include <QFontDatabase>
 #include <QGraphicsView>
+#include <QProcess>
 #include <QKeyEvent>
 
 #include "battle.h"
@@ -47,9 +48,6 @@ public:
      */
     void setBossTeam(std::vector<Pokemon*> team);
 
-    bool firstScenarioDone = false;
-    bool secondScenarioDone = false;
-
 private:
     Model *model; ///< Pointer to the game model.
     GUI *gui; ///< Pointer to the graphical user interface.
@@ -57,18 +55,17 @@ private:
     Battle *battle; ///< Pointer to the current battle context.
     Pokemon *selectedNewPokemon; ///< Pointer to the selected new Pokémon.
     size_t currentDialogueIndex = 0; ///< Index of the current dialogue.
-    QGraphicsTextItem *textItem; ///< Pointer to the text item for dialogues.
-    QGraphicsPixmapItem *boxItem; ///< Pointer to the box item for dialogues.
-    QGraphicsPixmapItem *oldMenItem; ///< Pointer to the box item for dialogues.
-    QGraphicsPixmapItem *ballsItem; ///< Pointer to the box item for dialogues.
     std::vector<Pokemon*> itsBossTeam; /**< Vector of Pokémon pointers representing the boss's team. */
-    std::vector<Pokemon*> getBossTeam() const;
-    bool firstFightDone = false;
     bool itsBossFight = false;
     bool itsFirstFight = false;
 
     SoundManager *soundManager; ///< Pointer to the sound manager.
     bool statepokemonChanged = false; ///< Flag to indicate if the Pokémon has changed.
+
+    void generateNewOpponent(); ///< To prepare the next fight
+    void endFight(bool playerWon); ///< End the ongoing fight.
+    void setScene(QGraphicsScene *scene); ///< Sets the current scene for the game view.
+    void restartGame(); ///< Restarts the game.
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
@@ -78,17 +75,12 @@ protected:
     void focusInEvent(QFocusEvent *event) override;
 
 public slots:
-
-    void setScene(QGraphicsScene *scene); ///< Sets the current scene for the game view.
     void changePokemon(Pokemon *pokemon); ///< Changes the player's active Pokémon.
     void updateView(); ///< Updates the view to ensure the player remains centered.
     void showFight(); ///< Transitions the game to the battle scene.
     void showBossFight(); ///< Transitions the game to the boss battle scene.
-    void showOldMenChoice(); ///< Displays the choice of the old men.
     void continuefight(); ///< Continues the ongoing fight.
-    void endFight(bool playerWon); ///< End the ongoing fight.
     void run(); ///< When the run button is clicked
-    void generateNewOpponent(); ///< To prepare the next fight
     void showMoves(); ///< Show the moves for the current Pokémon
     void switchPokemon(); ///< Switch the current Pokémon
     void onMoveButtonClicked(QAbstractButton *moveButton);
@@ -97,17 +89,7 @@ public slots:
 
 
 public:
-    void offerPokemonSwitch();
-    void onNewPokemonSelected(Pokemon* newPokemon);
-    void onOldPokemonSelected(Pokemon* oldPokemon);
-    void showFirstScenario();
-    void showSecondScenario();
-    void showThirdScenario();
     void showNextDialogue();
-    void setItsBossFight(bool isBossFight);
-    bool getItsBossFight();
-    void setItsFirstFight(bool isFirstFight);
-    bool getItsFirstFight();
 };
 
 #endif // GAME_H

@@ -13,6 +13,15 @@ MapHUD::MapHUD(Model *model, QObject *parent)
     drawMap();
 
     connect(player, &Player::signEncounter, this, &MapHUD::signMessage);
+
+    oldMenItem = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/old_men.png"));
+    ballsItem = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/ball_open.png"));
+    boxItem = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/dialogue_box.png").scaled(280, 60));
+    textItem = new QGraphicsTextItem("", boxItem); // Ajouté en tant qu'enfant de l'élément graphique
+    textItem->setPos(QPointF(8, 4)); // Positionner le texte à l'intérieur de l'élément graphique
+    textItem->setDefaultTextColor(Qt::black); // Définir la couleur du texte
+    textItem->setFont(QFont("Minecraft", 9)); // Définir la police et la taille du texte
+    textItem->setTextWidth(256); // Définir la largeur du texte pour le retour à la ligne
 }
 
 MapHUD::~MapHUD() {
@@ -216,3 +225,48 @@ void MapHUD::signMessage(int x, int y) {
     }
 }
 
+void MapHUD::showFirstScenario() {
+    player->setCanMove(false);
+
+    oldMenItem->setPos(1040, 580);
+
+    ballsItem->setPos(1016, 560);
+
+    // Création de l'élément graphique pixmap
+    boxItem->setPos(906, 670);
+
+    // Définir Z-value pour mettre l'élément au premier plan
+    oldMenItem->setZValue(10);
+    ballsItem->setZValue(10);
+    boxItem->setZValue(10);
+
+    // Ajouter l'élément graphique à la scène
+    addItem(oldMenItem);
+    addItem(ballsItem);
+    addItem(boxItem);
+}
+
+void MapHUD::showSecondScenario() {
+    player->setPos(910, 820);
+    oldMenItem->setPos(910, 760);
+
+    // Création de l'élément graphique pixmap
+    boxItem->setPos(776, 860);
+
+    // Définir Z-value pour mettre l'élément au premier plan
+    oldMenItem->setZValue(10);
+    boxItem->setZValue(10);
+}
+
+void MapHUD::endScenario() {
+    removeItem(boxItem);
+    removeItem(oldMenItem);
+    removeItem(ballsItem);
+    player->setPos(1040, 630);
+    player->setCanMove(true);
+}
+
+
+QGraphicsTextItem* MapHUD::getDialogTextItem() {
+    return textItem;
+}

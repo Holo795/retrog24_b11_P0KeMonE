@@ -48,6 +48,12 @@ public:
      */
     Player *getPlayer();
 
+    void showFirstScenario();
+    void showSecondScenario();
+    void endScenario();
+
+    QGraphicsTextItem *getDialogTextItem();
+
 private:
     Model *model; ///< Pointer to the model.
     Player *player; ///< Pointer to the player.
@@ -55,6 +61,9 @@ private:
     std::uniform_int_distribution<> encounterDist; ///< Distribution for random encounters.
     QGraphicsPixmapItem *bossItem; ///< Pointer to the boss item.
     QGraphicsPixmapItem *oldMenItem; ///< Pointer to the old men item.
+    QGraphicsTextItem *textItem; ///< Pointer to the text item for dialogues.
+    QGraphicsPixmapItem *boxItem; ///< Pointer to the box item for dialogues.
+    QGraphicsPixmapItem *ballsItem; ///< Pointer to the box item for dialogues.
     bool showSignMessage = true; ///< Flag to show sign message.
 
     /**

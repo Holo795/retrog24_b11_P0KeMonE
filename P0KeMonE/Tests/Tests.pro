@@ -24,6 +24,7 @@ SOURCES +=  \
     main.cpp \
     test_collisions.cpp \
     test_database.cpp \
+    test_player.cpp \
     test_pokemon.cpp
 
 RESOURCES += \

@@ -114,7 +114,7 @@ void Pokemon::upgradeStats() {
     std::array<int*, 6> stats = { &itsMaxHealth, &itsSpeed, &itsAtk, &itsSpAtk, &itsDef, &itsSpDef };
 
     for (int* stat : stats) {
-        *stat += *stat / 50 + disInt(gen);
+        *stat += *stat / 50 + disInt(gen) / 100;
     }
 
     itsHealth += itsHealth + 10 > itsMaxHealth ? itsMaxHealth - itsHealth : 10;

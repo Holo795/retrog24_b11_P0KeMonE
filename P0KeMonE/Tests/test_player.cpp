@@ -1,7 +1,4 @@
-#include <QCoreApplication>
 #include <QtTest>
-#include <QSqlDatabase>
-#include <QSqlQuery>
 #include "../App/player.h"
 #include "../App/pokemon.h"
 

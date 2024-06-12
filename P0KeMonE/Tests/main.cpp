@@ -2,7 +2,6 @@
 #include <QtTest>
 #include "test_database.cpp"
 #include "test_pokemon.cpp"
-#include "test_collisions.cpp"
 #include "test_player.cpp"
 
 int main(int argc, char *argv[])
@@ -23,13 +22,8 @@ int main(int argc, char *argv[])
     }
 
     {
-        test_pokemon tc3;
+        test_player tc3;
         status |= QTest::qExec(&tc3, argc, argv);
-    }
-
-    {
-        test_player tc4;
-        status |= QTest::qExec(&tc4, argc, argv);
     }
 
 

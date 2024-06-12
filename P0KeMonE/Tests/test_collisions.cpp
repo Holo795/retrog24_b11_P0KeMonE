@@ -75,5 +75,4 @@ void TestCollisions::testPlayerCollision() {
     QVERIFY(player->pos() == initialPos);
 }
 
-QTEST_MAIN(TestCollisions)
 #include "test_collisions.moc"

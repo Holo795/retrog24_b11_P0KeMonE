@@ -22,3 +22,26 @@ std::map<int, QString> dialogues = {
     {17, "Good luck, young trainer!"}
 };
 QMap<int, QBitmap> masks;
+
+
+// Initialisation de la table d'efficacité des types
+std::map<PKTYPE, std::map<PKTYPE, float>> typeEffectiveness = {
+    { Normal,   {{ Rock, 0.5f }, { Ghost, 0.0f }, { Steel, 0.5f }} },
+    { Fire,     {{ Fire, 0.5f }, { Water, 0.5f }, { Grass, 2.0f }, { Ice, 2.0f }, { Bug, 2.0f }, { Rock, 0.5f }, { Dragon, 0.5f }, { Steel, 2.0f }} },
+    { Water,    {{ Fire, 2.0f }, { Water, 0.5f }, { Grass, 0.5f }, { Ground, 2.0f }, { Rock, 2.0f }, { Dragon, 0.5f }} },
+    { Electric, {{ Water, 2.0f }, { Electric, 0.5f }, { Grass, 0.5f }, { Ground, 0.0f }, { Flying, 2.0f }, { Dragon, 0.5f }} },
+    { Grass,    {{ Fire, 0.5f }, { Water, 2.0f }, { Grass, 0.5f }, { Poison, 0.5f }, { Ground, 2.0f }, { Flying, 0.5f }, { Bug, 0.5f }, { Rock, 2.0f }, { Dragon, 0.5f }, { Steel, 0.5f }} },
+    { Ice,      {{ Fire, 0.5f }, { Water, 0.5f }, { Grass, 2.0f }, { Ice, 0.5f }, { Ground, 2.0f }, { Flying, 2.0f }, { Dragon, 2.0f }, { Steel, 0.5f }} },
+    { Fighting, {{ Normal, 2.0f }, { Ice, 2.0f }, { Poison, 0.5f }, { Flying, 0.5f }, { Psychic, 0.5f }, { Bug, 0.5f }, { Rock, 2.0f }, { Ghost, 0.0f }, { Dark, 2.0f }, { Steel, 2.0f }, { Fairy, 0.5f }} },
+    { Poison,   {{ Grass, 2.0f }, { Poison, 0.5f }, { Ground, 0.5f }, { Rock, 0.5f }, { Ghost, 0.5f }, { Steel, 0.0f }, { Fairy, 2.0f }} },
+    { Ground,   {{ Fire, 2.0f }, { Electric, 2.0f }, { Grass, 0.5f }, { Poison, 2.0f }, { Flying, 0.0f }, { Bug, 0.5f }, { Rock, 2.0f }, { Steel, 2.0f }} },
+    { Flying,   {{ Electric, 0.5f }, { Grass, 2.0f }, { Fighting, 2.0f }, { Bug, 2.0f }, { Rock, 0.5f }, { Steel, 0.5f }} },
+    { Psychic,  {{ Fighting, 2.0f }, { Poison, 2.0f }, { Psychic, 0.5f }, { Dark, 0.0f }, { Steel, 0.5f }} },
+    { Bug,      {{ Fire, 0.5f }, { Grass, 2.0f }, { Fighting, 0.5f }, { Poison, 0.5f }, { Flying, 0.5f }, { Psychic, 2.0f }, { Ghost, 0.5f }, { Dark, 2.0f }, { Steel, 0.5f }, { Fairy, 0.5f }} },
+    { Rock,     {{ Fire, 2.0f }, { Ice, 2.0f }, { Fighting, 0.5f }, { Ground, 0.5f }, { Flying, 2.0f }, { Bug, 2.0f }, { Steel, 0.5f }} },
+    { Ghost,    {{ Normal, 0.0f }, { Psychic, 2.0f }, { Ghost, 2.0f }, { Dark, 0.5f }} },
+    { Dragon,   {{ Dragon, 2.0f }, { Steel, 0.5f }, { Fairy, 0.0f }} },
+    { Dark,     {{ Fighting, 0.5f }, { Psychic, 2.0f }, { Ghost, 2.0f }, { Dark, 0.5f }, { Fairy, 0.5f }} },
+    { Steel,    {{ Fire, 0.5f }, { Water, 0.5f }, { Electric, 0.5f }, { Ice, 2.0f }, { Rock, 2.0f }, { Steel, 0.5f }, { Fairy, 2.0f }} },
+    { Fairy,    {{ Fire, 0.5f }, { Fighting, 2.0f }, { Poison, 0.5f }, { Dragon, 2.0f }, { Dark, 2.0f }, { Steel, 0.5f }} }
+};

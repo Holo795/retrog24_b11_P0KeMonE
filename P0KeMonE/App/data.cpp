@@ -137,8 +137,8 @@ Pokemon* Data::pokemonById(int pokemonId)
         qDebug() << "Pokemon created: " << name;
 
         // Fetch and set the moves for the Pokémon
-        QList<Move> moves = getMoves(id);
-        if (moves.isEmpty() || moves.at(0).getItsPower() == 0)
+        QList<Move *> moves = getMoves(id);
+        if (moves.isEmpty() || moves.at(0)->getItsPower() == 0)
         {
             // If the Pokémon has no moves, fetch another random Pokémon
             delete pokemon;

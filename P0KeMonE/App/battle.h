@@ -7,6 +7,7 @@
 #define BATTLE_H
 
 #include <random>
+#include <QTimer>
 
 #include "battlehud.h"
 #include "pokemon.h"
@@ -39,6 +40,8 @@ public:
      * @brief Destructor for the Battle class.
      */
     ~Battle();
+
+    void showEffectivenessText(Pokemon *attacker, float typeMultiplier);
 
     /**
      * @brief Executes an attack during a battle.

@@ -45,4 +45,8 @@ enum MOVENATURE {
 extern std::map<int, QString> dialogues; ///< Map of dialogues for the game
 extern QMap<int, QBitmap> masks;
 
+extern std::map<PKTYPE, std::map<PKTYPE, float>> typeEffectiveness;
+
+
+
 #endif // TYPEDEF_H

@@ -41,7 +41,13 @@ public:
      * @brief Retrieves the game map.
      * @return A constant reference to the map stored as a 2D vector of characters.
      */
-    const std::vector<std::vector<char>>& getMap() const;
+    const std::vector<std::vector<int>>& getMap() const;
+
+    /**
+     * @brief Retrieves the first team of Pokémon from the database.
+     * @return A vector of pointers to the Pokémon in the first team.
+     */
+    vector<Pokemon*> getPokemonsChoice() const;
 
     /**
      * @brief Provides access to the game's data handling object.
@@ -50,7 +56,7 @@ public:
     Data * getData();
 
 private:
-    std::vector<std::vector<char>> map; ///< The map of the game, stored as a 2D character vector.
+    std::vector<std::vector<int>> map; ///< The map of the game, stored as a 2D character vector.
     Data *data; ///< Pointer to the Data class instance for database operations.
 };
 

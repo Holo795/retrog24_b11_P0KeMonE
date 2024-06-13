@@ -1,149 +1,286 @@
 #include "player.h"
+#include "typeDef.h" // Inclusion de la déclaration de la map de masques
 
-/**
- * Initializes the Player object, sets up its graphical representation and movement mechanics.
- */
 Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
-    setZValue(2);
-    setPixmap(QPixmap(":/player/leftStandPlayer.png").scaled(QSize(11, 16) * scale));  // Assurez-vous de mettre le bon chemin vers l'image du joueur
+    setZValue(3);
+    setPixmap(QPixmap(":/sprites/player_sprites/backStandPlayer.png").scaled(QSize(11, 16) * scale));
+    setTransformationMode(Qt::SmoothTransformation);
 
     movementTimer = new QTimer(this);
     connect(movementTimer, &QTimer::timeout, this, &Player::move);
+
+    qDebug() << "Player initialized.";
+
 }
 
-/**
- * Destructor for the Player class.
- */
 Player::~Player() {
     delete movementTimer;
 }
 
+std::vector<Pokemon*> Player::getTeam() const {
+    return itsTeam;
+}
+
+void Player::keyPressEvent(QKeyEvent *event) {
+    if (event->isAutoRepeat()) return;
+
+    activeKeys.insert(event->key());
+    if (!movementTimer->isActive() && canMove) {
+        startMoving();
+    }
+
+}
+
+void Player::keyReleaseEvent(QKeyEvent *event) {
+    if (event->isAutoRepeat()) return;
+
+    activeKeys.remove(event->key());
+    if (activeKeys.isEmpty()) {
+        stopMoving();
+    }
+
+}
+
+void Player::startMoving() {
+    movementTimer->start(30);
+
+}
+
+void Player::stopMoving() {
+    movementTimer->stop();
+    activeKeys.clear();
+}
+
+void Player::addPokemon(Pokemon *pokemon) {
+    itsTeam.push_back(pokemon);
+}
+
+void Player::removePokemon(Pokemon *pokemon)
+{
+    // Find the Pokémon in the team
+    auto it = std::find(itsTeam.begin(), itsTeam.end(), pokemon);
+
+    // If the Pokémon is found, remove it
+    if (it != itsTeam.end())
+    {
+        itsTeam.erase(it);
+    }
+
+}
+
+
 /**
- * Checks for potential collisions at a new position.
+ * @brief Checks for collisions at the new position.
+ * @param newPos The new position to check for collisions.
+ * @return true if there is a collision, false otherwise.
  */
 bool Player::checkCollision(QPointF newPos) {
+    QRectF footPlayerRect(newPos.x() + 2, newPos.y() + pixmap().height() - 2, pixmap().width() - 4, 2);
+    QRectF headPlayerRect(newPos.x() + 2, newPos.y(), pixmap().width() - 4, 2);
+    QRectF actualFootPlayerRect(pos().x() + 2, pos().y() + pixmap().height() - 2, pixmap().width() - 4, 2);
     QList<QGraphicsItem*> items = scene()->items(QRectF(newPos, QSizeF(pixmap().width(), pixmap().height())));
+
     for (QGraphicsItem* item : items) {
-        if (item != this && item->zValue() + 1 == zValue()) {
-            QGraphicsRectItem footPlayer(QRectF(newPos.x() + 2, newPos.y() + pixmap().height(), pixmap().width() - 4, 2));
-            if (footPlayer.collidesWithItem(item)) {
+        if (item == this || item->zValue() + 1 < zValue()) {
+            continue;
+        }
+
+        int tileId = item->data(0).toInt();
+        if (!masks.contains(tileId)) {
+            continue;
+        }
+
+        const QBitmap& itemMask = masks[tileId];
+        QPointF itemTopLeft = item->pos();
+        QRectF itemRect(itemTopLeft, itemMask.size());
+
+        QRect baseLayer;
+        bool updateZValue = false;
+
+        switch (tileId) {
+        case 64: // Lampadaire
+            baseLayer = QRect(itemTopLeft.x() + 4, itemTopLeft.y() + 33, 13, 33);
+            updateZValue = true;
+            break;
+        case 65: // Autre lampadaire
+            baseLayer = QRect(itemTopLeft.x() + 15, itemTopLeft.y() + 34, 13, 34);
+            updateZValue = true;
+            break;
+        case 93: // Arbre
+            baseLayer = QRect(itemTopLeft.x() + 6, itemTopLeft.y() + 25, 58, 43);
+            updateZValue = true;
+            break;
+        case 67:
+        case 68:
+            return false;
+            break;
+        case 92: // Pont
+        {
+            QRect bridge(330, 21 * 32, 640, 65);
+            QRect exitBridge(330 + 43, 21 * 32 + 60, 44, 70);
+
+            if (footPlayerRect.intersects(bridge) && actualFootPlayerRect.intersects(bridge)) {
+                return false;
+            }
+
+            if (footPlayerRect.intersects(exitBridge) && actualFootPlayerRect.intersects(exitBridge)) {
+                return false;
+            }
+
+            break;
+        }
+        case 83:
+        {
+            QRect montain(970, 551, 188, 172 + 10);
+            QRect bridge_montain(934, 671, 28, 52 + 10);
+            QRect exitMontain(1034, 731, 50, 50);
+
+            if (footPlayerRect.intersects(montain) && actualFootPlayerRect.intersects(montain)) {
+                return false;
+            }
+
+            if (footPlayerRect.intersects(bridge_montain) && actualFootPlayerRect.intersects(bridge_montain)) {
+                return false;
+            }
+
+            if (footPlayerRect.intersects(exitMontain) && actualFootPlayerRect.intersects(exitMontain)) {
+                return false;
+            }
+
+            break;
+        }
+        case 96: //sign
+        {
+            baseLayer = QRect(itemTopLeft.x() + 5, itemTopLeft.y() + 21, 20, 16);
+            updateZValue = true;
+
+            emit signEncounter(itemRect.x(), itemRect.y());
+
+            break;
+        }
+        default:
+            break;
+        }
+
+        if (updateZValue) {
+            item->setZValue(headPlayerRect.intersects(itemRect) && !footPlayerRect.intersects(itemRect) ? 2 : 4);
+            if (footPlayerRect.intersects(baseLayer)) {
                 return true;
+            }
+            continue;
+        }
+
+        // Convertir le rectangle de collision du joueur dans le système de coordonnées de l'item
+        QRectF intersectRect = footPlayerRect.intersected(itemRect);
+        if (!intersectRect.isEmpty()) {
+            QRect playerRectInItemCoords = intersectRect.translated(-itemTopLeft).toRect();
+            QImage maskImage = itemMask.toImage();
+            for (int y = 0; y < playerRectInItemCoords.height(); ++y) {
+                for (int x = 0; x < playerRectInItemCoords.width(); ++x) {
+                    if (maskImage.pixelColor(playerRectInItemCoords.topLeft() + QPoint(x, y)) != Qt::transparent) {
+                        return true;
+                    }
+                }
             }
         }
     }
     return false;
 }
 
-/**
- * Initiates movement based on a key press.
- */
-void Player::startMoving(int key) {
-    currentKey = key;
-    movementTimer->start(30);
-}
 
-/**
- * Stops movement when a key is released.
- */
-void Player::stopMoving() {
-    movementTimer->stop();
-    currentKey = 0; // Reset the current key
-}
 
-/**
- * Moves the player based on the current key press.
- */
 void Player::move() {
-    if (!currentKey) return; // Do nothing if no key is pressed
+    if (activeKeys.isEmpty() || activeKeys.size() > 1) return;
 
-    // Handle movement and animation logic
-    QPointF newPos;
-    switch (currentKey) {
-    case Qt::Key_Left:
-        newPos = pos() + QPointF(-4, 0);
-        if (newPos.x() > 0 && !checkCollision(newPos)) {
+    QPointF newPos = pos();
+
+    if (activeKeys.contains(Qt::Key_Left) || activeKeys.contains(Qt::Key_Q)) {
+        newPos.setX(newPos.x() - 4);
+        if (x() > 0 && !checkCollision(newPos)) {
             setPos(newPos);
-            if (qRound(x()) % 48 >= 16 && qRound(x()) % 48 < 32) {
-                setPixmap(QPixmap(":/player/leftWalkPlayer1.png").scaled(QSize(10, 16) * scale));
-            } else if (qRound(x()) % 48 >= 32) {
-                setPixmap(QPixmap(":/player/leftWalkPlayer2.png").scaled(QSize(11, 16) * scale));
-            } else {
-                setPixmap(QPixmap(":/player/leftStandPlayer.png").scaled(QSize(11, 16 )* scale));
-            }
+            updateSprite("left");
         }
-        break;
-    case Qt::Key_Right:
-        newPos = pos() + QPointF(4, 0);
-        if (newPos.x() + pixmap().width() < scene()->width() && !checkCollision(newPos)) {
-            setPos(newPos);
-            if (qRound(x()) % 48 >= 16 && qRound(x()) % 48 < 32) {
-                setPixmap(QPixmap(":/player/rightWalkPlayer1.png").scaled(QSize(11, 16) * scale));
-            } else if (qRound(x()) % 48 >= 32) {
-                setPixmap(QPixmap(":/player/rightWalkPlayer2.png").scaled(QSize(11, 16) * scale));
-            } else {
-                setPixmap(QPixmap(":/player/rightStandPlayer.png").scaled(QSize(11, 16) * scale));
-            }
-        }
-        break;
-    case Qt::Key_Up:
-        newPos = pos() + QPointF(0, -4);
-        if (newPos.y() > 0 && !checkCollision(newPos)) {
-            setPos(newPos);
-            if (qRound(y()) % 48 >= 16 && qRound(y()) % 48 < 32) {
-                setPixmap(QPixmap(":/player/backWalkPlayer1.png").scaled(QSize(11, 16) * scale));
-            } else if (qRound(y()) % 48 >= 32) {
-                setPixmap(QPixmap(":/player/backWalkPlayer2.png").scaled(QSize(11, 16) * scale));
-            } else {
-                setPixmap(QPixmap(":/player/backStandPlayer.png").scaled(QSize(11, 16) * scale));
-            }
-        }
-        break;
-    case Qt::Key_Down:
-        newPos = pos() + QPointF(0, 4);
-        if (newPos.y() + pixmap().height() < scene()->height() && !checkCollision(newPos)) {
-            setPos(newPos);
-            if (qRound(y()) % 48 >= 16 && qRound(y()) % 48 < 32) {
-                setPixmap(QPixmap(":/player/frontWalkPlayer1.png").scaled(QSize(11, 16) * scale));
-            } else if (qRound(y()) % 48 >= 32) {
-                setPixmap(QPixmap(":/player/frontWalkPlayer2.png").scaled(QSize(11, 16) * scale));
-            } else {
-                setPixmap(QPixmap(":/player/frontStandPlayer.png").scaled(QSize(11, 16) * scale));
-            }
-        }
-        break;
     }
-}
 
-/**
- * Returns the team of Pokémon.
- */
-std::vector<Pokemon*> Player::getTeam() const
-{
-    return itsTeam;
-}
+    newPos = pos();
 
-/**
- * Handles key press events to initiate movement.
- */
-void Player::keyPressEvent(QKeyEvent *event) {
-    if (!movementTimer->isActive()) {
-        startMoving(event->key()); // Start moving in the direction of the key press
+    if (activeKeys.contains(Qt::Key_Right) || activeKeys.contains(Qt::Key_D)) {
+        newPos.setX(newPos.x() + 4);
+        if (x() + pixmap().width() < scene()->width() && !checkCollision(newPos)) {
+            setPos(newPos);
+            updateSprite("right");
+        }
     }
+
+    newPos = pos();
+
+    if (activeKeys.contains(Qt::Key_Up) || activeKeys.contains(Qt::Key_Z)) {
+        newPos.setY(newPos.y() - 4);
+        if (y() > 0 && !checkCollision(newPos)) {
+            setPos(newPos);
+            updateSprite("back");
+        }
+    }
+
+    newPos = pos();
+
+    if (activeKeys.contains(Qt::Key_Down) || activeKeys.contains(Qt::Key_S)) {
+        newPos.setY(newPos.y() + 4);
+        if (y() + pixmap().height() < scene()->height() && !checkCollision(newPos)) {
+            setPos(newPos);
+            updateSprite("front");
+        }
+    }
+
 }
 
-/**
- * Handles key release events to stop movement.
- */
-void Player::keyReleaseEvent(QKeyEvent *event) {
-    stopMoving();
+void Player::updateSprite(const QString &direction) {
+    static const QMap<QString, QStringList> spriteDirections {
+        {"left", {":/sprites/player_sprites/leftStandPlayer.png", ":/sprites/player_sprites/leftWalkPlayer1.png", ":/sprites/player_sprites/leftWalkPlayer2.png"}},
+        {"right", {":/sprites/player_sprites/rightStandPlayer.png", ":/sprites/player_sprites/rightWalkPlayer1.png", ":/sprites/player_sprites/rightWalkPlayer2.png"}},
+        {"back", {":/sprites/player_sprites/backStandPlayer.png", ":/sprites/player_sprites/backWalkPlayer1.png", ":/sprites/player_sprites/backWalkPlayer2.png"}},
+        {"front", {":/sprites/player_sprites/frontStandPlayer.png", ":/sprites/player_sprites/frontWalkPlayer1.png", ":/sprites/player_sprites/frontWalkPlayer2.png"}}
+    };
+
+    const QStringList &sprites = spriteDirections[direction];
+    int step = qRound(direction == "left" || direction == "right" ? x() : y()) % 48;
+    int index = step < 16 ? 0 : step < 32 ? 1 : 2;
+
+    setPixmap(QPixmap(sprites[index]).scaled(QSize(12, 18) * scale));
 }
 
-/**
- * Adds a Pokémon to the player's team.
- */
-void Player::addPokemon(Pokemon *pokemon)
-{
-    itsTeam.push_back(pokemon); // Add the new Pokémon to the team
+void Player::incrementWinCount() {
+    winCount++;
 }
 
+float Player::getItsLevel() const {
+    return itsLevel;
+}
 
+void Player::setItsLevel(float newItsLevel) {
+    itsLevel = newItsLevel;
+}
+
+int Player::getWinCount() const {
+    return winCount;
+}
+
+void Player::setWinCount(int newWinCount) {
+    winCount = newWinCount;
+}
+
+void Player::setCanMove(bool newCanMove) {
+    canMove = newCanMove;
+}
+
+void Player::setTeam(vector<Pokemon*> newTeam) {
+    itsTeam = newTeam;
+}
+
+bool Player::getCompleteTeam() const {
+    return completeTeam;
+}
+
+void Player::setCompleteTeam(bool newCompleteTeam) {
+    completeTeam = newCompleteTeam;
+}

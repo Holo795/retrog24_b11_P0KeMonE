@@ -1,4 +1,7 @@
 #include "model.h"
+#include "include/json.hpp"
+
+using json = nlohmann::json;
 
 /**
  * Initializes the Model object, setting up the data handler.
@@ -15,20 +18,30 @@ Model::~Model() {
 }
 
 /**
- * Loads the game map from a file and stores it in a 2D character vector.
+ * Loads the game map from a JSON file and stores it in a 2D character vector.
  */
 void Model::loadMap(const QString& filename) {
-    QFile file(filename); // Create a QFile object for the map file
-    if (file.open(QIODevice::ReadOnly)) {
-        QTextStream in(&file); // Open a text stream from the file
-        int rows = in.readLine().toInt(); // Read the number of rows from the first line
-        int cols = in.readLine().toInt(); // Read the number of columns from the second line
-        map.resize(rows, std::vector<char>(cols)); // Resize the map vector based on dimensions
-        for (int i = 0; i < rows; ++i) {
-            QString line = in.readLine(); // Read each line representing a row of the map
-            for (int j = 0; j < cols; ++j) {
-                map[i][j] = line[j].toLatin1(); // Store each character in the map array
-            }
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        throw std::runtime_error("Cannot open file: " + filename.toStdString());
+    }
+
+    QTextStream in(&file);
+    QString jsonString = in.readAll();
+    file.close();
+
+    json j = json::parse(jsonString.toStdString());
+
+    int width = j["width"];
+    int height = j["height"];
+    std::vector<int> data = j["layers"][0]["data"];
+
+    // Initialiser la carte pour l'affichage
+    map.resize(height, std::vector<int>(width));
+
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            map[y][x] = data[y * width + x];
         }
     }
 }
@@ -36,9 +49,14 @@ void Model::loadMap(const QString& filename) {
 /**
  * Provides a constant reference to the game map.
  */
-const std::vector<std::vector<char>>& Model::getMap() const {
+const std::vector<std::vector<int>>& Model::getMap() const {
     return map; // Return the map
 }
+
+std::vector<Pokemon*> Model::getPokemonsChoice() const {
+    return {data->randompokemon(), data->randompokemon(), data->randompokemon()}; // Return the first team of Pokémon
+}
+
 
 /**
  * Provides access to the game's data handling class.

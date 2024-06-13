@@ -1,8 +1,4 @@
 #include "mainhud.h"
-#include <QFont>
-#include <QImage>
-#include <QPixmap>
-#include <QGraphicsPixmapItem>
 
 /**
  * Constructor for the MainHUD class.
@@ -13,18 +9,19 @@ MainHUD::MainHUD(QObject *parent) : QGraphicsScene(parent)
     setObjectName("mainMenu"); // Set a name for the scene for easy reference
 
     // Load and position the title image
-    QGraphicsPixmapItem* titleImage = new QGraphicsPixmapItem(QPixmap(":/menu/main_menu/logo_menu.png"));
+    QGraphicsPixmapItem* titleImage = new QGraphicsPixmapItem(QPixmap(":/hud/main_menu_assets/logo_menu.png"));
     titleImage->setPos(150, 0); // Set position of the title
     titleImage->setFlag(QGraphicsItem::ItemIsFocusable);
     titleImage->setFocus(); // Set focus to make it interactable if needed
 
     // Load and position the character image
-    QGraphicsPixmapItem* characterImage = new QGraphicsPixmapItem(QPixmap(":/menu/main_menu/player_menu.png"));
+    QGraphicsPixmapItem* characterImage = new QGraphicsPixmapItem(QPixmap(":/hud/main_menu_assets/player_menu.png"));
     characterImage->setPos(220, 100); // Position the character image
+
 
     // Create and position the prompt text
     QGraphicsTextItem* promptText = new QGraphicsTextItem("Press space to play");
-    QFont promptFont("Arial", 24);
+    QFont promptFont("Minecraft", 24);
     promptFont.setUnderline(true); // Underline the font for emphasis
     promptText->setFont(promptFont);
     promptText->setDefaultTextColor(Qt::black);
@@ -32,7 +29,7 @@ MainHUD::MainHUD(QObject *parent) : QGraphicsScene(parent)
 
     // Create and position the production tag
     QGraphicsTextItem* tag = new QGraphicsTextItem("@ QTeam Production 2024");
-    QFont tagFont("Arial", 16);
+    QFont tagFont("Minecraft", 16);
     tag->setFont(tagFont);
     tag->setDefaultTextColor(Qt::black);
     tag->setPos(260, 500); // Position the production label at the bottom

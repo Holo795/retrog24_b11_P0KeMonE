@@ -6,13 +6,12 @@
 #ifndef GUI_H
 #define GUI_H
 
-#include <QGraphicsScene>
-
 #include "model.h"
 #include "gameoverhud.h"
 #include "maphud.h"
 #include "mainhud.h"
 #include "battlehud.h"
+#include "playerhud.h"
 #include "pokemon.h"
 
 /**
@@ -67,12 +66,31 @@ public:
      */
     BattleHUD *battle();
 
+    /**
+     * @brief Accessor for the player HUD.
+     * @return Pointer to the PlayerHUD object.
+     */
+    PlayerHUD * playerTeam(vector<Pokemon *> pokemons, int itsLevel);
+
+    /**
+     * @brief Accessor for the player HUD.
+     * @return Pointer to the PlayerHUD object.
+     */
+    PlayerHUD * team();
+
+    /**
+     * @brief Accessor for the player HUD.
+     * @return Pointer to the PlayerHUD object.
+     */
+    PlayerHUD * selectPokemon(vector<Pokemon *> pokemons, string text="");
+
 private:
     Model *model; ///< Pointer to the game model.
     GameOverHUD *gameOverHUD; ///< Pointer to the game over HUD.
     MapHUD *mapHUD; ///< Pointer to the map HUD.
     MainHUD *mainHUD; ///< Pointer to the main menu HUD.
     BattleHUD *battleHUD; ///< Pointer to the battle HUD.
+    PlayerHUD *playerHUD; ///< Pointer to the player HUD.
 };
 
 #endif // GUI_H

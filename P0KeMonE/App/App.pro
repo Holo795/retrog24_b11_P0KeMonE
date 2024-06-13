@@ -1,5 +1,7 @@
 QT       += core gui
 QT       += sql
+QT += multimedia
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,13 +18,17 @@ SOURCES += \
     game.cpp \
     gameoverhud.cpp \
     gui.cpp \
+    hoverbutton.cpp \
     main.cpp \
     mainhud.cpp \
     maphud.cpp \
     model.cpp \
     move.cpp \
     player.cpp \
-    pokemon.cpp
+    playerhud.cpp \
+    pokemon.cpp \
+    soundmanager.cpp \
+    typeDef.cpp
 
 HEADERS += \
     battle.h \
@@ -31,12 +37,16 @@ HEADERS += \
     game.h \
     gameoverhud.h \
     gui.h \
+    hoverbutton.h \
+    include/json.hpp \
     mainhud.h \
     maphud.h \
     model.h \
     move.h \
     player.h \
+    playerhud.h \
     pokemon.h \
+    soundmanager.h \
     typeDef.h
 
 # Default rules for deployment.

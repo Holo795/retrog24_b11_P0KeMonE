@@ -9,6 +9,7 @@ GUI::GUI(Model *model) : model(model) {
     this->mapHUD = new MapHUD(model);
     this->mainHUD = new MainHUD();
     this->battleHUD = new BattleHUD();
+    this->playerHUD = new PlayerHUD();
 }
 
 /**
@@ -20,7 +21,7 @@ GUI::~GUI() {
     delete mapHUD;
     delete mainHUD;
     delete battleHUD;
-
+    delete playerHUD;
 }
 
 /**
@@ -58,4 +59,34 @@ BattleHUD *GUI::battle(Pokemon *pk1, Pokemon *pk2) {
  */
 BattleHUD *GUI::battle() {
     return battleHUD;
+}
+
+/**
+ * Initializes the player HUD with a specific player object and returns it.
+ */
+PlayerHUD *GUI::playerTeam(vector<Pokemon *> pokemons, int itsLevel) {
+    // Set the player in the player HUD before returning it
+    playerHUD->setPokemons(pokemons, itsLevel);
+    playerHUD->setSelectionMode(false);
+    playerHUD->setPokemonLabel("Your team");
+    return playerHUD;
+}
+
+/**
+ * Returns the player HUD.
+ */
+PlayerHUD *GUI::team() {
+    return playerHUD;
+}
+
+/**
+ * Initializes the player HUD with a specific player object and returns it.
+ */
+PlayerHUD *GUI::selectPokemon(vector<Pokemon *> pokemons, string text) {
+    // Set the player in the player HUD before returning it
+    playerHUD->setSelectionMode(true);
+    playerHUD->setPokemonLabel(text);
+    playerHUD->setPokemons(pokemons,0);
+
+    return playerHUD;
 }

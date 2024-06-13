@@ -7,6 +7,9 @@
 #define MAINHUD_H
 
 #include <QGraphicsScene>
+#include <QImage>
+#include <QPixmap>
+#include <QGraphicsPixmapItem>
 
 /**
  * @class MainHUD
@@ -23,11 +26,6 @@ public:
      * @param parent The parent QObject, default is nullptr.
      */
     MainHUD(QObject *parent = nullptr);
-
-    /**
-     * @brief Displays the main menu elements on the scene.
-     */
-    void displayMainMenu();
 };
 
 #endif // MAINHUD_H

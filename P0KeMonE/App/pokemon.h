@@ -7,7 +7,6 @@
 #define POKEMON_H
 
 #include <QList>
-
 #include "move.h"
 #include "typeDef.h"
 
@@ -33,7 +32,7 @@ private:
     int itsDef;               /**< Defense stat of the Pokémon */
     int itsSpDef;             /**< Special defense stat of the Pokémon */
     int itsLevel;             /**< Level of the Pokémon */
-    QList<Move> itsMoves;     /**< List of moves or abilities the Pokémon can perform */
+    QList<Move*> itsMoves;     /**< List of moves or abilities the Pokémon can perform */
 
 public:
     Pokemon(int id_pk, string itsName, PKTYPE itsType, int itsHealth, int itsSpeed, int itsAtk, int itsSpAtk, int itsDef, int itsSpDef, int itsLevel);
@@ -50,8 +49,12 @@ public:
     int getSpDef() const;
     string getItsName() const;
     int getItsMaxHealth() const;
-    QList<Move> getItsMoves() const;
-    void setItsMoves(const QList<Move> &newItsMoves);
+    void upgradeStats();
+    QList<Move*> getItsMoves() const;
+    void setItsMoves(const QList<Move*> &newItsMoves);
+    PKTYPE getItsType() const;
+    void setLevel(int newItsLevel);
+    Move* getRandMove();
 };
 
 #endif // POKEMON_H

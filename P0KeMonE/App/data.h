@@ -12,6 +12,8 @@
 #include <QtSql/QSqlRecord>
 #include <QSqlError>
 
+#include <QCoreApplication>
+
 #include "pokemon.h"
 
 /**
@@ -45,12 +47,14 @@ public:
      */
     Pokemon * randompokemon();
 
+    Pokemon* pokemonById(int pokemonId);
+
     /**
      * @brief Fetches moves associated with a Pokémon by ID.
      * @param pokemon_id The ID of the Pokémon to fetch moves for.
      * @return A QList of Move objects associated with the Pokémon.
      */
-    QList<Move> getMoves(int pokemon_id);
+    QList<Move*> getMoves(int pokemon_id);
 };
 
 #endif // DATA_H

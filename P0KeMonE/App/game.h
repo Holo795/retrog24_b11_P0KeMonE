@@ -7,7 +7,9 @@
 #define GAME_H
 
 #include <QWidget>
+#include <QFontDatabase>
 #include <QGraphicsView>
+#include <QProcess>
 #include <QKeyEvent>
 
 #include "battle.h"
@@ -42,20 +44,48 @@ public:
 private:
     Model *model; ///< Pointer to the game model.
     GUI *gui; ///< Pointer to the graphical user interface.
-    Player *player; ///< Pointer to the player object.
+    Player *player = nullptr; ///< Pointer to the player object.
     Battle *battle; ///< Pointer to the current battle context.
-    QTimer *waitFight; ///< Timer to manage delays between fight rounds.
+    size_t currentDialogueIndex = 0; ///< Index of the current dialogue.
+    std::vector<Pokemon*> itsBossTeam; /**< Vector of Pokémon pointers representing the boss's team. */
+    bool itsBossFight = false;
+    bool itsFirstFight = false;
+    bool itsInFight = false;
+
+    SoundManager *soundManager; ///< Pointer to the sound manager.
+    bool statepokemonChanged = false; ///< Flag to indicate if the Pokémon has changed.
+
+    void endFight(bool playerWon); ///< End the ongoing fight.
+    void setScene(QGraphicsScene *scene); ///< Sets the current scene for the game view.
+    void restartGame(); ///< Restarts the game.
+
+    void handleSpaceKeyPress(QString currentScene);
+    void handleEscIKeyPress(QString currentScene);
+    void handleMainMenuSpaceKeyPress();
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseDoubleClickEvent(QMouseEvent *event) override;
+    void focusOutEvent(QFocusEvent *event) override;
+    void focusInEvent(QFocusEvent *event) override;
 
 public slots:
+    void changePokemon(Pokemon *pokemon); ///< Changes the player's active Pokémon.
     void updateView(); ///< Updates the view to ensure the player remains centered.
     void showFight(); ///< Transitions the game to the battle scene.
-    void fight(); ///< Initiates a fight round.
+    void showBossFight(); ///< Transitions the game to the boss battle scene.
     void continuefight(); ///< Continues the ongoing fight.
+    void run(); ///< When the run button is clicked
+    void showMoves(); ///< Show the moves for the current Pokémon
+    void switchPokemon(); ///< Switch the current Pokémon
+    void onMoveButtonClicked(QAbstractButton *moveButton);
+    void showFightMenu();
+    void showFirstFight();
+
+
+public:
+    void showNextDialogue();
 };
 
 #endif // GAME_H

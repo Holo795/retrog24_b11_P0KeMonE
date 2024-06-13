@@ -8,6 +8,8 @@
 
 #include <QGraphicsScene>
 #include <QKeyEvent>
+#include <QBitmap>
+#include <random>
 
 #include "player.h"
 #include "model.h"
@@ -46,9 +48,57 @@ public:
      */
     Player *getPlayer();
 
+    void showFirstScenario();
+    void showSecondScenario();
+    void endScenario();
+
+    QGraphicsTextItem *getDialogTextItem();
+
 private:
     Model *model; ///< Pointer to the model.
     Player *player; ///< Pointer to the player.
+    std::mt19937 gen; ///< Mersenne Twister random number generator.
+    std::uniform_int_distribution<> encounterDist; ///< Distribution for random encounters.
+    QGraphicsPixmapItem *bossItem; ///< Pointer to the boss item.
+    QGraphicsPixmapItem *oldMenItem; ///< Pointer to the old men item.
+    QGraphicsTextItem *textItem; ///< Pointer to the text item for dialogues.
+    QGraphicsPixmapItem *boxItem; ///< Pointer to the box item for dialogues.
+    QGraphicsPixmapItem *ballsItem; ///< Pointer to the box item for dialogues.
+    bool showSignMessage = true; ///< Flag to show sign message.
+
+    /**
+     * @brief Draws the grass layer of the map.
+     * @param map The map data.
+     */
+    void drawGrassLayer(const std::vector<std::vector<int>>& map);
+
+    /**
+     * @brief Draws decorative and functional elements of the map.
+     * @param map The map data.
+     */
+    void drawDecorativeElements(const std::vector<std::vector<int>>& map);
+
+    /**
+     * @brief Initializes the player object and adds it to the scene.
+     */
+    void initializePlayer();
+
+    /**
+     * @brief Handles interactions based on the tile type.
+     * @param tileType The type of the tile the player is interacting with.
+     */
+    void handleTileInteraction(int tileType);
+
+    /**
+     * @brief Handles random encounters in specific map tiles.
+     */
+    void handleRandomEncounter();
+
+private slots:
+    /**
+     * @brief Show sign message
+     */
+    void signMessage(int x, int y);
 
 protected:
     /**
@@ -56,6 +106,20 @@ protected:
      * @param event The key event.
      */
     void keyPressEvent(QKeyEvent *event);
+
+    /**
+     * @brief Manages the player's entrance into a boat.
+     * @param player Pointer to the player.
+     * @param direction The direction of the boat.
+     */
+    void enteringBoat(Player *player, const std::string &direction);
+
+    /**
+     * @brief Manages the player's entrance into the launcher zone.
+     * @param player Pointer to the player.
+     */
+    void enteringLauncher(Player *player);
+
 };
 
 #endif // MAPHUD_H

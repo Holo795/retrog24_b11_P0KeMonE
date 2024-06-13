@@ -8,6 +8,17 @@
 
 #include <QGraphicsScene>
 #include <QPushButton>
+#include <QButtonGroup>
+#include <QGraphicsPixmapItem>
+#include <QGraphicsTextItem>
+#include <QGraphicsItemAnimation>
+#include <QTimeLine>
+#include <QButtonGroup>
+#include <QLabel>
+#include <QDebug>
+#include <QTimer>
+#include <QGraphicsProxyWidget>
+#include <QProgressBar>
 
 #include "pokemon.h"
 
@@ -40,11 +51,35 @@ public:
     QPushButton *getAttackButton();
 
     /**
+     * @brief Retrieves the pokemon button.
+     * @return A pointer to the QPushButton used for changing pokemon.
+     */
+    QPushButton *getPokemonButton();
+
+    /**
+     * @brief Retrieves the run button.
+     * @return A pointer to the QPushButton used for leaving the battle.
+     */
+    QPushButton *getRunButton();
+
+    /**
      * @brief Updates the displayed Pokémon and their health on the HUD.
      * @param pk1 Pointer to the first Pokémon.
      * @param pk2 Pointer to the second Pokémon.
      */
     void setPokemon(Pokemon *pk1, Pokemon *pk2);
+
+    /**
+     * @brief Shakes the Pokémon's image on the HUD.
+     * @param pk Pointer to the Pokémon to shake.
+     */
+    void shakePokemon(Pokemon *pk);
+
+    /**
+     * @brief Dashes the Pokémon's image on the HUD.
+     * @param pk Pointer to the Pokémon to dash.
+     */
+    void frontDashPokemon(Pokemon *pk);
 
     /**
      * @brief Gets the first Pokémon shown in the HUD.
@@ -58,14 +93,76 @@ public:
      */
     Pokemon *getPokemon2() const;
 
+    /**
+     * @brief Displays the available moves from pokemon 1 as buttons.
+     */
+    void displayMoves();
+
+    /**
+     * @brief Shows the fight menu with attack, pokemon, and run buttons.
+     */
+    void menuFight();
+
+    /**
+     * @brief Retrieves the move buttons group.
+     * @return A pointer to the QButtonGroup for move buttons.
+     */
+    QButtonGroup *getMoveGroup() const;
+
+    /**
+     * @brief Retrieves the back button.
+     * @return A pointer to the QPushButton used for going back.
+     */
+    QPushButton *getBackButton() const;
+
+    void setText(string text);
+
+    void updateHealthBars();
+
+
+    void addPersonalItem (QGraphicsPixmapItem *item);
+    QGraphicsPixmapItem* getOldMenPixmap();
+    QGraphicsPixmapItem* getBossPixmap();
+
+    void enableBattleButtons(bool exitButton = false);
+    void disableBattleButtons(bool exitButton = false);
+
+
+
 private:
     QPushButton *attackButton;           /**< Button used for initiating attacks. */
+    QPushButton *pokemonButton;          /**< Button used for switching pokemons. */
+    QPushButton *runButton;              /**< Button used for leaving the fight. */
     Pokemon *pokemon1;                   /**< First Pokémon displayed on the HUD. */
     Pokemon *pokemon2;                   /**< Second Pokémon displayed on the HUD. */
     QGraphicsPixmapItem *pokemon1Item;   /**< Graphics item for the first Pokémon's image. */
     QGraphicsPixmapItem *pokemon2Item;   /**< Graphics item for the second Pokémon's image. */
     QGraphicsTextItem *health1;          /**< Text item for the first Pokémon's health. */
     QGraphicsTextItem *health2;          /**< Text item for the second Pokémon's health. */
+    QGraphicsTextItem *menuText;            /**< "What will `pokemon` will do" */
+    QGraphicsTextItem *attackText;         /**< `pokemon` used `move`! */
+    QGraphicsPixmapItem *dialogueBox;    /**< Graphics item for battle dialogue. */
+    QButtonGroup *moveButtonsGroup;      /**< Button group for move buttons. */
+    QPushButton *backButton;             /**< Button used for going back. */
+    QGraphicsPixmapItem* oldMenPixmap;
+    QGraphicsPixmapItem* bossPixmap;
+
+    QProgressBar *pokemon1HealthBar;
+    QProgressBar *pokemon2HealthBar;
+    QGraphicsProxyWidget *pokemon1HealthBarProxy;
+    QGraphicsProxyWidget *pokemon2HealthBarProxy;
+
+
+    // Helper methods
+    QGraphicsPixmapItem* createPixmapItem(const QString &path, const QSize &size, const QPoint &pos);
+    QGraphicsPixmapItem* createPixmapItem(const QPoint &pos);
+    QPushButton* createButton(const QString &path, int width, int height, const QPoint &pos);
+    QGraphicsTextItem* createTextItem(const QColor &color, const QFont &font, const QPoint &pos);
+    void updatePokemonGraphics(QGraphicsPixmapItem* item, Pokemon* pk, bool isBack);
+    void applyShakeAnimation(QGraphicsPixmapItem* item, int totalDuration, int delay);
+    void applyDashAnimation(QGraphicsPixmapItem* item, int duration, const QPointF &increment);
+    void clearMoveButtons();
+    void createMoveButton(Move* move, const QPoint &pos, int width, int height, int id);
 };
 
 #endif // BATTLEHUD_H

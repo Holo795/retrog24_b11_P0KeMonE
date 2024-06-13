@@ -24,7 +24,8 @@ private:
     string itsName;       ///< Name of the move.
     int itsPower;         ///< Power value of the move, determines damage output.
     int itsAccuracy;      ///< Accuracy percentage of the move.
-    MOVENATURE itsType;   ///< Type of the move (e.g., physical, special).
+    MOVENATURE itsNature;   ///< Nature of the move (e.g., physical, special).
+    PKTYPE itsType;   ///< Type of the move (e.g., fire, grass).
 
 public:
     /**
@@ -32,9 +33,10 @@ public:
      * @param itsName Name of the move.
      * @param itsPower Power of the move.
      * @param itsAccuracy Accuracy of the move.
-     * @param itsType Type of the move (physical or special).
+     * @param itsNature Nature of the move (physical or special).
+     * @param itsType Type of the move (PKTYPE).
      */
-    Move(string itsName, int itsPower, int itsAccuracy, MOVENATURE itsType);
+    Move(string itsName, int itsPower, int itsAccuracy, MOVENATURE itsNature, PKTYPE itsType);
 
     /**
      * @brief Retrieves the name of the move.
@@ -55,10 +57,24 @@ public:
     int getItsAccuracy() const;
 
     /**
+     * @brief Retrieves the nature of the move.
+     * @return Nature of the move.
+     */
+    MOVENATURE getItsNature() const;
+
+    /**
      * @brief Retrieves the type of the move.
      * @return Type of the move.
      */
-    MOVENATURE getItsType() const;
+    PKTYPE getItsType() const;
+
+
+    /**
+     * @brief getItsTextType Returns the string representation of the type of the move.
+     * @param The type of the move.
+     */
+    string getItsTextType(int type) const;
+
 
     /**
      * @brief Calculates the damage inflicted by the move.

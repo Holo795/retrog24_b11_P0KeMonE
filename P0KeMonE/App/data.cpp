@@ -57,7 +57,7 @@ Pokemon* Data::randompokemon()
     QSqlQuery query;
 
     // Execute the SQL query to fetch a random Pokémon
-    if (!query.exec("SELECT P.id, P.name, P.base_experience, P.height, P.weight, P.hp, P.attack, P.defense, P.special_attack, P.special_defense, P.speed, T.id_type FROM pokemon P JOIN type_pk T ON P.id = T.id_pk WHERE T.id_type < 6 ORDER BY RANDOM() LIMIT 1"))
+    if (!query.exec("SELECT P.id, P.name, P.base_experience, P.height, P.weight, P.hp, P.attack, P.defense, P.special_attack, P.special_defense, P.speed, T.id_type FROM pokemon P JOIN type_pk T ON P.id = T.id_pk ORDER BY RANDOM() LIMIT 1"))
     {
         qDebug() << "Error: query execution failed" << query.lastError();
         return nullptr;

@@ -212,20 +212,24 @@ void MapHUD::signMessage(int x, int y) {
         showSignMessage = false;
 
         QGraphicsTextItem *text = new QGraphicsTextItem();
-        if (x < 400){
+        if (x < 400 && y > 500){
         text->setPlainText(R"(                                        The Bridge
                                                ^
                                                |
         The tall-grasse's Field < -- -- > The slammed Lake)");
         text->setPos(x-105, y - 30);
         }
-        else if (x > 400){
-text->setPlainText(R"(                                  The Mountain
+        else if (x > 400 && y > 500){
+        text->setPlainText(R"(                                  The Mountain
                                            ^
                                            |
         The slammed Lake < -- -- > The hallway)");
         text->setPos(x-95, y - 30);
-        };
+        }
+        else {
+        text->setPlainText(R"(Are you ready to face the Boss ?)");
+        text->setPos(x-50, y - 10);
+        }
         text->setZValue(3);
         text->setFont(QFont("Minecraft", 6));
         text->setDefaultTextColor(Qt::white);

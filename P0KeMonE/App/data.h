@@ -54,7 +54,7 @@ public:
      * @param pokemonId The ID of the Pokémon to fetch.
      * @return A new Pokémon object initialized with the fetched data.
      */
-    Pokemon* pokemonById(int pokemonId);
+    Pokemon* pokemonById(int pokemonId, int level);
 
     /**
      * @brief Fetches moves associated with a Pokémon by ID.

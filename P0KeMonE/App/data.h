@@ -58,6 +58,7 @@ public:
 
     saveData extractSaveData();
     void insertSaveData(saveData data);
+    void clearSaveData();
 };
 
 #endif // DATA_H

@@ -9,6 +9,7 @@
 
 class Pokemon;
 struct saveData {
+    bool empty = false;
     int player_x;
     int player_y;
     int player_lvl;

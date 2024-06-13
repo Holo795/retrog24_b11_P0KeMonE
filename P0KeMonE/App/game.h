@@ -12,6 +12,7 @@
 #include <QProcess>
 #include <QKeyEvent>
 
+#include "savemanager.h"
 #include "battle.h"
 #include "model.h"
 #include "gui.h"
@@ -46,6 +47,7 @@ private:
     GUI *gui; ///< Pointer to the graphical user interface.
     Player *player = nullptr; ///< Pointer to the player object.
     Battle *battle; ///< Pointer to the current battle context.
+    SaveManager *saveManager; ///< Pointer to the save manager.
     size_t currentDialogueIndex = 0; ///< Index of the current dialogue.
     std::vector<Pokemon*> itsBossTeam; /**< Vector of Pokémon pointers representing the boss's team. */
     bool itsBossFight = false;

@@ -11,19 +11,20 @@ class SaveManager : public QObject
 {
     Q_OBJECT
 public:
-    SaveManager(Data *data, int saveInterval=5*60*1000, QObject *parent = nullptr);
+    SaveManager(Data *data, Player *player, QObject *parent = nullptr);
     void startAutoSave();
     saveData getSave();
 
 
 public slots:
-    void saveGame(Player player);
+    void saveGame();
 
 private:
     Data *data;
     QTimer *timer;
+    Player *player;
 
-    int saveInterval = 5 * 60 * 1000; // 5m
+    int saveInterval = 5 * 60 * 1000;// 5m
 };
 
 #endif // SAVEMANAGER_H

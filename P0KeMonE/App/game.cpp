@@ -103,16 +103,28 @@ void Game::handleSpaceKeyPress(QString currentScene) {
 
 void Game::handleMainMenuSpaceKeyPress() {
     player = gui->map()->getPlayer();
+    saveManager = new SaveManager(model->getData(), player, this);
+
+    saveData sData = saveManager->getSave();
+
+    if (!sData.empty) {
+        player->setTeam(sData.team);
+        player->setItsLevel(sData.player_lvl);
+        player->setPos(sData.player_x, sData.player_y);
+        saveManager->startAutoSave();
+    }
+
     setScene(gui->map());
     if (player->getTeam().empty()) {
         gui->map()->showFirstScenario();
-        itsBossTeam = {
-            model->getData()->pokemonById(1),
-            model->getData()->pokemonById(7),
-            model->getData()->pokemonById(4)
-        };
         showNextDialogue();
     }
+
+    itsBossTeam = {
+        model->getData()->pokemonById(1),
+        model->getData()->pokemonById(7),
+        model->getData()->pokemonById(4)
+    };
 }
 
 void Game::handleEscIKeyPress(QString currentScene) {
@@ -186,7 +198,7 @@ void Game::showNextDialogue() {
     {
         gui->battle()->getOldMenPixmap()->setVisible(false);
         gui->map()->endScenario();
-
+        saveManager->startAutoSave();
     }
 }
 
@@ -304,6 +316,7 @@ void Game::endFight(bool playerWon)
     gui->battle()->enableBattleButtons(true);
     if (!playerWon) {
         qDebug() << "Game Over";
+        model->getData()->clearSaveData();
         setScene(gui->gameOver()); return;
     }
 

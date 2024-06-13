@@ -127,7 +127,10 @@ bool Player::checkCollision(QPointF newPos) {
                 return false;
             }
 
+            baseLayer = QRect(itemTopLeft.x() + 6, itemTopLeft.y() + 25, 640, 65);
+            updateZValue = true;
             break;
+
         }
         case 83:
         {

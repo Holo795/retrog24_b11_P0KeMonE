@@ -92,9 +92,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4f4cf1f78861a1f47260b4bfb02805eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_pokemon.html">Pokemon</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_data.html#a4f4cf1f78861a1f47260b4bfb02805eb">randompokemon</a> ()</td></tr>
 <tr class="memdesc:a4f4cf1f78861a1f47260b4bfb02805eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a random Pokémon from the database.  <br /></td></tr>
 <tr class="separator:a4f4cf1f78861a1f47260b4bfb02805eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af29f9330e4847653a51388934ebb033e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_pokemon.html">Pokemon</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_data.html#af29f9330e4847653a51388934ebb033e">pokemonById</a> (int pokemonId)</td></tr>
-<tr class="memdesc:af29f9330e4847653a51388934ebb033e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a Pokémon from the database by ID.  <br /></td></tr>
-<tr class="separator:af29f9330e4847653a51388934ebb033e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92c80117d6c1bed27a375334f3befd26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_pokemon.html">Pokemon</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_data.html#a92c80117d6c1bed27a375334f3befd26">pokemonById</a> (int pokemonId, int level)</td></tr>
+<tr class="memdesc:a92c80117d6c1bed27a375334f3befd26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a Pokémon from the database by ID.  <br /></td></tr>
+<tr class="separator:a92c80117d6c1bed27a375334f3befd26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abeeae2d347bcd862599ee7ad01124d60"><td class="memItemLeft" align="right" valign="top">QList&lt; <a class="el" href="class_move.html">Move</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_data.html#abeeae2d347bcd862599ee7ad01124d60">getMoves</a> (int pokemon_id)</td></tr>
 <tr class="memdesc:abeeae2d347bcd862599ee7ad01124d60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches moves associated with a Pokémon by ID.  <br /></td></tr>
 <tr class="separator:abeeae2d347bcd862599ee7ad01124d60"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,8 +181,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="af29f9330e4847653a51388934ebb033e" name="af29f9330e4847653a51388934ebb033e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af29f9330e4847653a51388934ebb033e">&#9670;&#160;</a></span>pokemonById()</h2>
+<a id="a92c80117d6c1bed27a375334f3befd26" name="a92c80117d6c1bed27a375334f3befd26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92c80117d6c1bed27a375334f3befd26">&#9670;&#160;</a></span>pokemonById()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,8 +191,18 @@ Public Member Functions</h2></td></tr>
           <td class="memname"><a class="el" href="class_pokemon.html">Pokemon</a> * Data::pokemonById </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>pokemonId</em></td><td>)</td>
+          <td class="paramname"><em>pokemonId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>level</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -201,6 +211,7 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pokemonId</td><td>The ID of the Pokémon to fetch. </td></tr>
+    <tr><td class="paramname">level</td><td>The level of the Pokémon to fetch. </td></tr>
   </table>
   </dd>
 </dl>

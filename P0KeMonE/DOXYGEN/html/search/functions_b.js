@@ -8,6 +8,6 @@ var searchData=
   ['model_5',['Model',['../class_model.html#ae3b375de5f6df4faf74a95d64748e048',1,'Model']]],
   ['mousedoubleclickevent_6',['mouseDoubleClickEvent',['../class_game.html#a7daa2f0834ac27880ef738ce1d14f819',1,'Game']]],
   ['mousepressevent_7',['mousePressEvent',['../class_game.html#a9f6de718ac1bf593bbb45bf9d313323c',1,'Game']]],
-  ['move_8',['move',['../class_player.html#ae02ee46d8c20dd0697b975f935b09839',1,'Player']]],
-  ['move_9',['Move',['../class_move.html#a7952e6c56f0675d32440301bfdaeab10',1,'Move']]]
+  ['move_8',['Move',['../class_move.html#a7952e6c56f0675d32440301bfdaeab10',1,'Move']]],
+  ['move_9',['move',['../class_player.html#ae02ee46d8c20dd0697b975f935b09839',1,'Player']]]
 ];

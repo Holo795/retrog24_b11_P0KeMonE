@@ -52,6 +52,7 @@ public:
     /**
      * @brief Retrieves a Pokémon from the database by ID.
      * @param pokemonId The ID of the Pokémon to fetch.
+     * @param level The level of the Pokémon to fetch.
      * @return A new Pokémon object initialized with the fetched data.
      */
     Pokemon* pokemonById(int pokemonId, int level);

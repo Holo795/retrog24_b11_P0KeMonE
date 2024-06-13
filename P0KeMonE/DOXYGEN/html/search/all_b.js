@@ -11,8 +11,7 @@ var searchData=
   ['model_2eh_8',['model.h',['../model_8h.html',1,'']]],
   ['mousedoubleclickevent_9',['mouseDoubleClickEvent',['../class_game.html#a7daa2f0834ac27880ef738ce1d14f819',1,'Game']]],
   ['mousepressevent_10',['mousePressEvent',['../class_game.html#a9f6de718ac1bf593bbb45bf9d313323c',1,'Game']]],
-  ['move_11',['Move',['../class_move.html',1,'']]],
+  ['move_11',['Move',['../class_move.html',1,'Move'],['../class_move.html#a7952e6c56f0675d32440301bfdaeab10',1,'Move::Move()']]],
   ['move_12',['move',['../class_player.html#ae02ee46d8c20dd0697b975f935b09839',1,'Player']]],
-  ['move_13',['Move',['../class_move.html#a7952e6c56f0675d32440301bfdaeab10',1,'Move']]],
-  ['move_2eh_14',['move.h',['../move_8h.html',1,'']]]
+  ['move_2eh_13',['move.h',['../move_8h.html',1,'']]]
 ];

@@ -8,12 +8,12 @@ Boat::Boat(QGraphicsItem *parent)
 {
     // Set the boat image
     setPixmap(QPixmap(":/map/map_assets/boat_left.png"));
-    setZValue(1); // Ensure the boat is on top of other items
+    setZValue(2); // Ensure the boat is on top of other items
 
-    startPoint = QPointF(300, 300); // Set the actual start coordinates
-    islandPoint1 = QPointF(600, 300); // Set the actual island coordinates
-    islandPoint2 = QPointF(500, 300); // Set the actual island coordinates
-    endPoint = QPointF(800, 300); // Set the actual end point coordinates
+    startPoint = QPointF(32*18 - 2, 32*29); // Set the actual start coordinates
+    islandPoint1 = QPointF(32*23 + 1, 32*27); // Set the actual island coordinates
+    islandPoint2 = QPointF(32*23, 32*27); // Set the actual island coordinates
+    endPoint = QPointF(32*31 + 2, 32*30); // Set the actual end point coordinates
 
     setPos(startPoint); // Set the initial position of the boat
 
@@ -63,11 +63,14 @@ void Boat::updatePlayerPosition(const QVariant &value)
 void Boat::onJourneyFinished()
 {
     if (pos() == islandPoint1 || pos() == islandPoint2)
-        player->setPos(pos() + QPointF(0, 40));
-    else if (pos() == endPoint)
-        player->setPos(pos() + QPointF(40 + 64, 0));
-    else if (pos() == startPoint)
+        player->setPos(pos() + QPointF(40, 40));
+    else if (pos() == endPoint) {
+        setPixmap(QPixmap(":/map/map_assets/boat_right.png"));
+        player->setPos(pos() + QPointF(104, 0));
+    } else if (pos() == startPoint) {
+        setPixmap(QPixmap(":/map/map_assets/boat_left.png"));
         player->setPos(pos() + QPointF(-40, 0));
+    }
 
     player->setVisible(true);
     player->setCanMove(true);

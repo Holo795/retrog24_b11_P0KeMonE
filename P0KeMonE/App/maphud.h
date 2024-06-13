@@ -111,13 +111,6 @@ protected:
     void keyPressEvent(QKeyEvent *event);
 
     /**
-     * @brief Manages the player's entrance into a boat.
-     * @param player Pointer to the player.
-     * @param direction The direction of the boat.
-     */
-    void enteringBoat(Player *player, const std::string &direction);
-
-    /**
      * @brief Manages the player's entrance into the launcher zone.
      * @param player Pointer to the player.
      */

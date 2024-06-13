@@ -1,0 +1,191 @@
+\doxysection{Move Class Reference}
+\hypertarget{class_move}{}\label{class_move}\index{Move@{Move}}
+
+
+Represents a single move or attack in the game.  
+
+
+
+
+{\ttfamily \#include $<$move.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_move_a7952e6c56f0675d32440301bfdaeab10}{Move}} (string its\+Name, int its\+Power, int its\+Accuracy, MOVENATURE its\+Nature, \mbox{\hyperlink{class_p_k_t_y_p_e}{PKTYPE}} its\+Type)
+\begin{DoxyCompactList}\small\item\em Constructor for a \doxylink{class_move}{Move} object. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_move_aaa4fbeefe3ba401d081d6de48db9ade2}{get\+Its\+Name}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the name of the move. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_move_aa4b778b76309234c4f636ef20b2cbbfe}{get\+Its\+Power}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the power of the move. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_move_a85e94b0f4579cee7165fa94086f946a0}{get\+Its\+Accuracy}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the accuracy of the move. \end{DoxyCompactList}\item 
+MOVENATURE \mbox{\hyperlink{class_move_aff034012640715aa27e61e0bd5e1f9ed}{get\+Its\+Nature}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the nature of the move. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_move_a85a09d6a2a80d01b4e942c9674d7f22a}{get\+Its\+Text\+Nature}} (int nature) const
+\begin{DoxyCompactList}\small\item\em get\+Its\+Text\+Nature Returns the string representation of the nature of the move. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_p_k_t_y_p_e}{PKTYPE}} \mbox{\hyperlink{class_move_a2606f34405215a25b9221ca3e23b177f}{get\+Its\+Type}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the type of the move. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_move_aceff8d1cdc75c2b59de10e3d8926d06c}{get\+Its\+Text\+Type}} (int type) const
+\begin{DoxyCompactList}\small\item\em get\+Its\+Text\+Type Returns the string representation of the type of the move. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_move_a62a7335b11c4f1a80b9f6d7d8f382dcb}{calculate\+Damage}} (int lvl, int atk, int def, bool crit) const
+\begin{DoxyCompactList}\small\item\em Calculates the damage inflicted by the move. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a single move or attack in the game. 
+
+This class stores details about a move including its name, power, accuracy, and type, and provides methods to retrieve these properties and calculate damage. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_move_a7952e6c56f0675d32440301bfdaeab10}\label{class_move_a7952e6c56f0675d32440301bfdaeab10} 
+\index{Move@{Move}!Move@{Move}}
+\index{Move@{Move}!Move@{Move}}
+\doxysubsubsection{\texorpdfstring{Move()}{Move()}}
+{\footnotesize\ttfamily Move\+::\+Move (\begin{DoxyParamCaption}\item[{string}]{its\+Name,  }\item[{int}]{its\+Power,  }\item[{int}]{its\+Accuracy,  }\item[{MOVENATURE}]{its\+Nature,  }\item[{\mbox{\hyperlink{class_p_k_t_y_p_e}{PKTYPE}}}]{its\+Type }\end{DoxyParamCaption})}
+
+
+
+Constructor for a \doxylink{class_move}{Move} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em its\+Name} & Name of the move. \\
+\hline
+{\em its\+Power} & Power of the move. \\
+\hline
+{\em its\+Accuracy} & Accuracy of the move. \\
+\hline
+{\em its\+Nature} & Nature of the move (physical or special). \\
+\hline
+{\em its\+Type} & Type of the move (\doxylink{class_p_k_t_y_p_e}{PKTYPE}). \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_move_a62a7335b11c4f1a80b9f6d7d8f382dcb}\label{class_move_a62a7335b11c4f1a80b9f6d7d8f382dcb} 
+\index{Move@{Move}!calculateDamage@{calculateDamage}}
+\index{calculateDamage@{calculateDamage}!Move@{Move}}
+\doxysubsubsection{\texorpdfstring{calculateDamage()}{calculateDamage()}}
+{\footnotesize\ttfamily int Move\+::calculate\+Damage (\begin{DoxyParamCaption}\item[{int}]{lvl,  }\item[{int}]{atk,  }\item[{int}]{def,  }\item[{bool}]{crit }\end{DoxyParamCaption}) const}
+
+
+
+Calculates the damage inflicted by the move. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lvl} & Level of the attacking entity. \\
+\hline
+{\em atk} & Attack stat of the attacking entity. \\
+\hline
+{\em def} & Defense stat of the defending entity. \\
+\hline
+{\em crit} & Whether the attack is a critical hit. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Calculated damage.
+\end{DoxyReturn}
+Calculates the damage this move will do when used. Implements the standard damage formula from games like Pokémon. \Hypertarget{class_move_a85e94b0f4579cee7165fa94086f946a0}\label{class_move_a85e94b0f4579cee7165fa94086f946a0} 
+\index{Move@{Move}!getItsAccuracy@{getItsAccuracy}}
+\index{getItsAccuracy@{getItsAccuracy}!Move@{Move}}
+\doxysubsubsection{\texorpdfstring{getItsAccuracy()}{getItsAccuracy()}}
+{\footnotesize\ttfamily int Move\+::get\+Its\+Accuracy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Retrieves the accuracy of the move. 
+
+\begin{DoxyReturn}{Returns}
+Accuracy of the move.
+\end{DoxyReturn}
+Returns the accuracy of the move. \Hypertarget{class_move_aaa4fbeefe3ba401d081d6de48db9ade2}\label{class_move_aaa4fbeefe3ba401d081d6de48db9ade2} 
+\index{Move@{Move}!getItsName@{getItsName}}
+\index{getItsName@{getItsName}!Move@{Move}}
+\doxysubsubsection{\texorpdfstring{getItsName()}{getItsName()}}
+{\footnotesize\ttfamily string Move\+::get\+Its\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Retrieves the name of the move. 
+
+\begin{DoxyReturn}{Returns}
+Name of the move.
+\end{DoxyReturn}
+Returns the name of the move. \Hypertarget{class_move_aff034012640715aa27e61e0bd5e1f9ed}\label{class_move_aff034012640715aa27e61e0bd5e1f9ed} 
+\index{Move@{Move}!getItsNature@{getItsNature}}
+\index{getItsNature@{getItsNature}!Move@{Move}}
+\doxysubsubsection{\texorpdfstring{getItsNature()}{getItsNature()}}
+{\footnotesize\ttfamily MOVENATURE Move\+::get\+Its\+Nature (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Retrieves the nature of the move. 
+
+\begin{DoxyReturn}{Returns}
+Nature of the move.
+\end{DoxyReturn}
+Returns the type of the move (e.\+g., physical or special). \Hypertarget{class_move_aa4b778b76309234c4f636ef20b2cbbfe}\label{class_move_aa4b778b76309234c4f636ef20b2cbbfe} 
+\index{Move@{Move}!getItsPower@{getItsPower}}
+\index{getItsPower@{getItsPower}!Move@{Move}}
+\doxysubsubsection{\texorpdfstring{getItsPower()}{getItsPower()}}
+{\footnotesize\ttfamily int Move\+::get\+Its\+Power (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Retrieves the power of the move. 
+
+\begin{DoxyReturn}{Returns}
+Power of the move.
+\end{DoxyReturn}
+Returns the power of the move. \Hypertarget{class_move_a85a09d6a2a80d01b4e942c9674d7f22a}\label{class_move_a85a09d6a2a80d01b4e942c9674d7f22a} 
+\index{Move@{Move}!getItsTextNature@{getItsTextNature}}
+\index{getItsTextNature@{getItsTextNature}!Move@{Move}}
+\doxysubsubsection{\texorpdfstring{getItsTextNature()}{getItsTextNature()}}
+{\footnotesize\ttfamily string Move\+::get\+Its\+Text\+Nature (\begin{DoxyParamCaption}\item[{int}]{nature }\end{DoxyParamCaption}) const}
+
+
+
+get\+Its\+Text\+Nature Returns the string representation of the nature of the move. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em The} & nature of the move. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_move_aceff8d1cdc75c2b59de10e3d8926d06c}\label{class_move_aceff8d1cdc75c2b59de10e3d8926d06c} 
+\index{Move@{Move}!getItsTextType@{getItsTextType}}
+\index{getItsTextType@{getItsTextType}!Move@{Move}}
+\doxysubsubsection{\texorpdfstring{getItsTextType()}{getItsTextType()}}
+{\footnotesize\ttfamily string Move\+::get\+Its\+Text\+Type (\begin{DoxyParamCaption}\item[{int}]{type }\end{DoxyParamCaption}) const}
+
+
+
+get\+Its\+Text\+Type Returns the string representation of the type of the move. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em The} & type of the move. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_move_a2606f34405215a25b9221ca3e23b177f}\label{class_move_a2606f34405215a25b9221ca3e23b177f} 
+\index{Move@{Move}!getItsType@{getItsType}}
+\index{getItsType@{getItsType}!Move@{Move}}
+\doxysubsubsection{\texorpdfstring{getItsType()}{getItsType()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_p_k_t_y_p_e}{PKTYPE}} Move\+::get\+Its\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Retrieves the type of the move. 
+
+\begin{DoxyReturn}{Returns}
+Type of the move. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{move_8h}{move.\+h}}\item 
+move.\+cpp\end{DoxyCompactItemize}

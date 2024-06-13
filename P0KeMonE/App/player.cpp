@@ -111,6 +111,7 @@ bool Player::checkCollision(QPointF newPos) {
             QRect border(itemTopLeft.x(), itemTopLeft.y(), 13, 32);
             return footPlayerRect.intersects(border);
             break;
+
         }
         case 68:
         {

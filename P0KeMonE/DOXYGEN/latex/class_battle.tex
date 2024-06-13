@@ -1,0 +1,83 @@
+\doxysection{Battle Class Reference}
+\hypertarget{class_battle}{}\label{class_battle}\index{Battle@{Battle}}
+
+
+Manages the mechanics of a battle between a player and an opponent in a Pokémon game.  
+
+
+
+
+{\ttfamily \#include $<$battle.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_battle_a7b7dc63106d2c72af135d9acd43aef4e}{Battle}} (\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}opponent1, \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}opponent2, \mbox{\hyperlink{class_battle_h_u_d}{Battle\+HUD}} \texorpdfstring{$\ast$}{*}battle\+HUD)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_battle}{Battle} instance with provided player, opponent, and HUD. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_battle_ae44141e587836ba84243cad46b17c228}{\texorpdfstring{$\sim$}{\string~}\+Battle}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{class_battle}{Battle} class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_aac4c64537842b778823e78e86a088c44}{attack}} (\mbox{\hyperlink{class_move}{Move}} \texorpdfstring{$\ast$}{*}move, \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}target)
+\begin{DoxyCompactList}\small\item\em Executes an attack during a battle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages the mechanics of a battle between a player and an opponent in a Pokémon game. 
+
+This class encapsulates all the functionalities for a Pokémon battle, including initiating attacks and updating the battle HUD. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_battle_a7b7dc63106d2c72af135d9acd43aef4e}\label{class_battle_a7b7dc63106d2c72af135d9acd43aef4e} 
+\index{Battle@{Battle}!Battle@{Battle}}
+\index{Battle@{Battle}!Battle@{Battle}}
+\doxysubsubsection{\texorpdfstring{Battle()}{Battle()}}
+{\footnotesize\ttfamily Battle\+::\+Battle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}}]{opponent1,  }\item[{\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}}]{opponent2,  }\item[{\mbox{\hyperlink{class_battle_h_u_d}{Battle\+HUD}} \texorpdfstring{$\ast$}{*}}]{battle\+HUD }\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_battle}{Battle} instance with provided player, opponent, and HUD. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em opponent1} & Pointer to the player Pokémon. \\
+\hline
+{\em opponent2} & Pointer to the opponent Pokémon. \\
+\hline
+{\em battle\+HUD1} & Pointer to the battle HUD.\\
+\hline
+\end{DoxyParams}
+Constructor for the \doxylink{class_battle}{Battle} class. Initializes a new battle instance with given player, opponent, and HUD. \Hypertarget{class_battle_ae44141e587836ba84243cad46b17c228}\label{class_battle_ae44141e587836ba84243cad46b17c228} 
+\index{Battle@{Battle}!````~Battle@{\texorpdfstring{$\sim$}{\string~}Battle}}
+\index{````~Battle@{\texorpdfstring{$\sim$}{\string~}Battle}!Battle@{Battle}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Battle()}{\string~Battle()}}
+{\footnotesize\ttfamily Battle\+::\texorpdfstring{$\sim$}{\string~}\+Battle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor for the \doxylink{class_battle}{Battle} class. 
+
+Destructor for the \doxylink{class_battle}{Battle} class. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_battle_aac4c64537842b778823e78e86a088c44}\label{class_battle_aac4c64537842b778823e78e86a088c44} 
+\index{Battle@{Battle}!attack@{attack}}
+\index{attack@{attack}!Battle@{Battle}}
+\doxysubsubsection{\texorpdfstring{attack()}{attack()}}
+{\footnotesize\ttfamily void Battle\+::attack (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_move}{Move}} \texorpdfstring{$\ast$}{*}}]{move,  }\item[{\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}}]{target }\end{DoxyParamCaption})}
+
+
+
+Executes an attack during a battle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em move} & Pointer to the move being used in the attack. \\
+\hline
+{\em target} & Pointer to the Pokémon being targeted.\\
+\hline
+\end{DoxyParams}
+Conducts an attack in a battle scenario using a specified move against a target Pokémon. The function determines the damage based on move type and calculates whether the attack hits based on move accuracy. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{battle_8h}{battle.\+h}}\item 
+battle.\+cpp\end{DoxyCompactItemize}

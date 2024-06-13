@@ -1,5 +1,6 @@
 /**
  * @file GameOverHUD.h
+ * @author Paulin Paul Achile Lilian
  * @brief Defines the GameOverHUD class, which displays the game over screen in a graphical format.
  */
 

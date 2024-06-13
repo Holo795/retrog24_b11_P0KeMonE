@@ -51,7 +51,7 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
 
 
     attackText = createTextItem(Qt::white, minecraftFont, QPoint(10, 260));
-    menuText = createTextItem(Qt::white, minecraftFont, QPoint(10, 255));
+    menuText = createTextItem(Qt::black, minecraftFont, QPoint(10, 255));
     menuText->setTextWidth(250);
 
     // Initialize health bars
@@ -337,12 +337,17 @@ void BattleHUD::createMoveButton(Move* move, const QPoint &pos, int width, int h
     moveLabel->setStyleSheet("QLabel { color: white; font: bold 14px; }");
     moveLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
 
-    // Set tooltip for the move button
-    moveButton->setToolTip("Name : " + QString::fromStdString(move->getItsName()) + "<br>"
-                        + "Power : " + QString::number(move->getItsPower()) + "<br>"
-                        + "Accuracy : " + QString::number(move->getItsAccuracy()) + "<br>"
-                        + "Nature : " +  QString::fromStdString(move->getItsTextNature(move->getItsNature())) + "<br>"
-                        + "Type : " +  QString::fromStdString(move->getItsTextType(move->getItsType())) + "<br>");
+    // Set tooltip for the move button with black text on white background
+    QString tooltipText = "Name : " + QString::fromStdString(move->getItsName()) + "<br>"
+                          + "Power : " + QString::number(move->getItsPower()) + "<br>"
+                          + "Accuracy : " + QString::number(move->getItsAccuracy()) + "<br>"
+                          + "Nature : " +  QString::fromStdString(move->getItsTextNature(move->getItsNature())) + "<br>"
+                          + "Type : " +  QString::fromStdString(move->getItsTextType(move->getItsType())) + "<br>";
+
+    moveButton->setToolTip(tooltipText);
+
+    // Apply stylesheet to the tooltip
+    moveButton->setStyleSheet("QToolTip { color: black; background-color: white; border: 1px solid black; }");
 
     addWidget(moveButton);
     moveButtonsGroup->addButton(moveButton, id);

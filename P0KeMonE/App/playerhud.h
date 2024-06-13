@@ -58,8 +58,18 @@ public:
      */
     void setPokemonLabel(string newPokemonLabel);
 
+
+    /**
+     * @brief getPokemonChanged
+     * @return the pokemon changed
+     */
     Pokemon *getPokemonChanged() const;
 
+
+    /**
+     * @brief setPokemonChanged
+     * @param newPokemonChanged the new pokemon changed
+     */
     void setPokemonChanged(Pokemon *newPokemonChanged);
 
 protected:

@@ -1,0 +1,46 @@
+\doxysection{move.\+h}
+\hypertarget{move_8h_source}{}\label{move_8h_source}\mbox{\hyperlink{move_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MOVE\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MOVE\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}typeDef.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_move}{Move}}}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{string}\ itsName;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{int}\ itsPower;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{int}\ itsAccuracy;\ \ \ \ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ MOVENATURE\ itsNature;\ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{class_p_k_t_y_p_e}{PKTYPE}}\ itsType;\ \ \ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{class_move}{Move}}(\textcolor{keywordtype}{string}\ itsName,\ \textcolor{keywordtype}{int}\ itsPower,\ \textcolor{keywordtype}{int}\ itsAccuracy,\ MOVENATURE\ itsNature,\ \mbox{\hyperlink{class_p_k_t_y_p_e}{PKTYPE}}\ itsType);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{class_move_aaa4fbeefe3ba401d081d6de48db9ade2}{getItsName}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_move_aa4b778b76309234c4f636ef20b2cbbfe}{getItsPower}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_move_a85e94b0f4579cee7165fa94086f946a0}{getItsAccuracy}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00064\ \ \ \ \ MOVENATURE\ \mbox{\hyperlink{class_move_aff034012640715aa27e61e0bd5e1f9ed}{getItsNature}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{class_move_a85a09d6a2a80d01b4e942c9674d7f22a}{getItsTextNature}}(\textcolor{keywordtype}{int}\ nature)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00076\ \ \ \ \ \mbox{\hyperlink{class_p_k_t_y_p_e}{PKTYPE}}\ \mbox{\hyperlink{class_move_a2606f34405215a25b9221ca3e23b177f}{getItsType}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{class_move_aceff8d1cdc75c2b59de10e3d8926d06c}{getItsTextType}}(\textcolor{keywordtype}{int}\ type)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_move_a62a7335b11c4f1a80b9f6d7d8f382dcb}{calculateDamage}}(\textcolor{keywordtype}{int}\ lvl,\ \textcolor{keywordtype}{int}\ atk,\ \textcolor{keywordtype}{int}\ def,\ \textcolor{keywordtype}{bool}\ crit)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00095\ \};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ MOVE\_H}}
+
+\end{DoxyCode}

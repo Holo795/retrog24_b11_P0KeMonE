@@ -1,0 +1,297 @@
+\doxysection{Player Class Reference}
+\hypertarget{class_player}{}\label{class_player}\index{Player@{Player}}
+
+
+The \doxylink{class_player}{Player} class represents the player character in the game.  
+
+
+
+
+{\ttfamily \#include $<$player.\+h$>$}
+
+Inheritance diagram for Player\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_player}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_player_ae02ee46d8c20dd0697b975f935b09839}\label{class_player_ae02ee46d8c20dd0697b975f935b09839} 
+void {\bfseries move} ()
+\begin{DoxyCompactList}\small\item\em Moves the player based on the currently pressed key. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_player_a5a20e6232fed30c28453b8bcf4e7ad0d}\label{class_player_a5a20e6232fed30c28453b8bcf4e7ad0d} 
+void {\bfseries start\+Encounter\+Combat} ()
+\begin{DoxyCompactList}\small\item\em Signal emitted when the player encounters combat conditions. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_aec58c69c54a14420ebf4182077e1a58b}\label{class_player_aec58c69c54a14420ebf4182077e1a58b} 
+void {\bfseries start\+Encouter\+Boss} ()
+\begin{DoxyCompactList}\small\item\em Signal emitted when the player encounters a boss. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_ababa49f3c26e0fde7fad9606fd69d237}\label{class_player_ababa49f3c26e0fde7fad9606fd69d237} 
+void {\bfseries sign\+Encounter} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Signal emitted when the player encounters a sign. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_player_a847cda8deb8dca3637bef1084643b46b}{Player}} (QGraphics\+Item \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_player}{Player} object with an optional parent item. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_a749d2c00e1fe0f5c2746f7505a58c062}\label{class_player_a749d2c00e1fe0f5c2746f7505a58c062} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Player} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{class_player}{Player} class. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_player_a62294b1aab2679ef68734a4e2d0c6e85}{get\+Team}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the player\textquotesingle{}s team of Pokémon. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_ad14dad13ee021760eb0cbd8ad77aa64d}{set\+Team}} (vector$<$ \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} $>$)
+\begin{DoxyCompactList}\small\item\em Sets the player\textquotesingle{}s team of Pokémon. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_a4d269c4118c29b0ee85c1e0f674260ee}{key\+Press\+Event}} (QKey\+Event \texorpdfstring{$\ast$}{*}event)
+\begin{DoxyCompactList}\small\item\em Handles key press events for player movement. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_a478572d23809f9163fb6c9a3520f3dee}\label{class_player_a478572d23809f9163fb6c9a3520f3dee} 
+void {\bfseries stop\+Moving} ()
+\begin{DoxyCompactList}\small\item\em Stops the player\textquotesingle{}s movement. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_ac642eec0c4f2ac2049cd0b8ef63ea338}{add\+Pokemon}} (\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}pokemon)
+\begin{DoxyCompactList}\small\item\em Adds a Pokémon to the player\textquotesingle{}s team. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_a7cec467d6da681aa0b0394e8ff93e2e1}{remove\+Pokemon}} (\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}pokemon)
+\begin{DoxyCompactList}\small\item\em Removes a Pokémon from the player\textquotesingle{}s team. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_a9b650b849a62aff897c2676dc667c5d9}\label{class_player_a9b650b849a62aff897c2676dc667c5d9} 
+void {\bfseries increment\+Win\+Count} ()
+\begin{DoxyCompactList}\small\item\em Increments the player\textquotesingle{}s win count. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_player_aa74c730b171ca1759f67d4c675d0c798}{get\+Its\+Level}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the player\textquotesingle{}s level. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_a2f0d5b6ef60f7241d2063029ee15274b}{set\+Its\+Level}} (float new\+Its\+Level)
+\begin{DoxyCompactList}\small\item\em Sets the player\textquotesingle{}s level. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_player_a4077cde34e11adaf89b9f88a9efc2a2c}{get\+Win\+Count}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the player\textquotesingle{}s win count. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_adf6b9c2bed712f9b932ea0c0bd98d9cd}{set\+Win\+Count}} (int new\+Win\+Count)
+\begin{DoxyCompactList}\small\item\em Sets the player\textquotesingle{}s win count. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_af46940ec1a3712003e1f11ce14917799}{set\+Can\+Move}} (bool new\+Can\+Move)
+\begin{DoxyCompactList}\small\item\em Sets the player\textquotesingle{}s ability to move. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_player_a6f988daee57a38eb62b6d461c0ea0c10}{get\+Complete\+Team}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the player\textquotesingle{}s team is complete. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_ac845b49f3ae0652f550350418fbe1e82}{set\+Complete\+Team}} (bool new\+Complete\+Team)
+\begin{DoxyCompactList}\small\item\em Sets the completeness of the player\textquotesingle{}s team. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_player_a09f3d5dea93b5699138eba6f4f420b27}{key\+Release\+Event}} (QKey\+Event \texorpdfstring{$\ast$}{*}event)
+\begin{DoxyCompactList}\small\item\em Handles key release events to stop player movement. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \doxylink{class_player}{Player} class represents the player character in the game. 
+
+This class is responsible for managing player input, movement, and interactions within the game scene, including collision detection and response. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_player_a847cda8deb8dca3637bef1084643b46b}\label{class_player_a847cda8deb8dca3637bef1084643b46b} 
+\index{Player@{Player}!Player@{Player}}
+\index{Player@{Player}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{Player()}{Player()}}
+{\footnotesize\ttfamily Player\+::\+Player (\begin{DoxyParamCaption}\item[{QGraphics\+Item \texorpdfstring{$\ast$}{*}}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_player}{Player} object with an optional parent item. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & The parent QGraphics\+Item, default is nullptr. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_player_ac642eec0c4f2ac2049cd0b8ef63ea338}\label{class_player_ac642eec0c4f2ac2049cd0b8ef63ea338} 
+\index{Player@{Player}!addPokemon@{addPokemon}}
+\index{addPokemon@{addPokemon}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{addPokemon()}{addPokemon()}}
+{\footnotesize\ttfamily void Player\+::add\+Pokemon (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}}]{pokemon }\end{DoxyParamCaption})}
+
+
+
+Adds a Pokémon to the player\textquotesingle{}s team. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pokemon} & Pointer to the Pokémon to add. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_player_a6f988daee57a38eb62b6d461c0ea0c10}\label{class_player_a6f988daee57a38eb62b6d461c0ea0c10} 
+\index{Player@{Player}!getCompleteTeam@{getCompleteTeam}}
+\index{getCompleteTeam@{getCompleteTeam}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{getCompleteTeam()}{getCompleteTeam()}}
+{\footnotesize\ttfamily bool Player\+::get\+Complete\+Team (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Checks if the player\textquotesingle{}s team is complete. 
+
+\begin{DoxyReturn}{Returns}
+True if the team is complete, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_player_aa74c730b171ca1759f67d4c675d0c798}\label{class_player_aa74c730b171ca1759f67d4c675d0c798} 
+\index{Player@{Player}!getItsLevel@{getItsLevel}}
+\index{getItsLevel@{getItsLevel}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{getItsLevel()}{getItsLevel()}}
+{\footnotesize\ttfamily float Player\+::get\+Its\+Level (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Retrieves the player\textquotesingle{}s level. 
+
+\begin{DoxyReturn}{Returns}
+The level of the player. 
+\end{DoxyReturn}
+\Hypertarget{class_player_a62294b1aab2679ef68734a4e2d0c6e85}\label{class_player_a62294b1aab2679ef68734a4e2d0c6e85} 
+\index{Player@{Player}!getTeam@{getTeam}}
+\index{getTeam@{getTeam}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{getTeam()}{getTeam()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} $>$ Player\+::get\+Team (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Retrieves the player\textquotesingle{}s team of Pokémon. 
+
+\begin{DoxyReturn}{Returns}
+A constant reference to a vector of pointers to Pokémon. 
+\end{DoxyReturn}
+\Hypertarget{class_player_a4077cde34e11adaf89b9f88a9efc2a2c}\label{class_player_a4077cde34e11adaf89b9f88a9efc2a2c} 
+\index{Player@{Player}!getWinCount@{getWinCount}}
+\index{getWinCount@{getWinCount}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{getWinCount()}{getWinCount()}}
+{\footnotesize\ttfamily int Player\+::get\+Win\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Retrieves the player\textquotesingle{}s win count. 
+
+\begin{DoxyReturn}{Returns}
+The number of battles won by the player. 
+\end{DoxyReturn}
+\Hypertarget{class_player_a4d269c4118c29b0ee85c1e0f674260ee}\label{class_player_a4d269c4118c29b0ee85c1e0f674260ee} 
+\index{Player@{Player}!keyPressEvent@{keyPressEvent}}
+\index{keyPressEvent@{keyPressEvent}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{keyPressEvent()}{keyPressEvent()}}
+{\footnotesize\ttfamily void Player\+::key\+Press\+Event (\begin{DoxyParamCaption}\item[{QKey\+Event \texorpdfstring{$\ast$}{*}}]{event }\end{DoxyParamCaption})}
+
+
+
+Handles key press events for player movement. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The key event. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_player_a09f3d5dea93b5699138eba6f4f420b27}\label{class_player_a09f3d5dea93b5699138eba6f4f420b27} 
+\index{Player@{Player}!keyReleaseEvent@{keyReleaseEvent}}
+\index{keyReleaseEvent@{keyReleaseEvent}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{keyReleaseEvent()}{keyReleaseEvent()}}
+{\footnotesize\ttfamily void Player\+::key\+Release\+Event (\begin{DoxyParamCaption}\item[{QKey\+Event \texorpdfstring{$\ast$}{*}}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Handles key release events to stop player movement. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The key event. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_player_a7cec467d6da681aa0b0394e8ff93e2e1}\label{class_player_a7cec467d6da681aa0b0394e8ff93e2e1} 
+\index{Player@{Player}!removePokemon@{removePokemon}}
+\index{removePokemon@{removePokemon}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{removePokemon()}{removePokemon()}}
+{\footnotesize\ttfamily void Player\+::remove\+Pokemon (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}}]{pokemon }\end{DoxyParamCaption})}
+
+
+
+Removes a Pokémon from the player\textquotesingle{}s team. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pokemon} & Pointer to the Pokémon to remove. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_player_af46940ec1a3712003e1f11ce14917799}\label{class_player_af46940ec1a3712003e1f11ce14917799} 
+\index{Player@{Player}!setCanMove@{setCanMove}}
+\index{setCanMove@{setCanMove}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{setCanMove()}{setCanMove()}}
+{\footnotesize\ttfamily void Player\+::set\+Can\+Move (\begin{DoxyParamCaption}\item[{bool}]{new\+Can\+Move }\end{DoxyParamCaption})}
+
+
+
+Sets the player\textquotesingle{}s ability to move. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Can\+Move} & Boolean indicating if the player can move. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_player_ac845b49f3ae0652f550350418fbe1e82}\label{class_player_ac845b49f3ae0652f550350418fbe1e82} 
+\index{Player@{Player}!setCompleteTeam@{setCompleteTeam}}
+\index{setCompleteTeam@{setCompleteTeam}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{setCompleteTeam()}{setCompleteTeam()}}
+{\footnotesize\ttfamily void Player\+::set\+Complete\+Team (\begin{DoxyParamCaption}\item[{bool}]{new\+Complete\+Team }\end{DoxyParamCaption})}
+
+
+
+Sets the completeness of the player\textquotesingle{}s team. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Complete\+Team} & Boolean indicating if the team is complete. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_player_a2f0d5b6ef60f7241d2063029ee15274b}\label{class_player_a2f0d5b6ef60f7241d2063029ee15274b} 
+\index{Player@{Player}!setItsLevel@{setItsLevel}}
+\index{setItsLevel@{setItsLevel}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{setItsLevel()}{setItsLevel()}}
+{\footnotesize\ttfamily void Player\+::set\+Its\+Level (\begin{DoxyParamCaption}\item[{float}]{new\+Its\+Level }\end{DoxyParamCaption})}
+
+
+
+Sets the player\textquotesingle{}s level. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Its\+Level} & The new level to set. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_player_ad14dad13ee021760eb0cbd8ad77aa64d}\label{class_player_ad14dad13ee021760eb0cbd8ad77aa64d} 
+\index{Player@{Player}!setTeam@{setTeam}}
+\index{setTeam@{setTeam}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{setTeam()}{setTeam()}}
+{\footnotesize\ttfamily void Player\+::set\+Team (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} $>$}]{new\+Team }\end{DoxyParamCaption})}
+
+
+
+Sets the player\textquotesingle{}s team of Pokémon. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em team} & The vector of Pokémon pointers to set. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_player_adf6b9c2bed712f9b932ea0c0bd98d9cd}\label{class_player_adf6b9c2bed712f9b932ea0c0bd98d9cd} 
+\index{Player@{Player}!setWinCount@{setWinCount}}
+\index{setWinCount@{setWinCount}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{setWinCount()}{setWinCount()}}
+{\footnotesize\ttfamily void Player\+::set\+Win\+Count (\begin{DoxyParamCaption}\item[{int}]{new\+Win\+Count }\end{DoxyParamCaption})}
+
+
+
+Sets the player\textquotesingle{}s win count. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Win\+Count} & The new win count to set. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{player_8h}{player.\+h}}\item 
+player.\+cpp\end{DoxyCompactItemize}

@@ -1,5 +1,6 @@
 /**
  * @file Battle.h
+ * @author Paulin Paul Achile Lilian
  * @brief Defines the Battle class which manages combat interactions between players in a Pokémon game.
  */
 

@@ -14,6 +14,7 @@
 #include <QTimer>
 #include "typeDef.h"
 #include "pokemon.h"
+
 /**
  * @class Player
  * @brief The Player class represents the player character in the game.
@@ -42,8 +43,11 @@ public:
      */
     std::vector<Pokemon*> getTeam() const;
 
+    /**
+     * @brief Sets the player's team of Pokémon.
+     * @param team The vector of Pokémon pointers to set.
+     */
     void setTeam(vector<Pokemon*>);
-
 
     /**
      * @brief Handles key press events for player movement.
@@ -69,19 +73,56 @@ public:
     void removePokemon(Pokemon *pokemon);
 
     /**
-     * @brief Retrieves the player's scale factor.
-     * @return The scale factor for the player's graphical representation.
+     * @brief Increments the player's win count.
      */
     void incrementWinCount();
 
+    /**
+     * @brief Retrieves the player's level.
+     * @return The level of the player.
+     */
     float getItsLevel() const;
+
+    /**
+     * @brief Sets the player's level.
+     * @param newItsLevel The new level to set.
+     */
     void setItsLevel(float newItsLevel);
 
+    /**
+     * @brief Retrieves the player's win count.
+     * @return The number of battles won by the player.
+     */
     int getWinCount() const;
+
+    /**
+     * @brief Sets the player's win count.
+     * @param newWinCount The new win count to set.
+     */
     void setWinCount(int newWinCount);
+
+    /**
+     * @brief Retrieves whether the player can move or not
+     * @return Boolean indicating if the player can move or not.
+     */
     bool getCanMove() const;
+
+    /**
+     * @brief Sets the player's ability to move.
+     * @param newCanMove Boolean indicating if the player can move.
+     */
     void setCanMove(bool newCanMove);
+
+    /**
+     * @brief Checks if the player's team is complete.
+     * @return True if the team is complete, false otherwise.
+     */
     bool getCompleteTeam() const;
+
+    /**
+     * @brief Sets the completeness of the player's team.
+     * @param newCompleteTeam Boolean indicating if the team is complete.
+     */
     void setCompleteTeam(bool newCompleteTeam);
 
 private:
@@ -97,7 +138,7 @@ private:
     /**
      * @brief Checks for collisions at the new position.
      * @param newPos The new position to check for collisions.
-     * @return true if there is a collision, false otherwise.
+     * @return True if there is a collision, false otherwise.
      */
     bool checkCollision(QPointF newPos);
 
@@ -111,7 +152,6 @@ private:
      * @param direction The direction in which the player is moving.
      */
     void updateSprite(const QString &direction);
-
 
 protected:
     /**
@@ -138,10 +178,9 @@ signals:
     void startEncouterBoss();
 
     /**
-     * @brief Signal emitted when the player face on sign
+     * @brief Signal emitted when the player encounters a sign.
      */
     void signEncounter(int x, int y);
-
 };
 
 #endif // PLAYER_H

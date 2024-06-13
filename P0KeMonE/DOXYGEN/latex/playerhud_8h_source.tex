@@ -1,0 +1,64 @@
+\doxysection{playerhud.\+h}
+\hypertarget{playerhud_8h_source}{}\label{playerhud_8h_source}\mbox{\hyperlink{playerhud_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ PLAYERHUD\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ PLAYERHUD\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <QGraphicsScene>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <QGraphicsPixmapItem>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <QGraphicsTextItem>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <QProgressBar>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <QButtonGroup>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <QGraphicsProxyWidget>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <QKeyEvent>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{pokemon_8h}{pokemon.h}}"{}}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_player_h_u_d}{PlayerHUD}}\ :\ \textcolor{keyword}{public}\ QGraphicsScene}
+\DoxyCodeLine{00028\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00030\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{class_player_h_u_d}{PlayerHUD}}(QObject\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_h_u_d_ae5109d3978a38b82c1e09ddf32ee104b}{setPokemons}}(\textcolor{keyword}{const}\ std::vector<Pokemon*>\&\ pokemons,\ \textcolor{keywordtype}{int}\ itsLevelPlayer);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_h_u_d_a6a7c800b82759bb8893402c0232fd26f}{setSelectionMode}}(\textcolor{keywordtype}{bool}\ selectionMode);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_h_u_d_a7ba93452ce8873c1d6206c0154ad2f0a}{updateHUD}}();}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_h_u_d_adf1e6aa402d0422e0ba498840af172a7}{setPokemonLabel}}(\textcolor{keywordtype}{string}\ newPokemonLabel);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{class_pokemon}{Pokemon}}\ *\mbox{\hyperlink{class_player_h_u_d_a6cc8d116c48ddfdddd5f57a9556ca112}{getPokemonChanged}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_h_u_d_a2eb0134ae9b3c315f58d48e46d3151f8}{setPokemonChanged}}(\mbox{\hyperlink{class_pokemon}{Pokemon}}\ *newPokemonChanged);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_h_u_d_a8bb5a56b3b2e4a4b77fbd111617e13a9}{keyPressEvent}}(QKeyEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ addCharacter(\textcolor{keyword}{const}\ QPixmap\ \&characterImage,\ \textcolor{keywordtype}{int}\ currentHealth,\ \textcolor{keywordtype}{int}\ maxHealth,\ \textcolor{keywordtype}{int}\ xPos,\ \textcolor{keywordtype}{int}\ yPos,\ \mbox{\hyperlink{class_pokemon}{Pokemon}}\ *pokemon);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{void}\ updateSelectionArrow();}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ std::vector<Pokemon*>\ pokemons;\ }
+\DoxyCodeLine{00099\ \ \ \ \ QList<QGraphicsPixmapItem*>\ characterItems;\ }
+\DoxyCodeLine{00100\ \ \ \ \ QList<QGraphicsTextItem*>\ healthTextItems;\ }
+\DoxyCodeLine{00101\ \ \ \ \ QList<QGraphicsProxyWidget*>\ healthBars;\ }
+\DoxyCodeLine{00102\ \ \ \ \ QGraphicsPixmapItem\ *selectionArrow;\ }
+\DoxyCodeLine{00103\ \ \ \ \ QGraphicsTextItem\ *titleLabel;\ }
+\DoxyCodeLine{00104\ \ \ \ \ \mbox{\hyperlink{class_pokemon}{Pokemon}}*\ pokemonChanged\ =\ \textcolor{keyword}{nullptr};\ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{bool}\ selectionMode;\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{int}\ selectedIndex;\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{int}\ itsLevelPlayer;\ }
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ signals:}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_h_u_d_a5eacbcaa8b6ddefa98b81bb41966a2de}{pokemonSelected}}(\mbox{\hyperlink{class_pokemon}{Pokemon}}\ *pokemon);}
+\DoxyCodeLine{00116\ \};}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ PLAYERHUD\_H}}
+
+\end{DoxyCode}

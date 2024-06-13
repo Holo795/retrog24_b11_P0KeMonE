@@ -1,5 +1,6 @@
 /**
  * @file BattleHUD.h
+ * @author Paulin Paul Achile Lilian
  * @brief Defines the BattleHUD class, which handles the graphical user interface for battles in a Pokémon game.
  */
 
@@ -115,19 +116,46 @@ public:
      */
     QPushButton *getBackButton() const;
 
+    /**
+     * @brief Sets the text to display in the HUD.
+     * @param text The text to display.
+     */
     void setText(string text);
 
+    /**
+     * @brief Updates the health bars of the Pokémon.
+     */
     void updateHealthBars();
 
+    /**
+     * @brief Adds a personal item to the HUD.
+     * @param item Pointer to the QGraphicsPixmapItem to add.
+     */
+    void addPersonalItem(QGraphicsPixmapItem *item);
 
-    void addPersonalItem (QGraphicsPixmapItem *item);
+    /**
+     * @brief Retrieves the old men's pixmap item.
+     * @return A pointer to the QGraphicsPixmapItem representing the old men.
+     */
     QGraphicsPixmapItem* getOldMenPixmap();
+
+    /**
+     * @brief Retrieves the boss's pixmap item.
+     * @return A pointer to the QGraphicsPixmapItem representing the boss.
+     */
     QGraphicsPixmapItem* getBossPixmap();
 
+    /**
+     * @brief Enables the battle buttons.
+     * @param exitButton If true, only the exit button is enabled.
+     */
     void enableBattleButtons(bool exitButton = false);
+
+    /**
+     * @brief Disables the battle buttons.
+     * @param exitButton If true, only the exit button is disabled.
+     */
     void disableBattleButtons(bool exitButton = false);
-
-
 
 private:
     QPushButton *attackButton;           /**< Button used for initiating attacks. */
@@ -139,19 +167,17 @@ private:
     QGraphicsPixmapItem *pokemon2Item;   /**< Graphics item for the second Pokémon's image. */
     QGraphicsTextItem *health1;          /**< Text item for the first Pokémon's health. */
     QGraphicsTextItem *health2;          /**< Text item for the second Pokémon's health. */
-    QGraphicsTextItem *menuText;            /**< "What will `pokemon` will do" */
-    QGraphicsTextItem *attackText;         /**< `pokemon` used `move`! */
+    QGraphicsTextItem *menuText;         /**< Text item for the battle menu. */
+    QGraphicsTextItem *attackText;       /**< Text item for the attack dialogue. */
     QGraphicsPixmapItem *dialogueBox;    /**< Graphics item for battle dialogue. */
     QButtonGroup *moveButtonsGroup;      /**< Button group for move buttons. */
     QPushButton *backButton;             /**< Button used for going back. */
-    QGraphicsPixmapItem* oldMenPixmap;
-    QGraphicsPixmapItem* bossPixmap;
-
-    QProgressBar *pokemon1HealthBar;
-    QProgressBar *pokemon2HealthBar;
-    QGraphicsProxyWidget *pokemon1HealthBarProxy;
-    QGraphicsProxyWidget *pokemon2HealthBarProxy;
-
+    QGraphicsPixmapItem* oldMenPixmap;   /**< Graphics item for the old men. */
+    QGraphicsPixmapItem* bossPixmap;     /**< Graphics item for the boss. */
+    QProgressBar *pokemon1HealthBar;     /**< Health bar for the first Pokémon. */
+    QProgressBar *pokemon2HealthBar;     /**< Health bar for the second Pokémon. */
+    QGraphicsProxyWidget *pokemon1HealthBarProxy; /**< Proxy widget for the first Pokémon's health bar. */
+    QGraphicsProxyWidget *pokemon2HealthBarProxy; /**< Proxy widget for the second Pokémon's health bar. */
 
     // Helper methods
     QGraphicsPixmapItem* createPixmapItem(const QString &path, const QSize &size, const QPoint &pos);

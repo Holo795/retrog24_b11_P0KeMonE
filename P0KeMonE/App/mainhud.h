@@ -1,5 +1,6 @@
 /**
  * @file MainHUD.h
+ * @author Paulin Paul Achile Lilian
  * @brief Defines the MainHUD class that handles the main menu interface for a game.
  */
 

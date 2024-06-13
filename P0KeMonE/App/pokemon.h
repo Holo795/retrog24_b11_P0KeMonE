@@ -1,5 +1,6 @@
 /**
  * @file Pokemon.h
+ * @author Paulin Paul Achile Lilian
  * @brief Declaration of the Pokemon class, which encapsulates properties and behaviors of a Pokémon in the game.
  */
 

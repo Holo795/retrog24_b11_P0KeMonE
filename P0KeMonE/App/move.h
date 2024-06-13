@@ -1,5 +1,6 @@
 /**
  * @file Move.h
+ * @author Paulin Paul Achile Lilian
  * @brief Defines the Move class that represents an attack or move in a game.
  */
 

@@ -1,5 +1,6 @@
 /**
  * @file GUI.h
+ * @author Paulin Paul Achile Lilian
  * @brief Defines the GUI class that handles graphical user interfaces for different game scenes.
  */
 

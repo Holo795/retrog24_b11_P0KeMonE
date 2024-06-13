@@ -27,7 +27,6 @@ SOURCES += \
     player.cpp \
     playerhud.cpp \
     pokemon.cpp \
-    soundmanager.cpp \
     typeDef.cpp
 
 HEADERS += \
@@ -46,7 +45,6 @@ HEADERS += \
     player.h \
     playerhud.h \
     pokemon.h \
-    soundmanager.h \
     typeDef.h
 
 # Default rules for deployment.

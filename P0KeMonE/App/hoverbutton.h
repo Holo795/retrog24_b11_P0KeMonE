@@ -1,5 +1,6 @@
 /**
  * @file hoverbutton.h
+ * @author Paulin Paul Achile Lilian
  * @brief Definition of the HoverButton class.
  */
 

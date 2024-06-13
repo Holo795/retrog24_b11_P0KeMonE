@@ -1,5 +1,6 @@
 /**
  * @file Model.h
+ * @author Paulin Paul Achile Lilian
  * @brief Defines the Model class that manages game data and interactions.
  */
 

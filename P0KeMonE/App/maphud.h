@@ -1,5 +1,6 @@
 /**
  * @file MapHUD.h
+ * @author Paulin Paul Achile Lilian
  * @brief Defines the MapHUD class that handles the map interface for the game.
  */
 

@@ -19,7 +19,6 @@
 /**
  * @class Game
  * @brief Manages the main game interactions and UI updates.
- *
  * This class is a custom QGraphicsView that handles all user interactions and display updates for the game,
  * including moving between different screens such as the main menu, game map, and battle scenes.
  */

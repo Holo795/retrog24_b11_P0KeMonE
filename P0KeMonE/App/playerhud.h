@@ -1,5 +1,6 @@
 /**
  * @file playerhud.h
+ * @author Paulin Paul Achile Lilian
  * @brief Definition of the PlayerHUD class.
  */
 

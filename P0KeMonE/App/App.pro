@@ -27,6 +27,7 @@ SOURCES += \
     player.cpp \
     playerhud.cpp \
     pokemon.cpp \
+    savemanager.cpp \
     soundmanager.cpp \
     typeDef.cpp
 
@@ -46,6 +47,7 @@ HEADERS += \
     player.h \
     playerhud.h \
     pokemon.h \
+    savemanager.h \
     soundmanager.h \
     typeDef.h
 

@@ -7,6 +7,13 @@
 #include <QBitmap>
 #include <QMap>
 
+class Pokemon;
+struct saveData {
+    int player_x;
+    int player_y;
+    int player_lvl;
+    std::vector<Pokemon*> team;
+};
 /**
  * @enum PKTYPE
  * @brief Enumération des types de Pokémon.

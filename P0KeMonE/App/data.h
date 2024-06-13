@@ -1,5 +1,6 @@
 /**
  * @file Data.h
+ * @author Paulin Paul Achile Lilian
  * @brief Definition of the Data class for managing database operations related to Pokémon.
  */
 
@@ -47,6 +48,12 @@ public:
      */
     Pokemon * randompokemon();
 
+
+    /**
+     * @brief Retrieves a Pokémon from the database by ID.
+     * @param pokemonId The ID of the Pokémon to fetch.
+     * @return A new Pokémon object initialized with the fetched data.
+     */
     Pokemon* pokemonById(int pokemonId);
 
     /**

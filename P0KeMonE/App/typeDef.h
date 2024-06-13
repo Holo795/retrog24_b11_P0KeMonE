@@ -3,46 +3,44 @@
 
 #include <map>
 #include <QString>
-
 #include <QBitmap>
 #include <QMap>
 
 /**
  * @enum PKTYPE
- * @brief Enumération des types de Pokémon.
+ * @brief Enumeration of Pokémon types.
  */
 enum PKTYPE {
-    Grass,      /**< Type Plante */
-    Poison,         /**< Type Feu */
-    Normal,         /**< Type Eau */
-    Bug,        /**< Type Electrique */
-    Psychic,       /**< Type Sol */
-    Ghost,          /**< Type Vol */
-    Ground,          /**< Type Vol */
-    Dragon,          /**< Type Vol */
-    Fairy,          /**< Type Vol */
-    Fire,          /**< Type Vol */
-    Fighting,          /**< Type Vol */
-    Dark,          /**< Type Vol */
-    Electric,          /**< Type Vol */
-    Flying,          /**< Type Vol */
-    Rock,          /**< Type Vol */
-    Steel,          /**< Type Vol */
-    Water,          /**< Type Vol */
-    Ice,          /**< Type Vol */
+    Grass,      /**< Grass type */
+    Poison,     /**< Poison type */
+    Normal,     /**< Normal type */
+    Bug,        /**< Bug type */
+    Psychic,    /**< Psychic type */
+    Ghost,      /**< Ghost type */
+    Ground,     /**< Ground type */
+    Dragon,     /**< Dragon type */
+    Fairy,      /**< Fairy type */
+    Fire,       /**< Fire type */
+    Fighting,   /**< Fighting type */
+    Dark,       /**< Dark type */
+    Electric,   /**< Electric type */
+    Flying,     /**< Flying type */
+    Rock,       /**< Rock type */
+    Steel,      /**< Steel type */
+    Water,      /**< Water type */
+    Ice         /**< Ice type */
 };
 
-
 /**
- * @enum MOVETYPE
- * @brief Enumération des types de mouvements.
+ * @enum MOVENATURE
+ * @brief Enumeration of move types.
  */
 enum MOVENATURE {
-    Physique, /**< Attaque Physique */
-    Spéciale  /**< Attaque Spéciale */
+    Physique, /**< Physical attack */
+    Spéciale  /**< Special attack */
 };
 
 extern std::map<int, QString> dialogues; ///< Map of dialogues for the game
-extern QMap<int, QBitmap> masks;
+extern QMap<int, QBitmap> masks; ///< Map of bitmap masks used in the game
 
 #endif // TYPEDEF_H

@@ -13,6 +13,7 @@
 
 #include "player.h"
 #include "model.h"
+#include "boat.h"
 
 /**
  * @class MapHUD
@@ -53,6 +54,8 @@ public:
     void endScenario();
 
     QGraphicsTextItem *getDialogTextItem();
+
+    Boat *boat; ///< Pointer to the boat object.
 
 private:
     Model *model; ///< Pointer to the model.

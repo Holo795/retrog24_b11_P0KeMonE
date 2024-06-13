@@ -22,6 +22,10 @@ MapHUD::MapHUD(Model *model, QObject *parent)
     textItem->setDefaultTextColor(Qt::black); // Définir la couleur du texte
     textItem->setFont(QFont("Minecraft", 9)); // Définir la police et la taille du texte
     textItem->setTextWidth(256); // Définir la largeur du texte pour le retour à la ligne
+
+    boat = new Boat();
+    boat->setPos(300, 300);
+    addItem(boat);
 }
 
 MapHUD::~MapHUD() {
@@ -133,6 +137,10 @@ void MapHUD::keyPressEvent(QKeyEvent *event) {
 
     if (!keys.contains(event->key())) {
         return;
+    }
+
+    if(player->collidesWithItem(boat) && !boat->getIsStartJourney()) {
+        boat->startJourney(player);
     }
 
     player->keyPressEvent(event);

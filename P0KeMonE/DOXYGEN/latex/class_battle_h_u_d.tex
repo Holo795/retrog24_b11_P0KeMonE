@@ -1,0 +1,322 @@
+\doxysection{Battle\+HUD Class Reference}
+\hypertarget{class_battle_h_u_d}{}\label{class_battle_h_u_d}\index{BattleHUD@{BattleHUD}}
+
+
+Represents the battle heads-\/up display (HUD) using Qt\textquotesingle{}s QGraphics\+Scene.  
+
+
+
+
+{\ttfamily \#include $<$battlehud.\+h$>$}
+
+Inheritance diagram for Battle\+HUD\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_battle_h_u_d}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_battle_h_u_d_adfdaff2a1aaa86bd1e61f4702610b9c2}{Battle\+HUD}} (QObject \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_battle_h_u_d}{Battle\+HUD} scene with an optional parent. \end{DoxyCompactList}\item 
+\Hypertarget{class_battle_h_u_d_a10724f645605792412dca55236c8e1bc}\label{class_battle_h_u_d_a10724f645605792412dca55236c8e1bc} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Battle\+HUD} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{class_battle_h_u_d}{Battle\+HUD}. \end{DoxyCompactList}\item 
+QPush\+Button \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_battle_h_u_d_a28aeff6d61e38d500c16073b313ca057}{get\+Attack\+Button}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves the attack button. \end{DoxyCompactList}\item 
+QPush\+Button \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_battle_h_u_d_a7beaf088b45226c78a1b416ce115ffe7}{get\+Pokemon\+Button}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves the pokemon button. \end{DoxyCompactList}\item 
+QPush\+Button \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_battle_h_u_d_adbeec6edc272fe64ddd667cff7a8b303}{get\+Run\+Button}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves the run button. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_h_u_d_a4d890b305b810b083c6f21437ffe0dff}{set\+Pokemon}} (\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}pk1, \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}pk2)
+\begin{DoxyCompactList}\small\item\em Updates the displayed Pokémon and their health on the HUD. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_h_u_d_ae7eafde048b84d50292517c36bf3b54c}{shake\+Pokemon}} (\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}pk)
+\begin{DoxyCompactList}\small\item\em Shakes the Pokémon\textquotesingle{}s image on the HUD. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_h_u_d_a0181d54b5b8ba8c8762b8e6802ed7a62}{front\+Dash\+Pokemon}} (\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}pk)
+\begin{DoxyCompactList}\small\item\em Dashes the Pokémon\textquotesingle{}s image on the HUD. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_battle_h_u_d_a77aa18f3cf739f01754e4941268fff21}{get\+Pokemon1}} () const
+\begin{DoxyCompactList}\small\item\em Gets the first Pokémon shown in the HUD. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_battle_h_u_d_ac192736f28c88c5e6e605c7a5bb9ea8b}{get\+Pokemon2}} () const
+\begin{DoxyCompactList}\small\item\em Gets the second Pokémon shown in the HUD. \end{DoxyCompactList}\item 
+\Hypertarget{class_battle_h_u_d_a760659de9288b55abffd9193198656f5}\label{class_battle_h_u_d_a760659de9288b55abffd9193198656f5} 
+void {\bfseries display\+Moves} ()
+\begin{DoxyCompactList}\small\item\em Displays the available moves from pokemon 1 as buttons. \end{DoxyCompactList}\item 
+\Hypertarget{class_battle_h_u_d_a6b98d7adb1883b2cc2f6f12053f381fa}\label{class_battle_h_u_d_a6b98d7adb1883b2cc2f6f12053f381fa} 
+void {\bfseries menu\+Fight} ()
+\begin{DoxyCompactList}\small\item\em Shows the fight menu with attack, pokemon, and run buttons. \end{DoxyCompactList}\item 
+QButton\+Group \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_battle_h_u_d_ae482497f9b12c8fa5bdf98d817e1298e}{get\+Move\+Group}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the move buttons group. \end{DoxyCompactList}\item 
+QPush\+Button \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_battle_h_u_d_aaa2623bce9edec1797db21bf9ef525f2}{get\+Back\+Button}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the back button. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_h_u_d_a29907eb0299bc1fa25ce470be1d26d36}{set\+Text}} (string text)
+\begin{DoxyCompactList}\small\item\em Sets the text to display in the HUD. \end{DoxyCompactList}\item 
+\Hypertarget{class_battle_h_u_d_a45dd0a076cd5c4978a9f9907e444a305}\label{class_battle_h_u_d_a45dd0a076cd5c4978a9f9907e444a305} 
+void {\bfseries update\+Health\+Bars} ()
+\begin{DoxyCompactList}\small\item\em Updates the health bars of the Pokémon. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_h_u_d_a3e666f9e1e8874024dcd2cb2137584c6}{add\+Personal\+Item}} (QGraphics\+Pixmap\+Item \texorpdfstring{$\ast$}{*}item)
+\begin{DoxyCompactList}\small\item\em Adds a personal item to the HUD. \end{DoxyCompactList}\item 
+QGraphics\+Pixmap\+Item \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_battle_h_u_d_af49c876d140fb84030942e8d03f7cc97}{get\+Old\+Men\+Pixmap}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves the old men\textquotesingle{}s pixmap item. \end{DoxyCompactList}\item 
+QGraphics\+Pixmap\+Item \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_battle_h_u_d_a873bbd8443ff88722afe4e6b9f85f329}{get\+Boss\+Pixmap}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves the boss\textquotesingle{}s pixmap item. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_h_u_d_a526d01f67adc97c8048be7630bd345e0}{enable\+Battle\+Buttons}} (bool exit\+Button=false)
+\begin{DoxyCompactList}\small\item\em Enables the battle buttons. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battle_h_u_d_af5532a4cacaf444a289525ceda82e91a}{disable\+Battle\+Buttons}} (bool exit\+Button=false)
+\begin{DoxyCompactList}\small\item\em Disables the battle buttons. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents the battle heads-\/up display (HUD) using Qt\textquotesingle{}s QGraphics\+Scene. 
+
+This class is responsible for displaying the battle interface, including Pokémon and their health, and managing interactions through buttons. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_battle_h_u_d_adfdaff2a1aaa86bd1e61f4702610b9c2}\label{class_battle_h_u_d_adfdaff2a1aaa86bd1e61f4702610b9c2} 
+\index{BattleHUD@{BattleHUD}!BattleHUD@{BattleHUD}}
+\index{BattleHUD@{BattleHUD}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{BattleHUD()}{BattleHUD()}}
+{\footnotesize\ttfamily Battle\+HUD\+::\+Battle\+HUD (\begin{DoxyParamCaption}\item[{QObject \texorpdfstring{$\ast$}{*}}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_battle_h_u_d}{Battle\+HUD} scene with an optional parent. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & The parent QObject, default is nullptr. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_battle_h_u_d_a3e666f9e1e8874024dcd2cb2137584c6}\label{class_battle_h_u_d_a3e666f9e1e8874024dcd2cb2137584c6} 
+\index{BattleHUD@{BattleHUD}!addPersonalItem@{addPersonalItem}}
+\index{addPersonalItem@{addPersonalItem}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{addPersonalItem()}{addPersonalItem()}}
+{\footnotesize\ttfamily void Battle\+HUD\+::add\+Personal\+Item (\begin{DoxyParamCaption}\item[{QGraphics\+Pixmap\+Item \texorpdfstring{$\ast$}{*}}]{item }\end{DoxyParamCaption})}
+
+
+
+Adds a personal item to the HUD. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em item} & Pointer to the QGraphics\+Pixmap\+Item to add. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_battle_h_u_d_af5532a4cacaf444a289525ceda82e91a}\label{class_battle_h_u_d_af5532a4cacaf444a289525ceda82e91a} 
+\index{BattleHUD@{BattleHUD}!disableBattleButtons@{disableBattleButtons}}
+\index{disableBattleButtons@{disableBattleButtons}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{disableBattleButtons()}{disableBattleButtons()}}
+{\footnotesize\ttfamily void Battle\+HUD\+::disable\+Battle\+Buttons (\begin{DoxyParamCaption}\item[{bool}]{exit\+Button = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Disables the battle buttons. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em exit\+Button} & If true, only the exit button is disabled. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_battle_h_u_d_a526d01f67adc97c8048be7630bd345e0}\label{class_battle_h_u_d_a526d01f67adc97c8048be7630bd345e0} 
+\index{BattleHUD@{BattleHUD}!enableBattleButtons@{enableBattleButtons}}
+\index{enableBattleButtons@{enableBattleButtons}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{enableBattleButtons()}{enableBattleButtons()}}
+{\footnotesize\ttfamily void Battle\+HUD\+::enable\+Battle\+Buttons (\begin{DoxyParamCaption}\item[{bool}]{exit\+Button = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Enables the battle buttons. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em exit\+Button} & If true, only the exit button is enabled. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_battle_h_u_d_a0181d54b5b8ba8c8762b8e6802ed7a62}\label{class_battle_h_u_d_a0181d54b5b8ba8c8762b8e6802ed7a62} 
+\index{BattleHUD@{BattleHUD}!frontDashPokemon@{frontDashPokemon}}
+\index{frontDashPokemon@{frontDashPokemon}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{frontDashPokemon()}{frontDashPokemon()}}
+{\footnotesize\ttfamily void Battle\+HUD\+::front\+Dash\+Pokemon (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}}]{pk }\end{DoxyParamCaption})}
+
+
+
+Dashes the Pokémon\textquotesingle{}s image on the HUD. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pk} & Pointer to the Pokémon to dash. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_battle_h_u_d_a28aeff6d61e38d500c16073b313ca057}\label{class_battle_h_u_d_a28aeff6d61e38d500c16073b313ca057} 
+\index{BattleHUD@{BattleHUD}!getAttackButton@{getAttackButton}}
+\index{getAttackButton@{getAttackButton}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{getAttackButton()}{getAttackButton()}}
+{\footnotesize\ttfamily QPush\+Button \texorpdfstring{$\ast$}{*} Battle\+HUD\+::get\+Attack\+Button (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retrieves the attack button. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the QPush\+Button used for attacks. 
+\end{DoxyReturn}
+\Hypertarget{class_battle_h_u_d_aaa2623bce9edec1797db21bf9ef525f2}\label{class_battle_h_u_d_aaa2623bce9edec1797db21bf9ef525f2} 
+\index{BattleHUD@{BattleHUD}!getBackButton@{getBackButton}}
+\index{getBackButton@{getBackButton}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{getBackButton()}{getBackButton()}}
+{\footnotesize\ttfamily QPush\+Button \texorpdfstring{$\ast$}{*} Battle\+HUD\+::get\+Back\+Button (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Retrieves the back button. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the QPush\+Button used for going back. 
+\end{DoxyReturn}
+\Hypertarget{class_battle_h_u_d_a873bbd8443ff88722afe4e6b9f85f329}\label{class_battle_h_u_d_a873bbd8443ff88722afe4e6b9f85f329} 
+\index{BattleHUD@{BattleHUD}!getBossPixmap@{getBossPixmap}}
+\index{getBossPixmap@{getBossPixmap}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{getBossPixmap()}{getBossPixmap()}}
+{\footnotesize\ttfamily QGraphics\+Pixmap\+Item \texorpdfstring{$\ast$}{*} Battle\+HUD\+::get\+Boss\+Pixmap (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retrieves the boss\textquotesingle{}s pixmap item. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the QGraphics\+Pixmap\+Item representing the boss. 
+\end{DoxyReturn}
+\Hypertarget{class_battle_h_u_d_ae482497f9b12c8fa5bdf98d817e1298e}\label{class_battle_h_u_d_ae482497f9b12c8fa5bdf98d817e1298e} 
+\index{BattleHUD@{BattleHUD}!getMoveGroup@{getMoveGroup}}
+\index{getMoveGroup@{getMoveGroup}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{getMoveGroup()}{getMoveGroup()}}
+{\footnotesize\ttfamily QButton\+Group \texorpdfstring{$\ast$}{*} Battle\+HUD\+::get\+Move\+Group (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Retrieves the move buttons group. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the QButton\+Group for move buttons. 
+\end{DoxyReturn}
+\Hypertarget{class_battle_h_u_d_af49c876d140fb84030942e8d03f7cc97}\label{class_battle_h_u_d_af49c876d140fb84030942e8d03f7cc97} 
+\index{BattleHUD@{BattleHUD}!getOldMenPixmap@{getOldMenPixmap}}
+\index{getOldMenPixmap@{getOldMenPixmap}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{getOldMenPixmap()}{getOldMenPixmap()}}
+{\footnotesize\ttfamily QGraphics\+Pixmap\+Item \texorpdfstring{$\ast$}{*} Battle\+HUD\+::get\+Old\+Men\+Pixmap (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retrieves the old men\textquotesingle{}s pixmap item. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the QGraphics\+Pixmap\+Item representing the old men. 
+\end{DoxyReturn}
+\Hypertarget{class_battle_h_u_d_a77aa18f3cf739f01754e4941268fff21}\label{class_battle_h_u_d_a77aa18f3cf739f01754e4941268fff21} 
+\index{BattleHUD@{BattleHUD}!getPokemon1@{getPokemon1}}
+\index{getPokemon1@{getPokemon1}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{getPokemon1()}{getPokemon1()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} Battle\+HUD\+::get\+Pokemon1 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the first Pokémon shown in the HUD. 
+
+\begin{DoxyReturn}{Returns}
+A constant pointer to the first Pokémon. 
+\end{DoxyReturn}
+\Hypertarget{class_battle_h_u_d_ac192736f28c88c5e6e605c7a5bb9ea8b}\label{class_battle_h_u_d_ac192736f28c88c5e6e605c7a5bb9ea8b} 
+\index{BattleHUD@{BattleHUD}!getPokemon2@{getPokemon2}}
+\index{getPokemon2@{getPokemon2}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{getPokemon2()}{getPokemon2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} Battle\+HUD\+::get\+Pokemon2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the second Pokémon shown in the HUD. 
+
+\begin{DoxyReturn}{Returns}
+A constant pointer to the second Pokémon. 
+\end{DoxyReturn}
+\Hypertarget{class_battle_h_u_d_a7beaf088b45226c78a1b416ce115ffe7}\label{class_battle_h_u_d_a7beaf088b45226c78a1b416ce115ffe7} 
+\index{BattleHUD@{BattleHUD}!getPokemonButton@{getPokemonButton}}
+\index{getPokemonButton@{getPokemonButton}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{getPokemonButton()}{getPokemonButton()}}
+{\footnotesize\ttfamily QPush\+Button \texorpdfstring{$\ast$}{*} Battle\+HUD\+::get\+Pokemon\+Button (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retrieves the pokemon button. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the QPush\+Button used for changing pokemon. 
+\end{DoxyReturn}
+\Hypertarget{class_battle_h_u_d_adbeec6edc272fe64ddd667cff7a8b303}\label{class_battle_h_u_d_adbeec6edc272fe64ddd667cff7a8b303} 
+\index{BattleHUD@{BattleHUD}!getRunButton@{getRunButton}}
+\index{getRunButton@{getRunButton}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{getRunButton()}{getRunButton()}}
+{\footnotesize\ttfamily QPush\+Button \texorpdfstring{$\ast$}{*} Battle\+HUD\+::get\+Run\+Button (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retrieves the run button. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the QPush\+Button used for leaving the battle. 
+\end{DoxyReturn}
+\Hypertarget{class_battle_h_u_d_a4d890b305b810b083c6f21437ffe0dff}\label{class_battle_h_u_d_a4d890b305b810b083c6f21437ffe0dff} 
+\index{BattleHUD@{BattleHUD}!setPokemon@{setPokemon}}
+\index{setPokemon@{setPokemon}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{setPokemon()}{setPokemon()}}
+{\footnotesize\ttfamily void Battle\+HUD\+::set\+Pokemon (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}}]{pk1,  }\item[{\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}}]{pk2 }\end{DoxyParamCaption})}
+
+
+
+Updates the displayed Pokémon and their health on the HUD. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pk1} & Pointer to the first Pokémon. \\
+\hline
+{\em pk2} & Pointer to the second Pokémon. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_battle_h_u_d_a29907eb0299bc1fa25ce470be1d26d36}\label{class_battle_h_u_d_a29907eb0299bc1fa25ce470be1d26d36} 
+\index{BattleHUD@{BattleHUD}!setText@{setText}}
+\index{setText@{setText}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{setText()}{setText()}}
+{\footnotesize\ttfamily void Battle\+HUD\+::set\+Text (\begin{DoxyParamCaption}\item[{string}]{text }\end{DoxyParamCaption})}
+
+
+
+Sets the text to display in the HUD. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & The text to display. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_battle_h_u_d_ae7eafde048b84d50292517c36bf3b54c}\label{class_battle_h_u_d_ae7eafde048b84d50292517c36bf3b54c} 
+\index{BattleHUD@{BattleHUD}!shakePokemon@{shakePokemon}}
+\index{shakePokemon@{shakePokemon}!BattleHUD@{BattleHUD}}
+\doxysubsubsection{\texorpdfstring{shakePokemon()}{shakePokemon()}}
+{\footnotesize\ttfamily void Battle\+HUD\+::shake\+Pokemon (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}}]{pk }\end{DoxyParamCaption})}
+
+
+
+Shakes the Pokémon\textquotesingle{}s image on the HUD. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pk} & Pointer to the Pokémon to shake. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{battlehud_8h}{battlehud.\+h}}\item 
+battlehud.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,187 @@
+\doxysection{GUI Class Reference}
+\hypertarget{class_g_u_i}{}\label{class_g_u_i}\index{GUI@{GUI}}
+
+
+Manages all \doxylink{class_g_u_i}{GUI} elements in the game including main menu, game over, map, and battle screens.  
+
+
+
+
+{\ttfamily \#include $<$gui.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_g_u_i_aaea37b56fcb036628b71fda6d1fc8f05}{GUI}} (\mbox{\hyperlink{class_model}{Model}} \texorpdfstring{$\ast$}{*}model)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_g_u_i}{GUI}, initializes all HUDs using a given model. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_g_u_i_ac9cae2328dcb5d83bdfaeca49a2eb695}{\texorpdfstring{$\sim$}{\string~}\+GUI}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{class_g_u_i}{GUI} class. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_main_h_u_d}{Main\+HUD}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_g_u_i_ae455850837c75fe3a8ca09959fd68cb0}{main\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em Accessor for the main menu HUD. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_game_over_h_u_d}{Game\+Over\+HUD}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_g_u_i_a6885e1c2edb47ce846cd7402c272f303}{game\+Over}} ()
+\begin{DoxyCompactList}\small\item\em Accessor for the game over HUD. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_map_h_u_d}{Map\+HUD}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_g_u_i_a0104222745325d27d0057d9ea4578431}{map}} ()
+\begin{DoxyCompactList}\small\item\em Accessor for the map HUD. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_battle_h_u_d}{Battle\+HUD}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_g_u_i_addc724c7ef27f52db0c709844fbe8346}{battle}} (\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}pk1, \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}pk2)
+\begin{DoxyCompactList}\small\item\em Returns the battle HUD initialized with specific Pokémon. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_battle_h_u_d}{Battle\+HUD}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_g_u_i_acb648fa8e39a6c092f286863ae171be2}{battle}} ()
+\begin{DoxyCompactList}\small\item\em Accessor for the default battle HUD. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_player_h_u_d}{Player\+HUD}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_g_u_i_a2551eec05d27fa0943cdcbe310bafa96}{player\+Team}} (vector$<$ \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} $>$ pokemons, int its\+Level)
+\begin{DoxyCompactList}\small\item\em Accessor for the player HUD. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_player_h_u_d}{Player\+HUD}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_g_u_i_a8cb7a1803c30239b3f8f3f80338bdadb}{team}} ()
+\begin{DoxyCompactList}\small\item\em Accessor for the player HUD. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_player_h_u_d}{Player\+HUD}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_g_u_i_a21e07161c97d8e4c5106e240ded46335}{select\+Pokemon}} (vector$<$ \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} $>$ pokemons, string text=\"{}\"{})
+\begin{DoxyCompactList}\small\item\em Accessor for the player HUD. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages all \doxylink{class_g_u_i}{GUI} elements in the game including main menu, game over, map, and battle screens. 
+
+This class is responsible for creating and managing all the HUDs used in the game. It provides methods to access different screens and handles their initialization. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_g_u_i_aaea37b56fcb036628b71fda6d1fc8f05}\label{class_g_u_i_aaea37b56fcb036628b71fda6d1fc8f05} 
+\index{GUI@{GUI}!GUI@{GUI}}
+\index{GUI@{GUI}!GUI@{GUI}}
+\doxysubsubsection{\texorpdfstring{GUI()}{GUI()}}
+{\footnotesize\ttfamily GUI\+::\+GUI (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_model}{Model}} \texorpdfstring{$\ast$}{*}}]{model }\end{DoxyParamCaption})}
+
+
+
+Constructor for \doxylink{class_g_u_i}{GUI}, initializes all HUDs using a given model. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & Pointer to the model used for game data and logic.\\
+\hline
+\end{DoxyParams}
+Initializes the \doxylink{class_g_u_i}{GUI} class, setting up HUDs for different parts of the game. \Hypertarget{class_g_u_i_ac9cae2328dcb5d83bdfaeca49a2eb695}\label{class_g_u_i_ac9cae2328dcb5d83bdfaeca49a2eb695} 
+\index{GUI@{GUI}!````~GUI@{\texorpdfstring{$\sim$}{\string~}GUI}}
+\index{````~GUI@{\texorpdfstring{$\sim$}{\string~}GUI}!GUI@{GUI}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}GUI()}{\string~GUI()}}
+{\footnotesize\ttfamily GUI\+::\texorpdfstring{$\sim$}{\string~}\+GUI (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor for the \doxylink{class_g_u_i}{GUI} class. 
+
+Destructor for the \doxylink{class_g_u_i}{GUI} class. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_g_u_i_acb648fa8e39a6c092f286863ae171be2}\label{class_g_u_i_acb648fa8e39a6c092f286863ae171be2} 
+\index{GUI@{GUI}!battle@{battle}}
+\index{battle@{battle}!GUI@{GUI}}
+\doxysubsubsection{\texorpdfstring{battle()}{battle()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_battle_h_u_d}{Battle\+HUD}} \texorpdfstring{$\ast$}{*} GUI\+::battle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Accessor for the default battle HUD. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the \doxylink{class_battle_h_u_d}{Battle\+HUD} object.
+\end{DoxyReturn}
+Returns the default battle HUD, typically used when no specific Pokémon are set. \Hypertarget{class_g_u_i_addc724c7ef27f52db0c709844fbe8346}\label{class_g_u_i_addc724c7ef27f52db0c709844fbe8346} 
+\index{GUI@{GUI}!battle@{battle}}
+\index{battle@{battle}!GUI@{GUI}}
+\doxysubsubsection{\texorpdfstring{battle()}{battle()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_battle_h_u_d}{Battle\+HUD}} \texorpdfstring{$\ast$}{*} GUI\+::battle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}}]{pk1,  }\item[{\mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*}}]{pk2 }\end{DoxyParamCaption})}
+
+
+
+Returns the battle HUD initialized with specific Pokémon. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pk1} & Pointer to the first Pokémon. \\
+\hline
+{\em pk2} & Pointer to the second Pokémon. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the \doxylink{class_battle_h_u_d}{Battle\+HUD} object.
+\end{DoxyReturn}
+Initializes the battle HUD with two specific Pokémon and returns it. \Hypertarget{class_g_u_i_a6885e1c2edb47ce846cd7402c272f303}\label{class_g_u_i_a6885e1c2edb47ce846cd7402c272f303} 
+\index{GUI@{GUI}!gameOver@{gameOver}}
+\index{gameOver@{gameOver}!GUI@{GUI}}
+\doxysubsubsection{\texorpdfstring{gameOver()}{gameOver()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_game_over_h_u_d}{Game\+Over\+HUD}} \texorpdfstring{$\ast$}{*} GUI\+::game\+Over (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Accessor for the game over HUD. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the \doxylink{class_game_over_h_u_d}{Game\+Over\+HUD} object.
+\end{DoxyReturn}
+Returns the game over HUD. \Hypertarget{class_g_u_i_ae455850837c75fe3a8ca09959fd68cb0}\label{class_g_u_i_ae455850837c75fe3a8ca09959fd68cb0} 
+\index{GUI@{GUI}!mainMenu@{mainMenu}}
+\index{mainMenu@{mainMenu}!GUI@{GUI}}
+\doxysubsubsection{\texorpdfstring{mainMenu()}{mainMenu()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_main_h_u_d}{Main\+HUD}} \texorpdfstring{$\ast$}{*} GUI\+::main\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Accessor for the main menu HUD. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the \doxylink{class_main_h_u_d}{Main\+HUD} object.
+\end{DoxyReturn}
+Returns the main menu HUD. \Hypertarget{class_g_u_i_a0104222745325d27d0057d9ea4578431}\label{class_g_u_i_a0104222745325d27d0057d9ea4578431} 
+\index{GUI@{GUI}!map@{map}}
+\index{map@{map}!GUI@{GUI}}
+\doxysubsubsection{\texorpdfstring{map()}{map()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_map_h_u_d}{Map\+HUD}} \texorpdfstring{$\ast$}{*} GUI\+::map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Accessor for the map HUD. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the \doxylink{class_map_h_u_d}{Map\+HUD} object.
+\end{DoxyReturn}
+Returns the map HUD. \Hypertarget{class_g_u_i_a2551eec05d27fa0943cdcbe310bafa96}\label{class_g_u_i_a2551eec05d27fa0943cdcbe310bafa96} 
+\index{GUI@{GUI}!playerTeam@{playerTeam}}
+\index{playerTeam@{playerTeam}!GUI@{GUI}}
+\doxysubsubsection{\texorpdfstring{playerTeam()}{playerTeam()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_player_h_u_d}{Player\+HUD}} \texorpdfstring{$\ast$}{*} GUI\+::player\+Team (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} $>$}]{pokemons,  }\item[{int}]{its\+Level }\end{DoxyParamCaption})}
+
+
+
+Accessor for the player HUD. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the \doxylink{class_player_h_u_d}{Player\+HUD} object.
+\end{DoxyReturn}
+Initializes the player HUD with a specific player object and returns it. \Hypertarget{class_g_u_i_a21e07161c97d8e4c5106e240ded46335}\label{class_g_u_i_a21e07161c97d8e4c5106e240ded46335} 
+\index{GUI@{GUI}!selectPokemon@{selectPokemon}}
+\index{selectPokemon@{selectPokemon}!GUI@{GUI}}
+\doxysubsubsection{\texorpdfstring{selectPokemon()}{selectPokemon()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_player_h_u_d}{Player\+HUD}} \texorpdfstring{$\ast$}{*} GUI\+::select\+Pokemon (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{class_pokemon}{Pokemon}} \texorpdfstring{$\ast$}{*} $>$}]{pokemons,  }\item[{string}]{text = {\ttfamily \"{}\"{}} }\end{DoxyParamCaption})}
+
+
+
+Accessor for the player HUD. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the \doxylink{class_player_h_u_d}{Player\+HUD} object.
+\end{DoxyReturn}
+Initializes the player HUD with a specific player object and returns it. \Hypertarget{class_g_u_i_a8cb7a1803c30239b3f8f3f80338bdadb}\label{class_g_u_i_a8cb7a1803c30239b3f8f3f80338bdadb} 
+\index{GUI@{GUI}!team@{team}}
+\index{team@{team}!GUI@{GUI}}
+\doxysubsubsection{\texorpdfstring{team()}{team()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_player_h_u_d}{Player\+HUD}} \texorpdfstring{$\ast$}{*} GUI\+::team (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Accessor for the player HUD. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the \doxylink{class_player_h_u_d}{Player\+HUD} object.
+\end{DoxyReturn}
+Returns the player HUD. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{gui_8h}{gui.\+h}}\item 
+gui.\+cpp\end{DoxyCompactItemize}

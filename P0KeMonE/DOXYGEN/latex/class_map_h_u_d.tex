@@ -1,0 +1,145 @@
+\doxysection{Map\+HUD Class Reference}
+\hypertarget{class_map_h_u_d}{}\label{class_map_h_u_d}\index{MapHUD@{MapHUD}}
+
+
+A graphical scene representing the game map.  
+
+
+
+
+{\ttfamily \#include $<$maphud.\+h$>$}
+
+Inheritance diagram for Map\+HUD\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_map_h_u_d}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_map_h_u_d_ae7dce2b0d69a872eba9173d81b0dd8a3}{Map\+HUD}} (\mbox{\hyperlink{class_model}{Model}} \texorpdfstring{$\ast$}{*}model, QObject \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_map_h_u_d}{Map\+HUD} object with a reference to the game model. \end{DoxyCompactList}\item 
+\Hypertarget{class_map_h_u_d_a2d3f0aad22bacc874638e511d353f815}\label{class_map_h_u_d_a2d3f0aad22bacc874638e511d353f815} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Map\+HUD} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{class_map_h_u_d}{Map\+HUD}. \end{DoxyCompactList}\item 
+\Hypertarget{class_map_h_u_d_ac7dad7de2da3f4cd0d7af74611ba6fc6}\label{class_map_h_u_d_ac7dad7de2da3f4cd0d7af74611ba6fc6} 
+void {\bfseries draw\+Map} ()
+\begin{DoxyCompactList}\small\item\em Draws the game map based on the data from the model. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_map_h_u_d_aa513cab443ea8a2985ff938cea22ac91}{get\+Player}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves a pointer to the player object. \end{DoxyCompactList}\item 
+\Hypertarget{class_map_h_u_d_a1931086933c7f9b45e9121be1284cf97}\label{class_map_h_u_d_a1931086933c7f9b45e9121be1284cf97} 
+void {\bfseries show\+First\+Scenario} ()
+\item 
+\Hypertarget{class_map_h_u_d_af05aaf146296e680baad0a28a7abc8ef}\label{class_map_h_u_d_af05aaf146296e680baad0a28a7abc8ef} 
+void {\bfseries show\+Second\+Scenario} ()
+\item 
+\Hypertarget{class_map_h_u_d_abde8a71360ed7c4a384d7392230aabe5}\label{class_map_h_u_d_abde8a71360ed7c4a384d7392230aabe5} 
+void {\bfseries end\+Scenario} ()
+\item 
+\Hypertarget{class_map_h_u_d_a72567f4f5018da9adfd26f299aba0c38}\label{class_map_h_u_d_a72567f4f5018da9adfd26f299aba0c38} 
+QGraphics\+Text\+Item \texorpdfstring{$\ast$}{*} {\bfseries get\+Dialog\+Text\+Item} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_map_h_u_d_a793ad1c51e4c8b9f1e4148e5e211af91}{key\+Press\+Event}} (QKey\+Event \texorpdfstring{$\ast$}{*}event)
+\begin{DoxyCompactList}\small\item\em Handles key press events for player movement and interactions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_map_h_u_d_a0b1058bbb10009089ad4ac30768e8969}{entering\+Boat}} (\mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*}player, const std\+::string \&direction)
+\begin{DoxyCompactList}\small\item\em Manages the player\textquotesingle{}s entrance into a boat. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_map_h_u_d_aa1a0069321affea84d30967a405a1605}{entering\+Launcher}} (\mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*}player)
+\begin{DoxyCompactList}\small\item\em Manages the player\textquotesingle{}s entrance into the launcher zone. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A graphical scene representing the game map. 
+
+This class is responsible for displaying the map elements and managing interactions, such as player movement and interactions with the environment. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_map_h_u_d_ae7dce2b0d69a872eba9173d81b0dd8a3}\label{class_map_h_u_d_ae7dce2b0d69a872eba9173d81b0dd8a3} 
+\index{MapHUD@{MapHUD}!MapHUD@{MapHUD}}
+\index{MapHUD@{MapHUD}!MapHUD@{MapHUD}}
+\doxysubsubsection{\texorpdfstring{MapHUD()}{MapHUD()}}
+{\footnotesize\ttfamily Map\+HUD\+::\+Map\+HUD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_model}{Model}} \texorpdfstring{$\ast$}{*}}]{model,  }\item[{QObject \texorpdfstring{$\ast$}{*}}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_map_h_u_d}{Map\+HUD} object with a reference to the game model. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & Pointer to the game model used for obtaining map data. \\
+\hline
+{\em parent} & Optional parent QObject, default is nullptr. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_map_h_u_d_a0b1058bbb10009089ad4ac30768e8969}\label{class_map_h_u_d_a0b1058bbb10009089ad4ac30768e8969} 
+\index{MapHUD@{MapHUD}!enteringBoat@{enteringBoat}}
+\index{enteringBoat@{enteringBoat}!MapHUD@{MapHUD}}
+\doxysubsubsection{\texorpdfstring{enteringBoat()}{enteringBoat()}}
+{\footnotesize\ttfamily void Map\+HUD\+::entering\+Boat (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*}}]{player,  }\item[{const std\+::string \&}]{direction }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Manages the player\textquotesingle{}s entrance into a boat. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em player} & Pointer to the player. \\
+\hline
+{\em direction} & The direction of the boat. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_map_h_u_d_aa1a0069321affea84d30967a405a1605}\label{class_map_h_u_d_aa1a0069321affea84d30967a405a1605} 
+\index{MapHUD@{MapHUD}!enteringLauncher@{enteringLauncher}}
+\index{enteringLauncher@{enteringLauncher}!MapHUD@{MapHUD}}
+\doxysubsubsection{\texorpdfstring{enteringLauncher()}{enteringLauncher()}}
+{\footnotesize\ttfamily void Map\+HUD\+::entering\+Launcher (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*}}]{player }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Manages the player\textquotesingle{}s entrance into the launcher zone. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em player} & Pointer to the player. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_map_h_u_d_aa513cab443ea8a2985ff938cea22ac91}\label{class_map_h_u_d_aa513cab443ea8a2985ff938cea22ac91} 
+\index{MapHUD@{MapHUD}!getPlayer@{getPlayer}}
+\index{getPlayer@{getPlayer}!MapHUD@{MapHUD}}
+\doxysubsubsection{\texorpdfstring{getPlayer()}{getPlayer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*} Map\+HUD\+::get\+Player (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retrieves a pointer to the player object. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the player. 
+\end{DoxyReturn}
+\Hypertarget{class_map_h_u_d_a793ad1c51e4c8b9f1e4148e5e211af91}\label{class_map_h_u_d_a793ad1c51e4c8b9f1e4148e5e211af91} 
+\index{MapHUD@{MapHUD}!keyPressEvent@{keyPressEvent}}
+\index{keyPressEvent@{keyPressEvent}!MapHUD@{MapHUD}}
+\doxysubsubsection{\texorpdfstring{keyPressEvent()}{keyPressEvent()}}
+{\footnotesize\ttfamily void Map\+HUD\+::key\+Press\+Event (\begin{DoxyParamCaption}\item[{QKey\+Event \texorpdfstring{$\ast$}{*}}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Handles key press events for player movement and interactions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The key event. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{maphud_8h}{maphud.\+h}}\item 
+maphud.\+cpp\end{DoxyCompactItemize}

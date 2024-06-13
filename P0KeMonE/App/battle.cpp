@@ -51,5 +51,6 @@ void Battle::attack(Move *move, Pokemon *target) {
         itsBattleHUD->setText(attacker->getItsName() + " used " + move->getItsName() + " and missed !");
 
     }
+    itsBattleHUD->updateHealthBars();
     itsBattleHUD->setPokemon(itsOpponent1, itsOpponent2);
 }

@@ -44,14 +44,22 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     bossPixmap->setVisible(false);
 
     QFont minecraftFont("Minecraft", 15);
+    health1 = createTextItem(Qt::white, minecraftFont, QPoint(90, 200));
+    health2 = createTextItem(Qt::white, minecraftFont, QPoint(300, 20));
 
-    health1 = createTextItem(Qt::white, minecraftFont, QPoint(80, 100));
-    health2 = createTextItem(Qt::white, minecraftFont, QPoint(320, 30));
 
 
     attackText = createTextItem(Qt::white, minecraftFont, QPoint(10, 260));
     menuText = createTextItem(Qt::white, minecraftFont, QPoint(10, 255));
     menuText->setTextWidth(250);
+
+    // Initialize health bars
+    pokemon1HealthBar = new QProgressBar();
+    pokemon1HealthBar->setRange(0, 100); // Assuming max health is 100 for now
+
+    pokemon2HealthBar = new QProgressBar();
+    pokemon2HealthBar->setRange(0, 100); // Assuming max health is 100 for now
+
 
     // Add Pokemon images and health displays to the scene
     addItem(pokemon1Item);
@@ -79,6 +87,16 @@ QPushButton *BattleHUD::getRunButton()
     return runButton;
 }
 
+void BattleHUD::updateHealthBars() {
+    if (pokemon1 && pokemon2) {
+        pokemon1HealthBar->setRange(0, pokemon1->getItsMaxHealth());
+        pokemon1HealthBar->setValue(pokemon1->getHealth());
+
+        pokemon2HealthBar->setRange(0, pokemon2->getItsMaxHealth());
+        pokemon2HealthBar->setValue(pokemon2->getHealth());
+    }
+}
+
 
 void BattleHUD::setPokemon(Pokemon *pk1, Pokemon *pk2) {
     pokemon1 = pk1;
@@ -86,16 +104,42 @@ void BattleHUD::setPokemon(Pokemon *pk1, Pokemon *pk2) {
     updatePokemonGraphics(pokemon1Item, pk1, true);
     updatePokemonGraphics(pokemon2Item, pk2, false);
 
+
     QString healthText1 = QString::number(pk1->getHealth()) + "/" + QString::number(pk1->getItsMaxHealth());
     health1->setPlainText(healthText1);
 
     QString healthText2 = QString::number(pk2->getHealth()) + "/" + QString::number(pk2->getItsMaxHealth());
     health2->setPlainText(healthText2);
 
-    /*QString menuTextText = QString::fromStdString("Let's go " + pk1->getItsName() + "!");
-    menuText->setPlainText(menuTextText);*/
 
-    qDebug() << healthText2; // Debug output to trace health updates
+    pokemon1HealthBar->setTextVisible(false);
+    pokemon1HealthBar->setStyleSheet("QProgressBar::chunk { "
+                                     "background-color: green; "
+                                     "border-radius: 4px; "
+                                     "}"
+                                     "QProgressBar {"
+                                     "border: 1px solid darkgreen;"
+                                     "border-radius: 4px;"
+                                     "}");
+    pokemon1HealthBar->setFixedSize(120, 10);
+    pokemon1HealthBarProxy = addWidget(pokemon1HealthBar);
+    pokemon1HealthBarProxy->setPos(60, 190); // Adjust position as needed
+
+    pokemon2HealthBar->setTextVisible(false);
+    pokemon2HealthBar->setStyleSheet("QProgressBar::chunk { "
+                                     "background-color: green; "
+                                     "border-radius: 4px; "
+                                     "}"
+                                     "QProgressBar {"
+                                     "border: 1px solid darkgreen;"
+                                     "border-radius: 4px;"
+                                     "}");
+    pokemon2HealthBar->setFixedSize(120, 10);
+    pokemon2HealthBarProxy = addWidget(pokemon2HealthBar);
+    pokemon2HealthBarProxy->setPos(270, 15); // Adjust position as needed
+
+    updateHealthBars();
+
 }
 
 void BattleHUD::shakePokemon(Pokemon *pk) {

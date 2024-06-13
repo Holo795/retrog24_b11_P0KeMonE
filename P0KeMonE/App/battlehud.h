@@ -17,6 +17,8 @@
 #include <QLabel>
 #include <QDebug>
 #include <QTimer>
+#include <QGraphicsProxyWidget>
+#include <QProgressBar>
 
 #include "pokemon.h"
 
@@ -115,6 +117,9 @@ public:
 
     void setText(string text);
 
+    void updateHealthBars();
+
+
     void addPersonalItem (QGraphicsPixmapItem *item);
     QGraphicsPixmapItem* getOldMenPixmap();
     QGraphicsPixmapItem* getBossPixmap();
@@ -141,6 +146,12 @@ private:
     QPushButton *backButton;             /**< Button used for going back. */
     QGraphicsPixmapItem* oldMenPixmap;
     QGraphicsPixmapItem* bossPixmap;
+
+    QProgressBar *pokemon1HealthBar;
+    QProgressBar *pokemon2HealthBar;
+    QGraphicsProxyWidget *pokemon1HealthBarProxy;
+    QGraphicsProxyWidget *pokemon2HealthBarProxy;
+
 
     // Helper methods
     QGraphicsPixmapItem* createPixmapItem(const QString &path, const QSize &size, const QPoint &pos);

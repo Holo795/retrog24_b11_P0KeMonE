@@ -14,8 +14,6 @@
 #include <QTimer>
 #include "typeDef.h"
 #include "pokemon.h"
-#include "soundmanager.h"
-
 /**
  * @class Player
  * @brief The Player class represents the player character in the game.

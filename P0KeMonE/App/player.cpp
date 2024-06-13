@@ -106,30 +106,19 @@ bool Player::checkCollision(QPointF newPos) {
             baseLayer = QRect(itemTopLeft.x() + 15, itemTopLeft.y() + 34, 13, 34);
             updateZValue = true;
             break;
-        case 93: // Arbre
-            baseLayer = QRect(itemTopLeft.x() + 6, itemTopLeft.y() + 25, 58, 43);
-            updateZValue = true;
-            break;
         case 67:
-        case 68:
-            return false;
-            break;
-        case 92: // Pont
         {
-            QRect bridge(330, 21 * 32, 640, 65);
-            QRect exitBridge(330 + 43, 21 * 32 + 60, 44, 70);
-
-            if (footPlayerRect.intersects(bridge) && actualFootPlayerRect.intersects(bridge)) {
-                return false;
-            }
-
-            if (footPlayerRect.intersects(exitBridge) && actualFootPlayerRect.intersects(exitBridge)) {
-                return false;
-            }
-
+            QRect border(itemTopLeft.x(), itemTopLeft.y(), 13, 32);
+            return footPlayerRect.intersects(border);
             break;
         }
-        case 83:
+        case 68:
+        {
+            QRect border(itemTopLeft.x() + itemRect.width() - 13, itemTopLeft.y(), 13, 32);
+            return footPlayerRect.intersects(border);
+            break;
+        }
+        case 83: //Montagne
         {
             QRect montain(970, 551, 188, 172 + 10);
             QRect bridge_montain(934, 671, 28, 52 + 10);
@@ -149,6 +138,25 @@ bool Player::checkCollision(QPointF newPos) {
 
             break;
         }
+        case 92: // Pont
+        {
+            QRect bridge(330, 21 * 32, 640, 65);
+            QRect exitBridge(330 + 43, 21 * 32 + 60, 44, 70);
+
+            if (footPlayerRect.intersects(bridge) && actualFootPlayerRect.intersects(bridge)) {
+                return false;
+            }
+
+            if (footPlayerRect.intersects(exitBridge) && actualFootPlayerRect.intersects(exitBridge)) {
+                return false;
+            }
+
+            break;
+        }
+        case 93: // Arbre
+            baseLayer = QRect(itemTopLeft.x() + 6, itemTopLeft.y() + 25, 58, 43);
+            updateZValue = true;
+            break;
         case 96: //sign
         {
             baseLayer = QRect(itemTopLeft.x() + 5, itemTopLeft.y() + 21, 20, 16);
@@ -267,6 +275,10 @@ int Player::getWinCount() const {
 
 void Player::setWinCount(int newWinCount) {
     winCount = newWinCount;
+}
+
+bool Player::getCanMove() const {
+    return canMove;
 }
 
 void Player::setCanMove(bool newCanMove) {

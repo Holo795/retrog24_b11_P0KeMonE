@@ -140,8 +140,9 @@ void MapHUD::keyPressEvent(QKeyEvent *event) {
     int x_foot = player->x() + 2;
     int y_foot = player->y() + player->pixmap().height();
     int tileType = model->getMap()[y_foot / 32][x_foot / 32];
-
+    if (player->getCanMove()){
     handleTileInteraction(tileType);
+    }
 }
 
 void MapHUD::handleTileInteraction(int tileType) {
@@ -211,10 +212,22 @@ void MapHUD::signMessage(int x, int y) {
         showSignMessage = false;
 
         QGraphicsTextItem *text = new QGraphicsTextItem();
+        if (x < 400){
+        text->setPlainText(R"(                                        The Bridge
+                                               ^
+                                               |
+        The tall-grasse's Field < -- -- > The slammed Lake)");
+        text->setPos(x-105, y - 30);
+        }
+        else if (x > 400){
+text->setPlainText(R"(                                  The Mountain
+                                           ^
+                                           |
+        The slammed Lake < -- -- > The hallway)");
+        text->setPos(x-95, y - 30);
+        };
         text->setZValue(3);
-        text->setPos(x, y - 20);
-        text->setTextWidth(200);
-        text->setPlainText("8===D");
+        text->setFont(QFont("Minecraft", 6));
         text->setDefaultTextColor(Qt::white);
         addItem(text);
 
@@ -262,7 +275,6 @@ void MapHUD::endScenario() {
     removeItem(boxItem);
     removeItem(oldMenItem);
     removeItem(ballsItem);
-    player->setPos(1040, 630);
     player->setCanMove(true);
 }
 

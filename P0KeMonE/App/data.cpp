@@ -101,7 +101,7 @@ Pokemon* Data::randompokemon()
 }
 
 
-Pokemon* Data::pokemonById(int pokemonId)
+Pokemon* Data::pokemonById(int pokemonId, int level)
 {
     qDebug() << "Entering pokemonById() with ID:" << pokemonId;
     QSqlQuery query;
@@ -130,7 +130,7 @@ Pokemon* Data::pokemonById(int pokemonId)
         int speed = query.value("speed").toInt();
         PKTYPE type = static_cast<PKTYPE>(query.value("id_type").toInt() - 1);
 
-        Pokemon* pokemon = new Pokemon(id, name.toStdString(), type, hp, speed, attack, special_attack, defense, special_defense, 5);
+        Pokemon* pokemon = new Pokemon(id, name.toStdString(), type, hp, speed, attack, special_attack, defense, special_defense, level);
 
         qDebug() << "Pokemon created: " << name;
 
@@ -140,6 +140,11 @@ Pokemon* Data::pokemonById(int pokemonId)
         {
             // If the Pokémon has no moves, fetch another random Pokémon
             delete pokemon;
+        }
+
+        for (int i = 1; i < level; i++)
+        {
+            pokemon->upgradeStats();
         }
 
         pokemon->setItsMoves(moves);

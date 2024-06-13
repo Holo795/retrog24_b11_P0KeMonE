@@ -47,7 +47,7 @@ public:
      */
     Pokemon * randompokemon();
 
-    Pokemon* pokemonById(int pokemonId);
+    Pokemon* pokemonById(int pokemonId, int levelUpgrade);
 
     /**
      * @brief Fetches moves associated with a Pokémon by ID.

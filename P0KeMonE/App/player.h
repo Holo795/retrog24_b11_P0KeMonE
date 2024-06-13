@@ -79,7 +79,7 @@ public:
 
     int getWinCount() const;
     void setWinCount(int newWinCount);
-
+    bool getCanMove() const;
     void setCanMove(bool newCanMove);
     bool getCompleteTeam() const;
     void setCompleteTeam(bool newCompleteTeam);

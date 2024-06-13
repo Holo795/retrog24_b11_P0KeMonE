@@ -123,7 +123,9 @@ void PlayerHUD::addCharacter(const QPixmap &characterImage, int currentHealth, i
     } else {
         characterItem->setPos(xPos, yPos + 50);
     }
-    QString statPokemon = QString("Speed: %1\nAttack: %2\nDefense: %3\nSpeAttack: %4\nSpeDefense: %5\n")
+    QString statPokemon = QString("Name: %1\nHP: %2 | Spd: %3\nPhy : Att: %4 | Def: %5\nSpe : Att: %6 | Def: %7\n")
+                              .arg(QString::fromStdString(pokemon->getItsName()))
+                              .arg(pokemon->getItsMaxHealth())
                               .arg(pokemon->getSpeed())
                               .arg(pokemon->getAtk())
                               .arg(pokemon->getDef())
@@ -134,7 +136,7 @@ void PlayerHUD::addCharacter(const QPixmap &characterImage, int currentHealth, i
 
     QGraphicsTextItem *statText = new QGraphicsTextItem(QString(statPokemon));
     statText->setDefaultTextColor(Qt::black);
-    statText->setFont(QFont("Arial", 12, QFont::Bold));
+    statText->setFont(QFont("Arial", 10, QFont::Bold));
     addItem(statText);
     healthTextItems.append(statText);
     statText->setPos(xPos + 10, yPos + characterItem->pixmap().height() + 40);

@@ -35,6 +35,7 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     addWidget(backButton);
 
     pokemon1Item = createPixmapItem(QPoint(20, 40));
+    pokemon1Item->setZValue(1);
     pokemon2Item = createPixmapItem(QPoint(280, 20));
 
 
@@ -55,6 +56,7 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
 
     // Initialize health bars
     pokemon1HealthBar = new QProgressBar();
+
     pokemon1HealthBar->setRange(0, 100); // Assuming max health is 100 for now
 
     pokemon2HealthBar = new QProgressBar();
@@ -120,6 +122,7 @@ void BattleHUD::setPokemon(Pokemon *pk1, Pokemon *pk2) {
                                      "QProgressBar {"
                                      "border: 1px solid darkgreen;"
                                      "border-radius: 4px;"
+                                     "background: transparent;"
                                      "}");
     pokemon1HealthBar->setFixedSize(120, 10);
     pokemon1HealthBarProxy = addWidget(pokemon1HealthBar);
@@ -133,6 +136,7 @@ void BattleHUD::setPokemon(Pokemon *pk1, Pokemon *pk2) {
                                      "QProgressBar {"
                                      "border: 1px solid darkgreen;"
                                      "border-radius: 4px;"
+                                     "background: transparent;"
                                      "}");
     pokemon2HealthBar->setFixedSize(120, 10);
     pokemon2HealthBarProxy = addWidget(pokemon2HealthBar);

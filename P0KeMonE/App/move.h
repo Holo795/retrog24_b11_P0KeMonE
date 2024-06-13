@@ -64,6 +64,12 @@ public:
     MOVENATURE getItsNature() const;
 
     /**
+     * @brief getItsTextNature Returns the string representation of the nature of the move.
+     * @param The nature of the move.
+     */
+    string getItsTextNature(int nature) const;
+
+    /**
      * @brief Retrieves the type of the move.
      * @return Type of the move.
      */

@@ -344,7 +344,7 @@ void Game::endFight(bool playerWon)
         statepokemonChanged = true;
     }
 
-    setScene(gui->selectPokemon(newPokemons, "Qu'elle pokemon tu veux ajouter ?"));
+    setScene(gui->selectPokemon(newPokemons, "Which pokemon would you like to add ?"));
 
 
     qDebug() << "Level player: " << player->getItsLevel();
@@ -360,7 +360,7 @@ void Game::changePokemon(Pokemon* pokemon){
         if(gui->team()->getPokemonChanged() == nullptr)
         {
             gui->team()->setPokemonChanged(pokemon);
-            setScene(gui->selectPokemon(player->getTeam(), "Qu'elle pokemon tu veux retirer ?"));
+            setScene(gui->selectPokemon(player->getTeam(), "Which pokemon do you want to take out?"));
 
         }
         else

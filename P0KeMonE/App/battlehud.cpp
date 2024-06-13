@@ -34,8 +34,8 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     addWidget(runButton);
     addWidget(backButton);
 
-    pokemon1Item = createPixmapItem(QPoint(20, 70));
-    pokemon2Item = createPixmapItem(QPoint(300, 30));
+    pokemon1Item = createPixmapItem(QPoint(20, 40));
+    pokemon2Item = createPixmapItem(QPoint(280, 20));
 
 
     oldMenPixmap = createPixmapItem(":/hud/battlehud_assets/oldMen_image.png", QSize(64,124), QPoint(200, 5));
@@ -44,8 +44,8 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     bossPixmap->setVisible(false);
 
     QFont minecraftFont("Minecraft", 15);
-    health1 = createTextItem(Qt::white, minecraftFont, QPoint(90, 200));
-    health2 = createTextItem(Qt::white, minecraftFont, QPoint(300, 20));
+    health1 = createTextItem(Qt::white, minecraftFont, QPoint(70, 200));
+    health2 = createTextItem(Qt::white, minecraftFont, QPoint(350, 20));
 
 
 
@@ -123,7 +123,7 @@ void BattleHUD::setPokemon(Pokemon *pk1, Pokemon *pk2) {
                                      "}");
     pokemon1HealthBar->setFixedSize(120, 10);
     pokemon1HealthBarProxy = addWidget(pokemon1HealthBar);
-    pokemon1HealthBarProxy->setPos(60, 190); // Adjust position as needed
+    pokemon1HealthBarProxy->setPos(45, 220); // Adjust position as needed
 
     pokemon2HealthBar->setTextVisible(false);
     pokemon2HealthBar->setStyleSheet("QProgressBar::chunk { "
@@ -136,7 +136,7 @@ void BattleHUD::setPokemon(Pokemon *pk1, Pokemon *pk2) {
                                      "}");
     pokemon2HealthBar->setFixedSize(120, 10);
     pokemon2HealthBarProxy = addWidget(pokemon2HealthBar);
-    pokemon2HealthBarProxy->setPos(270, 15); // Adjust position as needed
+    pokemon2HealthBarProxy->setPos(320, 40); // Adjust position as needed
 
     updateHealthBars();
 
@@ -337,7 +337,7 @@ void BattleHUD::createMoveButton(Move* move, const QPoint &pos, int width, int h
     moveButton->setToolTip("Name : " + QString::fromStdString(move->getItsName()) + "<br>"
                         + "Power : " + QString::number(move->getItsPower()) + "<br>"
                         + "Accuracy : " + QString::number(move->getItsAccuracy()) + "<br>"
-                        + "Nature : " +  QString::fromStdString(move->getItsTextType(move->getItsNature())) + "<br>"
+                        + "Nature : " +  QString::fromStdString(move->getItsTextNature(move->getItsNature())) + "<br>"
                         + "Type : " +  QString::fromStdString(move->getItsTextType(move->getItsType())) + "<br>");
 
     addWidget(moveButton);

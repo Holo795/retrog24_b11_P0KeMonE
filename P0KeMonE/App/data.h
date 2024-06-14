@@ -48,7 +48,6 @@ public:
      */
     Pokemon * randompokemon();
 
-
     /**
      * @brief Retrieves a Pokémon from the database by ID.
      * @param pokemonId The ID of the Pokémon to fetch.
@@ -64,8 +63,21 @@ public:
      */
     QList<Move*> getMoves(int pokemon_id);
 
+    /**
+     * @brief Extracts saved game data from the database.
+     * @return The extracted saveData object containing game state information.
+     */
     saveData extractSaveData();
+
+    /**
+     * @brief Inserts saved game data into the database.
+     * @param data The saveData object containing game state information to be inserted.
+     */
     void insertSaveData(saveData data);
+
+    /**
+     * @brief Clears all saved game data from the database.
+     */
     void clearSaveData();
 };
 

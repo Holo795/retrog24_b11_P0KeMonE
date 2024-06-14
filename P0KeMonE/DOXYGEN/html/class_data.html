@@ -98,6 +98,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abeeae2d347bcd862599ee7ad01124d60"><td class="memItemLeft" align="right" valign="top">QList&lt; <a class="el" href="class_move.html">Move</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_data.html#abeeae2d347bcd862599ee7ad01124d60">getMoves</a> (int pokemon_id)</td></tr>
 <tr class="memdesc:abeeae2d347bcd862599ee7ad01124d60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches moves associated with a Pokémon by ID.  <br /></td></tr>
 <tr class="separator:abeeae2d347bcd862599ee7ad01124d60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab315f27d19543112db5c8f2eefd35886"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsave_data.html">saveData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_data.html#ab315f27d19543112db5c8f2eefd35886">extractSaveData</a> ()</td></tr>
+<tr class="memdesc:ab315f27d19543112db5c8f2eefd35886"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts saved game data from the database.  <br /></td></tr>
+<tr class="separator:ab315f27d19543112db5c8f2eefd35886"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae49ebb1eaf20e7dc5df30dde29b253fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_data.html#ae49ebb1eaf20e7dc5df30dde29b253fb">insertSaveData</a> (<a class="el" href="structsave_data.html">saveData</a> data)</td></tr>
+<tr class="memdesc:ae49ebb1eaf20e7dc5df30dde29b253fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts saved game data into the database.  <br /></td></tr>
+<tr class="separator:ae49ebb1eaf20e7dc5df30dde29b253fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae18d667c0e945578c2440b9b48b53979"><td class="memItemLeft" align="right" valign="top"><a id="ae18d667c0e945578c2440b9b48b53979" name="ae18d667c0e945578c2440b9b48b53979"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>clearSaveData</b> ()</td></tr>
+<tr class="memdesc:ae18d667c0e945578c2440b9b48b53979"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears all saved game data from the database. <br /></td></tr>
+<tr class="separator:ae18d667c0e945578c2440b9b48b53979"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manages database operations for Pokémon. </p>
@@ -145,6 +155,26 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab315f27d19543112db5c8f2eefd35886" name="ab315f27d19543112db5c8f2eefd35886"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab315f27d19543112db5c8f2eefd35886">&#9670;&#160;</a></span>extractSaveData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structsave_data.html">saveData</a> Data::extractSaveData </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extracts saved game data from the database. </p>
+<dl class="section return"><dt>Returns</dt><dd>The extracted <a class="el" href="structsave_data.html">saveData</a> object containing game state information. </dd></dl>
+
+</div>
+</div>
 <a id="abeeae2d347bcd862599ee7ad01124d60" name="abeeae2d347bcd862599ee7ad01124d60"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abeeae2d347bcd862599ee7ad01124d60">&#9670;&#160;</a></span>getMoves()</h2>
 
@@ -178,6 +208,32 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A QList of pointers to <a class="el" href="class_move.html" title="Represents a single move or attack in the game.">Move</a> objects associated with the given Pokémon ID. </dd></dl>
+
+</div>
+</div>
+<a id="ae49ebb1eaf20e7dc5df30dde29b253fb" name="ae49ebb1eaf20e7dc5df30dde29b253fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae49ebb1eaf20e7dc5df30dde29b253fb">&#9670;&#160;</a></span>insertSaveData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Data::insertSaveData </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsave_data.html">saveData</a>&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inserts saved game data into the database. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>The <a class="el" href="structsave_data.html">saveData</a> object containing game state information to be inserted. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

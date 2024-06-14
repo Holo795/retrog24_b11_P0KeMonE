@@ -1,6 +1,6 @@
 /**
  * @file SaveManager.h
- * @brief Déclaration de la classe SaveManager.
+ * @brief Declaration of the SaveManager class.
  */
 
 #ifndef SAVEMANAGER_H
@@ -14,58 +14,56 @@
 
 /**
  * @class SaveManager
- * @brief Classe responsable de la gestion des sauvegardes automatiques.
+ * @brief Class responsible for managing automatic game saves.
  *
- * Cette classe permet de gérer les sauvegardes automatiques des données du jeu
- * à intervalles réguliers.
+ * This class manages automatic game saves at regular intervals.
  */
 class SaveManager : public QObject
 {
     Q_OBJECT
 public:
     /**
-     * @brief Constructeur de la classe SaveManager.
-     * @param data Pointeur vers l'objet Data à sauvegarder.
-     * @param player Pointeur vers l'objet Player associé.
-     * @param parent Pointeur vers l'objet parent (par défaut nullptr).
+     * @brief Constructor for the SaveManager class.
+     * @param data Pointer to the Data object to be saved.
+     * @param player Pointer to the associated Player object.
+     * @param parent Pointer to the parent object (default is nullptr).
      */
     SaveManager(Data *data, Player *player, QObject *parent = nullptr);
 
     /**
-     * @brief Démarre la sauvegarde automatique.
+     * @brief Starts automatic saving.
      *
-     * Cette méthode initialise et démarre le timer pour la sauvegarde automatique.
+     * This method initializes and starts the timer for automatic saving.
      */
     void startAutoSave();
 
     /**
-     * @brief Arrête la sauvegarde automatique.
+     * @brief Stops automatic saving.
      *
-     * Cette méthode arrête le timer pour la sauvegarde automatique.
+     * This method stops the timer for automatic saving.
      */
     void stopAutoSave();
 
     /**
-     * @brief Récupère les données de sauvegarde.
-     * @return Un objet saveData contenant les données de sauvegarde actuelles.
+     * @brief Retrieves the save data.
+     * @return A saveData object containing the current save data.
      */
     saveData getSave();
 
 public slots:
     /**
-     * @brief Sauvegarde les données du jeu.
+     * @brief Saves the game data.
      *
-     * Cette méthode est appelée automatiquement à intervalles réguliers pour
-     * sauvegarder les données du jeu.
+     * This method is called automatically at regular intervals to save the game data.
      */
     void saveGame();
 
 private:
-    Data *data; ///< Pointeur vers les données du jeu à sauvegarder.
-    QTimer *timer; ///< Timer pour la gestion des sauvegardes automatiques.
-    Player *player; ///< Pointeur vers l'objet Player associé.
+    Data *data; ///< Pointer to the game data to be saved.
+    QTimer *timer; ///< Timer for managing automatic saves.
+    Player *player; ///< Pointer to the associated Player object.
 
-    int saveInterval = 5 * 60 * 1000; ///< Intervalle de sauvegarde automatique en millisecondes (5 minutes).
+    int saveInterval = 5 * 60 * 1000; ///< Interval for automatic saving in milliseconds (5 minutes).
 };
 
 #endif // SAVEMANAGER_H

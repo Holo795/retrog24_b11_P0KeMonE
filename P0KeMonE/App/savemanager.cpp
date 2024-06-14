@@ -16,6 +16,14 @@ void SaveManager::startAutoSave()
     }
 }
 
+void SaveManager::stopAutoSave()
+{
+    if (timer->isActive()) {
+        qDebug () << "Stopping auto save...";
+        timer->stop();
+    }
+}
+
 void SaveManager::saveGame()
 {
 

@@ -39,6 +39,13 @@ public:
     void startAutoSave();
 
     /**
+     * @brief Arrête la sauvegarde automatique.
+     *
+     * Cette méthode arrête le timer pour la sauvegarde automatique.
+     */
+    void stopAutoSave();
+
+    /**
      * @brief Récupère les données de sauvegarde.
      * @return Un objet saveData contenant les données de sauvegarde actuelles.
      */

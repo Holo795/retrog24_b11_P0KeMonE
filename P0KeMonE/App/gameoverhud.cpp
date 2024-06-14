@@ -17,6 +17,8 @@ GameOverHUD::GameOverHUD(QObject *parent) : QGraphicsScene(parent)
     replayText->setPos(140, 260);
     replayText->setZValue(3);
 
+    setBackgroundBrush(QBrush(QColor(31, 31, 31)));
+
     addItem(replayText);
     addItem(backgroundItem);
 }

@@ -78,6 +78,8 @@ void Game::setScene(QGraphicsScene *scene) {
     } else if (gui->battle()->objectName() == scene->objectName()) {
         itsInFight = true;
         gui->battle()->setText("Let's go " +gui->battle()->getPokemon1()->getItsName() + " !");
+    } else if (gui->gameOver()->objectName() == scene->objectName()) {
+        saveManager->stopAutoSave();
     }
 
     scale(2, 2);

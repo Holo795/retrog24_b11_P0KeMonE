@@ -12,6 +12,7 @@
 #include <QProcess>
 #include <QKeyEvent>
 
+#include "savemanager.h"
 #include "battle.h"
 #include "model.h"
 #include "gui.h"
@@ -52,6 +53,7 @@ private:
     bool itsInFight = false;            ///< Flag indicating if a fight is currently occurring.
     bool statepokemonChanged = false;   ///< Flag to indicate if the Pokémon has changed.$
     SoundManager *soundManager;          ///< The sound manager for the game.
+    SaveManager *saveManager;
 
     /**
      * @brief Ends the ongoing fight.

@@ -1,7 +1,6 @@
 #include <QCoreApplication>
 
 #include "data.h"
-#include "pokemon.h"
 #include "typeDef.h"
 #include "QCoreApplication"
 
@@ -213,4 +212,96 @@ QList<Move*> Data::getMoves(int pokemon_id)
     return moves;
 }
 
+saveData Data::extractSaveData() {
+    saveData data;
+    QSqlQuery query;
+
+    // Retrieve player information from the save table
+    if (query.exec("SELECT player_x, player_y, player_lvl FROM save LIMIT 1")) {
+        if (query.next()) {
+            data.player_x = query.value("player_x").toInt();
+            data.player_y = query.value("player_y").toInt();
+            data.player_lvl = query.value("player_lvl").toInt();
+        } else {
+            data.empty = true;
+            qDebug() << "No data found in save table";
+        }
+    } else {
+        data.empty = true;
+        qDebug() << "Error: query execution failed" << query.lastError();
+    }
+
+    // Retrieve Pokemon team information from the team table
+    if (query.exec("SELECT id_pk, pk_lvl, hp FROM team LIMIT 3")) {
+        while (query.next()) {
+            int pokemonId = query.value("id_pk").toInt();
+            int pokemonLvl = query.value("pk_lvl").toInt();
+            int hp = query.value("hp").toInt();
+            Pokemon* pokemon = pokemonById(pokemonId);
+            pokemon->takeDamage(pokemon->getItsMaxHealth() - hp);
+            if (pokemon != nullptr) {
+                pokemon->setLevel(pokemonLvl);
+                for(int i = 0; i < pokemonLvl - 1; i++) {
+                    pokemon->upgradeStats();
+                }
+                data.team.push_back(pokemon);
+            } else {
+                data.empty = true;
+                qDebug() << "Error: failed to fetch Pokemon with ID" << pokemonId;
+            }
+        }
+    } else {
+        data.empty = true;
+        qDebug() << "Error: query execution failed" << query.lastError();
+    }
+
+    return data;
+}
+
+void Data::insertSaveData(saveData data) {
+    QSqlQuery query;
+
+    clearSaveData(); // Clear existing save to replace it
+
+    // Insert player information into the save table
+    query.prepare("INSERT INTO save (player_x, player_y, player_lvl) VALUES (:player_x, :player_y, :player_lvl)");
+    query.bindValue(":player_x", data.player_x);
+    query.bindValue(":player_y", data.player_y);
+    query.bindValue(":player_lvl", data.player_lvl);
+
+    if (!query.exec()) {
+        qDebug() << "Error: failed to insert player data into save table" << query.lastError();
+        return;
+    }
+
+    // Insert Pokemon team information into the team table
+    query.prepare("INSERT INTO team (id_pk, pk_lvl, hp) VALUES (:id_pk, :pk_lvl, :hp)");
+    for (Pokemon* pokemon : data.team) {
+        query.bindValue(":id_pk", pokemon->getId());
+        query.bindValue(":pk_lvl", pokemon->getLvl());
+        query.bindValue(":hp", pokemon->getHealth());
+
+        if (!query.exec()) {
+            qDebug() << "Error: failed to insert Pokemon data into team table" << query.lastError();
+        }
+    }
+}
+
+
+void Data::clearSaveData() {
+    QSqlQuery query;
+
+    // Clear existing save to replace it
+    if (!query.exec("DELETE FROM save")) {
+        qDebug() << "Error: failed to clear save table" << query.lastError();
+        return;
+    }
+
+    // Clear existing team information before inserting new data
+    if (!query.exec("DELETE FROM team")) {
+        qDebug() << "Error: failed to clear team table" << query.lastError();
+        return;
+    }
+
+}
 

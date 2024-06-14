@@ -63,6 +63,10 @@ public:
      * @return A QList of Move objects associated with the Pokémon.
      */
     QList<Move*> getMoves(int pokemon_id);
+
+    saveData extractSaveData();
+    void insertSaveData(saveData data);
+    void clearSaveData();
 };
 
 #endif // DATA_H

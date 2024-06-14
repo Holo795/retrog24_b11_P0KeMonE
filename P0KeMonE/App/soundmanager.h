@@ -26,7 +26,7 @@ public:
      * @brief Constructs a SoundManager object.
      * @param parent The parent object.
      */
-    explicit SoundManager(QObject *parent = nullptr);
+    SoundManager(QObject *parent = nullptr);
 
     /**
      * @brief Loads a sound from a given URL and associates it with a name.

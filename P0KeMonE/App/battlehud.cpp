@@ -1,26 +1,9 @@
 #include "battlehud.h"
 #include "hoverbutton.h"
-#include <QGraphicsPixmapItem>
-#include <QGraphicsTextItem>
-#include <QGraphicsItemAnimation>
-#include <QTimeLine>
-#include <QButtonGroup>
-#include <QLabel>
-#include <QDebug>
-#include <QTimer>
-
-#include <QFontDatabase>
-#include <QGraphicsTextItem>
-
 #include "pokemon.h"
-#include "qpainter.h"
 
 BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     setObjectName("BattleHUD");
-    setSceneRect(0, 0, 478, 318);
-
-    setSceneRect(0, 0, 478, 318);
-
     setSceneRect(0, 0, 478, 318);
 
     moveButtonsGroup = new QButtonGroup(this);
@@ -28,8 +11,7 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
 
     // Load and position the background image
     QGraphicsPixmapItem* background = createPixmapItem(":/hud/battlehud_assets/battleHUD-background.png", QSize(480, 240), QPoint(0, 0));
-    QGraphicsPixmapItem* bossItem = createPixmapItem(":/hud/battlehud_assets/boss_image.png", QSize(), QPoint(200, 5));
-    bossItem->setVisible(false);
+
 
     int buttonWidth = 105;
     int buttonHeight = 40;
@@ -47,7 +29,6 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     // Add elements to the scene
     addItem(dialogueBox);
     addItem(background);
-    addItem(bossItem);
     addWidget(attackButton);
     addWidget(pokemonButton);
     addWidget(runButton);
@@ -56,21 +37,20 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     pokemon1Item = createPixmapItem(QPoint(20, 70));
     pokemon2Item = createPixmapItem(QPoint(300, 30));
 
-    // Load custom font
-    int fontId = QFontDatabase::addApplicationFont(":/hud/battlehud_assets/Minecraft.ttf");
-    if (fontId == -1) {
-        qDebug() << "Failed to load Minecraft font.";
-    }
-    QString fontFamily = QFontDatabase::applicationFontFamilies(fontId).at(0);
-    QFont customFont(fontFamily, 15);
 
-    QFont promptFont("Arial", 15);
-    health1 = createTextItem(Qt::white, customFont, QPoint(80, 100));
-    health2 = createTextItem(Qt::white, customFont, QPoint(320, 30));
+    oldMenPixmap = createPixmapItem(":/hud/battlehud_assets/oldMen_image.png", QSize(64,124), QPoint(200, 5));
+
+    bossPixmap = createPixmapItem(":/hud/battlehud_assets/boss_image.png", QSize(100,114), QPoint(200, 5));
+    bossPixmap->setVisible(false);
+
+    QFont minecraftFont("Minecraft", 15);
+
+    health1 = createTextItem(Qt::white, minecraftFont, QPoint(80, 100));
+    health2 = createTextItem(Qt::white, minecraftFont, QPoint(320, 30));
 
 
-    attackText = createTextItem(Qt::white, customFont, QPoint(10, 260));
-    menuText = createTextItem(Qt::white, customFont, QPoint(10, 255));
+    attackText = createTextItem(Qt::white, minecraftFont, QPoint(10, 260));
+    menuText = createTextItem(Qt::white, minecraftFont, QPoint(10, 255));
     menuText->setTextWidth(250);
 
     // Add Pokemon images and health displays to the scene
@@ -80,6 +60,8 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
     addItem(health2);
     addItem(menuText);
     addItem(attackText);
+    addItem(oldMenPixmap);
+    addItem(bossPixmap);
 }
 
 BattleHUD::~BattleHUD()
@@ -110,6 +92,8 @@ void BattleHUD::setPokemon(Pokemon *pk1, Pokemon *pk2) {
     QString healthText2 = QString::number(pk2->getHealth()) + "/" + QString::number(pk2->getItsMaxHealth());
     health2->setPlainText(healthText2);
 
+    /*QString menuTextText = QString::fromStdString("Let's go " + pk1->getItsName() + "!");
+    menuText->setPlainText(menuTextText);*/
 
     qDebug() << healthText2; // Debug output to trace health updates
 }
@@ -173,41 +157,26 @@ void BattleHUD::menuFight() {
         button->setVisible(false);
     }
 
+
+    getRunButton()->isEnabled() ? getRunButton()->setEnabled(true) : getRunButton()->setEnabled(false);
+
     // Afficher le texte
     dialogueBox->setVisible(true);
-
     attackButton->setVisible(true);
     pokemonButton->setVisible(true);
     runButton->setVisible(true);
-    menuText->setVisible(true);
-
-
-    attackButton->setEnabled(false);
-    pokemonButton->setEnabled(false);
-    runButton->setEnabled(false);
-
-
-    if (pokemon2->getHealth() != pokemon2->getItsMaxHealth()) {
-
-        // Créer un minuteur pour réafficher les boutons après deux secondes
-        QTimer::singleShot(1000, this, [this]() {
-            // Réafficher les boutons
-            attackButton->setEnabled(true);
-            pokemonButton->setEnabled(true);
-            runButton->setEnabled(true);
-
-        });
-
-    } else {
-        // Si la santé du Pokémon 2 est pleine, affiche simplement les boutons
-        attackButton->setEnabled(true);
-        pokemonButton->setEnabled(true);
-        runButton->setEnabled(true);
-    }
 }
 
-void BattleHUD::setText(QString text) {
-    menuText->setPlainText(text);
+void BattleHUD::setText(string text) {
+    qDebug() << "Setting text to:" << text;
+    menuText->setVisible(true); // Assurez-vous que menuText est visible
+    menuText->setPlainText(QString::fromStdString(text));
+    qDebug() << "menuText content:" << menuText->toPlainText();
+    update(); // Assurez-vous de mettre à jour la scène si nécessaire
+}
+
+void BattleHUD::addPersonalItem(QGraphicsPixmapItem* item) {
+    addItem(item);
 }
 
 QButtonGroup *BattleHUD::getMoveGroup() const
@@ -321,10 +290,33 @@ void BattleHUD::createMoveButton(Move* move, const QPoint &pos, int width, int h
     moveLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
 
     // Set tooltip for the move button
-    moveButton->setToolTip("Nom: " + QString::fromStdString(move->getItsName()) + "<br>"
-                           + "Type: " +  QString::fromStdString(move->getItsTextType(move->getItsType())) + "<br>"
-                           + "Puissance: " + QString::number(move->getItsPower()));
+    moveButton->setToolTip("Name : " + QString::fromStdString(move->getItsName()) + "<br>"
+                        + "Power : " + QString::number(move->getItsPower()) + "<br>"
+                        + "Accuracy : " + QString::number(move->getItsAccuracy()) + "<br>"
+                        + "Nature : " +  QString::fromStdString(move->getItsTextType(move->getItsNature())) + "<br>"
+                        + "Type : " +  QString::fromStdString(move->getItsTextType(move->getItsType())) + "<br>");
 
     addWidget(moveButton);
     moveButtonsGroup->addButton(moveButton, id);
+}
+
+void BattleHUD::enableBattleButtons(bool exitButton) {
+    attackButton->setEnabled(true);
+    runButton->setEnabled(exitButton);
+    pokemonButton->setEnabled(true);
+}
+
+void BattleHUD::disableBattleButtons(bool exitButton) {
+    attackButton->setEnabled(false);
+    runButton->setEnabled(!exitButton);
+    pokemonButton->setEnabled(false);
+}
+
+
+QGraphicsPixmapItem* BattleHUD::getOldMenPixmap(){
+    return oldMenPixmap;
+}
+
+QGraphicsPixmapItem* BattleHUD::getBossPixmap(){
+    return bossPixmap;
 }

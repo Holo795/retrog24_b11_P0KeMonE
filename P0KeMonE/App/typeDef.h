@@ -1,9 +1,20 @@
 #ifndef TYPEDEF_H
 #define TYPEDEF_H
 
+#include <map>
+#include <QString>
+
 #include <QBitmap>
 #include <QMap>
 
+class Pokemon;
+struct saveData {
+    bool empty = false;
+    int player_x;
+    int player_y;
+    int player_lvl;
+    std::vector<Pokemon*> team;
+};
 /**
  * @enum PKTYPE
  * @brief Enumération des types de Pokémon.
@@ -39,6 +50,7 @@ enum MOVENATURE {
     Spéciale  /**< Attaque Spéciale */
 };
 
+extern std::map<int, QString> dialogues; ///< Map of dialogues for the game
 extern QMap<int, QBitmap> masks;
 
 #endif // TYPEDEF_H

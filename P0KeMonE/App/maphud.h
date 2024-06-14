@@ -10,7 +10,6 @@
 #include <QKeyEvent>
 #include <QBitmap>
 #include <random>
-#include <unordered_map>
 
 #include "player.h"
 #include "model.h"
@@ -49,6 +48,12 @@ public:
      */
     Player *getPlayer();
 
+    void showFirstScenario();
+    void showSecondScenario();
+    void endScenario();
+
+    QGraphicsTextItem *getDialogTextItem();
+
 private:
     Model *model; ///< Pointer to the model.
     Player *player; ///< Pointer to the player.
@@ -56,6 +61,10 @@ private:
     std::uniform_int_distribution<> encounterDist; ///< Distribution for random encounters.
     QGraphicsPixmapItem *bossItem; ///< Pointer to the boss item.
     QGraphicsPixmapItem *oldMenItem; ///< Pointer to the old men item.
+    QGraphicsTextItem *textItem; ///< Pointer to the text item for dialogues.
+    QGraphicsPixmapItem *boxItem; ///< Pointer to the box item for dialogues.
+    QGraphicsPixmapItem *ballsItem; ///< Pointer to the box item for dialogues.
+    bool showSignMessage = true; ///< Flag to show sign message.
 
     /**
      * @brief Draws the grass layer of the map.
@@ -85,6 +94,12 @@ private:
      */
     void handleRandomEncounter();
 
+private slots:
+    /**
+     * @brief Show sign message
+     */
+    void signMessage(int x, int y);
+
 protected:
     /**
      * @brief Handles key press events for player movement and interactions.
@@ -100,16 +115,11 @@ protected:
     void enteringBoat(Player *player, const std::string &direction);
 
     /**
-     * @brief Manages the player's entrance into the boss zone.
+     * @brief Manages the player's entrance into the launcher zone.
      * @param player Pointer to the player.
      */
-    void enteringBossZone(Player *player);
+    void enteringLauncher(Player *player);
 
-    /**
-     * @brief Manages the player's entrance into the old men zone.
-     * @param player Pointer to the player.
-     */
-    void enteringOldMenZone(Player *player);
 };
 
 #endif // MAPHUD_H

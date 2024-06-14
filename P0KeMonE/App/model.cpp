@@ -53,9 +53,10 @@ const std::vector<std::vector<int>>& Model::getMap() const {
     return map; // Return the map
 }
 
-const std::vector<Pokemon*>& Model::getFirstTeam() const {
+std::vector<Pokemon*> Model::getPokemonsChoice() const {
     return {data->randompokemon(), data->randompokemon(), data->randompokemon()}; // Return the first team of Pokémon
 }
+
 
 /**
  * Provides access to the game's data handling class.

@@ -1,6 +1,6 @@
 #include "pokemon.h"
 
-
+#include <random>
 
 
 Pokemon::Pokemon(int id_pk, string itsName, PKTYPE itsType, int itsHealth, int itsSpeed, int itsAtk, int itsSpAtk, int itsDef, int itsSpDef, int itsLevel)
@@ -108,6 +108,21 @@ int Pokemon::getItsMaxHealth() const
     return itsMaxHealth;
 }
 
+void Pokemon::upgradeStats() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> disInt(193, 493);
+
+    std::array<int*, 6> stats = { &itsMaxHealth, &itsSpeed, &itsAtk, &itsSpAtk, &itsDef, &itsSpDef };
+
+    for (int* stat : stats) {
+        *stat += *stat / 50 + disInt(gen) / 100;
+    }
+
+    itsHealth += itsHealth + 10 > itsMaxHealth ? itsMaxHealth - itsHealth : 10;
+}
+
+
 /**
  * Returns the list of moves this Pokemon can perform.
  */
@@ -133,7 +148,17 @@ PKTYPE Pokemon::getItsType() const
     return itsType;
 }
 
-void Pokemon::setItsHealth(int newItsHealth)
+void Pokemon::setLevel(int newItsLevel)
 {
-    itsHealth = newItsHealth;
+    itsLevel = newItsLevel;
 }
+
+Move* Pokemon::getRandMove()
+{
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, itsMoves.size() - 1);
+
+    return itsMoves[dis(gen)];
+}
+

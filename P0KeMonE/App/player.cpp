@@ -8,6 +8,9 @@ Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
 
     movementTimer = new QTimer(this);
     connect(movementTimer, &QTimer::timeout, this, &Player::move);
+
+    qDebug() << "Player initialized.";
+
 }
 
 Player::~Player() {
@@ -19,21 +22,28 @@ std::vector<Pokemon*> Player::getTeam() const {
 }
 
 void Player::keyPressEvent(QKeyEvent *event) {
+    if (event->isAutoRepeat()) return;
+
     activeKeys.insert(event->key());
-    if (!movementTimer->isActive()) {
+    if (!movementTimer->isActive() && canMove) {
         startMoving();
     }
+
 }
 
 void Player::keyReleaseEvent(QKeyEvent *event) {
+    if (event->isAutoRepeat()) return;
+
     activeKeys.remove(event->key());
     if (activeKeys.isEmpty()) {
         stopMoving();
     }
+
 }
 
 void Player::startMoving() {
     movementTimer->start(30);
+
 }
 
 void Player::stopMoving() {
@@ -51,11 +61,11 @@ void Player::removePokemon(Pokemon *pokemon)
     auto it = std::find(itsTeam.begin(), itsTeam.end(), pokemon);
 
     // If the Pokémon is found, remove it
-    if (it != itsTeam.end()) {
+    if (it != itsTeam.end())
+    {
         itsTeam.erase(it);
     }
 
-    
 }
 
 
@@ -100,23 +110,54 @@ bool Player::checkCollision(QPointF newPos) {
             baseLayer = QRect(itemTopLeft.x() + 6, itemTopLeft.y() + 25, 58, 43);
             updateZValue = true;
             break;
+        case 67:
+        case 68:
+            return false;
+            break;
         case 92: // Pont
         {
             QRect bridge(330, 21 * 32, 640, 65);
             QRect exitBridge(330 + 43, 21 * 32 + 60, 44, 70);
 
-            if ((footPlayerRect.intersects(bridge) && actualFootPlayerRect.intersects(bridge)) ||
-                (footPlayerRect.intersects(exitBridge) && actualFootPlayerRect.intersects(exitBridge))) {
+            if (footPlayerRect.intersects(bridge) && actualFootPlayerRect.intersects(bridge)) {
                 return false;
             }
+
+            if (footPlayerRect.intersects(exitBridge) && actualFootPlayerRect.intersects(exitBridge)) {
+                return false;
+            }
+
             break;
         }
         case 83:
+        {
+            QRect montain(970, 551, 188, 172 + 10);
+            QRect bridge_montain(934, 671, 28, 52 + 10);
+            QRect exitMontain(1034, 731, 50, 50);
 
-            //QRect montain()
-            return false;
+            if (footPlayerRect.intersects(montain) && actualFootPlayerRect.intersects(montain)) {
+                return false;
+            }
+
+            if (footPlayerRect.intersects(bridge_montain) && actualFootPlayerRect.intersects(bridge_montain)) {
+                return false;
+            }
+
+            if (footPlayerRect.intersects(exitMontain) && actualFootPlayerRect.intersects(exitMontain)) {
+                return false;
+            }
 
             break;
+        }
+        case 96: //sign
+        {
+            baseLayer = QRect(itemTopLeft.x() + 5, itemTopLeft.y() + 21, 20, 16);
+            updateZValue = true;
+
+            emit signEncounter(itemRect.x(), itemRect.y());
+
+            break;
+        }
         default:
             break;
         }
@@ -190,6 +231,7 @@ void Player::move() {
             updateSprite("front");
         }
     }
+
 }
 
 void Player::updateSprite(const QString &direction) {
@@ -204,7 +246,7 @@ void Player::updateSprite(const QString &direction) {
     int step = qRound(direction == "left" || direction == "right" ? x() : y()) % 48;
     int index = step < 16 ? 0 : step < 32 ? 1 : 2;
 
-    setPixmap(QPixmap(sprites[index]).scaled(QSize(11, 16) * scale));
+    setPixmap(QPixmap(sprites[index]).scaled(QSize(12, 18) * scale));
 }
 
 void Player::incrementWinCount() {
@@ -227,6 +269,18 @@ void Player::setWinCount(int newWinCount) {
     winCount = newWinCount;
 }
 
+void Player::setCanMove(bool newCanMove) {
+    canMove = newCanMove;
+}
+
 void Player::setTeam(vector<Pokemon*> newTeam) {
     itsTeam = newTeam;
+}
+
+bool Player::getCompleteTeam() const {
+    return completeTeam;
+}
+
+void Player::setCompleteTeam(bool newCompleteTeam) {
+    completeTeam = newCompleteTeam;
 }

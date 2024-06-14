@@ -5,6 +5,12 @@ PlayerHUD::PlayerHUD(QObject *parent)
 {
     setObjectName("PlayerHUD");
     setSceneRect(0, 0, 478, 318);
+
+    titleLabel = new QGraphicsTextItem("");
+    titleLabel->setDefaultTextColor(Qt::black);
+    titleLabel->setFont(QFont("Arial", 17, QFont::Bold));
+    addItem(titleLabel);
+    titleLabel->setPos(90, 10);
  }
 
 void PlayerHUD::setPokemons(const std::vector<Pokemon*>& pokemons, int itsLevelPlayer)
@@ -12,12 +18,14 @@ void PlayerHUD::setPokemons(const std::vector<Pokemon*>& pokemons, int itsLevelP
     this->pokemons = pokemons;
     this->itsLevelPlayer = itsLevelPlayer;
 
+    qDebug() << "Pokemons set with level player:" << itsLevelPlayer;
     updateHUD();
 }
 
 void PlayerHUD::setSelectionMode(bool selectionMode)
 {
     this->selectionMode = selectionMode;
+    qDebug() << "Selection mode set to:" << selectionMode;
     updateHUD();
 }
 
@@ -43,10 +51,9 @@ void PlayerHUD::updateHUD()
     healthBars.clear();
 
     if (pokemons.empty()) {
+        qDebug() << "No pokemons to display.";
         return;
     }
-
-
 
     int xOffset = 24; // Start x position
     int yOffset = 50; // Start y position
@@ -55,7 +62,7 @@ void PlayerHUD::updateHUD()
     for (size_t i = 0; i < pokemons.size(); i++) {
         Pokemon *pokemon = pokemons[i];
         QPixmap characterImage = QPixmap(":/sprites/pk_sprites/" + QString::number(pokemon->getId()) + "_front.png").scaled(150, 150);
-        addCharacter(characterImage, pokemon->getHealth(), pokemon->getItsMaxHealth(), xOffset + i * spacing, yOffset);
+        addCharacter(characterImage, pokemon->getHealth(), pokemon->getItsMaxHealth(), xOffset + i * spacing, yOffset, pokemon);
     }
 
     if (selectionMode) {
@@ -64,27 +71,25 @@ void PlayerHUD::updateHUD()
         removeItem(selectionArrow);
         delete selectionArrow;
         selectionArrow = nullptr;
-    } else {
+    }
+    if(!selectionMode)
+    {
 
         QGraphicsTextItem *levelText = new QGraphicsTextItem(QString("Level %1").arg(itsLevelPlayer));
+        healthTextItems.append(levelText);
         levelText->setDefaultTextColor(Qt::black);
         levelText->setFont(QFont("Arial", 12, QFont::Bold));
         addItem(levelText);
         levelText->setPos(10, 10);
-
-        pokemonLabel = new QGraphicsTextItem();
-        pokemonLabel->setDefaultTextColor(Qt::black);
-        pokemonLabel->setFont(QFont("Arial", 17, QFont::Bold));
-        addItem(pokemonLabel);
-        pokemonLabel->setPos(100, 10);
-
     }
-
-
-
 }
 
-void PlayerHUD::addCharacter(const QPixmap &characterImage, int currentHealth, int maxHealth, int xPos, int yPos)
+void PlayerHUD::setPokemonLabel(string newPokemonLabel)
+{
+    titleLabel->setPlainText(QString::fromStdString(newPokemonLabel));
+}
+
+void PlayerHUD::addCharacter(const QPixmap &characterImage, int currentHealth, int maxHealth, int xPos, int yPos, Pokemon* pokemon)
 {
     QGraphicsPixmapItem *characterItem = new QGraphicsPixmapItem(characterImage);
     characterItems.append(characterItem);
@@ -118,6 +123,22 @@ void PlayerHUD::addCharacter(const QPixmap &characterImage, int currentHealth, i
     } else {
         characterItem->setPos(xPos, yPos + 50);
     }
+    QString statPokemon = QString("Speed: %1\nAttack: %2\nDefense: %3\nSpeAttack: %4\nSpeDefense: %5\n")
+                              .arg(pokemon->getSpeed())
+                              .arg(pokemon->getAtk())
+                              .arg(pokemon->getDef())
+                              .arg(pokemon->getSpAtk())
+                              .arg(pokemon->getSpDef());
+
+
+
+    QGraphicsTextItem *statText = new QGraphicsTextItem(QString(statPokemon));
+    statText->setDefaultTextColor(Qt::black);
+    statText->setFont(QFont("Arial", 12, QFont::Bold));
+    addItem(statText);
+    healthTextItems.append(statText);
+    statText->setPos(xPos + 10, yPos + characterItem->pixmap().height() + 40);
+
 
     addItem(characterItem);
 }
@@ -132,15 +153,8 @@ void PlayerHUD::updateSelectionArrow()
     selectionArrow->setPos(xPos + 50, 35); // Adjust the position of the arrow
 }
 
-QGraphicsTextItem *PlayerHUD::getPokemonLabel() const
-{
-    return pokemonLabel;
-}
 
-void PlayerHUD::setPokemonLabel(QGraphicsTextItem *newPokemonLabel)
-{
-    pokemonLabel = newPokemonLabel;
-}
+
 
 void PlayerHUD::keyPressEvent(QKeyEvent *event)
 {
@@ -160,7 +174,19 @@ void PlayerHUD::keyPressEvent(QKeyEvent *event)
             // Emit a signal or call a method to process the selected Pokémon
             emit pokemonSelected(pokemons[selectedIndex]);
             selectedIndex=0;
+            updateSelectionArrow();
         }
     }
     QGraphicsScene::keyPressEvent(event);
+}
+
+Pokemon * PlayerHUD::getPokemonChanged() const
+{
+    return pokemonChanged;
+}
+
+
+void PlayerHUD::setPokemonChanged(Pokemon *newPokemonChanged)
+{
+    pokemonChanged = newPokemonChanged;
 }

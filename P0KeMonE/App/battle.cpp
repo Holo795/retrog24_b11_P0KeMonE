@@ -4,10 +4,12 @@
  * Constructor for the Battle class.
  * Initializes a new battle instance with given player, opponent, and HUD.
  */
-Battle::Battle(Pokemon *opponent1, Pokemon *opponent2, BattleHUD *battleHUD1)
-    : itsOpponent1(opponent1), itsOpponent2(opponent2), itsBattleHUD1(battleHUD1),
+Battle::Battle(Pokemon *opponent1, Pokemon *opponent2, BattleHUD *battleHUD)
+    : itsOpponent1(opponent1), itsOpponent2(opponent2), itsBattleHUD(battleHUD),
     gen(std::random_device{}()) // Seed the generator with random_device
-{}
+{
+
+}
 
 /**
  * Destructor for the Battle class.
@@ -16,7 +18,7 @@ Battle::~Battle()
 {
     delete itsOpponent1;
     delete itsOpponent2;
-    delete itsBattleHUD1;
+    delete itsBattleHUD;
 }
 
 /**
@@ -40,40 +42,14 @@ void Battle::attack(Move *move, Pokemon *target) {
 
 
     if (random <= successRate) {
-        itsBattleHUD1->frontDashPokemon(attacker);
-        itsBattleHUD1->shakePokemon(defender);
+        itsBattleHUD->frontDashPokemon(attacker);
+        itsBattleHUD->shakePokemon(defender);
         defender->takeDamage(damage);
-        itsBattleHUD1->setText(QString::fromStdString(attacker->getItsName() + " used " + move->getItsName() + "!"));
+        itsBattleHUD->setText(attacker->getItsName() + " used " + move->getItsName() + "!");
 
     } else {
-        itsBattleHUD1->setText(QString::fromStdString(attacker->getItsName() + " used " + move->getItsName() + " and missed !"));
+        itsBattleHUD->setText(attacker->getItsName() + " used " + move->getItsName() + " and missed !");
 
     }
-    itsBattleHUD1->setPokemon(itsOpponent1, itsOpponent2);
-}
-
-
-/**
- * @brief Retrieves the boss's team of Pokémon.
- * @return A constant reference to a vector of pointers to Pokémon.
- */
-std::vector<Pokemon*> Battle::getBossTeam() const {
-    return itsBossTeam;
-}
-
-/**
- * @brief Sets the boss's team of Pokémon.
- * @param team Vector of pointers to Pokémon representing the boss's team.
- */
-void Battle::setBossTeam(std::vector<Pokemon*> team) {
-    itsBossTeam = team;
-}
-
-/**
- * @brief Retrieves the battle HUD.
- * @return Pointer to the battle HUD.
- */
-BattleHUD *Battle::getBattleHUD()
-{
-    return itsBattleHUD1;
+    itsBattleHUD->setPokemon(itsOpponent1, itsOpponent2);
 }

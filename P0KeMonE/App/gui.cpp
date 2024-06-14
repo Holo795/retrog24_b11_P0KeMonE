@@ -68,6 +68,7 @@ PlayerHUD *GUI::playerTeam(vector<Pokemon *> pokemons, int itsLevel) {
     // Set the player in the player HUD before returning it
     playerHUD->setPokemons(pokemons, itsLevel);
     playerHUD->setSelectionMode(false);
+    playerHUD->setPokemonLabel("Your team");
     return playerHUD;
 }
 
@@ -81,9 +82,11 @@ PlayerHUD *GUI::team() {
 /**
  * Initializes the player HUD with a specific player object and returns it.
  */
-PlayerHUD *GUI::selectPokemon(vector<Pokemon *> pokemons) {
+PlayerHUD *GUI::selectPokemon(vector<Pokemon *> pokemons, string text) {
     // Set the player in the player HUD before returning it
     playerHUD->setSelectionMode(true);
+    playerHUD->setPokemonLabel(text);
     playerHUD->setPokemons(pokemons,0);
+
     return playerHUD;
 }

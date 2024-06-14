@@ -6,8 +6,6 @@
 #ifndef GUI_H
 #define GUI_H
 
-#include <QGraphicsScene>
-
 #include "model.h"
 #include "gameoverhud.h"
 #include "maphud.h"
@@ -84,7 +82,7 @@ public:
      * @brief Accessor for the player HUD.
      * @return Pointer to the PlayerHUD object.
      */
-    PlayerHUD * selectPokemon(vector<Pokemon *> pokemons);
+    PlayerHUD * selectPokemon(vector<Pokemon *> pokemons, string text="");
 
 private:
     Model *model; ///< Pointer to the game model.

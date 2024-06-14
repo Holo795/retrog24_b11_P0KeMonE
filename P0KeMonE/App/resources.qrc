@@ -51,6 +51,7 @@
         <file>map_assets/sandy_tallgrass.png</file>
         <file>map_assets/boss.png</file>
         <file>map_assets/old_men.png</file>
+        <file>map_assets/launcher.png</file>
     </qresource>
     <qresource prefix="/sprites">
         <file>pk_sprites/1_front.png</file>
@@ -619,5 +620,10 @@
         <file>battlehud_assets/game_won_bg.png</file>
         <file>battlehud_assets/Minecraft.ttf</file>
         <file>battlehud_assets/logoP0KeMonE.png</file>
+        <file>battlehud_assets/oldMen_image.png</file>
+    </qresource>
+    <qresource prefix="/sounds">
+        <file>sounds/grass_walk.wav</file>
+        <file>sounds/mainMusic.wav</file>
     </qresource>
 </RCC>

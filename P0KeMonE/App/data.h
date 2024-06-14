@@ -47,6 +47,8 @@ public:
      */
     Pokemon * randompokemon();
 
+    Pokemon* pokemonById(int pokemonId);
+
     /**
      * @brief Fetches moves associated with a Pokémon by ID.
      * @param pokemon_id The ID of the Pokémon to fetch moves for.
@@ -54,7 +56,9 @@ public:
      */
     QList<Move*> getMoves(int pokemon_id);
 
-    QSqlDatabase getDb();
+    saveData extractSaveData();
+    void insertSaveData(saveData data);
+    void clearSaveData();
 };
 
 #endif // DATA_H

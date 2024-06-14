@@ -14,6 +14,7 @@
 #include <QTimer>
 #include "typeDef.h"
 #include "pokemon.h"
+#include "soundmanager.h"
 
 /**
  * @class Player
@@ -81,13 +82,19 @@ public:
     int getWinCount() const;
     void setWinCount(int newWinCount);
 
+    void setCanMove(bool newCanMove);
+    bool getCompleteTeam() const;
+    void setCompleteTeam(bool newCompleteTeam);
+
 private:
     float scale = 1.8; ///< Scale factor for the player's graphical representation.
     std::vector<Pokemon*> itsTeam; ///< The player's team of Pokémon.
     QTimer *movementTimer; ///< Timer for handling continuous movement.
     QSet<int> activeKeys; ///< Set of currently pressed keys.
+    bool completeTeam = false; ///< Flag indicating if the player's team is complete.
     float itsLevel = 1.0; ///< The player's movement speed.
     int winCount = 0; ///< The number of battles won by the player.
+    bool canMove = true; ///< Flag indicating whether the player can move.
 
     /**
      * @brief Checks for collisions at the new position.
@@ -106,6 +113,7 @@ private:
      * @param direction The direction in which the player is moving.
      */
     void updateSprite(const QString &direction);
+
 
 protected:
     /**
@@ -132,9 +140,10 @@ signals:
     void startEncouterBoss();
 
     /**
-     * @brief Signal emitted when the player encounters
+     * @brief Signal emitted when the player face on sign
      */
-    void startEncouterOldMen();
+    void signEncounter(int x, int y);
+
 };
 
 #endif // PLAYER_H

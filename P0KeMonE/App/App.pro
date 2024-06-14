@@ -1,5 +1,7 @@
 QT       += core gui
 QT       += sql
+QT += multimedia
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,6 +27,8 @@ SOURCES += \
     player.cpp \
     playerhud.cpp \
     pokemon.cpp \
+    savemanager.cpp \
+    soundmanager.cpp \
     typeDef.cpp
 
 HEADERS += \
@@ -43,6 +47,8 @@ HEADERS += \
     player.h \
     playerhud.h \
     pokemon.h \
+    savemanager.h \
+    soundmanager.h \
     typeDef.h
 
 # Default rules for deployment.

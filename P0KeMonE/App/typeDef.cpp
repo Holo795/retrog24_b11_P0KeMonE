@@ -1,6 +1,5 @@
 #include "typeDef.h"
 
-// Définition de la map avec les dialogues
 std::map<int, QString> dialogues = {
     {0, "Greetings, young adventurer!"},
     {1, "Let me introduce myself, I'm the dean of this reserve"},
@@ -21,4 +20,5 @@ std::map<int, QString> dialogues = {
     {16, "Remember, the key is the connection between you and your pokemones."},
     {17, "Good luck, young trainer!"}
 };
+
 QMap<int, QBitmap> masks;

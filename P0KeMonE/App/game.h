@@ -41,16 +41,16 @@ public:
     ~Game();
 
 private:
-    Model *model; ///< Pointer to the game model.
-    GUI *gui; ///< Pointer to the graphical user interface.
-    Player *player = nullptr; ///< Pointer to the player object.
-    Battle *battle; ///< Pointer to the current battle context.
-    size_t currentDialogueIndex = 0; ///< Index of the current dialogue.
-    std::vector<Pokemon*> itsBossTeam; /**< Vector of Pokémon pointers representing the boss's team. */
-    bool itsBossFight = false; ///< Flag indicating if a boss fight is occurring.
-    bool itsFirstFight = false; ///< Flag indicating if this is the first fight.
-    bool itsInFight = false; ///< Flag indicating if a fight is currently occurring.
-    bool statepokemonChanged = false; ///< Flag to indicate if the Pokémon has changed.
+    Model *model;                       ///< Pointer to the game model.
+    GUI *gui;                           ///< Pointer to the graphical user interface.
+    Player *player = nullptr;           ///< Pointer to the player object.
+    Battle *battle;                     ///< Pointer to the current battle context.
+    size_t currentDialogueIndex = 0;    ///< Index of the current dialogue.
+    std::vector<Pokemon*> itsBossTeam;  ///< Vector of Pokémon pointers representing the boss's team. */
+    bool itsBossFight = false;          ///< Flag indicating if a boss fight is occurring.
+    bool itsFirstFight = false;         ///< Flag indicating if this is the first fight.
+    bool itsInFight = false;            ///< Flag indicating if a fight is currently occurring.
+    bool statepokemonChanged = false;   ///< Flag to indicate if the Pokémon has changed.
 
     /**
      * @brief Ends the ongoing fight.

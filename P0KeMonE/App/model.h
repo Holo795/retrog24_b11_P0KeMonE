@@ -57,8 +57,8 @@ public:
     Data * getData();
 
 private:
-    std::vector<std::vector<int>> map; ///< The map of the game, stored as a 2D character vector.
-    Data *data; ///< Pointer to the Data class instance for database operations.
+    Data *data;                         ///< Pointer to the Data class instance for database operations.
+    std::vector<std::vector<int>> map;  ///< The map of the game, stored as a 2D character vector.
 };
 
 #endif // MODEL_H

@@ -1,7 +1,7 @@
 #include "move.h"
 
 
-Move::Move(string itsName, int itsPower, int itsAccuracy, MOVENATURE itsNature, PKTYPE itsType)
+Move::Move(std::string itsName, int itsPower, int itsAccuracy, MOVENATURE itsNature, PKTYPE itsType)
 {
     this->itsName = itsName;
     this->itsPower = itsPower;
@@ -10,39 +10,27 @@ Move::Move(string itsName, int itsPower, int itsAccuracy, MOVENATURE itsNature, 
     this->itsType = itsType;
 }
 
-/**
- * Returns the name of the move.
- */
-string Move::getItsName() const
+std::string Move::getItsName() const
 {
     return itsName;
 }
 
-/**
- * Returns the power of the move.
- */
 int Move::getItsPower() const
 {
     return itsPower;
 }
 
-/**
- * Returns the accuracy of the move.
- */
 int Move::getItsAccuracy() const
 {
     return itsAccuracy;
 }
 
-/**
- * Returns the type of the move (e.g., physical or special).
- */
 MOVENATURE Move::getItsNature() const
 {
     return itsNature;
 }
 
-string Move::getItsTextNature(int nature) const
+std::string Move::getItsTextNature(int nature) const
 {
     switch (nature) {
     case Physique: return "Physic";
@@ -57,7 +45,7 @@ PKTYPE Move::getItsType() const
     return itsType;
 }
 
-string Move::getItsTextType(int type) const
+std::string Move::getItsTextType(int type) const
 {
     switch (type) {
     case Grass: return "Grass";
@@ -82,11 +70,6 @@ string Move::getItsTextType(int type) const
     }
 }
 
-
-/**
- * Calculates the damage this move will do when used.
- * Implements the standard damage formula from games like Pokémon.
- */
 int Move::calculateDamage(int lvl, int atk, int def, bool crit) const
 {
     int level = lvl;
@@ -94,9 +77,8 @@ int Move::calculateDamage(int lvl, int atk, int def, bool crit) const
     int defenseStat = def;
     int power = itsPower;
 
-    double critical = crit ? 2.0 : 1.0; // Critical hit doubles the damage
+    double critical = crit ? 2.0 : 1.0;
 
-    // Calculate the base damage using a modified version of the Pokémon damage formula
     double baseDamage = (((((level * 0.4 + 2) * attackStat * power) / (defenseStat * 50)) + 2) * critical);
 
     // Ensure damage is at least 1

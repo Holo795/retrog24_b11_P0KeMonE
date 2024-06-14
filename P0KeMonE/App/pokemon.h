@@ -7,6 +7,7 @@
 #define POKEMON_H
 
 #include <QList>
+
 #include "move.h"
 #include "typeDef.h"
 
@@ -21,9 +22,10 @@ using namespace std;
 class Pokemon
 {
 private:
-    int id_pk;                /**< Identifier of the Pokémon */
+    QList<Move*> itsMoves;    /**< List of moves or abilities the Pokémon can perform */
     string itsName;           /**< Name of the Pokémon */
     PKTYPE itsType;           /**< Type of the Pokémon */
+    int id_pk;                /**< Identifier of the Pokémon */
     int itsHealth;            /**< Current health points of the Pokémon */
     int itsMaxHealth;         /**< Maximum health points of the Pokémon */
     int itsSpeed;             /**< Speed stat of the Pokémon */
@@ -32,7 +34,6 @@ private:
     int itsDef;               /**< Defense stat of the Pokémon */
     int itsSpDef;             /**< Special defense stat of the Pokémon */
     int itsLevel;             /**< Level of the Pokémon */
-    QList<Move*> itsMoves;    /**< List of moves or abilities the Pokémon can perform */
 
 public:
     /**

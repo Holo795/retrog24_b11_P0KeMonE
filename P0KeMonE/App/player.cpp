@@ -1,5 +1,5 @@
 #include "player.h"
-#include "typeDef.h" // Inclusion de la déclaration de la map de masques
+#include "typeDef.h"
 
 Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
     setZValue(3);
@@ -10,7 +10,6 @@ Player::Player(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
     connect(movementTimer, &QTimer::timeout, this, &Player::move);
 
     qDebug() << "Player initialized.";
-
 }
 
 Player::~Player() {
@@ -57,10 +56,8 @@ void Player::addPokemon(Pokemon *pokemon) {
 
 void Player::removePokemon(Pokemon *pokemon)
 {
-    // Find the Pokémon in the team
     auto it = std::find(itsTeam.begin(), itsTeam.end(), pokemon);
 
-    // If the Pokémon is found, remove it
     if (it != itsTeam.end())
     {
         itsTeam.erase(it);
@@ -68,12 +65,6 @@ void Player::removePokemon(Pokemon *pokemon)
 
 }
 
-
-/**
- * @brief Checks for collisions at the new position.
- * @param newPos The new position to check for collisions.
- * @return true if there is a collision, false otherwise.
- */
 bool Player::checkCollision(QPointF newPos) {
     QRectF footPlayerRect(newPos.x() + 2, newPos.y() + pixmap().height() - 2, pixmap().width() - 4, 2);
     QRectF headPlayerRect(newPos.x() + 2, newPos.y(), pixmap().width() - 4, 2);
@@ -106,14 +97,14 @@ bool Player::checkCollision(QPointF newPos) {
             baseLayer = QRect(itemTopLeft.x() + 15, itemTopLeft.y() + 34, 13, 34);
             updateZValue = true;
             break;
-        case 67:
+        case 67: //Escalier gauche
         {
             QRect border(itemTopLeft.x(), itemTopLeft.y(), 13, 32);
             return footPlayerRect.intersects(border);
             break;
 
         }
-        case 68:
+        case 68: //Escalier droite
         {
             QRect border(itemTopLeft.x() + itemRect.width() - 13, itemTopLeft.y(), 13, 32);
             return footPlayerRect.intersects(border);
@@ -179,7 +170,6 @@ bool Player::checkCollision(QPointF newPos) {
             continue;
         }
 
-        // Convertir le rectangle de collision du joueur dans le système de coordonnées de l'item
         QRectF intersectRect = footPlayerRect.intersected(itemRect);
         if (!intersectRect.isEmpty()) {
             QRect playerRectInItemCoords = intersectRect.translated(-itemTopLeft).toRect();
@@ -195,8 +185,6 @@ bool Player::checkCollision(QPointF newPos) {
     }
     return false;
 }
-
-
 
 void Player::move() {
     if (activeKeys.isEmpty() || activeKeys.size() > 1) return;

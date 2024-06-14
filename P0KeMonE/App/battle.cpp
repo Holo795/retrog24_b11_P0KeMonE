@@ -1,19 +1,10 @@
 #include "battle.h"
 
-/**
- * Constructor for the Battle class.
- * Initializes a new battle instance with given player, opponent, and HUD.
- */
 Battle::Battle(Pokemon *opponent1, Pokemon *opponent2, BattleHUD *battleHUD)
-    : itsOpponent1(opponent1), itsOpponent2(opponent2), itsBattleHUD(battleHUD),
-    gen(std::random_device{}()) // Seed the generator with random_device
-{
+    : gen(std::random_device{}()), itsOpponent1(opponent1), itsOpponent2(opponent2),
+    itsBattleHUD(battleHUD)
+{}
 
-}
-
-/**
- * Destructor for the Battle class.
- */
 Battle::~Battle()
 {
     delete itsOpponent1;
@@ -21,15 +12,11 @@ Battle::~Battle()
     delete itsBattleHUD;
 }
 
-/**
- * Conducts an attack in a battle scenario using a specified move against a target Pokémon.
- * The function determines the damage based on move type and calculates whether the attack hits based on move accuracy.
- */
 void Battle::attack(Move *move, Pokemon *target) {
-    std::uniform_int_distribution<> dis(1, 100);  // Distribution for attack calculations
+    std::uniform_int_distribution<> dis(1, 100);
     int random = dis(gen);
     int successRate = move->getItsAccuracy();
-    bool crit = random > 94; // 6% chance of critical hit
+    bool crit = random > 94;
 
     Pokemon* attacker = target == itsOpponent2 ? itsOpponent1 : itsOpponent2;
     Pokemon* defender = target == itsOpponent2 ? itsOpponent2 : itsOpponent1;
@@ -39,7 +26,6 @@ void Battle::attack(Move *move, Pokemon *target) {
     int def = (move->getItsNature() == 0) ? defender->getDef() : defender->getSpDef();
 
     int damage = move->calculateDamage(lvl, atk, def, crit);
-
 
     if (random <= successRate) {
         itsBattleHUD->frontDashPokemon(attacker);

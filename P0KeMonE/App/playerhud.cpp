@@ -55,9 +55,9 @@ void PlayerHUD::updateHUD()
         return;
     }
 
-    int xOffset = 24; // Start x position
-    int yOffset = 50; // Start y position
-    int spacing = 150; // Space between characters
+    int xOffset = 24;
+    int yOffset = 50;
+    int spacing = 150;
 
     for (size_t i = 0; i < pokemons.size(); i++) {
         Pokemon *pokemon = pokemons[i];
@@ -131,9 +131,6 @@ void PlayerHUD::addCharacter(const QPixmap &characterImage, int currentHealth, i
                               .arg(pokemon->getDef())
                               .arg(pokemon->getSpAtk())
                               .arg(pokemon->getSpDef());
-
-
-
     QGraphicsTextItem *statText = new QGraphicsTextItem(QString(statPokemon));
     statText->setDefaultTextColor(Qt::black);
     statText->setFont(QFont("Arial", 10, QFont::Bold));
@@ -151,12 +148,9 @@ void PlayerHUD::updateSelectionArrow()
         selectionArrow = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/arrow.png").scaled(50, 50));
         addItem(selectionArrow);
     }
-    int xPos = 25 + selectedIndex * 150; // Calculate x position based on selectedIndex
-    selectionArrow->setPos(xPos + 50, 35); // Adjust the position of the arrow
+    int xPos = 25 + selectedIndex * 150;
+    selectionArrow->setPos(xPos + 50, 35);
 }
-
-
-
 
 void PlayerHUD::keyPressEvent(QKeyEvent *event)
 {
@@ -186,7 +180,6 @@ Pokemon * PlayerHUD::getPokemonChanged() const
 {
     return pokemonChanged;
 }
-
 
 void PlayerHUD::setPokemonChanged(Pokemon *newPokemonChanged)
 {

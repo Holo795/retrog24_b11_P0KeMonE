@@ -56,16 +56,16 @@ public:
     QGraphicsTextItem *getDialogTextItem();
 
 private:
-    Model *model; ///< Pointer to the model.
-    Player *player; ///< Pointer to the player.
-    std::mt19937 gen; ///< Mersenne Twister random number generator.
-    std::uniform_int_distribution<> encounterDist; ///< Distribution for random encounters.
-    QGraphicsPixmapItem *bossItem; ///< Pointer to the boss item.
-    QGraphicsPixmapItem *oldMenItem; ///< Pointer to the old men item.
-    QGraphicsTextItem *textItem; ///< Pointer to the text item for dialogues.
-    QGraphicsPixmapItem *boxItem; ///< Pointer to the box item for dialogues.
-    QGraphicsPixmapItem *ballsItem; ///< Pointer to the box item for dialogues.
-    bool showSignMessage = true; ///< Flag to show sign message.
+    Model *model;                                   ///< Pointer to the model.
+    Player *player;                                 ///< Pointer to the player.
+    std::mt19937 gen;                               ///< Mersenne Twister random number generator.
+    std::uniform_int_distribution<> encounterDist;  ///< Distribution for random encounters.
+    QGraphicsPixmapItem *bossItem;                  ///< Pointer to the boss item.
+    QGraphicsPixmapItem *oldMenItem;                ///< Pointer to the old men item.
+    QGraphicsPixmapItem *boxItem;                   ///< Pointer to the box item for dialogues.
+    QGraphicsPixmapItem *ballsItem;                 ///< Pointer to the box item for dialogues.
+    QGraphicsTextItem *textItem;                    ///< Pointer to the text item for dialogues.
+    bool showSignMessage = true;                    ///< Flag to show sign message.
 
     /**
      * @brief Draws the grass layer of the map.

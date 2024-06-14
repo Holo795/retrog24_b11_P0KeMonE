@@ -27,7 +27,7 @@
 class Data
 {
 private:
-    QSqlDatabase db; /**< Instance of the SQLite database */
+    QSqlDatabase db;    /**< Instance of the SQLite database */
 
 public:
     /**

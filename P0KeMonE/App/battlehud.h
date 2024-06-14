@@ -8,18 +8,17 @@
 #define BATTLEHUD_H
 
 #include <QGraphicsScene>
-#include <QPushButton>
-#include <QButtonGroup>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsTextItem>
 #include <QGraphicsItemAnimation>
-#include <QTimeLine>
+#include <QGraphicsProxyWidget>
+#include <QPushButton>
 #include <QButtonGroup>
 #include <QLabel>
-#include <QDebug>
-#include <QTimer>
-#include <QGraphicsProxyWidget>
 #include <QProgressBar>
+#include <QTimeLine>
+#include <QTimer>
+#include <QDebug>
 
 #include "pokemon.h"
 
@@ -158,37 +157,132 @@ public:
     void disableBattleButtons(bool exitButton = false);
 
 private:
-    QPushButton *attackButton;           /**< Button used for initiating attacks. */
-    QPushButton *pokemonButton;          /**< Button used for switching pokemons. */
-    QPushButton *runButton;              /**< Button used for leaving the fight. */
-    Pokemon *pokemon1;                   /**< First Pokémon displayed on the HUD. */
-    Pokemon *pokemon2;                   /**< Second Pokémon displayed on the HUD. */
-    QGraphicsPixmapItem *pokemon1Item;   /**< Graphics item for the first Pokémon's image. */
-    QGraphicsPixmapItem *pokemon2Item;   /**< Graphics item for the second Pokémon's image. */
-    QGraphicsTextItem *health1;          /**< Text item for the first Pokémon's health. */
-    QGraphicsTextItem *health2;          /**< Text item for the second Pokémon's health. */
-    QGraphicsTextItem *menuText;         /**< Text item for the battle menu. */
-    QGraphicsTextItem *attackText;       /**< Text item for the attack dialogue. */
-    QGraphicsPixmapItem *dialogueBox;    /**< Graphics item for battle dialogue. */
-    QButtonGroup *moveButtonsGroup;      /**< Button group for move buttons. */
-    QPushButton *backButton;             /**< Button used for going back. */
-    QGraphicsPixmapItem* oldMenPixmap;   /**< Graphics item for the old men. */
-    QGraphicsPixmapItem* bossPixmap;     /**< Graphics item for the boss. */
-    QProgressBar *pokemon1HealthBar;     /**< Health bar for the first Pokémon. */
-    QProgressBar *pokemon2HealthBar;     /**< Health bar for the second Pokémon. */
-    QGraphicsProxyWidget *pokemon1HealthBarProxy; /**< Proxy widget for the first Pokémon's health bar. */
-    QGraphicsProxyWidget *pokemon2HealthBarProxy; /**< Proxy widget for the second Pokémon's health bar. */
+    QPushButton *attackButton;                      /**< Button used for initiating attacks. */
+    QPushButton *pokemonButton;                     /**< Button used for switching pokemons. */
+    QPushButton *runButton;                         /**< Button used for leaving the fight. */
+    Pokemon *pokemon1;                              /**< First Pokémon displayed on the HUD. */
+    Pokemon *pokemon2;                              /**< Second Pokémon displayed on the HUD. */
+    QGraphicsPixmapItem *pokemon1Item;              /**< Graphics item for the first Pokémon's image. */
+    QGraphicsPixmapItem *pokemon2Item;              /**< Graphics item for the second Pokémon's image. */
+    QGraphicsTextItem *health1;                     /**< Text item for the first Pokémon's health. */
+    QGraphicsTextItem *health2;                     /**< Text item for the second Pokémon's health. */
+    QGraphicsTextItem *menuText;                    /**< Text item for the battle menu. */
+    QGraphicsTextItem *attackText;                  /**< Text item for the attack dialogue. */
+    QGraphicsPixmapItem *dialogueBox;               /**< Graphics item for battle dialogue. */
+    QButtonGroup *moveButtonsGroup;                 /**< Button group for move buttons. */
+    QPushButton *backButton;                        /**< Button used for going back. */
+    QGraphicsPixmapItem* oldMenPixmap;              /**< Graphics item for the old men. */
+    QGraphicsPixmapItem* bossPixmap;                /**< Graphics item for the boss. */
+    QProgressBar *pokemon1HealthBar;                /**< Health bar for the first Pokémon. */
+    QProgressBar *pokemon2HealthBar;                /**< Health bar for the second Pokémon. */
+    QGraphicsProxyWidget *pokemon1HealthBarProxy;   /**< Proxy widget for the first Pokémon's health bar. */
+    QGraphicsProxyWidget *pokemon2HealthBarProxy;   /**< Proxy widget for the second Pokémon's health bar. */
 
     // Helper methods
+    /**
+    * @brief Creates a QGraphicsPixmapItem from an image file.
+    *
+    * This function creates a QGraphicsPixmapItem, sets its pixmap to the image at the specified path,
+    * resizes it to the specified size, and positions it at the specified coordinates.
+    *
+    * @param path The file path to the image.
+    * @param size The desired size of the pixmap item.
+    * @param pos The position to place the pixmap item.
+    * @return QGraphicsPixmapItem* A pointer to the created QGraphicsPixmapItem.
+    */
     QGraphicsPixmapItem* createPixmapItem(const QString &path, const QSize &size, const QPoint &pos);
+
+    /**
+    * @brief Creates a QGraphicsPixmapItem without setting its pixmap.
+    *
+    * This function creates a QGraphicsPixmapItem and positions it at the specified coordinates.
+    * The pixmap should be set later.
+    *
+    * @param pos The position to place the pixmap item.
+    * @return QGraphicsPixmapItem* A pointer to the created QGraphicsPixmapItem.
+    */
     QGraphicsPixmapItem* createPixmapItem(const QPoint &pos);
-    QPushButton* createButton(const QString &path, int width, int height, const QPoint &pos);
+
+    /**
+    * @brief Creates a QGraphicsTextItem with specified color, font, and position.
+    *
+    * This function creates a QGraphicsTextItem, sets its color and font, and positions it at the specified coordinates.
+    *
+    * @param color The color of the text.
+    * @param font The font of the text.
+    * @param pos The position to place the text item.
+    * @return QGraphicsTextItem* A pointer to the created QGraphicsTextItem.
+    */
     QGraphicsTextItem* createTextItem(const QColor &color, const QFont &font, const QPoint &pos);
-    void updatePokemonGraphics(QGraphicsPixmapItem* item, Pokemon* pk, bool isBack);
-    void applyShakeAnimation(QGraphicsPixmapItem* item, int totalDuration, int delay);
-    void applyDashAnimation(QGraphicsPixmapItem* item, int duration, const QPointF &increment);
-    void clearMoveButtons();
+
+    /**
+    * @brief Creates a QPushButton with an image and specific dimensions.
+    *
+    * This function creates a QPushButton, sets its icon to the image at the specified path,
+    * resizes it to the specified width and height, and positions it at the specified coordinates.
+    *
+    * @param path The file path to the button icon image.
+    * @param width The width of the button.
+    * @param height The height of the button.
+    * @param pos The position to place the button.
+    * @return QPushButton* A pointer to the created QPushButton.
+    */
+    QPushButton* createButton(const QString &path, int width, int height, const QPoint &pos);
+
+    /**
+    * @brief Creates a move button for a Pokémon move.
+    *
+    * This function creates a QPushButton for the given move, sets its dimensions, and positions it at the specified coordinates.
+    * It also assigns an ID to the button.
+    *
+    * @param move The move to create a button for.
+    * @param pos The position to place the button.
+    * @param width The width of the button.
+    * @param height The height of the button.
+    * @param id The ID to assign to the button.
+    */
     void createMoveButton(Move* move, const QPoint &pos, int width, int height, int id);
+
+    /**
+    * @brief Updates the graphical representation of a Pokémon.
+    *
+    * This function updates the pixmap of the provided QGraphicsPixmapItem to represent the given Pokémon.
+    * It also adjusts the pixmap orientation based on whether the Pokémon is viewed from the back.
+    *
+    * @param item The QGraphicsPixmapItem to update.
+    * @param pk The Pokémon whose image to display.
+    * @param isBack A boolean indicating if the Pokémon is viewed from the back.
+    */
+    void updatePokemonGraphics(QGraphicsPixmapItem* item, Pokemon* pk, bool isBack);
+
+    /**
+    * @brief Applies a shake animation to a QGraphicsPixmapItem.
+    *
+    * This function applies a shake animation to the given QGraphicsPixmapItem, shaking it for the specified total duration with the specified delay between shakes.
+    *
+    * @param item The QGraphicsPixmapItem to shake.
+    * @param totalDuration The total duration of the shake animation.
+    * @param delay The delay between shakes.
+    */
+    void applyShakeAnimation(QGraphicsPixmapItem* item, int totalDuration, int delay);
+
+    /**
+    * @brief Applies a dash animation to a QGraphicsPixmapItem.
+    *
+    * This function applies a dash animation to the given QGraphicsPixmapItem, moving it incrementally for the specified duration.
+    *
+    * @param item The QGraphicsPixmapItem to animate.
+    * @param duration The duration of the dash animation.
+    * @param increment The QPointF value representing the incremental movement.
+    */
+    void applyDashAnimation(QGraphicsPixmapItem* item, int duration, const QPointF &increment);
+
+    /**
+    * @brief Clears all move buttons.
+    *
+    * This function removes all move buttons from the move buttons group.
+    */
+    void clearMoveButtons();
 };
 
 #endif // BATTLEHUD_H

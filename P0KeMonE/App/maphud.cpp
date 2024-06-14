@@ -1,12 +1,12 @@
 #include "maphud.h"
-#include "typeDef.h" // Inclusion de la déclaration de la map de masques
+#include "typeDef.h"
 #include "model.h"
 #include "player.h"
 
 MapHUD::MapHUD(Model *model, QObject *parent)
     : QGraphicsScene(parent), model(model),
-    gen(std::random_device{}()), // Seed the generator with random_device
-    encounterDist(1, 100) // Set the range for encounter checks
+    gen(std::random_device{}()),
+    encounterDist(1, 100)
 {
     setObjectName("map");
     model->loadMap(":/map/mapPoke2.json");
@@ -17,20 +17,20 @@ MapHUD::MapHUD(Model *model, QObject *parent)
     oldMenItem = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/old_men.png"));
     ballsItem = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/ball_open.png"));
     boxItem = new QGraphicsPixmapItem(QPixmap(":/hud/battlehud_assets/dialogue_box.png").scaled(280, 60));
-    textItem = new QGraphicsTextItem("", boxItem); // Ajouté en tant qu'enfant de l'élément graphique
-    textItem->setPos(QPointF(8, 4)); // Positionner le texte à l'intérieur de l'élément graphique
-    textItem->setDefaultTextColor(Qt::black); // Définir la couleur du texte
-    textItem->setFont(QFont("Minecraft", 9)); // Définir la police et la taille du texte
-    textItem->setTextWidth(256); // Définir la largeur du texte pour le retour à la ligne
+    textItem = new QGraphicsTextItem("", boxItem);
+    textItem->setPos(QPointF(8, 4));
+    textItem->setDefaultTextColor(Qt::black);
+    textItem->setFont(QFont("Minecraft", 9));
+    textItem->setTextWidth(256);
 }
 
 MapHUD::~MapHUD() {
-    delete player; // Delete the player object
+    delete player;
 }
 
 void MapHUD::drawMap() {
-    clear(); // Clear existing items from the scene
-    const auto &map = model->getMap(); // Retrieve map data
+    clear();
+    const auto &map = model->getMap();
     drawGrassLayer(map);
     drawDecorativeElements(map);
     initializePlayer();
@@ -40,7 +40,7 @@ void MapHUD::drawGrassLayer(const std::vector<std::vector<int>>& map) {
     for (int y = 0; y < static_cast<int>(map.size()); ++y) {
         for (int x = 0; x < static_cast<int>(map[y].size()); ++x) {
             QGraphicsPixmapItem *grass = new QGraphicsPixmapItem(QPixmap(":/map/map_assets/grass.png"));
-            grass->setPos(x * 32, y * 32); // Position each grass tile
+            grass->setPos(x * 32, y * 32);
             addItem(grass);
         }
     }
@@ -49,9 +49,9 @@ void MapHUD::drawGrassLayer(const std::vector<std::vector<int>>& map) {
 void MapHUD::initializePlayer() {
     player = new Player();
     addItem(player);
-    player->setPos(1040, 630); // Set the initial position of the player
+    player->setPos(1040, 630);
     player->setFlag(QGraphicsItem::ItemIsFocusable);
-    player->setFocus(); // Focus the player to receive key events
+    player->setFocus();
 }
 
 void MapHUD::drawDecorativeElements(const std::vector<std::vector<int>>& map) {
@@ -118,8 +118,8 @@ void MapHUD::drawDecorativeElements(const std::vector<std::vector<int>>& map) {
 
                 QGraphicsPixmapItem *item = new QGraphicsPixmapItem(pixmap);
                 item->setPos(j * 32, i * 32);
-                item->setZValue(pixmapData.second); // Définir l'ordre de superposition
-                item->setData(0, tileId); // Stocker l'ID du tile dans l'item
+                item->setZValue(pixmapData.second);
+                item->setData(0, tileId);
                 addItem(item);
             }
         }
@@ -147,11 +147,11 @@ void MapHUD::keyPressEvent(QKeyEvent *event) {
 
 void MapHUD::handleTileInteraction(int tileType) {
     switch(tileType) {
-    case 6:
+    case 6: // Launcher
         enteringLauncher(player);
         break;
-    case 76: // Tall grass for random encounters
-    case 77: // Sandy tall grass for random encounters
+    case 76: // Tall grass
+    case 77: // Sandy tall grass
         handleRandomEncounter();
         break;
     case 69: // Left boat
@@ -249,15 +249,12 @@ void MapHUD::showFirstScenario() {
 
     ballsItem->setPos(1016, 560);
 
-    // Création de l'élément graphique pixmap
     boxItem->setPos(906, 670);
 
-    // Définir Z-value pour mettre l'élément au premier plan
     oldMenItem->setZValue(10);
     ballsItem->setZValue(10);
     boxItem->setZValue(10);
 
-    // Ajouter l'élément graphique à la scène
     addItem(oldMenItem);
     addItem(ballsItem);
     addItem(boxItem);
@@ -267,10 +264,8 @@ void MapHUD::showSecondScenario() {
     player->setPos(910, 820);
     oldMenItem->setPos(910, 760);
 
-    // Création de l'élément graphique pixmap
     boxItem->setPos(776, 860);
 
-    // Définir Z-value pour mettre l'élément au premier plan
     oldMenItem->setZValue(10);
     boxItem->setZValue(10);
 }

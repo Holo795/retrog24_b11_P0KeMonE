@@ -10,7 +10,6 @@
 #include <string>
 
 #include "typeDef.h"
-using namespace std;
 
 /**
  * @class Move
@@ -22,11 +21,11 @@ using namespace std;
 class Move
 {
 private:
-    string itsName;       ///< Name of the move.
-    int itsPower;         ///< Power value of the move, determines damage output.
-    int itsAccuracy;      ///< Accuracy percentage of the move.
+    std::string itsName;    ///< Name of the move.
+    int itsPower;           ///< Power value of the move, determines damage output.
+    int itsAccuracy;        ///< Accuracy percentage of the move.
     MOVENATURE itsNature;   ///< Nature of the move (e.g., physical, special).
-    PKTYPE itsType;   ///< Type of the move (e.g., fire, grass).
+    PKTYPE itsType;         ///< Type of the move (e.g., fire, grass).
 
 public:
     /**
@@ -37,13 +36,13 @@ public:
      * @param itsNature Nature of the move (physical or special).
      * @param itsType Type of the move (PKTYPE).
      */
-    Move(string itsName, int itsPower, int itsAccuracy, MOVENATURE itsNature, PKTYPE itsType);
+    Move(std::string itsName, int itsPower, int itsAccuracy, MOVENATURE itsNature, PKTYPE itsType);
 
     /**
      * @brief Retrieves the name of the move.
      * @return Name of the move.
      */
-    string getItsName() const;
+    std::string getItsName() const;
 
     /**
      * @brief Retrieves the power of the move.
@@ -67,7 +66,7 @@ public:
      * @brief getItsTextNature Returns the string representation of the nature of the move.
      * @param The nature of the move.
      */
-    string getItsTextNature(int nature) const;
+    std::string getItsTextNature(int nature) const;
 
     /**
      * @brief Retrieves the type of the move.
@@ -75,13 +74,11 @@ public:
      */
     PKTYPE getItsType() const;
 
-
     /**
      * @brief getItsTextType Returns the string representation of the type of the move.
      * @param The type of the move.
      */
-    string getItsTextType(int type) const;
-
+    std::string getItsTextType(int type) const;
 
     /**
      * @brief Calculates the damage inflicted by the move.

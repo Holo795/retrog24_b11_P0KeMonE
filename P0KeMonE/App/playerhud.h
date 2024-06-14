@@ -95,16 +95,16 @@ private:
      */
     void updateSelectionArrow();
 
-    std::vector<Pokemon*> pokemons; ///< The player's Pokémon team.
+    std::vector<Pokemon*> pokemons;             ///< The player's Pokémon team.
+    QList<QGraphicsProxyWidget*> healthBars;    ///< The list of health bars.
     QList<QGraphicsPixmapItem*> characterItems; ///< The list of character images.
-    QList<QGraphicsTextItem*> healthTextItems; ///< The list of health text items.
-    QList<QGraphicsProxyWidget*> healthBars; ///< The list of health bars.
-    QGraphicsPixmapItem *selectionArrow; ///< The selection arrow.
-    QGraphicsTextItem *titleLabel; ///< The label for the currently selected Pokémon.
-    Pokemon* pokemonChanged = nullptr; ///< The player's Pokémon team.
-    bool selectionMode; ///< Indicates whether selection mode is enabled.
-    int selectedIndex; ///< The index of the selected Pokémon.
-    int itsLevelPlayer; ///< The level of the player.
+    QList<QGraphicsTextItem*> healthTextItems;  ///< The list of health text items.
+    QGraphicsPixmapItem *selectionArrow;        ///< The selection arrow.
+    QGraphicsTextItem *titleLabel;              ///< The label for the currently selected Pokémon.
+    Pokemon* pokemonChanged = nullptr;          ///< The player's Pokémon team.
+    bool selectionMode;                         ///< Indicates whether selection mode is enabled.
+    int selectedIndex;                          ///< The index of the selected Pokémon.
+    int itsLevelPlayer;                         ///< The level of the player.
 
 
 signals:

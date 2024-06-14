@@ -22,10 +22,10 @@
 class Battle
 {
 private:
-    Pokemon *itsOpponent1;          /**< Pointer to the player's Pokémon in the battle. */
-    Pokemon *itsOpponent2;        /**< Pointer to the opponent Pokémon in the battle. */
-    BattleHUD *itsBattleHUD;     /**< Pointer to the battle HUD interface. */
     std::mt19937 gen;           /**< Mersenne Twister random number generator. */
+    Pokemon *itsOpponent1;      /**< Pointer to the player's Pokémon in the battle. */
+    Pokemon *itsOpponent2;      /**< Pointer to the opponent Pokémon in the battle. */
+    BattleHUD *itsBattleHUD;    /**< Pointer to the battle HUD interface. */
 
 public:
     /**

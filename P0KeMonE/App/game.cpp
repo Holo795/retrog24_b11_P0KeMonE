@@ -327,7 +327,7 @@ void Game::continuefight()
         gui->battle()->enableBattleButtons(!itsBossFight && !itsFirstFight);
         if(gui->battle()->getPokemon1()->getHealth() <= 0)
         {
-            player->removePokemon(player->getTeam().front());
+            player->removePokemon(gui->battle()->getPokemon1());
             if(!player->getTeam().empty())
             {
                 changePokemon(player->getTeam().front());

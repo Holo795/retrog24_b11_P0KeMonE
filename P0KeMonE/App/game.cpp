@@ -119,6 +119,7 @@ void Game::handleMainMenuSpaceKeyPress() {
         player->setTeam(sData.team);
         player->setItsLevel(sData.player_lvl);
         player->setPos(sData.player_x, sData.player_y);
+        gui->battle()->getOldMenPixmap()->setVisible(false);
         saveManager->startAutoSave();
     }
 

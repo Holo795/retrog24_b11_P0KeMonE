@@ -1,93 +1,141 @@
-# RetroG24_B11_Pokemon
+# RetroG24_B11_Pokemon - Installation Guide for P0keMonE
+# P0keMonE
 
+![P0keMonE Logo](https://imgur.com/JZHAF6k.png)
 
+## Introduction 
+This project is a platform game named "**P0keMonE**" inspired by the Pokémon game series. This documentation covers the analysis, design, and relevant diagrams for the development of the game.
 
-## Getting started
+## Gameplay :video_game:
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+### Original Game
+The game we are developing is inspired by the game [Pokémon](https://en.wikipedia.org/wiki/Pokémon_Red_and_Blue). The concept of the original game is simple: the player starts in a small village and must build a team of Pokémon to become the best trainer. The player can move freely on the map and fight Pokémon to capture them.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+### Modified Version
+In our version of the game, the player must form a team of three Pokémon to face the final boss. They must train their Pokémon and compose the best possible team. To obtain new Pokémon, the player must level up, which gives them the opportunity to choose from three new Pokémon and possibly replace a member of their existing team. The game offers an adventure and strategy experience where the player must make crucial decisions to succeed in becoming the best trainer and defeating the final boss. If all the player's Pokémon are knocked out, the game is lost.
 
-## Add your files
+## Specifications :book:
+The specifications define the project requirements, including expected features, constraints, and requirements. You can consult the general and detailed specifications for each version:
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+- **General**: Specifies the general rules for each version and the modifications made. Scenarios and mockups illustrate the objectives in detail.
+- **Detailed**: Describes the design of the features and how they will be implemented. Design and implementation diagrams, as well as use cases and sequence diagrams, are available for each version.
 
+## Versions :hash:
+A version in our P0KeMonE project represents a set of specific features and improvements implemented at a given stage of development. Each version is associated with a number to track the project's evolution. 
+
+To consult the specifications for each version, visit these pages:
+- Version 1: [General](Version 1 General) - [Detailed](Version 1 Detailed)
+- Version 2: [General](Version 2 General) - [Detailed](Version 2 Detailed)
+- Version 3: [General](Version 3 General) - [Detailed](Version 3 Detailed)
+
+## Analysis and Design :computer:
+
+### Global Analysis Diagram:
+```plantuml
+left to right direction
+
+class Game {
+}
+
+class Player {
+}
+
+class Boss {
+}
+
+class Pokemon {
+}
+
+enum PKTYPE {
+}
+
+enum MOVENATURE {
+}
+
+class Move {
+}
+
+class Battle {
+}
+
+class Screen {
+}
+
+class Model {
+}
+
+class Data {
+}
+
+class GUI {
+}
+
+class BattleHUD {
+}
+
+class House {
+}
+
+class SoundManager {
+}
+
+class GamepadController {
+}
+
+class SaveManager {
+}
+
+enum SoundType {
+}
+
+enum MusicType {
+}
+
+enum GamepadInput {
+}
+
+Game <-- Player
+Game <-- Battle
+Game <-- GUI
+Game <-- Model
+Game <-- SoundManager
+Game <-- GamepadController
+Model <-- Data
+Model <-- SaveManager
+Player <-- Pokemon
+Boss <-- Pokemon
+Battle <-- Boss
+Battle <-- Pokemon
+Pokemon <-- PKTYPE
+Pokemon <-- Move
+Move <-- PKTYPE
+Move <-- MOVENATURE
+GUI <-- Screen
+GUI <-- House
+Screen <-- BattleHUD
+Battle <-- Move
+BattleHUD <-- Battle
+GamepadController <-- GamepadInput
+SoundManager <-- SoundType
+SoundManager <-- MusicType
 ```
-cd existing_repo
-git remote add origin https://forge.iut-larochelle.fr/lgarci01/retrog24_b11_pokemon.git
-git branch -M main
-git push -uf origin main
-```
 
-## Integrate with your tools
+## How to Play
 
-- [ ] [Set up project integrations](https://forge.iut-larochelle.fr/lgarci01/retrog24_b11_pokemon/-/settings/integrations)
+### Controls
+- **Movement**: Use the arrow keys, or the keys `Z`, `Q`, `S`, `D` to move.
+- **Interact**: Press `I` to view your inventory
+- **Battle**: During a battle, several button are available:
+    - `attack` to choose an attack.
+    - `pokemon` to see your pokemon team.
+    - `run` to run from the battle.
 
-## Collaborate with your team
+### Objectives
+- Build a team of three Pokémon.
+- Level up by battling wild Pokémon.
+- Optimize your team to face the final boss.
+- If all your Pokémon are knocked out, the game is lost.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+### Strategies
+- Choose your Pokémon and their attacks wisely to maximize combat efficiency.
+- Train your Pokémon regularly to increase their power and experience.

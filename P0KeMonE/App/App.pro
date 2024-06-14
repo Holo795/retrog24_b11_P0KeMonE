@@ -14,6 +14,7 @@ CONFIG += c++17
 SOURCES += \
     battle.cpp \
     battlehud.cpp \
+    boat.cpp \
     data.cpp \
     game.cpp \
     gameoverhud.cpp \
@@ -33,6 +34,7 @@ SOURCES += \
 HEADERS += \
     battle.h \
     battlehud.h \
+    boat.h \
     data.h \
     game.h \
     gameoverhud.h \

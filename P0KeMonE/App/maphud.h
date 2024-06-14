@@ -13,6 +13,7 @@
 
 #include "player.h"
 #include "model.h"
+#include "boat.h"
 
 /**
  * @class MapHUD
@@ -53,6 +54,8 @@ public:
     void endScenario();
 
     QGraphicsTextItem *getDialogTextItem();
+
+    Boat *boat; ///< Pointer to the boat object.
 
 private:
     Model *model; ///< Pointer to the model.
@@ -106,13 +109,6 @@ protected:
      * @param event The key event.
      */
     void keyPressEvent(QKeyEvent *event);
-
-    /**
-     * @brief Manages the player's entrance into a boat.
-     * @param player Pointer to the player.
-     * @param direction The direction of the boat.
-     */
-    void enteringBoat(Player *player, const std::string &direction);
 
     /**
      * @brief Manages the player's entrance into the launcher zone.

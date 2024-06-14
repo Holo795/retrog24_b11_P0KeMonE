@@ -47,8 +47,8 @@ void Player::startMoving() {
 }
 
 void Player::stopMoving() {
-    movementTimer->stop();
     activeKeys.clear();
+    movementTimer->stop();
 }
 
 void Player::addPokemon(Pokemon *pokemon) {

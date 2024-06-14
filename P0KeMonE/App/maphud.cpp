@@ -22,6 +22,9 @@ MapHUD::MapHUD(Model *model, QObject *parent)
     textItem->setDefaultTextColor(Qt::black); // Définir la couleur du texte
     textItem->setFont(QFont("Minecraft", 9)); // Définir la police et la taille du texte
     textItem->setTextWidth(256); // Définir la largeur du texte pour le retour à la ligne
+
+    boat = new Boat();
+    addItem(boat);
 }
 
 MapHUD::~MapHUD() {
@@ -93,8 +96,6 @@ void MapHUD::drawDecorativeElements(const std::vector<std::vector<int>>& map) {
       {66, qMakePair(QString(":/map/map_assets/sign.png"), 1)},
       {67, qMakePair(QString(":/map/map_assets/stairs_left.png"), 2)},
       {68, qMakePair(QString(":/map/map_assets/stairs_right.png"), 2)},
-      {69, qMakePair(QString(":/map/map_assets/boat_left.png"), 1)},
-      {70, qMakePair(QString(":/map/map_assets/boat_right.png"), 1)},
       {73, qMakePair(QString(":/map/map_assets/boss_zone.png"), 2)},
       {76, qMakePair(QString(":/map/map_assets/tallgrass.png"), 0)},
       {77, qMakePair(QString(":/map/map_assets/sandy_tallgrass.png"), 0)},
@@ -135,6 +136,10 @@ void MapHUD::keyPressEvent(QKeyEvent *event) {
         return;
     }
 
+    if(player->collidesWithItem(boat) && !boat->getIsStartJourney()) {
+        boat->startJourney(player);
+    }
+
     player->keyPressEvent(event);
 
     int x_foot = player->x() + 2;
@@ -153,12 +158,6 @@ void MapHUD::handleTileInteraction(int tileType) {
     case 77: // Sandy tall grass for random encounters
         handleRandomEncounter();
         break;
-    case 69: // Left boat
-        enteringBoat(player, "left");
-        break;
-    case 70: // Right boat
-        enteringBoat(player, "right");
-        break;
     default:
         break;
     }
@@ -173,34 +172,7 @@ void MapHUD::handleRandomEncounter() {
 
 Player* MapHUD::getPlayer() {
     return player;
-}
-
-void MapHUD::enteringBoat(Player *player, const std::string &direction) {
-    player->stopMoving();
-    qDebug() << player->x() << player->y();
-
-    QVector<int> leftLimits = {608, 864};
-    QVector<int> leftPositionsX = {780, 1080};
-
-    QVector<int> rightLimits = {992, 672};
-    QVector<int> rightPositionsX = {780, 560};
-
-    if (direction == "left") {
-        for (int i = 0; i < leftLimits.size(); ++i) {
-            if (player->x() < leftLimits[i]) {
-                player->setPos(leftPositionsX[i], 924);
-                break;
-            }
-        }
-    } else if (direction == "right") {
-        for (int i = 0; i < rightLimits.size(); ++i) {
-            if (player->x() > rightLimits[i]) {
-                player->setPos(rightPositionsX[i], 984);
-                break;
-            }
-        }
-    }
-}
+} 
 
 void MapHUD::enteringLauncher(Player *player) {
         emit player->startEncouterBoss();

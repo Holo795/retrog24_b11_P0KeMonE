@@ -2,6 +2,7 @@
 #include "player.h"
 #include "maphud.h"
 
+
 Game::Game(Model *model, GUI *gui, QWidget *parent)
     : QGraphicsView(parent), model(model), gui(gui) {
 
@@ -181,9 +182,18 @@ void Game::restartGame() {
     QString program = QCoreApplication::applicationFilePath();
     QStringList arguments = QCoreApplication::arguments();
 
+#ifdef Q_OS_MAC
+    // On macOS, the application executable is inside the app bundle
+    QDir dir(QCoreApplication::applicationDirPath());
+    dir.cdUp(); // Navigate to the .app directory
+    QString appBundlePath = dir.absolutePath();
+    program = appBundlePath + "/MacOS/" + QCoreApplication::applicationName();
+#endif
+
     QProcess::startDetached(program, arguments);
     QCoreApplication::quit();
 }
+
 
 void Game::showNextDialogue() {
 

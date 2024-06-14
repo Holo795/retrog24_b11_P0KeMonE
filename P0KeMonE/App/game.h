@@ -11,6 +11,9 @@
 #include <QGraphicsView>
 #include <QProcess>
 #include <QKeyEvent>
+#include <QCoreApplication>
+#include <QProcess>
+#include <QDir>
 
 #include "savemanager.h"
 #include "battle.h"

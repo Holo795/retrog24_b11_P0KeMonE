@@ -14,7 +14,6 @@
 #include <QTimer>
 #include "typeDef.h"
 #include "pokemon.h"
-#include "soundmanager.h"
 
 /**
  * @class Player

@@ -42,6 +42,7 @@ public:
     int getId() const;
     int getLvl() const;
     int getHealth() const;
+    void setHealth(int newHealth);
     int getSpeed() const;
     int getAtk() const;
     int getSpAtk() const;

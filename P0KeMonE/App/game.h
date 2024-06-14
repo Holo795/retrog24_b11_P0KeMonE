@@ -54,7 +54,6 @@ private:
     bool itsFirstFight = false;
     bool itsInFight = false;
 
-    SoundManager *soundManager; ///< Pointer to the sound manager.
     bool statepokemonChanged = false; ///< Flag to indicate if the Pokémon has changed.
 
     void endFight(bool playerWon); ///< End the ongoing fight.

@@ -44,6 +44,11 @@ int Pokemon::getHealth() const
     return itsHealth;
 }
 
+void Pokemon::setHealth(int newHealth)
+{
+    itsHealth = newHealth;
+}
+
 /**
  * Returns the speed statistic of this Pokemon.
  */

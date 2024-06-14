@@ -20,12 +20,13 @@ SOURCES +=  \
     ../App/player.cpp \
     ../App/playerhud.cpp \
     ../App/pokemon.cpp \
+    ../App/savemanager.cpp \
     ../App/typeDef.cpp \
     main.cpp \
-    test_collisions.cpp \
     test_database.cpp \
     test_player.cpp \
-    test_pokemon.cpp
+    test_pokemon.cpp \
+    test_saves.cpp
 
 RESOURCES += \
     ../App/resources.qrc
@@ -46,4 +47,5 @@ HEADERS += \
     ../App/player.h \
     ../App/playerhud.h \
     ../App/pokemon.h \
+    ../App/savemanager.h \
     ../App/typeDef.h

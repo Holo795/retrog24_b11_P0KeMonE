@@ -23,10 +23,6 @@ private slots:
     void test_moveRight();
     void test_moveDown();
     void test_addPokemon();
-
-    void test_win();
-
-
 };
 
 test_player::test_player() {}
@@ -92,8 +88,6 @@ void test_player::test_moveDown() {
 }
 
 
-
-
 void test_player::test_addPokemon() {
     pokemon1 = new Pokemon(1, "Pikachu", PKTYPE::Electric, 100, 90, 55, 40, 50, 50, 50);
     pokemon2 = new Pokemon(2, "Raichu", PKTYPE::Electric, 100, 90, 55, 40, 50, 50, 50);
@@ -103,13 +97,6 @@ void test_player::test_addPokemon() {
     std::vector<Pokemon*> expectedTeam = {pokemon1, pokemon2};
 
     QCOMPARE(player->getTeam(), expectedTeam);
-}
-
-void test_player::test_win()
-{
-    pokemon1 = new Pokemon(1, "Pikachu", PKTYPE::Electric, 100, 90, 55, 40, 50, 50, 50);
-    pokemon2 = new Pokemon(2, "Raichu", PKTYPE::Electric, 100, 90, 55, 40, 50, 50, 50);
-    player->addPokemon(pokemon1);
 }
 
 

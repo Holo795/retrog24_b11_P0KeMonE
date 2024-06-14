@@ -32,8 +32,6 @@ Game::Game(Model *model, GUI *gui, QWidget *parent)
     connect(gui->battle()->getRunButton(), &QPushButton::clicked, this, &Game::run);
     connect(gui->team(), &PlayerHUD::pokemonSelected, this, &Game::changePokemon);
 
-    soundManager = new SoundManager(this);
-
     qDebug() << "Game initialized.";
 
     setScene(gui->mainMenu());

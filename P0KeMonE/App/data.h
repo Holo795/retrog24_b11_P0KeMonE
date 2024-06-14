@@ -59,6 +59,7 @@ public:
     saveData extractSaveData();
     void insertSaveData(saveData data);
     void clearSaveData();
+    QSqlDatabase getDatabase();
 };
 
 #endif // DATA_H

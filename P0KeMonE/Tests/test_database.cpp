@@ -40,7 +40,7 @@ void test_database::cleanupTestCase() {
 }
 
 void test_database::test_databaseConnection() {
-    QVERIFY(data->getDb().open());
+    QVERIFY(data->getDatabase().open());
 }
 
 void test_database::test_randomPokemon() {
@@ -63,8 +63,8 @@ void test_database::test_getMoves() {
 }
 
 void test_database::test_databaseClose() {
-    data->getDb().close();
-    QVERIFY(!data->getDb().isOpen());
+    data->getDatabase().close();
+    QVERIFY(!data->getDatabase().isOpen());
 }
 
 #include "test_database.moc"

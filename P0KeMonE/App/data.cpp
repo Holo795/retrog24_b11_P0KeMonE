@@ -298,3 +298,7 @@ void Data::clearSaveData() {
 
 }
 
+
+QSqlDatabase Data::getDatabase() {
+    return db;
+}

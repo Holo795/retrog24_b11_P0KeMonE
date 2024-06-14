@@ -39,12 +39,12 @@ void test_pokemon::test_pokemonName() {
 }
 
 void test_pokemon::test_pokemonDead() {
-    pokemon->setItsHealth(0);
+    pokemon->setHealth(0);
     QVERIFY(pokemon->isDead(*pokemon) == true);
 }
 
 void test_pokemon::test_pokemonTakeDamage() {
-    pokemon->setItsHealth(100);
+    pokemon->setHealth(100);
     pokemon->takeDamage(10);
     QVERIFY(pokemon->getHealth() == 90);
 }

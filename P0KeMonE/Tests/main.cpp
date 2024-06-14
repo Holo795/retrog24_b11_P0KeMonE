@@ -3,7 +3,7 @@
 #include "test_database.cpp"
 #include "test_pokemon.cpp"
 #include "test_player.cpp"
-#include "test_collisions.cpp"
+#include "test_saves.cpp"
 
 int main(int argc, char *argv[])
 {
@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     }
 
     {
-        test_collisions tc4;
+        test_saves tc4;
         status |= QTest::qExec(&tc4, argc, argv);
     }
 

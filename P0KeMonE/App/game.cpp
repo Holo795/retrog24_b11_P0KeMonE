@@ -322,8 +322,9 @@ void Game::run()
     } else {
         soundManager->playSound("button");
     }
-
-    setScene(gui->map());}
+    itsInFight = false;
+    setScene(gui->map());
+}
 
 void Game::endFight(bool playerWon)
 {

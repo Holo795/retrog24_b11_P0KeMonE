@@ -77,8 +77,7 @@ string Move::getItsTextType(int type) const
  * Calculates the damage this move will do when used.
  * Implements the standard damage formula from games like Pokémon.
  */
-int Move::calculateDamage(int lvl, int atk, int def, bool crit) const
-{
+int Move::calculateDamage(int lvl, int atk, int def, bool crit, float typeMultiplier) const {
     int level = lvl;
     int attackStat = atk;
     int defenseStat = def;
@@ -87,8 +86,9 @@ int Move::calculateDamage(int lvl, int atk, int def, bool crit) const
     double critical = crit ? 2.0 : 1.0; // Critical hit doubles the damage
 
     // Calculate the base damage using a modified version of the Pokémon damage formula
-    double baseDamage = (((((level * 0.4 + 2) * attackStat * power) / (defenseStat * 50)) + 2) * critical);
+    double baseDamage = ((((level * 0.4 + 2) * attackStat * power) / (defenseStat * 50)) + 2) * critical * typeMultiplier;
 
     // Ensure damage is at least 1
     return std::max(1, static_cast<int>(baseDamage));
 }
+

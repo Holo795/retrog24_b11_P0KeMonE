@@ -1,5 +1,6 @@
 #include "battle.h"
 
+
 /**
  * Constructor for the Battle class.
  * Initializes a new battle instance with given player, opponent, and HUD.
@@ -19,6 +20,15 @@ Battle::~Battle()
     delete itsBattleHUD;
 }
 
+// Ajoutez une nouvelle méthode pour gérer l'affichage différé du texte d'efficacité
+void Battle::showEffectivenessText(Pokemon *attacker, float typeMultiplier) {
+    if (typeMultiplier > 1.0f) {
+        itsBattleHUD->setText("It's super effective!");
+    } else if (typeMultiplier < 1.0f) {
+        itsBattleHUD->setText("It's not very effective...");
+    }
+}
+
 /**
  * Conducts an attack in a battle scenario using a specified move against a target Pokémon.
  * The function determines the damage based on move type and calculates whether the attack hits based on move accuracy.
@@ -36,44 +46,40 @@ void Battle::attack(Move *move, Pokemon *target) {
     int atk = (move->getItsNature() == 0) ? attacker->getAtk() : attacker->getSpAtk();
     int def = (move->getItsNature() == 0) ? defender->getDef() : defender->getSpDef();
 
-    int damage = move->calculateDamage(lvl, atk, def, crit);
+    // Calcul du multiplicateur de type
+    PKTYPE moveType = move->getItsType();
+    PKTYPE defenderType = defender->getItsType();
+    float typeMultiplier = 1.0f; // Default multiplier
 
+    if (typeEffectiveness.find(moveType) != typeEffectiveness.end() && typeEffectiveness[moveType].find(defenderType) != typeEffectiveness[moveType].end()) {
+        typeMultiplier = typeEffectiveness[moveType][defenderType];
+    }
+
+    if (typeMultiplier == 0.0f) {
+        // Affichage du message d'immunité
+        itsBattleHUD->setText(attacker->getItsName() + " used " + move->getItsName() + " but it has no effect on " + defender->getItsName() + "!");
+        return; // Aucune autre action n'est nécessaire car l'attaque est immunisée
+    }
+
+    int damage = move->calculateDamage(lvl, atk, def, crit, typeMultiplier);
 
     if (random <= successRate) {
         itsBattleHUD->frontDashPokemon(attacker);
         itsBattleHUD->shakePokemon(defender);
         defender->takeDamage(damage);
-        itsBattleHUD->setText(QString::fromStdString(attacker->getItsName() + " used " + move->getItsName() + "!"));
+
+        // Affichage du message d'attaque
+        itsBattleHUD->setText(attacker->getItsName() + " used " + move->getItsName() + "!");
+
+        // Utilisation de QTimer pour un affichage différé du texte d'efficacité
+        QTimer::singleShot(1000, [this, attacker, typeMultiplier]() {
+            showEffectivenessText(attacker, typeMultiplier);
+        });
 
     } else {
-        itsBattleHUD->setText(QString::fromStdString(attacker->getItsName() + " used " + move->getItsName() + " and missed !"));
-
+        itsBattleHUD->setText(attacker->getItsName() + " used " + move->getItsName() + " and missed !");
     }
+
+    itsBattleHUD->updateHealthBars();
     itsBattleHUD->setPokemon(itsOpponent1, itsOpponent2);
-}
-
-
-/**
- * @brief Retrieves the boss's team of Pokémon.
- * @return A constant reference to a vector of pointers to Pokémon.
- */
-std::vector<Pokemon*> Battle::getBossTeam() const {
-    return itsBossTeam;
-}
-
-/**
- * @brief Sets the boss's team of Pokémon.
- * @param team Vector of pointers to Pokémon representing the boss's team.
- */
-void Battle::setBossTeam(std::vector<Pokemon*> team) {
-    itsBossTeam = team;
-}
-
-/**
- * @brief Retrieves the battle HUD.
- * @return Pointer to the battle HUD.
- */
-BattleHUD *Battle::getBattleHUD()
-{
-    return itsBattleHUD;
 }

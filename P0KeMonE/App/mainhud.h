@@ -8,6 +8,9 @@
 
 #include <QGraphicsScene>
 #include "soundmanager.h"
+#include <QImage>
+#include <QPixmap>
+#include <QGraphicsPixmapItem>
 
 /**
  * @class MainHUD

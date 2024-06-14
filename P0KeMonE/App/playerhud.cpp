@@ -10,6 +10,12 @@ PlayerHUD::PlayerHUD(QObject *parent)
     // Charger et jouer la musique de fond
     soundManager->loadSound("button", QUrl("qrc:/sounds/sounds/button.wav"));
 
+
+    titleLabel = new QGraphicsTextItem("");
+    titleLabel->setDefaultTextColor(Qt::black);
+    titleLabel->setFont(QFont("Arial", 17, QFont::Bold));
+    addItem(titleLabel);
+    titleLabel->setPos(90, 10);
  }
 
 void PlayerHUD::setPokemons(const std::vector<Pokemon*>& pokemons, int itsLevelPlayer)
@@ -17,12 +23,14 @@ void PlayerHUD::setPokemons(const std::vector<Pokemon*>& pokemons, int itsLevelP
     this->pokemons = pokemons;
     this->itsLevelPlayer = itsLevelPlayer;
 
+    qDebug() << "Pokemons set with level player:" << itsLevelPlayer;
     updateHUD();
 }
 
 void PlayerHUD::setSelectionMode(bool selectionMode)
 {
     this->selectionMode = selectionMode;
+    qDebug() << "Selection mode set to:" << selectionMode;
     updateHUD();
 }
 
@@ -48,10 +56,9 @@ void PlayerHUD::updateHUD()
     healthBars.clear();
 
     if (pokemons.empty()) {
+        qDebug() << "No pokemons to display.";
         return;
     }
-
-
 
     int xOffset = 24; // Start x position
     int yOffset = 50; // Start y position
@@ -80,6 +87,11 @@ void PlayerHUD::updateHUD()
         addItem(levelText);
         levelText->setPos(10, 10);
     }
+}
+
+void PlayerHUD::setPokemonLabel(string newPokemonLabel)
+{
+    titleLabel->setPlainText(QString::fromStdString(newPokemonLabel));
 }
 
 void PlayerHUD::addCharacter(const QPixmap &characterImage, int currentHealth, int maxHealth, int xPos, int yPos, Pokemon* pokemon)
@@ -113,7 +125,6 @@ void PlayerHUD::addCharacter(const QPixmap &characterImage, int currentHealth, i
         healthTextItem->setPos(xPos + 10, yPos + characterItem->pixmap().height());
         proxyWidget->setPos(xPos + 5, yPos + characterItem->pixmap().height() + 20);
         characterItem->setPos(xPos, yPos);
-       // statText->setPos(xPos + 10, yPos + characterItem->pixmap().height() + 40);
     } else {
         characterItem->setPos(xPos, yPos + 50);
     }
@@ -147,6 +158,9 @@ void PlayerHUD::updateSelectionArrow()
     selectionArrow->setPos(xPos + 50, 35); // Adjust the position of the arrow
 }
 
+
+
+
 void PlayerHUD::keyPressEvent(QKeyEvent *event)
 {
     qDebug() << "Key pressed: " << event->key();
@@ -177,7 +191,19 @@ void PlayerHUD::keyPressEvent(QKeyEvent *event)
             // Emit a signal or call a method to process the selected Pokémon
             emit pokemonSelected(pokemons[selectedIndex]);
             selectedIndex=0;
+            updateSelectionArrow();
         }
     }
     QGraphicsScene::keyPressEvent(event);
+}
+
+Pokemon * PlayerHUD::getPokemonChanged() const
+{
+    return pokemonChanged;
+}
+
+
+void PlayerHUD::setPokemonChanged(Pokemon *newPokemonChanged)
+{
+    pokemonChanged = newPokemonChanged;
 }

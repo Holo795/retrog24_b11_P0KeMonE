@@ -9,6 +9,17 @@
 #include <QGraphicsScene>
 #include <QPushButton>
 #include <QButtonGroup>
+#include <QGraphicsPixmapItem>
+#include <QGraphicsTextItem>
+#include <QGraphicsItemAnimation>
+#include <QTimeLine>
+#include <QButtonGroup>
+#include <QLabel>
+#include <QDebug>
+#include <QTimer>
+#include <QGraphicsProxyWidget>
+#include <QProgressBar>
+
 #include "pokemon.h"
 
 /**
@@ -104,9 +115,17 @@ public:
      */
     QPushButton *getBackButton() const;
 
-    void setText(QString text);
+    void setText(string text);
 
-    QGraphicsTextItem* getMenuText() const;
+    void updateHealthBars();
+
+
+    void addPersonalItem (QGraphicsPixmapItem *item);
+    QGraphicsPixmapItem* getOldMenPixmap();
+    QGraphicsPixmapItem* getBossPixmap();
+
+    void enableBattleButtons(bool exitButton = false);
+    void disableBattleButtons(bool exitButton = false);
 
 
 
@@ -118,7 +137,6 @@ private:
     Pokemon *pokemon2;                   /**< Second Pokémon displayed on the HUD. */
     QGraphicsPixmapItem *pokemon1Item;   /**< Graphics item for the first Pokémon's image. */
     QGraphicsPixmapItem *pokemon2Item;   /**< Graphics item for the second Pokémon's image. */
-    QGraphicsPixmapItem *bossItem;       /**< Graphics item for the boss's image. */
     QGraphicsTextItem *health1;          /**< Text item for the first Pokémon's health. */
     QGraphicsTextItem *health2;          /**< Text item for the second Pokémon's health. */
     QGraphicsTextItem *menuText;            /**< "What will `pokemon` will do" */
@@ -126,6 +144,14 @@ private:
     QGraphicsPixmapItem *dialogueBox;    /**< Graphics item for battle dialogue. */
     QButtonGroup *moveButtonsGroup;      /**< Button group for move buttons. */
     QPushButton *backButton;             /**< Button used for going back. */
+    QGraphicsPixmapItem* oldMenPixmap;
+    QGraphicsPixmapItem* bossPixmap;
+
+    QProgressBar *pokemon1HealthBar;
+    QProgressBar *pokemon2HealthBar;
+    QGraphicsProxyWidget *pokemon1HealthBarProxy;
+    QGraphicsProxyWidget *pokemon2HealthBarProxy;
+
 
     // Helper methods
     QGraphicsPixmapItem* createPixmapItem(const QString &path, const QSize &size, const QPoint &pos);

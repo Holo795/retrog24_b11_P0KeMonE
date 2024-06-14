@@ -82,6 +82,7 @@ public:
     int getWinCount() const;
     void setWinCount(int newWinCount);
 
+    void setCanMove(bool newCanMove);
     bool getCompleteTeam() const;
     void setCompleteTeam(bool newCompleteTeam);
 
@@ -93,6 +94,7 @@ private:
     bool completeTeam = false; ///< Flag indicating if the player's team is complete.
     float itsLevel = 1.0; ///< The player's movement speed.
     int winCount = 0; ///< The number of battles won by the player.
+    bool canMove = true; ///< Flag indicating whether the player can move.
 
     /**
      * @brief Checks for collisions at the new position.
@@ -136,11 +138,6 @@ signals:
      * @brief Signal emitted when the player encounters a boss.
      */
     void startEncouterBoss();
-
-    /**
-     * @brief Signal emitted when the player encounters
-     */
-    void startEncouterOldMen();
 
     /**
      * @brief Signal emitted when the player face on sign

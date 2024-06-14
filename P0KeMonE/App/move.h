@@ -84,7 +84,7 @@ public:
      * @param crit Whether the attack is a critical hit.
      * @return Calculated damage.
      */
-    int calculateDamage(int lvl, int atk, int def, bool crit) const;
+    int calculateDamage(int lvl, int atk, int def, bool crit, float typeMultiplier) const;
 };
 
 #endif // MOVE_H

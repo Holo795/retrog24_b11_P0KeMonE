@@ -25,7 +25,7 @@ void Player::keyPressEvent(QKeyEvent *event) {
     if (event->isAutoRepeat()) return;
 
     activeKeys.insert(event->key());
-    if (!movementTimer->isActive()) {
+    if (!movementTimer->isActive() && canMove) {
         startMoving();
     }
 
@@ -61,7 +61,8 @@ void Player::removePokemon(Pokemon *pokemon)
     auto it = std::find(itsTeam.begin(), itsTeam.end(), pokemon);
 
     // If the Pokémon is found, remove it
-    if (it != itsTeam.end()) {
+    if (it != itsTeam.end())
+    {
         itsTeam.erase(it);
     }
 
@@ -133,9 +134,6 @@ bool Player::checkCollision(QPointF newPos) {
             QRect montain(970, 551, 188, 172 + 10);
             QRect bridge_montain(934, 671, 28, 52 + 10);
             QRect exitMontain(1034, 731, 50, 50);
-
-            qDebug() << footPlayerRect;
-            qDebug() << actualFootPlayerRect;
 
             if (footPlayerRect.intersects(montain) && actualFootPlayerRect.intersects(montain)) {
                 return false;
@@ -247,7 +245,7 @@ void Player::updateSprite(const QString &direction) {
     int step = qRound(direction == "left" || direction == "right" ? x() : y()) % 48;
     int index = step < 16 ? 0 : step < 32 ? 1 : 2;
 
-    setPixmap(QPixmap(sprites[index]).scaled(QSize(11, 16) * scale));
+    setPixmap(QPixmap(sprites[index]).scaled(QSize(12, 18) * scale));
 }
 
 void Player::incrementWinCount() {
@@ -268,6 +266,10 @@ int Player::getWinCount() const {
 
 void Player::setWinCount(int newWinCount) {
     winCount = newWinCount;
+}
+
+void Player::setCanMove(bool newCanMove) {
+    canMove = newCanMove;
 }
 
 void Player::setTeam(vector<Pokemon*> newTeam) {

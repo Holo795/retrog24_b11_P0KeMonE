@@ -7,6 +7,7 @@
 #define BATTLE_H
 
 #include <random>
+#include <QTimer>
 
 #include "battlehud.h"
 #include "pokemon.h"
@@ -25,7 +26,6 @@ private:
     Pokemon *itsOpponent2;        /**< Pointer to the opponent Pokémon in the battle. */
     BattleHUD *itsBattleHUD;     /**< Pointer to the battle HUD interface. */
     std::mt19937 gen;           /**< Mersenne Twister random number generator. */
-    std::vector<Pokemon*> itsBossTeam; /**< Vector of Pokémon pointers representing the boss's team. */
 
 public:
     /**
@@ -41,6 +41,8 @@ public:
      */
     ~Battle();
 
+    void showEffectivenessText(Pokemon *attacker, float typeMultiplier);
+
     /**
      * @brief Executes an attack during a battle.
      * @param move Pointer to the move being used in the attack.
@@ -48,23 +50,6 @@ public:
      */
     void attack(Move *move, Pokemon *target);
 
-    /**
-     * @brief Retrieves the boss's team of Pokémon.
-     * @return A constant reference to a vector of pointers to Pokémon.
-     */
-    std::vector<Pokemon*> getBossTeam() const;
-
-    /**
-     * @brief Sets the boss's team of Pokémon.
-     * @param team Vector of pointers to Pokémon representing the boss's team.
-     */
-    void setBossTeam(std::vector<Pokemon*> team);
-
-    /**
-     * @brief Retrieves the battle HUD.
-     * @return Pointer to the battle HUD.
-     */
-    BattleHUD *getBattleHUD();
 };
 
 #endif // BATTLE_H

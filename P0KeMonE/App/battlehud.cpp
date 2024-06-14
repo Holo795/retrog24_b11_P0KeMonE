@@ -40,6 +40,7 @@ BattleHUD::BattleHUD(QObject *parent) : QGraphicsScene(parent) {
 
 
     oldMenPixmap = createPixmapItem(":/hud/battlehud_assets/oldMen_image.png", QSize(64,124), QPoint(200, 5));
+    oldMenPixmap->setVisible(false);
 
     bossPixmap = createPixmapItem(":/hud/battlehud_assets/boss_image.png", QSize(100,114), QPoint(200, 5));
     bossPixmap->setVisible(false);

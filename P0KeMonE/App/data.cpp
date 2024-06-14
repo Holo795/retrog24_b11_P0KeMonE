@@ -237,13 +237,9 @@ saveData Data::extractSaveData() {
             int pokemonId = query.value("id_pk").toInt();
             int pokemonLvl = query.value("pk_lvl").toInt();
             int hp = query.value("hp").toInt();
-            Pokemon* pokemon = pokemonById(pokemonId);
+            Pokemon* pokemon = pokemonById(pokemonId, pokemonLvl);
             pokemon->takeDamage(pokemon->getItsMaxHealth() - hp);
             if (pokemon != nullptr) {
-                pokemon->setLevel(pokemonLvl);
-                for(int i = 0; i < pokemonLvl - 1; i++) {
-                    pokemon->upgradeStats();
-                }
                 data.team.push_back(pokemon);
             } else {
                 data.empty = true;

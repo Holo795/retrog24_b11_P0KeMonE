@@ -129,9 +129,9 @@ void Game::handleMainMenuSpaceKeyPress() {
     }
 
     itsBossTeam = {
-        model->getData()->pokemonById(1),
-        model->getData()->pokemonById(7),
-        model->getData()->pokemonById(4)
+        model->getData()->pokemonById(243,5),
+        model->getData()->pokemonById(244,5),
+        model->getData()->pokemonById(245,5)
     };
 }
 

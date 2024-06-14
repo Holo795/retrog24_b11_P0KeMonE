@@ -58,7 +58,7 @@ private:
     QTimer *timer; ///< Timer pour la gestion des sauvegardes automatiques.
     Player *player; ///< Pointeur vers l'objet Player associé.
 
-    int saveInterval = 5 * 60 * 1000; ///< Intervalle de sauvegarde automatique en millisecondes (5 minutes).
+    int saveInterval = 1 * 60 * 1000; ///< Intervalle de sauvegarde automatique en millisecondes (5 minutes).
 };
 
 #endif // SAVEMANAGER_H

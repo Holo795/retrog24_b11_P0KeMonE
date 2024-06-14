@@ -52,8 +52,8 @@ private:
     bool itsFirstFight = false;         ///< Flag indicating if this is the first fight.
     bool itsInFight = false;            ///< Flag indicating if a fight is currently occurring.
     bool statepokemonChanged = false;   ///< Flag to indicate if the Pokémon has changed.$
-    SoundManager *soundManager;          ///< The sound manager for the game.
-    SaveManager *saveManager;
+    SoundManager *soundManager;         ///< The sound manager for the game.
+    SaveManager *saveManager;           ///< The save manager for the game.
 
     /**
      * @brief Ends the ongoing fight.

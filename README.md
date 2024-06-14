@@ -28,97 +28,18 @@ To consult the specifications for each version, visit these pages:
 - Version 2: [General](Version 2 General) - [Detailed](Version 2 Detailed)
 - Version 3: [General](Version 3 General) - [Detailed](Version 3 Detailed)
 
-## Analysis and Design :computer:
+## Installation Steps
 
-### Global Analysis Diagram:
-```plantuml
-left to right direction
+1. Download  the Installer
+    - Download the latest version of the P0keMonE installer
+2. Run the Installer
+    - Locate the downloaded `.exe` file and double-click to run it.
+3. Follow the setup instructions
+    - Follow the instructions in the setup to install the game. Select your desired installation location and complete the setup process.
+4. Launch the Game
+    - Once installed, you can launch P0keMonE from the desktop shortcut or the Start menu
 
-class Game {
-}
 
-class Player {
-}
-
-class Boss {
-}
-
-class Pokemon {
-}
-
-enum PKTYPE {
-}
-
-enum MOVENATURE {
-}
-
-class Move {
-}
-
-class Battle {
-}
-
-class Screen {
-}
-
-class Model {
-}
-
-class Data {
-}
-
-class GUI {
-}
-
-class BattleHUD {
-}
-
-class House {
-}
-
-class SoundManager {
-}
-
-class GamepadController {
-}
-
-class SaveManager {
-}
-
-enum SoundType {
-}
-
-enum MusicType {
-}
-
-enum GamepadInput {
-}
-
-Game <-- Player
-Game <-- Battle
-Game <-- GUI
-Game <-- Model
-Game <-- SoundManager
-Game <-- GamepadController
-Model <-- Data
-Model <-- SaveManager
-Player <-- Pokemon
-Boss <-- Pokemon
-Battle <-- Boss
-Battle <-- Pokemon
-Pokemon <-- PKTYPE
-Pokemon <-- Move
-Move <-- PKTYPE
-Move <-- MOVENATURE
-GUI <-- Screen
-GUI <-- House
-Screen <-- BattleHUD
-Battle <-- Move
-BattleHUD <-- Battle
-GamepadController <-- GamepadInput
-SoundManager <-- SoundType
-SoundManager <-- MusicType
-```
 
 ## How to Play
 

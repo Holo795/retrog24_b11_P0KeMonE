@@ -90,6 +90,7 @@ void Game::keyPressEvent(QKeyEvent *event) {
     QString currentScene = scene()->objectName();
 
     if (key == Qt::Key_Space) {
+        soundManager->stopAllSounds();
         handleSpaceKeyPress(currentScene);
     } else if (key == Qt::Key_I || key == Qt::Key_Escape) {
         handleEscIKeyPress(currentScene);
@@ -201,7 +202,7 @@ void Game::showFirstFight() {
     itsFirstFight = true;
 
     gui->battle()->getOldMenPixmap()->setVisible(true);
-    Pokemon *firstOpponent = new Pokemon(4, "Old Men' Charmander", Fire, 18, 50, 30, 30, 30, 30, 1);
+    Pokemon *firstOpponent = new Pokemon(4, "Old Men's Charmander", Fire, 18, 50, 30, 30, 30, 30, 1);
     firstOpponent->setItsMoves(model->getData()->getMoves(4));
 
     setScene(gui->battle(player->getTeam().front(),firstOpponent));
@@ -378,12 +379,6 @@ void Game::endFight(bool playerWon)
     qDebug() << "Wins player: " << player->getWinCount();
 }
 
-
-void Game::generateNewOpponent()
-{
-    Pokemon* newOpponent = model->getData()->randompokemon();
-    gui->battle()->setPokemon(player->getTeam().front(), newOpponent);
-}
 
 void Game::switchPokemon(){
     if(soundManager->isPlaying("button")) {
